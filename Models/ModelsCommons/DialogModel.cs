@@ -7,7 +7,7 @@ namespace Models.ModelsCommons
     {
         public string Title { get; set; }
         
-        public string Message { get; set; }
+        public string? Message { get; set; }
         public string? aceptarContent { get; set; } = "Aceptar";
         public string? cancelarContent { get; set; } = "Cancelar";
         
