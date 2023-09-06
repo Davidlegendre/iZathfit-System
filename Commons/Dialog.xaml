@@ -1,4 +1,4 @@
-﻿<ui:UiWindow x:Class="Commons.Dialog"
+﻿<ui:UiWindow x:Name="mensaje" x:Class="Commons.Dialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -14,7 +14,7 @@
              VerticalContentAlignment="Top" 
              WindowStartupLocation="CenterScreen" 
              Width="275" Background="{ui:ThemeResource}" 
-             SizeToContent="Height" d:DesignHeight="116" MinHeight="0" MaxWidth="275" MinWidth="0">
+             SizeToContent="Height" d:DesignHeight="116" MinHeight="0" MaxWidth="275" MinWidth="0" KeyDown="mensaje_KeyDown">
 
     <Grid VerticalAlignment="Top" MaxHeight="470">
         <Grid.RowDefinitions>

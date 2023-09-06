@@ -19,12 +19,12 @@ namespace iZathfit.Views.Pages
     /// <summary>
     /// Lógica de interacción para HomePage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class HomePage : UserControl
     {
-        public HomePageVM vm { get; }
-        public HomePage()
+        readonly HomePageVM vm;
+        public HomePage(HomePageVM homePageVM)
         {
-            vm = App.GetService<HomePageVM>();
+            vm = homePageVM;
             DataContext = vm;
             InitializeComponent();
         }

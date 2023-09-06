@@ -12,7 +12,7 @@
     <Compile Update="Views\Pages\HomePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Windows\Login.xaml.cs">
+    <Compile Update="Views\Pages\LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -20,7 +20,7 @@
     <Page Update="Views\Pages\HomePage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Windows\Login.xaml">
+    <Page Update="Views\Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\MainWindow.xaml">

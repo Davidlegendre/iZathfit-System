@@ -11,10 +11,12 @@ namespace iZathfit.ServicesSystem
     public class ApplicationHostService : IHostedService
     {
         private readonly IServiceProvider _serviceProvider;
+        readonly LoginPage loginPage;
 
-        public ApplicationHostService(IServiceProvider serviceProvider)
+        public ApplicationHostService(IServiceProvider serviceProvider, LoginPage loginPage)
         {
             _serviceProvider = serviceProvider;
+            this.loginPage= loginPage;
         }
 
         /// <summary>
@@ -57,7 +59,7 @@ namespace iZathfit.ServicesSystem
                 return;
             }
 
-            navigationWindow.NavigationView.Navigate(new HomePage());
+            navigationWindow.NavigationView.Content = loginPage;
         }
     }
 }

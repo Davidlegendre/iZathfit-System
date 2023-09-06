@@ -20,6 +20,6 @@
     </WindowChrome.WindowChrome>
     <Grid x:Name="content">
         <!--<Rectangle Fill="{ui:ThemeResource}" Opacity="0.66"></Rectangle>-->
-        <Frame x:Name="NavigationView" NavigationUIVisibility="Hidden" Padding="7"></Frame>
+        <ContentPresenter x:Name="NavigationView"></ContentPresenter>
     </Grid>
 </Window>

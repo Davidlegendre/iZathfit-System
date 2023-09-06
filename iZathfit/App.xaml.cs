@@ -15,6 +15,7 @@ using Services;
 using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Mvvm.Services;
 
@@ -44,6 +45,9 @@ namespace iZathfit
 
                 services.AddSingleton<HomePage>();
                 services.AddSingleton<HomePageVM>();
+                services.AddSingleton<LoginVM>();
+                services.AddScoped<LoginService>();
+                services.AddSingleton<LoginPage>();
             }).Build();
 
         /// <summary>

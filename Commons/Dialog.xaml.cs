@@ -50,5 +50,19 @@ namespace Commons
             resultdialog = false;
             this.Close();
         }
+
+        private void mensaje_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                resultdialog = true;
+                this.Close();
+            }
+            else if (e.Key == Key.Escape)
+            {
+                resultdialog = false;
+                this.Close();
+            }
+        }
     }
 }
