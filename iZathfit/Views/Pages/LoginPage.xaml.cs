@@ -15,13 +15,15 @@ public partial class LoginPage : UserControl
         InitializeComponent();
         this.localDialogService = localDialogService;
         vm = loginVM;
+        DataContext= vm;
         this.Loaded += LoginPage_Loaded;
     }
 
     private void LoginPage_Loaded(object sender, RoutedEventArgs e)
     {
         
-       var ready = Wpf.Ui.Animations.Transitions.ApplyTransition(this, Wpf.Ui.Animations.TransitionType.FadeInWithSlide, 1000);
+       var ready = Wpf.Ui.Animations.Transitions.ApplyTransition(this, 
+           Wpf.Ui.Animations.TransitionType.FadeInWithSlide, 900);
         if (ready)
             vm.clean(txtuser, txtpass);
     }
@@ -31,15 +33,15 @@ public partial class LoginPage : UserControl
         vm.clean(txtuser, txtpass);
     }
 
-    private void btnlogin_Click(object sender, RoutedEventArgs e)
+    private async void btnlogin_Click(object sender, RoutedEventArgs e)
     {
-        vm.verificarusuario(txtuser.Text, txtpass.Password);
+        await vm.verificarusuario(txtuser.Text, txtpass.Password);
     }
 
-    private void login_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    private async void login_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {
         if(e.Key == System.Windows.Input.Key.Enter)
-            vm.verificarusuario(txtuser.Text, txtpass.Password);
+            await vm.verificarusuario(txtuser.Text, txtpass.Password);
         else
         if (e.Key == System.Windows.Input.Key.Escape)
             vm.clean(txtuser, txtpass);

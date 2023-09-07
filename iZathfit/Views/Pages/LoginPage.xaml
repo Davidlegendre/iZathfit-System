@@ -4,48 +4,48 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:iZathfit.Views.Pages"
+             xmlns:logo="clr-namespace:iZathfit.Components"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      Height="420" Width="420"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
 
     <Grid x:Name="login" KeyDown="login_KeyDown">
         <!--<Rectangle Fill="{ui:ThemeResource}" Opacity="0.65"></Rectangle>-->
-        <StackPanel  Width="270" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="LOGIN"></Label>
-            </Grid>
-            <Separator Height="20" BorderBrush="Transparent"></Separator>
-            <ui:TextBox Name="txtuser" Focusable="True" PlaceholderText="User" Icon="Person20"></ui:TextBox>
-            <Separator Height="20" BorderBrush="Transparent"></Separator>
-            <ui:PasswordBox Name="txtpass" PlaceholderText="Contraseña" Icon="Password20"></ui:PasswordBox>
-            <Separator Height="20" BorderBrush="Transparent"></Separator>
-            <UniformGrid Rows="0" Columns="2">
-                <ui:Button Name="btnlogin" Margin="0,0,5,0" Click="btnlogin_Click" HorizontalAlignment="Stretch" Appearance="Primary" WindowChrome.IsHitTestVisibleInChrome="True">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <ui:SymbolIcon Foreground="{Binding Foreground,ElementName=text}" Symbol="PersonAccounts20"></ui:SymbolIcon>
-                        <TextBlock Name="text" Grid.Column="1" Margin="10,0,0,0" Text="login"></TextBlock>
-                    </Grid>
-                </ui:Button>
-                <ui:Button Name="btnclean" Click="btnclean_Click" HorizontalAlignment="Stretch" Appearance="Secondary" WindowChrome.IsHitTestVisibleInChrome="True">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <ui:SymbolIcon Symbol="Eraser20"></ui:SymbolIcon>
-                        <TextBlock Grid.Column="1" Margin="10,0,0,0" Text="Limpiar"></TextBlock>
-                    </Grid>
-                </ui:Button>
+        
+        <ui:Card HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="0,77,0,0" >
+            <StackPanel  Width="270">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <logo:LogoSVGModoFit Grid.Column="1" Tag="{Binding Background,ElementName=btnlogin}" Height="38"></logo:LogoSVGModoFit>
+                    <Label Content="Login." Foreground="{Binding Background,ElementName=btnlogin}" FontFamily="Segoe UI Semibold" FontSize="24"></Label>
+                </Grid>
+                <Separator Height="20" BorderBrush="Transparent"></Separator>
+                <ui:TextBox Name="txtuser"  Focusable="True" PlaceholderText="User" Icon="Person20"></ui:TextBox>
+                <Separator Height="20" BorderBrush="Transparent"></Separator>
+                <ui:PasswordBox Name="txtpass" PasswordChar="°"  PlaceholderText="Contraseña" Icon="Password20"></ui:PasswordBox>
+                <Separator Height="20" BorderBrush="Transparent"></Separator>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ui:Button Name="btnlogin" Content="Login" Margin="0,0,5,0" Click="btnlogin_Click" HorizontalAlignment="Stretch" Appearance="Primary" WindowChrome.IsHitTestVisibleInChrome="True">
 
-            </UniformGrid>
+                    </ui:Button>
+                    <ui:Button Name="btnclean" Grid.Column="1" Icon="Eraser20" Click="btnclean_Click" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Appearance="Secondary" WindowChrome.IsHitTestVisibleInChrome="True">
+
+                    </ui:Button>
+                </Grid>
+                <ui:Hyperlink Content="Forgot Password ?" Margin="0,10,0,0" ></ui:Hyperlink>
+            </StackPanel>
+        </ui:Card>
+        <ui:Button VerticalAlignment="Top" HorizontalAlignment="Right" Margin="15" Command="{Binding closeCommand}" Icon="Dismiss20"></ui:Button>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="17,10,0,0" VerticalAlignment="Top">
+            <Label Content="Modo Fit" Padding="2" Foreground="{Binding Background, ElementName=btnlogin}" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" FontSize="24"/>
+            <Label Content="Centro Medico Deportivo" HorizontalAlignment="Center" FontFamily="Segoe UI semibold" Padding="2" Margin="0,-5,0,0"></Label>
         </StackPanel>
     </Grid>
 </UserControl>

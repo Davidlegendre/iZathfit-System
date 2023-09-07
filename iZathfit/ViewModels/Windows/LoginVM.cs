@@ -1,4 +1,7 @@
-﻿using Models.Login;
+﻿using iZathfit.Views.Windows;
+using Models;
+using Models.DTOS;
+using Services.Login;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +14,20 @@ namespace iZathfit.ViewModels.Windows
     public partial class LoginVM : ObservableObject
     {
         readonly localDialogService localDialogService;
-        readonly LoginService loginService;
-        public LoginVM(localDialogService localDialog, LoginService loginService)
+        readonly ILoginService loginService;
+        public LoginVM(localDialogService localDialog, ILoginService loginService)
         {
             localDialogService = localDialog;
             this.loginService = loginService;
         }
 
-        public void verificarusuario(string User, string Password)
+        [RelayCommand]
+        void close()
+        {            
+            App.GetService<MainWindow>().Close();
+        }
+
+        public async Task verificarusuario(string User, string Password)
         {
             if (string.IsNullOrWhiteSpace(User) || string.IsNullOrWhiteSpace(Password))
             {
@@ -31,7 +40,7 @@ namespace iZathfit.ViewModels.Windows
                 return;
             }
 
-            var user = loginService.Login(User, Password);
+            var user = await loginService.Login(User, Password);
 
             if (user == null)
             {
@@ -55,7 +64,7 @@ namespace iZathfit.ViewModels.Windows
             txtuser.Focus();
         }
 
-        public event EventHandler<UserModel>? UsuarioLogeado;
+        public event EventHandler<UsuarioSistema>? UsuarioLogeado;
 
     }
 }

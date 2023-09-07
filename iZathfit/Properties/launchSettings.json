@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "iZathfit": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "CONBDZATHFIT": "Server=DESKTOP-PTBMEGJ\\SQLEXPRESS; database=izathfitbd; Trusted_Connection=true;"
+      }
+    }
+  }
+}

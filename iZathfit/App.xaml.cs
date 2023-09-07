@@ -3,20 +3,25 @@
 // Copyright (C) Leszek Pomianowski and WPF UI Contributors.
 // All Rights Reserved.
 
+using Configuration;
+using Domain.Genero;
+using Domain.Persona;
+using Domain.RolXPersona;
+using Domain.Usuario;
 using iZathfit.ServicesSystem;
 using iZathfit.ViewModels.Pages;
 using iZathfit.ViewModels.Windows;
 using iZathfit.Views.Pages;
+using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Services;
+using Services.Genero;
+using Services.Login;
 using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
-using Wpf.Ui.Appearance;
-using Wpf.Ui.Mvvm.Contracts;
 using Wpf.Ui.Mvvm.Services;
 
 namespace iZathfit
@@ -34,6 +39,7 @@ namespace iZathfit
         private static readonly IHost _host = Host
             .CreateDefaultBuilder()
             .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)); })
+            
             .ConfigureServices((context, services) =>
             {
                 services.AddHostedService<ApplicationHostService>();
@@ -41,13 +47,22 @@ namespace iZathfit
                 services.AddSingleton<GlobalService>();
                 services.AddSingleton<MainWindow>();
                 services.AddSingleton<MainWindowViewModel>();
-                services.AddSingleton<INavigationService, NavigationService>();
-
+                //services.AddSingleton<INavigationService, NavigationService>();
+                services.AddSingleton<IGeneralConfiguration, GeneralConfiguration>();
+                services.AddScoped<IGeneroRepository, GeneroRepository>();
+                services.AddScoped<IPersonaRepository, PersonaRepository>();
+                services.AddScoped<IGeneroService, GeneroService>();
+                services.AddScoped<ILoginService, LoginService>();
+                services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+                services.AddScoped<IRolXPersonaRepository, RolXPersonaRepository>();
                 services.AddSingleton<HomePage>();
                 services.AddSingleton<HomePageVM>();
                 services.AddSingleton<LoginVM>();
-                services.AddScoped<LoginService>();
+                services.AddSingleton<LoginService>();
                 services.AddSingleton<LoginPage>();
+                services.AddSingleton<SettingPage>();
+                services.AddSingleton<AcercadeVM>();
+                services.AddSingleton<Home>();
             }).Build();
 
         /// <summary>

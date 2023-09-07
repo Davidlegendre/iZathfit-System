@@ -9,18 +9,45 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\LogoSVGModoFit.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Components\MenuUsuario.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\HomePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\SubPagesHome\SettingPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Windows\AcercaDe.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\LogoSVGModoFit.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Components\MenuUsuario.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\HomePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\SubPagesHome\Home.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\SubPagesHome\SettingPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Windows\AcercaDe.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\MainWindow.xaml">

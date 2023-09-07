@@ -8,6 +8,17 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.151" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Rol\" />
+    <Folder Include="TipoIdentificacion\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 
 </Project>
