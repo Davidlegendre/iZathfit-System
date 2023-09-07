@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Configuration;
+using iZathfit.ViewModels.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,17 @@ namespace iZathfit.Components
     /// </summary>
     public partial class MenuUsuario : UserControl
     {
+        IGeneralConfiguration _config;
         public MenuUsuario()
         {
             InitializeComponent();
+            _config = App.GetService<IGeneralConfiguration>();
+        }
+
+        private void prueba_click(object sender, RoutedEventArgs e)
+        {
+            _config.getuserSistema().Nombres = "Fulano de tal";
+            App.GetService<HomePageVM>().DatoUsuario();
         }
     }
 }

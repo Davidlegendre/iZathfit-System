@@ -8,7 +8,7 @@
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
         ResizeMode="NoResize"
-        
+        Title="{Binding Title}"
         mc:Ignorable="d"
              d:Height="217" 
              VerticalContentAlignment="Top" 
@@ -46,7 +46,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <ui:Anchor Icon="Link20" NavigateUri="{Binding Url}" Content="{Binding TitlePage}"></ui:Anchor>
+                                <ui:Anchor Icon="Link20" Margin="0,4,4,0" NavigateUri="{Binding Url}" Content="{Binding TitlePage}"></ui:Anchor>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

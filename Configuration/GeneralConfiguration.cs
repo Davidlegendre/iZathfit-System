@@ -11,6 +11,7 @@ namespace Configuration
     {
         
         readonly string? connection = Environment.GetEnvironmentVariable("CONBDZATHFIT");
+        
         public string? GetConnection()
         {
             return connection;
@@ -22,5 +23,7 @@ namespace Configuration
             UsuarioSistema = usuario;
         }
         public UsuarioSistema? getuserSistema() => UsuarioSistema;
+
+        
     }
 }

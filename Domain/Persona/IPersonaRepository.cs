@@ -10,5 +10,6 @@ namespace Domain.Persona
     public interface IPersonaRepository
     {
         public Task<UsuarioSistema?> GetPersonaData(Guid? ID);
+        public Task<Guid?> ConsultaPersonaByEmail(string? email);
     }
 }

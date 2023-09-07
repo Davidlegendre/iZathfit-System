@@ -1,4 +1,5 @@
-﻿using Wpf.Ui.Common;
+﻿using System.Collections.ObjectModel;
+using Wpf.Ui.Common;
 
 namespace iZathfit.ModelsComponents
 {
@@ -6,6 +7,7 @@ namespace iZathfit.ModelsComponents
     {
         public string? TituloItem { get; set; }
         public SymbolRegular Icon { get; set; }
-        public Action? Comando { get; set; }
+
+        public ObservableCollection<SubItemModel>? SubItems { get; set; }
     }
 }

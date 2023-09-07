@@ -8,6 +8,7 @@ using Domain.Genero;
 using Domain.Persona;
 using Domain.RolXPersona;
 using Domain.Usuario;
+using iZathfit.Helpers;
 using iZathfit.ServicesSystem;
 using iZathfit.ViewModels.Pages;
 using iZathfit.ViewModels.Windows;
@@ -19,10 +20,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Services.Genero;
 using Services.Login;
+using Services.Persona;
+using Services.Usuario;
 using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
-using Wpf.Ui.Mvvm.Services;
 
 namespace iZathfit
 {
@@ -42,19 +44,24 @@ namespace iZathfit
             
             .ConfigureServices((context, services) =>
             {
+                services.AddHttpClient();
                 services.AddHostedService<ApplicationHostService>();
                 services.AddSingleton<localDialogService>();
                 services.AddSingleton<GlobalService>();
                 services.AddSingleton<MainWindow>();
                 services.AddSingleton<MainWindowViewModel>();
+                services.AddSingleton<IExceptionHelperService, ExceptionsHelperService>();
                 //services.AddSingleton<INavigationService, NavigationService>();
                 services.AddSingleton<IGeneralConfiguration, GeneralConfiguration>();
+                services.AddTransient<CryptoService>();
                 services.AddScoped<IGeneroRepository, GeneroRepository>();
                 services.AddScoped<IPersonaRepository, PersonaRepository>();
                 services.AddScoped<IGeneroService, GeneroService>();
                 services.AddScoped<ILoginService, LoginService>();
                 services.AddScoped<IUsuarioRepository, UsuarioRepository>();
                 services.AddScoped<IRolXPersonaRepository, RolXPersonaRepository>();
+                services.AddScoped<IPersonaService, PersonaService>();
+                services.AddScoped<IUsuarioService, UsuarioService>();
                 services.AddSingleton<HomePage>();
                 services.AddSingleton<HomePageVM>();
                 services.AddSingleton<LoginVM>();

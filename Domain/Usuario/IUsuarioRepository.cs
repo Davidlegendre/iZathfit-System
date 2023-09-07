@@ -9,5 +9,6 @@ namespace Domain.Usuario
     public interface IUsuarioRepository
     {
         public Task<Guid?> VerificarLogin(string user, string password);
+        public Task<int> CambiarContraseña(string contraseña, Guid? IDPersona);
     }
 }

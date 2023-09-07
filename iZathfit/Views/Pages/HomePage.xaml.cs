@@ -47,10 +47,10 @@ public partial class HomePage : UserControl
     {
         var button = (Wpf.Ui.Controls.Button)sender;
         var model = button.DataContext as MenuUserItemsModel;
-        if (model != null)
-        {
+        //if (model != null)
+        //{
             
-            model.Comando?.Invoke();
-        }
+        //    model.Comando?.Invoke();
+        //}
     }
 }

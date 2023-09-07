@@ -8,6 +8,7 @@ namespace Domain.Genero
     public class GeneroRepository : IGeneroRepository
     {
         IGeneralConfiguration _config;
+        
         public GeneroRepository(IGeneralConfiguration config)
         {
             _config = config;

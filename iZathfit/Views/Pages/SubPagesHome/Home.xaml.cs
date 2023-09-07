@@ -14,7 +14,6 @@ namespace iZathfit.Views.Pages.SubPagesHome
             InitializeComponent();
             _globalService = App.GetService<GlobalService>();
             _globalService.TimeSystemEvent += _globalService_TimeSystemEvent;
-            _globalService.InitTimerHour();
             this.Loaded += Home_Loaded;
             
         }

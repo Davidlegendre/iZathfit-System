@@ -16,11 +16,13 @@ public partial class HomePageVM : ObservableObject {
 	readonly IGeneralConfiguration _config;
 	readonly SettingPage _settingPage;
 	readonly Home _homesub;
-	public HomePageVM(IGeneralConfiguration config, SettingPage settingPage, Home homesub)
+	readonly localDialogService _dialog;
+	public HomePageVM(IGeneralConfiguration config, SettingPage settingPage, Home homesub, localDialogService localDialogService)
 	{
 		_config = config;
 		_settingPage = settingPage;
 		_homesub = homesub;
+		_dialog = localDialogService;
 	}
 	[ObservableProperty]
 	string? personanombre = "";
@@ -37,20 +39,26 @@ public partial class HomePageVM : ObservableObject {
 	[ObservableProperty]
 	string? iniciales = "";
 
-	void DatoUsuario() {
+	public void DatoUsuario() {
 		var user = _config.getuserSistema();
 		Iniciales = user.Nombres.Substring(0, 1).ToUpper() + user.Apellidos.Substring(0, 1).ToUpper();
-		Bienvenidatexto = (user?.generoCode == "M" ? "Bienvenido " : "Bienvenida ") + user?.Nombres?.Split(' ')[0] + " " + user?.Apellidos?.Split(' ')[0] + " al Home de iZathFit";
-		Personanombre = user?.Nombres?.Split(' ')[0].ToUpper() + " " + user?.Apellidos?.Split(' ')[0].ToUpper();
+		if (UserControl is Home)
+		{
+            Bienvenidatexto = (user?.generoCode == "M" ? "Bienvenido " : "Bienvenida ")
+                        + user?.Nombres?.Split(' ')[0] + " " + user?.Apellidos?.Split(' ')[0] + " al Home de iZathFit";
+            IconIndicator = SymbolRegular.Home20;
+        }
+        Personanombre = user?.Nombres?.Split(' ')[0].ToUpper() + " " + user?.Apellidos?.Split(' ')[0].ToUpper();
 		Roles = string.Join(", ", user.Roles.Select(x => x.Description));
-		IconIndicator = SymbolRegular.Home20;
-	}
+        
 
-	public void CargarDatos() {
+    }
 
-		DatoUsuario();
+	public void CargarDatos() {		
+		
 		UserControl = _homesub;
-		Menuitems = new ObservableCollection<MenuUserItemsModel>() {
+        DatoUsuario();
+        Menuitems = new ObservableCollection<MenuUserItemsModel>() {
 			new MenuUserItemsModel(){
 				TituloItem = "Cambiar Contraseña",
 				Icon = SymbolRegular.Password20,
@@ -67,31 +75,33 @@ public partial class HomePageVM : ObservableObject {
 			}
 		};
 
-		Menu = new ObservableCollection<MenuUserItemsModel>() {
+		Menulist = new ObservableCollection<MenuUserItemsModel>() {
 			new(){
 				TituloItem = "Mantenimientos",
 				Icon = SymbolRegular.EditSettings24,
-				Comando = () =>
-				{
-					ChangeIndicator(SymbolRegular.EditSettings24, "Estas en Mantenimientos");
+				SubItems = new ObservableCollection<SubItemModel>(){ 
+					new SubItemModel(){ 
+						Title = "Mantenimiento Usuario",
+						Icon = SymbolRegular.PersonAccounts24
+					},
+					new SubItemModel(){ 
+						Title = "Mantenimiento de Roles",
+						Icon = SymbolRegular.Classification24
+					},new
+					(){ 
+						Title = "Mantenimiento de Personas",
+						Icon = SymbolRegular.PersonEdit24
+					}
 				}
-			},
-			new(){
-				TituloItem = "Registrar Contrato",
-				Icon = SymbolRegular.DocumentQueue20,
-				Comando = () =>
-				{
-                    ChangeIndicator(SymbolRegular.DocumentQueue20, "Estas en los registros de Contrato");
-                }
 			}
-		};
+        };
 	}
 
 	[ObservableProperty]
 	ObservableCollection<MenuUserItemsModel>? menuitems;
 
 	[ObservableProperty]
-	ObservableCollection<MenuUserItemsModel>? menu;
+	ObservableCollection<MenuUserItemsModel>? menulist;
 
 	[ObservableProperty]
 	bool isOpen = false;
@@ -100,7 +110,7 @@ public partial class HomePageVM : ObservableObject {
 	Visibility buttonHome = Visibility.Collapsed;
 
 	[ObservableProperty]
-	double width = 68;
+	double width = 80;
 
 	[ObservableProperty]
 	Thickness marginiconPerfil;
@@ -119,9 +129,10 @@ public partial class HomePageVM : ObservableObject {
 
 	[RelayCommand]
 	void volverHome() {
-		DatoUsuario();
+        UserControl = _homesub;
+        DatoUsuario();
 		ButtonHome = Visibility.Collapsed;
-		UserControl = _homesub;
+		
     }
 
 	[RelayCommand]
@@ -132,7 +143,7 @@ public partial class HomePageVM : ObservableObject {
 				!IsOpen ? Wpf.Ui.Animations.TransitionType.FadeIn
 				: Wpf.Ui.Animations.TransitionType.FadeIn,
 				700);
-			menupanel.Width = !IsOpen ? 360 : 48;
+			menupanel.Width = !IsOpen ? 360 : 80;
 			IsOpen = !IsOpen;
         }
 	}
@@ -144,6 +155,31 @@ public partial class HomePageVM : ObservableObject {
 		ChangeIndicator(SymbolRegular.Settings20, "Estas en Configuraciones");
 	}
 
+	[RelayCommand]
+	void ReportBug() {
+		_dialog.ShowDialog(new Models.ModelsCommons.DialogModel()
+		{
+			Title = "Desea Reportar un Bug?",
+			Message = "Usted puede contactar con los siguientes enlaces",
+			canShowCancelButton = false,
+			Links = new List<Models.ModelsCommons.LinkModel>() {
+				new Models.ModelsCommons.LinkModel(){
+					TitlePage = "Whatsapp Dev. 1",
+					Url = "https://google.com"
+                },
+				new Models.ModelsCommons.LinkModel()
+				{
+					TitlePage = "Whatsapp Dev. 2...",
+					Url = "https://google.com"
+                }
+				,new Models.ModelsCommons.LinkModel()
+                {
+                    TitlePage = "Reportar a GitHub",
+                    Url = "https://github.com/Davidlegendre/iZathfit-System"
+                }
+            }
+		}, App.GetService<MainWindow>());
+	}
 
 	void ChangeIndicator(SymbolRegular icon, string texto)
 	{
@@ -151,6 +187,9 @@ public partial class HomePageVM : ObservableObject {
         Bienvenidatexto = texto;
         ButtonHome = Visibility.Visible;
     }
+
+
+	
 	
 
 

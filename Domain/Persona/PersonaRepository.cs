@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +28,16 @@ namespace Domain.Persona
                     new { @ID = ID }, 
                     commandType: System.Data.CommandType.StoredProcedure);
 
+                return result;
+            }
+        }
+
+        public async Task<Guid?> ConsultaPersonaByEmail(string? email)
+        { 
+            using(var con = new SqlConnection (_generalConfiguration.GetConnection()))
+            {
+                var result = await con.ExecuteScalarAsync<Guid?>("VerificarEmailPersona", new { @email = email }, 
+                    commandType: System.Data.CommandType.StoredProcedure);
                 return result;
             }
         }

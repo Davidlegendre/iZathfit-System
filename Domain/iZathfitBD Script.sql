@@ -69,7 +69,7 @@ Edad as (Year(Getdate()) - Year(Fech_Nacimiento)),
 Direccion varchar(100) not null,
 Ocupacion varchar(100) not null,
 Telefono varchar(10) not null,
-Email varchar(25),
+Email varchar(25) unique,
 idGenero int not null,
 Identificacion varchar(20) not null unique,
 idtipoIdentificacion int not null,
@@ -264,7 +264,32 @@ go
 		inner join TipoIdentity ti on ti.IdTipoIdentity = p.idtipoIdentificacion
 		where p.IdPersona = @ID
 	END
+go
+	create procedure VerificarEmailPersona
+	@email varchar(25)
+	as
+	BEGIN
+		select p.IdPersona from Persona p where p.Email = @email
+	END
+
+
 -----------------------------------
+go
+----------------------------------------
+---------------Usuario---------------------
+	create procedure ChangePasswordUser
+	@password varchar(16), @idpersona uniqueidentifier
+	AS
+	BEGIN
+		declare @isequals varchar(16)
+		set @isequals = (select u.contrasena from Usuario u where u.IdPersona = @idpersona)
+		if(@isequals = @password)
+			THROW 51000, 'La contraseña es la misma', 1;
+		else
+		BEGIN
+			update Usuario set contrasena = @password where IdPersona = @idpersona
+		END
+	END
 go
 ------------------------------------------
 ----------------RolXPersona--------------
@@ -296,10 +321,10 @@ set @uid = newid()
 insert into Persona(IdPersona, Nombres, 
 Apellidos,Direccion,Email,Fech_Nacimiento,Identificacion,Telefono,Ocupacion, 
 idGenero, idtipoIdentificacion) values
-(@uid,'David Fernando', 'Legendre Albites', 'Urb. La Perla','dlegendre74@gmail.com','1996-09-06',
-'49001564','914847720','Desarrollador de Software', 1,1)
+(@uid,'Fulano', 'De Tal', 'Urb. X','email@email.com','1990-01-06',
+'80880808','080808808','Profesion', 1,1)
 insert into RolXPersona(IdPersona, idRol) values(@uid, 7),(@uid, 2)
 insert into Usuario(IdPersona, usuario, contrasena) values
-(@uid, 'Devdavid', 'david.dev2023')
+(@uid, 'fulano', 'fulano123')
 go
 --Tests

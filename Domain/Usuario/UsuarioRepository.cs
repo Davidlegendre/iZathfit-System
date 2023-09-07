@@ -27,5 +27,14 @@ namespace Domain.Usuario
                 return result;  
             }
         }
+
+        public async Task<int> CambiarContraseña(string contraseña, Guid? IDPersona) {
+            using (var con = new SqlConnection(_config.GetConnection()))
+            {
+                return await con.ExecuteAsync("ChangePasswordUser", new { @password = contraseña, @idpersona = IDPersona}, 
+                    commandType: System.Data.CommandType.StoredProcedure);
+                
+            }
+        }
     }
 }

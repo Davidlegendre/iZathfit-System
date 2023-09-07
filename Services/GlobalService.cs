@@ -26,16 +26,22 @@ public class GlobalService
                 {
                     if (TimeSystemEvent != null)
                     {
-                        Application.Current.Dispatcher.Invoke(() =>
+                        try
                         {
-                            TimeSystemEvent.Invoke(this, new HomeDataModel()
+                            Application.Current.Dispatcher.Invoke(() =>
                             {
-                                Fecha = DateTime.Now.ToLongDateString(),
-                                Hora = DateTime.Now.ToString("hh:mm"),
-                                Hora24 = DateTime.Now.Hour,
-                                TypeHora = DateTime.Now.Hour > 12 ? TypeHora.PM : TypeHora.AM
+                                TimeSystemEvent.Invoke(this, new HomeDataModel()
+                                {
+                                    Fecha = DateTime.Now.ToLongDateString(),
+                                    Hora = DateTime.Now.ToString("hh:mm"),
+                                    Hora24 = DateTime.Now.Hour,
+                                    TypeHora = DateTime.Now.Hour > 12 ? TypeHora.PM : TypeHora.AM
+                                });
                             });
-                        });
+                        }
+                        catch
+                        {
+                        }
                         Thread.Sleep(1000);
                     }
                 }
