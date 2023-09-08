@@ -22,7 +22,7 @@ namespace iZathfit.Components
     /// </summary>
     public partial class MenuUsuario : UserControl
     {
-        IGeneralConfiguration _config;
+        IGeneralConfiguration? _config;
         public MenuUsuario()
         {
             InitializeComponent();
@@ -31,8 +31,11 @@ namespace iZathfit.Components
 
         private void prueba_click(object sender, RoutedEventArgs e)
         {
-            _config.getuserSistema().Nombres = "Fulano de tal";
-            App.GetService<HomePageVM>().DatoUsuario();
+            if (_config != null && _config.getuserSistema() != null)
+            {
+                _config.getuserSistema().Nombres = "Fulano de tal";
+                App.GetService<HomePageVM>()?.DatoUsuario();
+            }
         }
     }
 }

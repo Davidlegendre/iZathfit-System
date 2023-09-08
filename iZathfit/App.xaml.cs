@@ -5,23 +5,27 @@
 
 using Configuration;
 using Domain.Genero;
+using Domain.OcupacionXPersona;
 using Domain.Persona;
-using Domain.RolXPersona;
 using Domain.Usuario;
+using Domain.Ventanas;
 using iZathfit.Helpers;
 using iZathfit.ServicesSystem;
 using iZathfit.ViewModels.Pages;
 using iZathfit.ViewModels.Windows;
 using iZathfit.Views.Pages;
+using iZathfit.Views.Pages.Mantenimiento;
 using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Services.Genero;
 using Services.Login;
 using Services.Persona;
 using Services.Usuario;
+using Services.Ventana;
 using System.IO;
 using System.Reflection;
 using System.Windows.Threading;
@@ -40,7 +44,6 @@ namespace iZathfit
         // https://docs.microsoft.com/dotnet/core/extensions/logging
         private static readonly IHost _host = Host
             .CreateDefaultBuilder()
-            .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)); })
             
             .ConfigureServices((context, services) =>
             {
@@ -48,28 +51,32 @@ namespace iZathfit
                 services.AddHostedService<ApplicationHostService>();
                 services.AddSingleton<localDialogService>();
                 services.AddSingleton<GlobalService>();
-                services.AddSingleton<MainWindow>();
-                services.AddSingleton<MainWindowViewModel>();
-                services.AddSingleton<IExceptionHelperService, ExceptionsHelperService>();
-                //services.AddSingleton<INavigationService, NavigationService>();
-                services.AddSingleton<IGeneralConfiguration, GeneralConfiguration>();
-                services.AddTransient<CryptoService>();
+
+                services.AddTransient<HomePage>();
+                services.AddTransient<MantenimientosPage>();
+                services.AddTransient<MantenimientoPersonas>();
+
+                services.AddScoped<MainWindow>();
+                services.AddScoped<LoginPage>();
+                services.AddScoped<Home>();
+                services.AddScoped<SettingPage>();
+                services.AddScoped<IExceptionHelperService, ExceptionsHelperService>();
+                services.AddScoped<IGeneralConfiguration, GeneralConfiguration>();
+                services.AddScoped<LoginService>();
+                services.AddScoped<CryptoService>();
                 services.AddScoped<IGeneroRepository, GeneroRepository>();
                 services.AddScoped<IPersonaRepository, PersonaRepository>();
                 services.AddScoped<IGeneroService, GeneroService>();
                 services.AddScoped<ILoginService, LoginService>();
                 services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-                services.AddScoped<IRolXPersonaRepository, RolXPersonaRepository>();
+                services.AddScoped<IOcupacionXPersonaRepository, OcupacionXPersonaRepository>();
                 services.AddScoped<IPersonaService, PersonaService>();
                 services.AddScoped<IUsuarioService, UsuarioService>();
-                services.AddSingleton<HomePage>();
-                services.AddSingleton<HomePageVM>();
-                services.AddSingleton<LoginVM>();
-                services.AddSingleton<LoginService>();
-                services.AddSingleton<LoginPage>();
-                services.AddSingleton<SettingPage>();
-                services.AddSingleton<AcercadeVM>();
-                services.AddSingleton<Home>();
+                services.AddScoped<IVentanaRepository, VentanaRepository>();
+                services.AddScoped<IVentanaService, VentanaService>();
+
+               
+
             }).Build();
 
         /// <summary>

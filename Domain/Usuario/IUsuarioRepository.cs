@@ -10,5 +10,6 @@ namespace Domain.Usuario
     {
         public Task<Guid?> VerificarLogin(string user, string password);
         public Task<int> CambiarContraseña(string contraseña, Guid? IDPersona);
+        public Task VerificarActivo(Guid? id);
     }
 }

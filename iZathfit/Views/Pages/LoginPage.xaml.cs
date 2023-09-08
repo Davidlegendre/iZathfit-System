@@ -9,54 +9,58 @@ namespace iZathfit.Views.Pages;
 /// </summary>
 public partial class LoginPage : UserControl
 {
-    readonly localDialogService localDialogService;
+    localDialogService? localDialogService;
     
-    LoginVM vm;
-    public LoginPage(localDialogService localDialogService, LoginVM loginVM)
+    LoginVM? vm;
+    public LoginPage()
     {
         InitializeComponent();
-        this.localDialogService = localDialogService;
-        vm = loginVM;
-        DataContext= vm;
+        this.localDialogService = App.GetService<localDialogService>();
+        vm = this.DataContext as LoginVM;
         this.Loaded += LoginPage_Loaded;
     }
 
     private void LoginPage_Loaded(object sender, RoutedEventArgs e)
     {
-        
-       var ready = Wpf.Ui.Animations.Transitions.ApplyTransition(this, 
-           Wpf.Ui.Animations.TransitionType.FadeInWithSlide, 900);
-        if (ready)
-            vm.clean(txtuser, txtpass);
+        if (vm != null)
+        {
+            var ready = Wpf.Ui.Animations.Transitions.ApplyTransition(this,
+                Wpf.Ui.Animations.TransitionType.FadeInWithSlide, 900);
+            if (ready)
+                vm.clean(txtuser, txtpass);
+        }
     }
 
     private void btnclean_Click(object sender, RoutedEventArgs e)
     {
-        vm.clean(txtuser, txtpass);
+        if (vm != null)
+            vm.clean(txtuser, txtpass);
     }
 
     private async void btnlogin_Click(object sender, RoutedEventArgs e)
     {
-        await vm.verificarusuario(txtuser.Text, txtpass.Password);
+        if (vm != null)
+            await vm.verificarusuario(txtuser.Text, txtpass.Password);
     }
 
     private async void login_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {
-        if (forgotpage.Visibility != Visibility.Visible)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-                await vm.verificarusuario(txtuser.Text, txtpass.Password);
-            else
-            if (e.Key == System.Windows.Input.Key.Escape)
-                vm.clean(txtuser, txtpass);
-        }
+        if (vm != null)
+            if (forgotpage.Visibility != Visibility.Visible)
+            {
+                if (e.Key == System.Windows.Input.Key.Enter)
+                    await vm.verificarusuario(txtuser.Text, txtpass.Password);
+                else
+                if (e.Key == System.Windows.Input.Key.Escape)
+                    vm.clean(txtuser, txtpass);
+            }
     }
 
     private void linkForgot_Click(object sender, RoutedEventArgs e)
     {
         if (!NetworkInterface.GetIsNetworkAvailable())
         {
-            localDialogService.ShowDialog(new Models.ModelsCommons.DialogModel()
+            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
             {
                 Title = "Ups No hay Internet",
                 canShowCancelButton = false,
@@ -80,6 +84,7 @@ public partial class LoginPage : UserControl
     }
 
     void limpiarforgot() {
+        if (vm == null) return;
         forgotpage.txtemailuser.Clear();
         forgotpage.txtcodsended.Clear();
         forgotpage.txtnewpassword.Clear();

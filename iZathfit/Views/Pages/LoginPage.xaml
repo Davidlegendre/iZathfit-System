@@ -6,10 +6,13 @@
       xmlns:local="clr-namespace:iZathfit.Views.Pages"
              xmlns:logo="clr-namespace:iZathfit.Components"
              xmlns:forgot="clr-namespace:iZathfit.Views.Pages.ForgotPassword"
+      xmlns:viewmodel="clr-namespace:iZathfit.ViewModels.Windows"
       mc:Ignorable="d" 
       Height="420" Width="420"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
-
+    <UserControl.DataContext>
+        <viewmodel:LoginVM></viewmodel:LoginVM>
+    </UserControl.DataContext>
     <Grid x:Name="login" KeyDown="login_KeyDown">
         <!--<Rectangle Fill="{ui:ThemeResource}" Opacity="0.65"></Rectangle>-->
         

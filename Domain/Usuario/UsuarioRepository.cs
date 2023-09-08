@@ -1,5 +1,6 @@
 ﻿using Configuration;
 using Dapper;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -24,6 +25,7 @@ namespace Domain.Usuario
                     @user = user,
                     @password = password
                 }, commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
                 return result;  
             }
         }
@@ -31,9 +33,20 @@ namespace Domain.Usuario
         public async Task<int> CambiarContraseña(string contraseña, Guid? IDPersona) {
             using (var con = new SqlConnection(_config.GetConnection()))
             {
-                return await con.ExecuteAsync("ChangePasswordUser", new { @password = contraseña, @idpersona = IDPersona}, 
+                var result = await con.ExecuteAsync("ChangePasswordUser", new { @password = contraseña, @idpersona = IDPersona },
                     commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result;
                 
+            }
+        }
+
+        public async Task VerificarActivo(Guid? id)
+        {
+            using (var con = new SqlConnection(_config.GetConnection()))
+            {
+                await con.ExecuteAsync("VerificarActivoUsuario",new { @idPersona = id }, commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
             }
         }
     }

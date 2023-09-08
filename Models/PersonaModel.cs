@@ -8,13 +8,13 @@ namespace Models
 {
     public class PersonaModel
     {
-        public Guid IdPersona { get;  }
+        public Guid IdPersona { get; set; }
         public string Nombres { get; set; }
         public string Apellidos { get; set; }
         public DateTime Fech_Nacimiento { get; set; }
-        public int Edad { get; }
+        public int Edad { get; set; }
         public string Direccion { get; set; }
-        public string Ocupacion { get; set; }
+       public int idRol { get; set; }
         public string Telefono { get; set; }
         public string? Email { get; set; }
         public int idGenero { get; set; }

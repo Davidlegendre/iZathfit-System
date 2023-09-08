@@ -7,7 +7,6 @@ namespace iZathfit.ModelsComponents
     {
         public string? TituloItem { get; set; }
         public SymbolRegular Icon { get; set; }
-
-        public ObservableCollection<SubItemModel>? SubItems { get; set; }
+        public Action? Comando { get; set; }
     }
 }

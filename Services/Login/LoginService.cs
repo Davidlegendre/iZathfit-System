@@ -1,5 +1,5 @@
-﻿using Domain.Persona;
-using Domain.RolXPersona;
+﻿using Domain.OcupacionXPersona;
+using Domain.Persona;
 using Domain.Usuario;
 using Models;
 using Models.DTOS;
@@ -15,23 +15,23 @@ namespace Services.Login
     {
         readonly IUsuarioRepository _user;
         readonly IPersonaRepository _persona;
-        readonly IRolXPersonaRepository _rolxpersona;
-        public LoginService(IUsuarioRepository user, IPersonaRepository personaRepository,
-            IRolXPersonaRepository rolXPersonaRepository)
+        readonly IOcupacionXPersonaRepository _ocupacion;
+        public LoginService(IUsuarioRepository user, IPersonaRepository personaRepository, IOcupacionXPersonaRepository ocupacion)
         {
             _user = user;
             _persona = personaRepository;
-            _rolxpersona = rolXPersonaRepository;
+            _ocupacion= ocupacion;
         }
 
         public async Task<UsuarioSistema?> Login(string user, string password)
         {
             var idpersona = await _user.VerificarLogin(user, password);
+            await _user.VerificarActivo(idpersona);
             if (idpersona != null)
             {
                 var persona = await _persona.GetPersonaData(idpersona);
-                var roles = await _rolxpersona.GetRols(idpersona);
-                persona!.Roles = roles;
+                var ocupaciones = await _ocupacion.OcupacionPorPersona(idpersona);
+                persona!.Ocupaciones = ocupaciones;
                 return persona;
             }
 

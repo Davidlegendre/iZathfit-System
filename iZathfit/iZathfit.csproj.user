@@ -24,6 +24,15 @@
     <Compile Update="Views\Pages\LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\Mantenimiento\MantenimientoPersonas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Mantenimiento\MantenimientoVentanas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\SubPagesHome\MantenimientosPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\SubPagesHome\SettingPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -47,7 +56,16 @@
     <Page Update="Views\Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\Mantenimiento\MantenimientoPersonas.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Mantenimiento\MantenimientoVentanas.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\SubPagesHome\Home.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\SubPagesHome\MantenimientosPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\SubPagesHome\SettingPage.xaml">

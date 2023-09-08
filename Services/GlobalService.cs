@@ -17,6 +17,7 @@ public class GlobalService
 
     public void InitTimerHour()
     {
+        var datatimehome = new HomeDataModel();
         if (TimeHour == null)
         {
             IsOnline = true;
@@ -28,16 +29,15 @@ public class GlobalService
                     {
                         try
                         {
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                TimeSystemEvent.Invoke(this, new HomeDataModel()
+                            if (DateTime.Now.ToString("hh:mm") != datatimehome.Hora)
+                                Application.Current.Dispatcher.Invoke(() =>
                                 {
-                                    Fecha = DateTime.Now.ToLongDateString(),
-                                    Hora = DateTime.Now.ToString("hh:mm"),
-                                    Hora24 = DateTime.Now.Hour,
-                                    TypeHora = DateTime.Now.Hour > 12 ? TypeHora.PM : TypeHora.AM
+                                    datatimehome.Fecha = DateTime.Now.ToLongDateString();
+                                    datatimehome.Hora = DateTime.Now.ToString("hh:mm");
+                                    datatimehome.Hora24 = DateTime.Now.Hour;
+                                    datatimehome.TypeHora = DateTime.Now.Hour > 12 ? TypeHora.PM : TypeHora.AM;
+                                    TimeSystemEvent.Invoke(this, datatimehome);
                                 });
-                            });
                         }
                         catch
                         {

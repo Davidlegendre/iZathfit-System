@@ -7,12 +7,11 @@ using Wpf.Ui.Common;
 
 namespace iZathfit.ModelsComponents
 {
-    public class SubItemModel
+    public class MenuItemCardsModel
     {
         public string? Title { get; set; }
+        public string? Description { get; set; }
         public SymbolRegular Icon { get; set; }
-        public Action? commando { get; set; }
-
-        
+        public Action? Comando { get; set; }
     }
 }

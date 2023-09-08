@@ -17,16 +17,16 @@ namespace Models.DTOS
         public int Edad { get; }
         public string NombreCompleto => Nombres + " " + Apellidos;
         public string? Direccion { get; set; }
-        public string? Ocupacion { get; set; }
         public string? Telefono { get; set; }
         public string? Email { get; set; }
         public string? Identificacion { get; set;}
         public string? GeneroDescripcion { get; set; }
         public string? generoCode { get; set; }
-
+        public string? Rol { get; set; }
+        public string? CodeRol { get; set; }
         public string?  TipoIdentityDescripcion { get; set; }
         public string? abreviadoTipo { get; set; }
-        public List<Rol>? Roles { get; set; }
+        public List<Ocupacion>? Ocupaciones { get; set; }
         
     }
 }

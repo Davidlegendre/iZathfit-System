@@ -26,10 +26,10 @@ namespace iZathfit.Helpers
             {
                 _dialog.ShowDialog(new Models.ModelsCommons.DialogModel()
                 {
-                    Title = "Un Error a Ocurrido",
-                    Message = "No se alarme, solo contacte al desarrollador en caso de dudas\n" + ex.Message,
+                    Title = "Ups",
+                    Message = "No se alarme, solo contacte al desarrollador en caso de dudas\n\nError: " + ex.Message,
                     Links = new List<Models.ModelsCommons.LinkModel>() {
-                         new Models.ModelsCommons.LinkModel(){ TitlePage = "Whatsapp del Desarrollador", Url = "https://www.google.com"}
+                         new Models.ModelsCommons.LinkModel(){ TitlePage = "Whatsapp", Url = "https://www.google.com"}
                     },
                     canShowCancelButton = false
                 }, owner);

@@ -6,10 +6,8 @@
     xmlns:local="clr-namespace:iZathfit.Views.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-    Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
-   
-    d:DataContext="{d:DesignInstance local:MainWindow,
-                                     IsDesignTimeCreatable=True}"
+    Title="{Binding ApplicationTitle}"
+    xmlns:viewmodel="clr-namespace:iZathfit.ViewModels.Windows"
     Height="420"
     ExtendsContentIntoTitleBar="True"
     WindowBackdropType="Mica"
@@ -18,6 +16,9 @@
     <!--<WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="-1" UseAeroCaptionButtons="False" CaptionHeight="48"></WindowChrome>
     </WindowChrome.WindowChrome>-->
+    <Window.DataContext>
+        <viewmodel:MainWindowViewModel></viewmodel:MainWindowViewModel>
+    </Window.DataContext>
     <Grid x:Name="content" >
         
         <ContentPresenter x:Name="NavigationView"/>

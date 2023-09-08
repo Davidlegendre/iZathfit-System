@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="iZathfit.Views.Pages.SubPagesHome.MantenimientosPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iZathfit.Views.Pages.SubPagesHome"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:viewmodel="clr-namespace:iZathfit.ViewModels.Pages"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewmodel:MantenimientosVM></viewmodel:MantenimientosVM>
+    </UserControl.DataContext>
+    <Grid>
+        <ui:Button Name="btnoculto" Visibility="Collapsed" Appearance="Primary"></ui:Button>
+
+        <ui:VirtualizingItemsControl IsEnabled="{Binding EnabledMenuMantenimiento}" Padding="7" HorizontalAlignment="{Binding Listahorizontalaligment}" ItemsSource="{Binding Mantenimientolist}">
+            <ui:VirtualizingItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid VerticalAlignment="Top" Columns="{Binding ColumnUniformGrid}" HorizontalAlignment="Center"></UniformGrid>
+                </ItemsPanelTemplate>
+            </ui:VirtualizingItemsControl.ItemsPanel>
+            <ui:VirtualizingItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ui:CardAction Click="ActionToCommand_Click" Width="270" Margin="10" Height="270" Cursor="Hand" IsChevronVisible="False">
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <ui:SymbolIcon Foreground="{Binding Background,ElementName=btnoculto}" FontSize="58" Symbol="{Binding Icon}" ></ui:SymbolIcon>
+                            <TextBlock Grid.Row="1" Foreground="{Binding Background,ElementName=btnoculto}" Text="{Binding Title}" TextAlignment="Center" TextWrapping="Wrap"
+                                       FontFamily="Segoe UI Semibold" FontSize="16"></TextBlock>
+                            <TextBlock Grid.Row="2" Text="{Binding Description}" TextAlignment="Center" TextWrapping="Wrap"
+                                       FontSize="12" Opacity="0.7"></TextBlock>
+                        </Grid>
+                    </ui:CardAction>
+                </DataTemplate>
+            </ui:VirtualizingItemsControl.ItemTemplate>
+        </ui:VirtualizingItemsControl>
+        <ui:Card Margin="310,7,7,7" Visibility="{Binding VisibilityCardWin}" VerticalContentAlignment="Stretch" Padding="2" VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="38"></RowDefinition>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ui:SymbolIcon FontSize="18" Foreground="{Binding Background,ElementName=btnoculto}" Symbol="{Binding IconActualPag}" Margin="7,0,0,0"></ui:SymbolIcon>
+                    <TextBlock Text="{Binding TitleActualPag}" Grid.Column="1" VerticalAlignment="Center" Margin="7,0,0,0"></TextBlock>
+                    <ui:Button Icon="Dismiss16" Command="{Binding ChangeTONormalCommand}" Margin="5" Grid.Column="2"></ui:Button>
+                </Grid>
+                <ContentControl x:Name="navigatemantenimientos" Content="{Binding ContentMantenimientoPag}" Grid.Row="1"></ContentControl>
+            </Grid>
+        </ui:Card>
+    </Grid>
+</UserControl>

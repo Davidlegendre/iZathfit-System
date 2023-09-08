@@ -4,80 +4,56 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"   
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-             xmlns:components="clr-namespace:iZathfit.Components"
+      xmlns:components="clr-namespace:iZathfit.Components"
+      xmlns:viewmodels="clr-namespace:iZathfit.ViewModels.Pages"    
       xmlns:local="clr-namespace:iZathfit.Views.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800">
-
+    <UserControl.DataContext>
+        <viewmodels:HomePageVM></viewmodels:HomePageVM>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ContentPresenter x:Name="HOMEnavidation" Grid.Row="1" Content="{Binding UserControl}"></ContentPresenter>
-        <ui:Card Name="menu" Grid.RowSpan="2" Padding="0,0,0,0" Width="80" Background="{ui:ThemeResource}" BorderThickness="0,0,1,0" HorizontalAlignment="Left" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch">
+        <ContentPresenter x:Name="HOMEnavidation" Margin="48,0,0,0" Grid.Row="1" Content="{Binding UserControl}"></ContentPresenter>
+        <ui:Card Name="menu" Grid.RowSpan="2" Padding="0,0,0,0" Width="48" Background="{ui:ThemeResource}" BorderThickness="0,0,1,0" HorizontalAlignment="Left" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Menú" Margin="80,15,0,20" HorizontalAlignment="left"  FontFamily="Segoe Ui Semibold"></TextBlock>
+                <TextBlock Text="Menú" Margin="48,15,0,20" HorizontalAlignment="left"  FontFamily="Segoe Ui Semibold"></TextBlock>
                 <Separator Height="1" Margin="4,0,4,0" VerticalAlignment="Bottom"></Separator>
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                     <ItemsControl Margin="0,10,0,0"  Width="{Binding ActualWidth,ElementName=menu}" ItemsSource="{Binding Menulist}">
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <ui:CardExpander Padding="7" Margin="7,5,9,5" HorizontalContentAlignment="Left" VerticalAlignment="Top">
-                                    <ui:CardExpander.Header>
-                                        <Grid Height="28">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto"></ColumnDefinition>
-                                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-                                            <ui:SymbolIcon Symbol="{Binding Icon}"></ui:SymbolIcon>
-                                            <TextBlock Margin="20,4,0,0" FontFamily="segoe ui semibold" Text="{Binding TituloItem}" Grid.Column="1"></TextBlock>
-                                        </Grid>
-                                    </ui:CardExpander.Header>
-                                    <Grid  Margin="-17"  Width="{Binding ActualWidth,ElementName=menu}">
-                                        <ItemsControl ItemsSource="{Binding SubItems}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <StackPanel Orientation="Vertical">
-
-                                                    </StackPanel>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <ui:Button Padding="12" BorderBrush="Transparent" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
-                                                        <Grid >
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="auto"/>
-                                                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                                            </Grid.ColumnDefinitions>
-                                                            <ui:SymbolIcon Margin="13,0,0,0" Symbol="{Binding Icon}" FontSize="18"></ui:SymbolIcon>
-                                                            <TextBlock Margin="22,0,0,0" FontFamily="segoe ui semibold" Text="{Binding Title}" Grid.Column="1"></TextBlock>
-                                                        </Grid>
-                                                    </ui:Button>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
+                                <ui:Button Margin="7,0,7,7" Click="BtnItemMenu_Click" Padding="0" Height="38" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Grid >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <ui:SymbolIcon Margin="7,0,0,0" Symbol="{Binding Icon}" FontSize="18"></ui:SymbolIcon>
+                                        <TextBlock Margin="15,0,0,0" FontFamily="segoe ui semibold" Text="{Binding TituloItem}" Grid.Column="1"></TextBlock>
                                     </Grid>
-                                </ui:CardExpander>
+                                </ui:Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
-                <ui:Button Margin="7" Grid.Row="2" Padding="7" Command="{Binding ReportBugCommand}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                <ui:Button Margin="7" Grid.Row="2" Height="38" Padding="7,0,0,0" Command="{Binding ReportBugCommand}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <ui:SymbolIcon Symbol="Bug20" Margin="15,0,0,0" FontSize="18"></ui:SymbolIcon>
-                        <TextBlock Margin="20,0,0,0" FontFamily="segoe ui semibold" Text="Reportar un Problema" Grid.Column="1"></TextBlock>
+                        <ui:SymbolIcon Symbol="Bug20" Margin="0,0,0,0" FontSize="18"></ui:SymbolIcon>
+                        <TextBlock Margin="15,0,0,0" FontFamily="segoe ui semibold" Text="Reportar un Problema" Grid.Column="1"></TextBlock>
                     </Grid>
                 </ui:Button>
             </Grid>
@@ -97,7 +73,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
-                    <ui:Button Grid.Column="0" Margin="0,0,10,0" Command="{Binding volverHomeCommand}" Visibility="{Binding ButtonHome}" IconFilled="True" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Stretch" Icon="Home20" Padding="2"></ui:Button>
+                    <ui:Button Grid.Column="0" Appearance="Primary" Margin="0,0,10,0" Command="{Binding volverHomeCommand}" Visibility="{Binding ButtonHome}" IconFilled="True" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Stretch" Icon="Home20" Padding="2"></ui:Button>
 
                     <ui:SymbolIcon Name="icon" Grid.Column="1" Symbol="{Binding IconIndicator}" Filled="True"></ui:SymbolIcon>
                     <TextBlock Grid.Column="2" Text="{Binding Bienvenidatexto}" WindowChrome.IsHitTestVisibleInChrome="True" TextTrimming="CharacterEllipsis" ToolTip="{Binding Bienvenidatexto}" FontFamily="Segoe UI Semibold" FontSize="12" VerticalAlignment="Center" Padding="10,0,10,0"></TextBlock>
@@ -106,10 +82,10 @@
             </ui:Card>
             <ui:Button Name="btnmenuusuario" Click="btnmenuusuario_Click" Margin="5,7,7,7" Appearance="Primary" Grid.Column="3" Padding="7" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalContentAlignment="Left" Content="{Binding Iniciales}" IconFilled="True" VerticalAlignment="Stretch"/>
 
-            <ui:Button Margin="7,7,5,7" Width="64" HorizontalContentAlignment="Center" Padding="7" Command="{Binding OpenMenuCommand}" CommandParameter="{Binding ElementName=menu}"  FontSize="16" FontFamily="segoe ui semibold"  WindowChrome.IsHitTestVisibleInChrome="True" Icon="LineHorizontal320" VerticalAlignment="Stretch"/>
+            <ui:Button Margin="7,7,5,7" HorizontalContentAlignment="Center" Padding="7" Command="{Binding OpenMenuCommand}" CommandParameter="{Binding ElementName=menu}"  FontSize="16" FontFamily="segoe ui semibold"  WindowChrome.IsHitTestVisibleInChrome="True" Icon="LineHorizontal320" VerticalAlignment="Stretch"/>
         </Grid>
         <ui:Flyout x:Name="menuUsuario" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="1" Margin="0,50,0,0">
-            <components:MenuUsuario x:Name="contentmenu" DataContext="{Binding}" VerticalAlignment="Top" Width="307"/>
+            <components:MenuUsuario x:Name="contentmenu" DataContext="{Binding}" VerticalAlignment="Top" Width="270"/>
         </ui:Flyout>
     </Grid>
 </UserControl>

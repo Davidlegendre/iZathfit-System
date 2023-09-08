@@ -5,11 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:iZathfit.Views.Windows"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:viewmodel="clr-namespace:iZathfit.ViewModels.Windows"
         mc:Ignorable="d"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
         Background="{ui:ThemeResource}"
+             
         Title="AcercaDe" Height="470" WindowStartupLocation="CenterScreen" Width="320" >
+    <Window.DataContext>
+        <viewmodel:AcercadeVM></viewmodel:AcercadeVM>
+    </Window.DataContext>
     <Grid>
         <ui:Button Name="btnclose" Click="btnclose_Click" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="15" Icon="Dismiss20"></ui:Button>
 

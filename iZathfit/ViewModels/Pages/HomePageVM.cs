@@ -3,32 +3,39 @@ using iZathfit.ModelsComponents;
 using iZathfit.Views.Pages;
 using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
+using Microsoft.Windows.Themes;
 using Models;
 using Services.Genero;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.Windows.Media;
+using Wpf.Ui.Appearance;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
+using Wpf.Ui.Mvvm.Services;
 
 namespace iZathfit.ViewModels.Pages;
 public partial class HomePageVM : ObservableObject {
 
-	readonly IGeneralConfiguration _config;
-	readonly SettingPage _settingPage;
-	readonly Home _homesub;
-	readonly localDialogService _dialog;
-	public HomePageVM(IGeneralConfiguration config, SettingPage settingPage, Home homesub, localDialogService localDialogService)
+	IGeneralConfiguration? _config;
+	SettingPage? _settingPage;
+	Home? _homesub;
+	localDialogService? _dialog;
+	public HomePageVM()
 	{
-		_config = config;
-		_settingPage = settingPage;
-		_homesub = homesub;
-		_dialog = localDialogService;
+		_config = App.GetService<IGeneralConfiguration>();
+		_settingPage = App.GetService<SettingPage>();
+		_homesub = App.GetService<Home>();
+		_dialog = App.GetService<localDialogService>();
 	}
+
 	[ObservableProperty]
 	string? personanombre = "";
 
 	[ObservableProperty]
-	string? roles = "";
+	string? ocupaciones = "";
+	[ObservableProperty]
+	string? rol = "";
 
 	[ObservableProperty]
 	UserControl? userControl = null;
@@ -40,18 +47,17 @@ public partial class HomePageVM : ObservableObject {
 	string? iniciales = "";
 
 	public void DatoUsuario() {
-		var user = _config.getuserSistema();
+		var user = _config?.getuserSistema();
 		Iniciales = user.Nombres.Substring(0, 1).ToUpper() + user.Apellidos.Substring(0, 1).ToUpper();
 		if (UserControl is Home)
 		{
-            Bienvenidatexto = (user?.generoCode == "M" ? "Bienvenido " : "Bienvenida ")
-                        + user?.Nombres?.Split(' ')[0] + " " + user?.Apellidos?.Split(' ')[0] + " al Home de iZathFit";
-            IconIndicator = SymbolRegular.Home20;
-        }
-        Personanombre = user?.Nombres?.Split(' ')[0].ToUpper() + " " + user?.Apellidos?.Split(' ')[0].ToUpper();
-		Roles = string.Join(", ", user.Roles.Select(x => x.Description));
-        
-
+			Bienvenidatexto = (user?.generoCode == "M" ? "Bienvenido " : "Bienvenida ")
+						+ user?.Nombres?.Split(' ')[0] + " " + user?.Apellidos?.Split(' ')[0] + " al Home de iZathFit";
+			IconIndicator = SymbolRegular.Home20;
+		}
+		Personanombre = user?.Nombres?.Split(' ')[0].ToUpper() + " " + user?.Apellidos?.Split(' ')[0].ToUpper();
+		Ocupaciones = string.Join(", ", user.Ocupaciones.Select(x => x.Description));
+		Rol = user.Rol;      
     }
 
 	public void CargarDatos() {		
@@ -79,18 +85,11 @@ public partial class HomePageVM : ObservableObject {
 			new(){
 				TituloItem = "Mantenimientos",
 				Icon = SymbolRegular.EditSettings24,
-				SubItems = new ObservableCollection<SubItemModel>(){ 
-					new SubItemModel(){ 
-						Title = "Mantenimiento Usuario",
-						Icon = SymbolRegular.PersonAccounts24
-					},
-					new SubItemModel(){ 
-						Title = "Mantenimiento de Roles",
-						Icon = SymbolRegular.Classification24
-					},new
-					(){ 
-						Title = "Mantenimiento de Personas",
-						Icon = SymbolRegular.PersonEdit24
+				Comando = () => {
+					if(UserControl is not MantenimientosPage)
+					{
+						UserControl = App.GetService<MantenimientosPage>();
+						ChangeIndicator(SymbolRegular.EditSettings24, "Esta en Mantenimientos");
 					}
 				}
 			}
@@ -110,7 +109,7 @@ public partial class HomePageVM : ObservableObject {
 	Visibility buttonHome = Visibility.Collapsed;
 
 	[ObservableProperty]
-	double width = 80;
+	double width = 48;
 
 	[ObservableProperty]
 	Thickness marginiconPerfil;
@@ -121,9 +120,10 @@ public partial class HomePageVM : ObservableObject {
 	[ObservableProperty]
 	SymbolRegular iconIndicator = SymbolRegular.Home20;
 
+
 	[RelayCommand]
 	void cerrarSesion() {
-		App.GetService<MainWindow>().Close();
+		App.GetService<MainWindow>()?.Close();
 
 	}
 
@@ -143,7 +143,7 @@ public partial class HomePageVM : ObservableObject {
 				!IsOpen ? Wpf.Ui.Animations.TransitionType.FadeIn
 				: Wpf.Ui.Animations.TransitionType.FadeIn,
 				700);
-			menupanel.Width = !IsOpen ? 360 : 80;
+			menupanel.Width = !IsOpen ? 270 : 48;
 			IsOpen = !IsOpen;
         }
 	}
@@ -157,7 +157,7 @@ public partial class HomePageVM : ObservableObject {
 
 	[RelayCommand]
 	void ReportBug() {
-		_dialog.ShowDialog(new Models.ModelsCommons.DialogModel()
+		_dialog?.ShowDialog(new Models.ModelsCommons.DialogModel()
 		{
 			Title = "Desea Reportar un Bug?",
 			Message = "Usted puede contactar con los siguientes enlaces",

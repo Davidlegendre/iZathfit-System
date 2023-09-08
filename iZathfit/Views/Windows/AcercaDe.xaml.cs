@@ -21,12 +21,11 @@ namespace iZathfit.Views.Windows
     /// </summary>
     public partial class AcercaDe : UiWindow
     {
-        readonly AcercadeVM _vm;
-        public AcercaDe(AcercadeVM vm)
+        AcercadeVM? _vm;
+        public AcercaDe()
         {
             InitializeComponent();
-            _vm = vm;
-            DataContext = vm;
+            _vm = this.DataContext as AcercadeVM;
         }
 
         private void btnclose_Click(object sender, RoutedEventArgs e)

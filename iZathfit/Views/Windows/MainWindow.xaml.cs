@@ -10,82 +10,61 @@ namespace iZathfit.Views.Windows;
 
 public partial class MainWindow : UiWindow
 {
-    public MainWindowViewModel ViewModel { get; }
-    readonly localDialogService localDialog;
-    GlobalService _global;
-    Thickness maxthk => new Thickness(7);
-    Thickness minThk => new Thickness(0);
-
-    readonly LoginVM loginVM;
-    readonly LoginPage loginpage;
-    readonly HomePage _home;
-    readonly IGeneralConfiguration _config;
-    public MainWindow(
-        MainWindowViewModel viewModel,
-        localDialogService localDialogService,
-        LoginVM loginVM,
-        LoginPage loginpage,
-        HomePage home,
-        IGeneralConfiguration config,
-        GlobalService global
-    )
+    MainWindowViewModel? ViewModel;
+    localDialogService? localDialog;
+    GlobalService? _global;
+    LoginVM? loginVM;
+    LoginPage? loginpage;
+    IGeneralConfiguration? _config;
+       
+    public MainWindow()
     {      
 
         InitializeComponent();
         
         Watcher.Watch(this, BackgroundType.Mica, false, true);
         Accent.Apply(System.Windows.Media.Color.FromArgb(220, 255, 0, 0), Theme.GetAppTheme());
-        this.Loaded += MainWindow_Loaded;
-        //this.StateChanged += (sender, obj) =>
-        //{
-        //    changemargin();
-        //};
-
-        this.loginVM = loginVM;
-        localDialog = localDialogService;
-        this.loginpage = loginpage;
-        _config = config;
-        _home = home;
-        _global = global;
-        ViewModel = viewModel;
-        DataContext = this;
-
-        this.Closing += MainWindow_Closing;
-        loginVM.UsuarioLogeado += LoginVM_UsuarioLogeado;
         
-       
-        //navigationService.SetNavigationControl(NavigationView);
-        ////snackbarService.SetSnackbarPresenter(SnackbarPresenter);
-        //NavigationView.SetServiceProvider(serviceProvider);
+        this.loginVM = App.GetService<LoginPage>()?.DataContext as LoginVM;
+        localDialog = App.GetService<localDialogService>();
+        this.loginpage = App.GetService<LoginPage>();
+        _config = App.GetService<IGeneralConfiguration>();
+        _global = App.GetService<GlobalService>();
+        ViewModel = this.DataContext as MainWindowViewModel;
+        this.Loaded += MainWindow_Loaded;
+        this.Closing += MainWindow_Closing;
+        
     }
 
     private void LoginVM_UsuarioLogeado(object? sender, UsuarioSistema e)
     {
-           
-        NavigationView.Content = _home;
-        _config.SetUserSistema(e);
+        
+        NavigationView.Content = App.GetService<HomePage>();
+        _config?.SetUserSistema(e);
         this.WindowState = WindowState.Maximized;
         this.ResizeMode = ResizeMode.CanResize;
-        _global.InitTimerHour();
+        _global?.InitTimerHour();
         
         //ViewModel.ShowButtons = true;
     }
 
     private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
-        if (NavigationView.Content.ToString() != typeof(LoginPage).FullName && localDialog.ShowDialog(new() { Title = "Saliendo", Message = "Desea Salir?", aceptarContent = "Si", cancelarContent = "No" }, this) == true)
+        if (NavigationView.Content.ToString() != typeof(LoginPage).FullName 
+            && localDialog?.ShowDialog(new() { Title = "Saliendo", Message = "Desea Salir?", 
+                aceptarContent = "Si", cancelarContent = "No" }, this) == true)
         {
             e.Cancel = true;
-            _config.SetUserSistema(null);
+            _config?.SetUserSistema(null);
             salirYLogin();
             this.WindowState = WindowState.Normal;
             this.ResizeMode = ResizeMode.NoResize;
-            _global.DisposeTimeHour();
+            _global?.DisposeTimeHour();
             //ViewModel.ShowButtons = false;
         }
         else if (NavigationView.Content.ToString() != typeof(LoginPage).FullName)
         {
-            _global.DisposeTimeHour();
+            _global?.DisposeTimeHour();
             e.Cancel = true;
         }
     }
@@ -93,15 +72,11 @@ public partial class MainWindow : UiWindow
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
         //NavigationView.IsPaneOpen= false;
-        changemargin();
+        if (loginVM != null)
+            loginVM.UsuarioLogeado += LoginVM_UsuarioLogeado;
     }
 
     void salirYLogin() {
         NavigationView.Content = loginpage;
-    }
-
-    void changemargin() {
-        content.Margin = WindowState == WindowState.Maximized
-                ? maxthk : minThk;
     }
 }

@@ -8,12 +8,11 @@ namespace iZathfit.Views.Pages.SubPagesHome
     /// </summary>
     public partial class Home : UserControl
     {
-        readonly GlobalService _globalService;
+        GlobalService? _globalService;
         public Home()
         {
             InitializeComponent();
-            _globalService = App.GetService<GlobalService>();
-            _globalService.TimeSystemEvent += _globalService_TimeSystemEvent;
+            _globalService = App.GetService<GlobalService>();            
             this.Loaded += Home_Loaded;
             
         }
@@ -27,7 +26,10 @@ namespace iZathfit.Views.Pages.SubPagesHome
             txthour.Text = hora.Substring(0, 2);
             txtmin.Text = hora.Substring(3);
             txttimeAMPM.Text = (DateTime.Now.Hour > 12 ? TypeHora.PM : TypeHora.AM) == TypeHora.AM ? "AM" : "PM";
+            var sec = DateTime.Now.Second;
             saludar(DateTime.Now.Hour, (DateTime.Now.Hour > 12 ? TypeHora.PM : TypeHora.AM));
+            if (_globalService != null)
+                _globalService.TimeSystemEvent += _globalService_TimeSystemEvent;
         }
 
         private void _globalService_TimeSystemEvent(object? sender, HomeDataModel e)

@@ -19,7 +19,8 @@ namespace Domain.Genero
             {
                 var generos = await con.QueryAsync<GeneroModel>("SelectAllGenero", 
                     commandType: System.Data.CommandType.StoredProcedure);
-                return generos.AsList();
+                await con.CloseAsync();
+                return generos.Count() == 0? null: generos.AsList();
             }
         }
     }

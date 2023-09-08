@@ -13,25 +13,24 @@ namespace iZathfit.Views.Pages;
 /// </summary>
 public partial class HomePage : UserControl
 {
-    readonly HomePageVM vm;
-    readonly localDialogService _dialog;
+    HomePageVM? vm;
+    localDialogService? _dialog;
    
-    public HomePage(HomePageVM homePageVM,
-        localDialogService dialog)
+    public HomePage()
     {
-        vm = homePageVM;
-        DataContext = vm;
+        
         InitializeComponent();
         this.Loaded += HomePage_Loaded;
-        _dialog = dialog;
-        //menu.Margin = new Thickness(-275, 0,0,0);
+        _dialog = App.GetService<localDialogService>();
+        vm = this.DataContext as HomePageVM;
     }
 
     private void HomePage_Loaded(object sender, RoutedEventArgs e)
     {
         Wpf.Ui.Animations.Transitions.ApplyTransition(menu, Wpf.Ui.Animations.TransitionType.SlideLeft, 1000);
         Wpf.Ui.Animations.Transitions.ApplyTransition(btnmenuusuario, Wpf.Ui.Animations.TransitionType.FadeInWithSlide, 1000);
-        vm.CargarDatos();
+        if (vm != null)
+            vm.CargarDatos();
     }
 
     private void btnmenuusuario_Click(object sender, RoutedEventArgs e)
@@ -47,10 +46,9 @@ public partial class HomePage : UserControl
     {
         var button = (Wpf.Ui.Controls.Button)sender;
         var model = button.DataContext as MenuUserItemsModel;
-        //if (model != null)
-        //{
-            
-        //    model.Comando?.Invoke();
-        //}
+        if (model != null && model.Comando != null)
+        {
+            model.Comando?.Invoke();
+        }
     }
 }

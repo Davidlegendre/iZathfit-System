@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class RolXPersona
+    public class OcupacionXPersona
     {
         public Guid IdPersona { get; set; }
-        public int idRol { get; set; }
+        public int IdOcupacion { get; set; }
     }
 }

@@ -16,29 +16,28 @@ namespace iZathfit.ViewModels.Windows;
 
 public partial class LoginVM : ObservableObject
 {
-    readonly localDialogService localDialogService;
-    readonly ILoginService loginService;
-    readonly IExceptionHelperService _helperex;
-    readonly IPersonaService _personaservice;
-    readonly IHttpClientFactory _factoryclient;
-    readonly IUsuarioService _usuario;
-    readonly CryptoService _crypto;
-    public LoginVM(localDialogService localDialog, ILoginService loginService, IExceptionHelperService helperService,
-        IPersonaService personaService, IHttpClientFactory httpClientFactory, CryptoService crypto, IUsuarioService usuario)
+    readonly localDialogService? localDialogService;
+    readonly ILoginService? loginService;
+    readonly IExceptionHelperService? _helperex;
+    readonly IPersonaService? _personaservice;
+    readonly IHttpClientFactory? _factoryclient;
+    readonly IUsuarioService? _usuario;
+    readonly CryptoService? _crypto;
+    public LoginVM()
     {
-        localDialogService = localDialog;
-        this.loginService = loginService;
-        _helperex = helperService;  
-        _personaservice = personaService;
-        _factoryclient= httpClientFactory;
-        _crypto = crypto;
-        _usuario= usuario;
+        localDialogService = App.GetService<localDialogService>();
+        this.loginService = App.GetService<ILoginService>();
+        _helperex = App.GetService<IExceptionHelperService>();  
+        _personaservice = App.GetService<IPersonaService>();
+        _factoryclient= App.GetService<IHttpClientFactory>();
+        _crypto = App.GetService<CryptoService>();
+        _usuario= App.GetService<IUsuarioService>();
     }
 
     [RelayCommand]
     void close()
     {            
-        App.GetService<MainWindow>().Close();
+        App.GetService<MainWindow>()?.Close();
     }
 
     [ObservableProperty]
@@ -56,11 +55,12 @@ public partial class LoginVM : ObservableObject
     [ObservableProperty]
     Guid? guidPersonForgot = null;
 
-    public async Task verificarusuario(string User, string Password)
+    public async Task verificarusuario(string? User, string? Password)
     {
+        if(_helperex == null || loginService== null) return;
         if (string.IsNullOrWhiteSpace(User) || string.IsNullOrWhiteSpace(Password))
         {
-            localDialogService.ShowDialog(new Models.ModelsCommons.DialogModel()
+            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
             {
                 Title = "Login Incorrecto",
                 canShowCancelButton = false,
@@ -73,7 +73,7 @@ public partial class LoginVM : ObservableObject
 
         if (user == null)
         {
-            localDialogService.ShowDialog(new Models.ModelsCommons.DialogModel()
+            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
             {
                 Title = "Login Incorrecto",
                 canShowCancelButton = false,
@@ -95,16 +95,18 @@ public partial class LoginVM : ObservableObject
     [RelayCommand]
     async Task VerificarEmailPersona(string? email)
     { 
+        if(_helperex == null || _personaservice == null) return;
+
         if(string.IsNullOrWhiteSpace(email))
         {
-            localDialogService.ShowDialog(new Models.ModelsCommons.DialogModel() { Title = "Email Incorrecto", Message = "Ingrese un email",
+            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel() { Title = "Email Incorrecto", Message = "Ingrese un email",
             canShowCancelButton = false}, App.GetService<MainWindow>());
             return;
         }
         var existemail = await _helperex.ExcepHandler(() => _personaservice.VerificarEmail(email), App.GetService<MainWindow>());
 
         if (existemail == null) {
-            localDialogService.ShowDialog(new Models.ModelsCommons.DialogModel()
+            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
             {
                 Title = "Email Incorrecto",
                 Message = "Ese email no fue encontrado",
@@ -113,8 +115,8 @@ public partial class LoginVM : ObservableObject
             return;
         }
         GuidPersonForgot = existemail;
-        var code = _crypto.GetHashString(email + DateTime.Now + new Random().Next(1,99));
-        using(var client = _factoryclient.CreateClient())
+        var code = _crypto?.GetHashString(email + DateTime.Now + new Random().Next(1,99));
+        using(var client = _factoryclient?.CreateClient())
         {
             var mail = new EmailModelApi() {
                 body = "Mensaje desde iZathFit, alguien ha pedido restaurar contraseña, por favor ingresa este codigo: " + code,
@@ -146,7 +148,7 @@ public partial class LoginVM : ObservableObject
     void VerificarCodigo(string? code) {
         if (code != CodeEmail)
         {
-            localDialogService.ShowDialog(new Models.ModelsCommons.DialogModel()
+            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
             {
                 Title = "Codigo Incorrecto",
                 Message = "Ingrese el codigo correcto",
@@ -161,9 +163,10 @@ public partial class LoginVM : ObservableObject
 
     [RelayCommand]
     async Task GuardarContraseña(string? contraseña) {
+        if (_helperex == null || _usuario == null) return;
         if (string.IsNullOrWhiteSpace(contraseña))
         {
-            localDialogService.ShowDialog(new Models.ModelsCommons.DialogModel()
+            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
             {
                 Title = "Contraseña Incorrecta",
                 Message = "Ingrese una contraseña",
@@ -174,7 +177,7 @@ public partial class LoginVM : ObservableObject
 
         if (string.IsNullOrWhiteSpace(contraseña))
         {
-            localDialogService.ShowDialog(new Models.ModelsCommons.DialogModel()
+            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
             {
                 Title = "Contraseña Incorrecta",
                 Message = "Ingrese una contraseña",
@@ -186,7 +189,7 @@ public partial class LoginVM : ObservableObject
         var result = await _helperex.ExcepHandler(() => _usuario.CambiarContraseña(contraseña, GuidPersonForgot), App.GetService<MainWindow>());
         if (result > 0)
         {
-            localDialogService.ShowDialog(new Models.ModelsCommons.DialogModel()
+            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
             {
                 Title = "Contraseña Cambiada",
                 Message = "Su Contraseña ha sido cambiada",

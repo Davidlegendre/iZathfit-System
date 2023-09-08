@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain.RolXPersona
+namespace Services.Ventana
 {
-    public interface IRolXPersonaRepository
+    public interface IVentanaService
     {
-        public Task<List<Rol>?> GetRols(Guid? IdPersona);
+        public Task<List<VentanaModel>?> GetVentanas();
     }
 }
