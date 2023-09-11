@@ -41,7 +41,7 @@ namespace Configuration.GlobalHelpers
         public bool IsNumber(string? numtexto)
         { 
             bool result = true;
-            if(string.IsNullOrWhiteSpace(numtexto)) result =  false;
+            if(string.IsNullOrWhiteSpace(numtexto)) return false;
             foreach(var c in numtexto)
             {
                 if (!char.IsNumber(c))
