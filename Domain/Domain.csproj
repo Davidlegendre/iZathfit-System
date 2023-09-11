@@ -12,11 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Rol\" />
-    <Folder Include="TipoIdentificacion\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
     <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>

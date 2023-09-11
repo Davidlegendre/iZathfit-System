@@ -1,4 +1,5 @@
 ﻿using Configuration;
+using Configuration.GlobalHelpers;
 using iZathfit.ModelsComponents;
 using iZathfit.Views.Pages;
 using iZathfit.Views.Pages.SubPagesHome;
@@ -7,6 +8,7 @@ using Microsoft.Windows.Themes;
 using Models;
 using Services.Genero;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Design;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Wpf.Ui.Appearance;
@@ -46,6 +48,9 @@ public partial class HomePageVM : ObservableObject {
 	[ObservableProperty]
 	string? iniciales = "";
 
+	[ObservableProperty]
+	SymbolRegular iconAccount = SymbolRegular.DeveloperBoard20;
+
 	public void DatoUsuario() {
 		var user = _config?.getuserSistema();
 		Iniciales = user.Nombres.Substring(0, 1).ToUpper() + user.Apellidos.Substring(0, 1).ToUpper();
@@ -57,7 +62,12 @@ public partial class HomePageVM : ObservableObject {
 		}
 		Personanombre = user?.Nombres?.Split(' ')[0].ToUpper() + " " + user?.Apellidos?.Split(' ')[0].ToUpper();
 		Ocupaciones = string.Join(", ", user.Ocupaciones.Select(x => x.Description));
-		Rol = user.Rol;      
+		Rol = user.Rol;
+
+		if (user.CodeRol == _config.GetRol(TypeRol.Desarrollador)) IconAccount = SymbolRegular.DeveloperBoard20;
+		else if (user.CodeRol == _config.GetRol(TypeRol.Administrador)) IconAccount = SymbolRegular.ShieldPerson20;
+		else if (user.CodeRol == _config.GetRol(typerol: TypeRol.Dueño)) IconAccount = SymbolRegular.PersonSettings20;
+		else IconAccount = SymbolRegular.Person20;
     }
 
 	public void CargarDatos() {		

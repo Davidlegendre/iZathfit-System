@@ -12,10 +12,9 @@ namespace Domain.Persona
     {
         public Task<UsuarioSistema?> GetPersonaData(Guid? ID);
         public Task<Guid?> ConsultaPersonaByEmail(string? email);
-        public Task<Guid?> InsertarPersona(PersonaModel? persona);
-        public Task<int> UpdatePersona(PersonaModel? persona);
-        public Task<List<PersonaModel>?> SelectAllPersonasNormal();
-        public Task<List<PersonaDTO>?> SelectAllPersonsJoin();
+        public Task<PersonaModel?> InsertarPersona(PersonaModel? persona);
+        public Task<PersonaModel?> UpdatePersona(PersonaModel? persona);
+        public Task<List<PersonaModel>?> SelectAllPersonas();
         public Task<int> DeletePersona(Guid? idpersona);
     }
 }

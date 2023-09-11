@@ -13,16 +13,16 @@
     </UserControl.DataContext>
     <Grid>
         <ui:Button Name="btnoculto" Visibility="Collapsed" Appearance="Primary"></ui:Button>
-
+        
         <ui:VirtualizingItemsControl IsEnabled="{Binding EnabledMenuMantenimiento}" Padding="7" HorizontalAlignment="{Binding Listahorizontalaligment}" ItemsSource="{Binding Mantenimientolist}">
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <UniformGrid VerticalAlignment="Top" Columns="{Binding ColumnUniformGrid}" HorizontalAlignment="Center"></UniformGrid>
+                    <WrapPanel VerticalAlignment="Center" HorizontalAlignment="Center"></WrapPanel>
                 </ItemsPanelTemplate>
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:CardAction Click="ActionToCommand_Click" Width="270" Margin="10" Height="270" Cursor="Hand" IsChevronVisible="False">
+                    <ui:CardAction Click="ActionToCommand_Click" Visibility="{Binding Visible}" Width="270" Margin="10" Height="270" Cursor="Hand" IsChevronVisible="False">
                         <Grid HorizontalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"></RowDefinition>
@@ -39,13 +39,10 @@
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
         </ui:VirtualizingItemsControl>
-        <ui:Card Margin="310,7,7,7" Visibility="{Binding VisibilityCardWin}" VerticalContentAlignment="Stretch" Padding="2" VerticalAlignment="Stretch">
+        <ui:Card Margin="7,0,7,7" BorderThickness="4" Visibility="{Binding VisibilityCardWin}" Background="{ui:ThemeResource}" VerticalContentAlignment="Stretch" Padding="2" VerticalAlignment="Stretch">
+            
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="38"></RowDefinition>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid>
+                <Grid VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"/>
@@ -53,7 +50,7 @@
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon FontSize="18" Foreground="{Binding Background,ElementName=btnoculto}" Symbol="{Binding IconActualPag}" Margin="7,0,0,0"></ui:SymbolIcon>
                     <TextBlock Text="{Binding TitleActualPag}" Grid.Column="1" VerticalAlignment="Center" Margin="7,0,0,0"></TextBlock>
-                    <ui:Button Icon="Dismiss16" Command="{Binding ChangeTONormalCommand}" Margin="5" Grid.Column="2"></ui:Button>
+                    <ui:Button Icon="Dismiss16" Appearance="Transparent" BorderBrush="Transparent" VerticalAlignment="Stretch" Height="33" Command="{Binding ChangeTONormalCommand}" Margin="7,7,7,0" Grid.Column="2"></ui:Button>
                 </Grid>
                 <ContentControl x:Name="navigatemantenimientos" Content="{Binding ContentMantenimientoPag}" Grid.Row="1"></ContentControl>
             </Grid>

@@ -13,9 +13,6 @@
     WindowBackdropType="Mica"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d" Background="{ui:ThemeResource}" MinWidth="420" MinHeight="420" ResizeMode="NoResize" Width="420">
-    <!--<WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="-1" UseAeroCaptionButtons="False" CaptionHeight="48"></WindowChrome>
-    </WindowChrome.WindowChrome>-->
     <Window.DataContext>
         <viewmodel:MainWindowViewModel></viewmodel:MainWindowViewModel>
     </Window.DataContext>

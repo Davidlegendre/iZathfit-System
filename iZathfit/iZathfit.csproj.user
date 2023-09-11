@@ -27,16 +27,13 @@
     <Compile Update="Views\Pages\Mantenimiento\MantenimientoPersonas.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\Mantenimiento\MantenimientoVentanas.xaml.cs">
+    <Compile Update="Views\Pages\Mantenimiento\WindowSecundarios\MPersonasForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\SubPagesHome\MantenimientosPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\SubPagesHome\SettingPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Views\Windows\AcercaDe.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -59,7 +56,7 @@
     <Page Update="Views\Pages\Mantenimiento\MantenimientoPersonas.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\Pages\Mantenimiento\MantenimientoVentanas.xaml">
+    <Page Update="Views\Pages\Mantenimiento\WindowSecundarios\MPersonasForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\SubPagesHome\Home.xaml">
@@ -69,9 +66,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\SubPagesHome\SettingPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\Windows\AcercaDe.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\MainWindow.xaml">

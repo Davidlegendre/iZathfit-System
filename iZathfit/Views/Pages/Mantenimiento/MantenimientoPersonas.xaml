@@ -12,7 +12,40 @@
         <viewmodels:MantenimientoPersonasVM></viewmodels:MantenimientoPersonasVM>
     </UserControl.DataContext>
     <Grid>
-        <ui:Button Appearance="Primary" Command="{Binding cambiarprogresoCommand}" Content="hola" Icon="Accessibility28"></ui:Button>
-        <ProgressBar Value="{Binding Progreso}"></ProgressBar>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="0,7,58,0" HorizontalAlignment="Right">
+            <ui:Button Padding="6" Margin="0,0,7,0" Name="btnagregar" Click="btnagregar_Click" Height="33" Icon="Add20" Content="Agregar">               
+                
+            </ui:Button>
+            <ui:TextBox Name="txtBuscar" KeyDown="txtBuscar_KeyDown" Icon="Search20"  Width="370" Padding="5"  PlaceholderText="Busca por Nombre o Apellido. Identificacion o Rol"></ui:TextBox>
+
+        </StackPanel>
+        <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding Personas}" Padding="10" Margin="0,7,0,0">
+            <ui:VirtualizingItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ui:VirtualizingItemsControl.ItemsPanel>
+            <ui:VirtualizingItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ui:Card Margin="7" Width="280">
+                        <StackPanel>
+                            <TextBlock Text="{Binding GetCompleteName}"></TextBlock>
+                            <TextBlock FontSize="12" Opacity="0.9" Text="{Binding GetEdad}"></TextBlock>
+                            <TextBlock FontSize="12" Opacity="0.8" Text="{Binding GetDireccion}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock FontSize="12" Opacity="0.8" Text="{Binding GetTelefono}" TextWrapping="Wrap"></TextBlock>
+                            <UniformGrid Rows="1" HorizontalAlignment="Left">
+                                <ui:Button Name="btnshow" Click="btnshow_Click" Icon="Eye20" Margin="2" Padding="5"></ui:Button>
+                                <ui:Button Name="btnEdit" Click="btnEdit_Click" Icon="Edit20" Margin="2" Padding="5"></ui:Button>
+                                <ui:Button Name="btndelete" Click="btndelete_Click" Icon="Delete20" Margin="2" Padding="5"></ui:Button>
+                            </UniformGrid>
+                        </StackPanel>
+                    </ui:Card>
+                </DataTemplate>
+            </ui:VirtualizingItemsControl.ItemTemplate>
+        </ui:VirtualizingItemsControl>
     </Grid>
 </UserControl>

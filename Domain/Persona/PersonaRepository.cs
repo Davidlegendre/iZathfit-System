@@ -1,5 +1,8 @@
 ﻿using Configuration;
 using Dapper;
+using Domain.Genero;
+using Domain.Rol;
+using Domain.TipoIdentificacion;
 using Models;
 using Models.DTOS;
 using System;
@@ -15,9 +18,18 @@ namespace Domain.Persona
     public class PersonaRepository : IPersonaRepository
     {
         readonly IGeneralConfiguration _generalConfiguration;
-        public PersonaRepository(IGeneralConfiguration generalConfiguration)
+        IRolRepository _rolrepo;
+        ITipoIdentificacionRepository _tipoIdentRepo;
+        IGeneroRepository _generorepo;
+        public PersonaRepository(IGeneralConfiguration generalConfiguration, 
+            IRolRepository rolRepository, 
+            ITipoIdentificacionRepository tipoIdentificacionRepository,
+            IGeneroRepository generoRepository)
         {
             _generalConfiguration = generalConfiguration;
+            _rolrepo = rolRepository;
+            _generorepo = generoRepository;
+            _tipoIdentRepo = tipoIdentificacionRepository;
         }
 
         public async Task<UsuarioSistema?> GetPersonaData(Guid? ID)
@@ -42,44 +54,44 @@ namespace Domain.Persona
                 return result;
             }
         }
-        public async Task<Guid?> InsertarPersona(PersonaModel? persona)
+        public async Task<PersonaModel?> InsertarPersona(PersonaModel? persona)
         {
             if (persona == null) throw new ArgumentNullException("Persona Es nula");
             using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
             {
-                var result = await con.ExecuteScalarAsync<Guid?>("AgregarPersona", 
+                var result = await con.QueryFirstAsync<PersonaModel?>("AgregarPersona", 
                     new { @Nombres=persona.Nombres, @Apellidos = persona.Apellidos,
-                        @idrol = persona.idRol,
+                        @idrol = persona.IdRol,
                         @Fech_nac = persona.Fech_Nacimiento,
                         @Direccion = persona.Direccion,
                         @telefono = persona.Telefono,
                         @Email = persona.Email,
-                        @idgenero = persona.idGenero,
+                        @idgenero = persona.IdGenero,
                         @Identificacion = persona.Identificacion,
-                        @idTipoIdent = persona.idtipoIdentificacion
+                        @idTipoIdent = persona.IdTipoIdentity
                     }, 
                     commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return result;
             }
         }
-        public async Task<int> UpdatePersona(PersonaModel? persona)
+        public async Task<PersonaModel?> UpdatePersona(PersonaModel? persona)
         {
             if (persona == null) throw new ArgumentNullException("Persona Es nula");
             using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
             {
-                var result = await con.ExecuteAsync("UpdatePersonaData", 
+                var result = await con.QueryFirstAsync<PersonaModel?>("UpdatePersonaData", 
                     new {
                         @Nombres = persona.Nombres,
                         @Apellidos = persona.Apellidos,
                         @Fech_nac = persona.Fech_Nacimiento,
                         @Direccion = persona.Direccion,
-                        @idRol = persona.idRol,
+                        @idRol = persona.IdRol,
                         @telefono = persona.Telefono,
                         @Email = persona.Email,
-                        @idgenero = persona.idGenero,
+                        @idgenero = persona.IdGenero,
                         @Identificacion = persona.Identificacion,
-                        @idTipoIdent = persona.idtipoIdentificacion,
+                        @idTipoIdent = persona.IdTipoIdentity,
                         @id = persona.IdPersona
                     }, commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
@@ -87,20 +99,12 @@ namespace Domain.Persona
             }
         }
 
-        public async Task<List<PersonaModel>?> SelectAllPersonasNormal() {
+        public async Task<List<PersonaModel>?> SelectAllPersonas() {
             using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
             {
-                var results = await con.QueryAsync<PersonaModel>("SelectAllPersonasNormal", 
+                var results = await con.QueryAsync<PersonaModel>("SelectAllPersonas", 
                     commandType: System.Data.CommandType.StoredProcedure);
-                await con.CloseAsync();
-                return  results.Count() == 0 ? null : results.AsList();
-            }
-        }
 
-        public async Task<List<PersonaDTO>?> SelectAllPersonsJoin() {
-            using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
-            {
-                var results = await con.QueryAsync<PersonaDTO>("SelectAllPersonsJoin", commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return  results.Count() == 0 ? null : results.AsList();
             }

@@ -4,9 +4,12 @@
 // All Rights Reserved.
 
 using Configuration;
+using Configuration.GlobalHelpers;
 using Domain.Genero;
 using Domain.OcupacionXPersona;
 using Domain.Persona;
+using Domain.Rol;
+using Domain.TipoIdentificacion;
 using Domain.Usuario;
 using Domain.Ventanas;
 using iZathfit.Helpers;
@@ -24,6 +27,8 @@ using Microsoft.Extensions.Hosting;
 using Services.Genero;
 using Services.Login;
 using Services.Persona;
+using Services.Rol;
+using Services.TipoIdentificacion;
 using Services.Usuario;
 using Services.Ventana;
 using System.IO;
@@ -49,11 +54,10 @@ namespace iZathfit
             {
                 services.AddHttpClient();
                 services.AddHostedService<ApplicationHostService>();
-                services.AddSingleton<localDialogService>();
-                services.AddSingleton<GlobalService>();
+               
 
                 services.AddTransient<HomePage>();
-                services.AddTransient<MantenimientosPage>();
+                services.AddTransient<MantenimientosPage>();               
                 services.AddTransient<MantenimientoPersonas>();
 
                 services.AddScoped<MainWindow>();
@@ -74,8 +78,15 @@ namespace iZathfit
                 services.AddScoped<IUsuarioService, UsuarioService>();
                 services.AddScoped<IVentanaRepository, VentanaRepository>();
                 services.AddScoped<IVentanaService, VentanaService>();
+                services.AddScoped<ITipoIdentificacionRepository, TipoIdentificacionRepository>();
+                services.AddScoped<ITipoIdentificacionService, TipoIdentificacionService>();
+                services.AddScoped<IGlobalHelpers, GlobalHelpers>();
+                services.AddScoped<IRolRepository, RolRepository>();
+                services.AddScoped<IRolService, RolService>();
 
-               
+                services.AddSingleton<localDialogService>();
+                services.AddSingleton<GlobalService>();
+
 
             }).Build();
 

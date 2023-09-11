@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,18 +9,28 @@ namespace Models
 {
     public class PersonaModel
     {
+
         public Guid IdPersona { get; set; }
-        public string Nombres { get; set; }
-        public string Apellidos { get; set; }
+        public string? Nombres { get; set; }
+        public string? Apellidos { get; set; }
         public DateTime Fech_Nacimiento { get; set; }
         public int Edad { get; set; }
-        public string Direccion { get; set; }
-       public int idRol { get; set; }
-        public string Telefono { get; set; }
+        public string? Direccion { get; set; }
+        public int IdRol { get; set; }
+        public string? Telefono { get; set; }
         public string? Email { get; set; }
-        public int idGenero { get; set; }
-        public string Identificacion { get; set; }
-        public int idtipoIdentificacion { get; set; }
+        public int IdGenero { get; set; }
+        public string? Identificacion { get; set; }
+        public int IdTipoIdentity { get; set; }
+
+        public string? Genero { get; set; }
+        public string? TipoIdentificacion { get; set; } 
+        public string? Rol { get; set; }
+
+        public string? GetCompleteName => Nombres + " " + Apellidos;
+        public string? GetEdad => "Edad: " + Edad;
+        public string? GetDireccion => "Dir: " + Direccion;
+        public string? GetTelefono => "Tlf: " + Telefono;
 
 
     }

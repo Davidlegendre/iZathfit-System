@@ -30,12 +30,7 @@ namespace iZathfit.ViewModels.Pages
                 {
                     Title = "Mantenimiento de Ventanas",
                     Description = "Acá puede administrar las ventanas del sistema, es para poder usarlos en los permisos posteriormente",
-                    Icon = SymbolRegular.WindowWrench24,
-                   Comando = () =>
-                   {
-                       ChangeContentInterno(App.GetService<MantenimientoVentanas>(),
-                          "Mantenimiento de Ventanas", SymbolRegular.WindowWrench24);
-                   }
+                    Icon = SymbolRegular.WindowWrench24
                 }
 
             };
@@ -45,9 +40,6 @@ namespace iZathfit.ViewModels.Pages
 
         [ObservableProperty]
         HorizontalAlignment? listahorizontalaligment = HorizontalAlignment.Stretch;
-
-        [ObservableProperty]
-        int columnUniformGrid = 0;
 
         [ObservableProperty]
         string? titleActualPag = "";
@@ -67,7 +59,6 @@ namespace iZathfit.ViewModels.Pages
         [RelayCommand]
         void ChangeTONormal() {
             Listahorizontalaligment = HorizontalAlignment.Stretch;
-            ColumnUniformGrid = 0;
             ContentMantenimientoPag = null;
             VisibilityCardWin = Visibility.Collapsed;
             EnabledMenuMantenimiento = true;
@@ -75,7 +66,6 @@ namespace iZathfit.ViewModels.Pages
 
         void ChangeContentInterno(UserControl? user, string titulo, SymbolRegular icon) {
             Listahorizontalaligment = HorizontalAlignment.Left;
-            ColumnUniformGrid = 1;
             ContentMantenimientoPag = user;
             TitleActualPag = titulo;
             IconActualPag = icon;

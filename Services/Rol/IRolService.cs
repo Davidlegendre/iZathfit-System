@@ -1,13 +1,14 @@
-﻿using iZathfit.Views.Windows;
+﻿using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace iZathfit.ViewModels.Windows
+namespace Services.Rol
 {
-    public partial class AcercadeVM :ObservableObject
+    public interface IRolService
     {
+        public Task<List<RolModel>?> GetRoles();
     }
 }

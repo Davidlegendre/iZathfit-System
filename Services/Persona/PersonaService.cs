@@ -4,15 +4,19 @@ using Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Configuration;
+using System.Linq;
 
 namespace Services.Persona
 {
     public class PersonaService : IPersonaService
     {
         IPersonaRepository _personarepo;
-        public PersonaService(IPersonaRepository personarepo)
+        IGeneralConfiguration _generalConfiguration;
+        public PersonaService(IPersonaRepository personarepo, IGeneralConfiguration config)
         {
             _personarepo = personarepo;
+            _generalConfiguration = config;
         }
 
         public async Task<Guid?> VerificarEmail(string? email)
@@ -20,23 +24,19 @@ namespace Services.Persona
             return await _personarepo.ConsultaPersonaByEmail(email);
         }
 
-        public async Task<Guid?> InsertarPersona(PersonaModel? persona)
+        public async Task<PersonaModel?> InsertarPersona(PersonaModel? persona)
         {
             return await _personarepo.InsertarPersona(persona);
         }
-        public async Task<int> UpdatePersona(PersonaModel? persona)
+        public async Task<PersonaModel?> UpdatePersona(PersonaModel? persona)
         {
            return await _personarepo.UpdatePersona(persona);
         }
 
         public async Task<List<PersonaModel>?> SelectAllPersonasNormal()
         {
-            return await _personarepo.SelectAllPersonasNormal();
-        }
-
-        public async Task<List<PersonaDTO>?> SelectAllPersonsJoin()
-        {
-           return await _personarepo.SelectAllPersonsJoin();
+            var result = await _personarepo.SelectAllPersonas();
+            return result?.Where(x=>x.IdPersona != _generalConfiguration.getuserSistema()?.IdPersona).ToList();
         }
 
         public async Task<int> DeletePersona(Guid? idpersona)

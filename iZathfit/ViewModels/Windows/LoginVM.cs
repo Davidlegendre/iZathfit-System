@@ -16,17 +16,17 @@ namespace iZathfit.ViewModels.Windows;
 
 public partial class LoginVM : ObservableObject
 {
-    readonly localDialogService? localDialogService;
-    readonly ILoginService? loginService;
-    readonly IExceptionHelperService? _helperex;
-    readonly IPersonaService? _personaservice;
-    readonly IHttpClientFactory? _factoryclient;
-    readonly IUsuarioService? _usuario;
-    readonly CryptoService? _crypto;
+    localDialogService? localDialogService;
+    ILoginService? loginService;
+    IExceptionHelperService? _helperex;
+    IPersonaService? _personaservice;
+    IHttpClientFactory? _factoryclient;
+    IUsuarioService? _usuario;
+    CryptoService? _crypto;
     public LoginVM()
     {
         localDialogService = App.GetService<localDialogService>();
-        this.loginService = App.GetService<ILoginService>();
+        loginService = App.GetService<ILoginService>();
         _helperex = App.GetService<IExceptionHelperService>();  
         _personaservice = App.GetService<IPersonaService>();
         _factoryclient= App.GetService<IHttpClientFactory>();
@@ -196,6 +196,7 @@ public partial class LoginVM : ObservableObject
                 canShowCancelButton = false
             }, App.GetService<MainWindow>());
             EnableNewPasswordTxt = false;
+
         }
 
 
