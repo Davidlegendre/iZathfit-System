@@ -1,0 +1,13 @@
+10/09/2023 07:36:30	Este registro contiene información acerca de la operación de importación del script 'Datos Iniciales Script.sql' en el proyecto 'iZathFitBD' del equipo 'DESKTOP-PTBMEGJ' por el usuario 'legen.
+10/09/2023 07:36:30	Se inició la importación del archivo: C:\Users\legen\AppData\Local\Temp\tmpCA0B.tmp 
+10/09/2023 07:36:30	Nombre de archivo: C:\Users\legen\AppData\Local\Temp\tmpCA0B.tmp (tamaño: 16415)
+10/09/2023 07:36:30	Analizando script de importación
+10/09/2023 07:36:30	Número total de lotes en el script: 42
+10/09/2023 07:36:30	Número total de instrucciones en el script: 46
+10/09/2023 07:36:30	El script se importó correctamente en el proyecto.
+10/09/2023 07:36:31	Analizando los objetos de esquema...
+10/09/2023 07:36:31	Buscando elementos duplicados en el proyecto
+10/09/2023 07:36:31	Ha finalizado el procesamiento de los elementos duplicados
+10/09/2023 07:36:31	En el script que proporcionó para la operación de importación, no se comprendieron totalmente dos o más instrucciones. Estas instrucciones se movieron al archivo ScriptsIgnoredOnImport.sql. Revise el contenido del archivo para obtener más información.
+10/09/2023 07:36:31	Se guardó un resumen de la importación en la siguiente ubicación: C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\Registros de importación de scripts\Datos Iniciales Scri_20230911123630.log
+10/09/2023 07:36:31	Haga clic en Finalizar para continuar...

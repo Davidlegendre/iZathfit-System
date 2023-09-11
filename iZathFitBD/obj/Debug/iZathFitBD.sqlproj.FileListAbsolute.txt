@@ -1,0 +1,10 @@
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\bin\Debug\iZathFitBD.dacpac
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\bin\Debug\iZathFitBD.dll
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\bin\Debug\iZathFitBD.pdb
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\obj\Debug\iZathFitBD.sqlproj.AssemblyReference.cache
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\obj\Debug\iZathFitBD.dll
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\obj\Debug\iZathFitBD.pdb
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\obj\Debug\Model.xml
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\obj\Debug\refactor.xml
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\obj\Debug\postdeploy.sql
+C:\Users\legen\Documentos\Repos\iZathFit Project\iZathfit-System\iZathFitBD\obj\Debug\predeploy.sql

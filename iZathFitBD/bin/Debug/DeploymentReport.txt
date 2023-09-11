@@ -1,0 +1,51 @@
+﻿** Aspectos destacados
+     Tablas que se volverán a compilar
+       [dbo].[Persona]
+     Índices clúster que se van a quitar
+       Ninguno
+     Índices clúster que se van a crear
+       Ninguno
+     Posibles incidencias de datos
+       Ninguno
+
+** Acciones del usuario
+     Quitar
+       restricción sin nombre en [dbo].[Persona] (Clave externa)
+       restricción sin nombre en [dbo].[Persona] (Clave externa)
+       restricción sin nombre en [dbo].[Persona] (Clave externa)
+       restricción sin nombre en [dbo].[OcupacionXPersona] (Clave externa)
+       restricción sin nombre en [dbo].[PadecimientoEnfermedades] (Clave externa)
+       restricción sin nombre en [dbo].[NumEmergencias] (Clave externa)
+       restricción sin nombre en [dbo].[Usuario] (Clave externa)
+       restricción sin nombre en [dbo].[Contrato] (Clave externa)
+     Nueva compilación de tablas
+       [dbo].[Persona] (Tabla)
+     Modificar
+       [dbo].[DeletePersona] (Procedimiento)
+       [dbo].[PersonaDatos] (Procedimiento)
+       [dbo].[ChangePasswordUser] (Procedimiento)
+       [dbo].[IniciarSesion] (Procedimiento)
+       [dbo].[InsertarVentana] (Procedimiento)
+       [dbo].[OcupacionPorPersona] (Procedimiento)
+       [dbo].[SelectAllRol] (Procedimiento)
+       [dbo].[SelectAllTipoIdentificacion] (Procedimiento)
+
+** Acciones de compatibilidad
+     Crear
+       Clave externa: restricción sin nombre en [dbo].[Persona] (Clave externa)
+       Clave externa: restricción sin nombre en [dbo].[Persona] (Clave externa)
+       Clave externa: restricción sin nombre en [dbo].[Persona] (Clave externa)
+       Clave externa: restricción sin nombre en [dbo].[OcupacionXPersona] (Clave externa)
+       Clave externa: restricción sin nombre en [dbo].[PadecimientoEnfermedades] (Clave externa)
+       Clave externa: restricción sin nombre en [dbo].[NumEmergencias] (Clave externa)
+       Clave externa: restricción sin nombre en [dbo].[Usuario] (Clave externa)
+       Clave externa: restricción sin nombre en [dbo].[Contrato] (Clave externa)
+     Actualizar
+       [dbo].[AgregarPersona] (Procedimiento)
+       [dbo].[SelectAllPersonas] (Procedimiento)
+       [dbo].[SelectOnePersona] (Procedimiento)
+       [dbo].[UpdatePersonaData] (Procedimiento)
+       [dbo].[VerificarEmailPersona] (Procedimiento)
+
+Las bases de datos del proyecto y de destino tienen una configuración de intercalación diferente. Se pueden producir errores de implementación.
+
