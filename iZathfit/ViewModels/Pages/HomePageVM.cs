@@ -2,6 +2,7 @@
 using Configuration.GlobalHelpers;
 using iZathfit.ModelsComponents;
 using iZathfit.Views.Pages;
+using iZathfit.Views.Pages.Negocio;
 using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
 using Microsoft.Windows.Themes;
@@ -49,6 +50,11 @@ public partial class HomePageVM : ObservableObject {
 	string? iniciales = "";
 
 	[ObservableProperty]
+	double? heightButtonItemMenu = 48;
+
+	
+
+	[ObservableProperty]
 	SymbolRegular iconAccount = SymbolRegular.DeveloperBoard20;
 
 	public void DatoUsuario() {
@@ -61,8 +67,8 @@ public partial class HomePageVM : ObservableObject {
 			IconIndicator = SymbolRegular.Home20;
 		}
 		Personanombre = user?.Nombres?.Split(' ')[0].ToUpper() + " " + user?.Apellidos?.Split(' ')[0].ToUpper();
-		Ocupaciones = string.Join(", ", user.Ocupaciones.Select(x => x.Description));
-		Rol = user.Rol;
+		Ocupaciones = user?.Ocupacion;
+		Rol = user?.Rol;
 
 		if (user.CodeRol == _config.GetRol(TypeRol.Desarrollador)) IconAccount = SymbolRegular.DeveloperBoard20;
 		else if (user.CodeRol == _config.GetRol(TypeRol.Administrador)) IconAccount = SymbolRegular.ShieldPerson20;
@@ -78,7 +84,6 @@ public partial class HomePageVM : ObservableObject {
 			new MenuUserItemsModel(){
 				TituloItem = "Cambiar Contraseña",
 				Icon = SymbolRegular.Password20,
-
 			},
 			new MenuUserItemsModel()
 			{
@@ -102,7 +107,62 @@ public partial class HomePageVM : ObservableObject {
 						ChangeIndicator(SymbolRegular.EditSettings24, "Esta en Mantenimientos");
 					}
 				}
-			}
+			},
+            new(){
+                TituloItem = "Administracion de Servicios",
+                Icon = SymbolRegular.ServiceBell20,
+                Comando = () => {
+					if(UserControl is not ServiciosPage)
+                    {
+                        UserControl = App.GetService<ServiciosPage>();
+                        ChangeIndicator(SymbolRegular.ServiceBell20, "Esta en Administracion de Servicios");
+                    }
+                }
+            },
+            new(){
+                TituloItem = "Administracion de Duraciones de los Planes",
+                Icon = SymbolRegular.ClockToolbox20,
+                Comando = () => {
+                    if(UserControl is not PlanDuracionPage)
+                    {
+                        UserControl = App.GetService<PlanDuracionPage>();
+                        ChangeIndicator(SymbolRegular.ClockToolbox20, "Esta en Administracion de Duraciones de los Planes");
+                    }
+                }
+            },
+            new(){
+                TituloItem = "Administracion de Planes",
+                Icon = SymbolRegular.Box24,
+                Comando = () => {
+                    if(UserControl is not PlanesPage)
+                    {
+                        UserControl = App.GetService<PlanesPage>();
+                        ChangeIndicator(SymbolRegular.Box24, "Esta en Administracion de Planes");
+                    }
+                }
+            },
+            new(){
+                TituloItem = "Administracion de Promociones",
+                Icon = SymbolRegular.ShoppingBagPercent20,
+                Comando = () => {
+                    if(UserControl is not PlanesPage)
+                    {
+                        UserControl = App.GetService<PlanesPage>();
+                        ChangeIndicator(SymbolRegular.ShoppingBagPercent20, "Administracion de Promociones");
+                    }
+                }
+            },
+            new(){
+                TituloItem = "Administracion de Contratos",
+                Icon = SymbolRegular.ReceiptCube24,
+                Comando = () => {
+                    if(UserControl is not MantenimientosPage)
+                    {
+                        UserControl = App.GetService<MantenimientosPage>();
+                        ChangeIndicator(SymbolRegular.ReceiptCube24, "Esta en Administracion de Contratos");
+                    }
+                }
+            }
         };
 	}
 
@@ -155,6 +215,7 @@ public partial class HomePageVM : ObservableObject {
 				700);
 			menupanel.Width = !IsOpen ? 270 : 48;
 			IsOpen = !IsOpen;
+			HeightButtonItemMenu = !IsOpen ? 48 : null;
         }
 	}
 
@@ -166,29 +227,29 @@ public partial class HomePageVM : ObservableObject {
 	}
 
 	[RelayCommand]
-	void ReportBug() {
-		_dialog?.ShowDialog(new Models.ModelsCommons.DialogModel()
-		{
-			Title = "Desea Reportar un Bug?",
-			Message = "Usted puede contactar con los siguientes enlaces",
-			canShowCancelButton = false,
-			Links = new List<Models.ModelsCommons.LinkModel>() {
-				new Models.ModelsCommons.LinkModel(){
+	void ReportBug()
+	{
+		_dialog?.ShowDialog(
+			titulo: "Desea Reportar un Bug?",
+			mensaje: "Usted puede contactar con los siguientes enlaces",
+			links: new Models.ModelsCommons.LinkModel[]
+			{
+				new Models.ModelsCommons.LinkModel()
+				{
 					TitlePage = "Whatsapp Dev. 1",
 					Url = "https://google.com"
-                },
+				},
 				new Models.ModelsCommons.LinkModel()
 				{
 					TitlePage = "Whatsapp Dev. 2...",
 					Url = "https://google.com"
-                }
-				,new Models.ModelsCommons.LinkModel()
-                {
-                    TitlePage = "Reportar a GitHub",
-                    Url = "https://github.com/Davidlegendre/iZathfit-System"
-                }
-            }
-		}, App.GetService<MainWindow>());
+				}
+				, new Models.ModelsCommons.LinkModel()
+				{
+					TitlePage = "Reportar a GitHub",
+					Url = "https://github.com/Davidlegendre/iZathfit-System"
+				}
+			}, owner: App.GetService<MainWindow>());
 	}
 
 	void ChangeIndicator(SymbolRegular icon, string texto)

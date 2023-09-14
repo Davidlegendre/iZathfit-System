@@ -1,0 +1,69 @@
+﻿<ui:UiWindow x:Class="iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.MPadecimientosEnfermedadesForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iZathfit.Views.Pages.Mantenimiento.WindowSecundarios"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:viewmodels="clr-namespace:iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels"
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
+        Background="{ui:ThemeResource}"
+        mc:Ignorable="d"
+        Title="{Binding Title,ElementName=TBTitulo}" MinWidth="0" MinHeight="0" Height="522" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="377">
+    <ui:UiWindow.DataContext>
+        <viewmodels:MPadecimientosEnfermedadesFormVM></viewmodels:MPadecimientosEnfermedadesFormVM>
+    </ui:UiWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ui:TitleBar Name="TBTitulo" CanMaximize="False" Title="titulo" ShowMaximize="False"></ui:TitleBar>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="7">
+                <Label Content="Persona" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
+                <ComboBox Name="comboPersona" SelectedItem="{Binding Personamodel}" 
+                          ItemsSource="{Binding Personaslist}" 
+                          DisplayMemberPath="GetCompleteName"
+                          IsEditable="True" IsTextSearchCaseSensitive="False">
+                </ComboBox>
+                <ui:TextBox Name="txtpadecimiento" KeyDown="txtpadecimiento_KeyDown"
+                            Text="{Binding Padecimientotxt, Mode=TwoWay}" Margin="0,5,0,0" PlaceholderText="Escriba el Padecimiento"></ui:TextBox>
+                <ui:Button HorizontalAlignment="Stretch"  Icon="Add20" Content="Agregar Padecimiento" Click="btnaddpadecimiento_click" Margin="0,5,0,0"></ui:Button>
+            </StackPanel>
+            <ui:VirtualizingItemsControl Grid.Row="1" Margin="5" ItemsSource="{Binding Padecimientos}">
+                <ui:VirtualizingItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel VerticalAlignment="Top" Orientation="Vertical"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ui:VirtualizingItemsControl.ItemsPanel>
+                <ui:VirtualizingItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <ui:Card>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding padecimeinto}" Padding="4" TextWrapping="Wrap"></TextBlock>
+                                <ui:Button Name="btneliminar" Click="btneliminar_Click" Grid.Column="1" Icon="Dismiss20"></ui:Button>
+                            </Grid>
+                        </ui:Card>
+                    </DataTemplate>
+                </ui:VirtualizingItemsControl.ItemTemplate>
+            </ui:VirtualizingItemsControl>
+        </Grid>
+        <StackPanel Margin="7" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
+            <ui:Button Name="btnGuardar" Click="btnGuardar_Click" Content="Guardar" Appearance="Success" Icon="Save24" Margin="7"></ui:Button>
+            <ui:Button Name="btncancelar" Click="btncancelar_Click" Content="Cancelar" Icon="DismissSquare20" Margin="7"></ui:Button>
+            <ui:Button Name="btnlimpiar" Visibility="{Binding LimpiarbtnVisible}" Click="btnlimpiar_Click" Content="Limpiar" Icon="Delete20" Margin="7"></ui:Button>
+
+        </StackPanel>
+    </Grid>
+</ui:UiWindow>

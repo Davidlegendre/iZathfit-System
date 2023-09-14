@@ -1,9 +1,11 @@
 ﻿create procedure AgregarPersona
 		@Nombres varchar(50), @Apellidos varchar(50),
 		@Fech_nac datetime, @Direccion varchar(100),
-		@idrol int, @telefono char(9),
+		@idrol int, @telefono varchar(9),
 		@Email varchar(255), @idgenero int, 
-		@Identificacion varchar(20), @idTipoIdent int
+		@Identificacion varchar(20), @idTipoIdent int,
+		@numemergencia1 varchar(10), @numemergencia2 varchar(10),
+		@idocupacion int
 	as
 	BEGIN
 		declare @uid uniqueidentifier
@@ -16,9 +18,9 @@
 		insert into Persona(IdPersona, 
 		Nombres, Apellidos, Fech_Nacimiento, Direccion, 
 		idRol, Telefono, Email,idGenero,
-		Identificacion,idtipoIdentificacion)
+		Identificacion,idtipoIdentificacion, idOcupacion, NumeroEmergencia1, NumeroEmergencia2)
 		values(@uid,@Nombres,@Apellidos,@Fech_nac,@Direccion,
-		@idrol, @telefono,@Email,@idgenero,@Identificacion,@idTipoIdent)
+		@idrol, @telefono,@Email,@idgenero,@Identificacion,@idTipoIdent, @idocupacion, @numemergencia1, @numemergencia2)
 
 		exec izathfitbd.dbo.SelectOnePersona @uid
 	END

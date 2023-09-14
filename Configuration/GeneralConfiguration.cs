@@ -33,6 +33,8 @@ namespace Configuration
         public string GetRol(TypeRol typerol) {
             return TipoRoles[typerol];
         }
+
+        public TypeRol GetRol(string rol) => TipoRoles.ToList().First(x => x.Value == rol).Key;
         
     }
 

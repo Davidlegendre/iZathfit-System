@@ -11,5 +11,7 @@ namespace Configuration.GlobalHelpers
     {
         public List<RolModel>? FiltrarRoles(List<RolModel>? rolModels);
         public bool IsNumber(string? numtexto);
+        public void Policy(params TypeRol[] typeRols);
+        public bool PolicyReturnBool(params TypeRol[] typeRols);
     }
 }

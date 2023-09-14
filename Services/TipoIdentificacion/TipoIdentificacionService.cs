@@ -16,8 +16,23 @@ namespace Services.TipoIdentificacion
             _repository = repository;
         }
 
+        public async Task<int> DeleteTipoIdentificacion(int IdTipoidentificacion)
+        {
+            return await _repository.DeleteTipoIdentificacion(IdTipoidentificacion);
+        }
+
         public async Task<List<TipoIdentificacionModel>?> GetTipoIdentificaciones() {
             return await _repository.GetTipoIdentificacion();
+        }
+
+        public async Task<TipoIdentificacionModel?> InsertTipoIdentificacion(TipoIdentificacionModel tipoidentificacion)
+        {
+            return await _repository.InsertTipoIdentificacion(tipoidentificacion);
+        }
+
+        public async Task<TipoIdentificacionModel?> UpdateTipoIdentificacion(TipoIdentificacionModel tipoidentificacion)
+        {
+            return await _repository.UpdateTipoIdentificacion(tipoidentificacion);
         }
     }
 }

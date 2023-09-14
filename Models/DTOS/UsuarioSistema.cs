@@ -10,11 +10,14 @@ namespace Models.DTOS
     {
 
         public Guid IdPersona { get; }
-       
+        public Guid idUsuario { get; set; }
+        public string contrasena { get; set; }
         public string? Nombres { get; set;}
         public string? Apellidos { get; set; }
         public DateTime Fech_Nacimiento { get; set; }
         public int Edad { get; }
+        public string? NumeroEmergencia1 { get; set; }
+        public string? NumeroEmergencia2 { get; set; }
         public string NombreCompleto => Nombres + " " + Apellidos;
         public string? Direccion { get; set; }
         public string? Telefono { get; set; }
@@ -26,6 +29,7 @@ namespace Models.DTOS
         public string? CodeRol { get; set; }
         public string?  TipoIdentityDescripcion { get; set; }
         public string? abreviadoTipo { get; set; }
+        public string? Ocupacion { get; set; }
         public List<Ocupacion>? Ocupaciones { get; set; }
         
     }

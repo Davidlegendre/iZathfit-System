@@ -39,7 +39,7 @@
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
         </ui:VirtualizingItemsControl>
-        <ui:Card Margin="7,0,7,7" BorderThickness="4" Visibility="{Binding VisibilityCardWin}" Background="{ui:ThemeResource}" VerticalContentAlignment="Stretch" Padding="2" VerticalAlignment="Stretch">
+        <ui:Card Name="contenidowin" Margin="7,0,7,7" BorderThickness="4" Visibility="{Binding VisibilityCardWin}" Background="{ui:ThemeResource}" VerticalContentAlignment="Stretch" Padding="2" VerticalAlignment="Stretch">
             
             <Grid>
                 <Grid VerticalAlignment="Top">

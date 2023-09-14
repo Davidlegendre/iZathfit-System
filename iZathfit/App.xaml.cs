@@ -6,33 +6,36 @@
 using Configuration;
 using Configuration.GlobalHelpers;
 using Domain.Genero;
-using Domain.OcupacionXPersona;
+using Domain.Ocupaciones;
+using Domain.PadecimientosEnfermedades;
 using Domain.Persona;
+using Domain.Plan;
+using Domain.PlanDuracion;
 using Domain.Rol;
+using Domain.Servicios;
 using Domain.TipoIdentificacion;
 using Domain.Usuario;
-using Domain.Ventanas;
 using iZathfit.Helpers;
 using iZathfit.ServicesSystem;
-using iZathfit.ViewModels.Pages;
-using iZathfit.ViewModels.Windows;
 using iZathfit.Views.Pages;
 using iZathfit.Views.Pages.Mantenimiento;
+using iZathfit.Views.Pages.Negocio;
+using iZathfit.Views.Pages.Negocio.Ventanas.ViewModels;
 using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Services.Genero;
 using Services.Login;
+using Services.Ocupacion;
+using Services.PadecimientosEnfermedades;
 using Services.Persona;
+using Services.Plan;
+using Services.PlanDuracion;
 using Services.Rol;
+using Services.Servicios;
 using Services.TipoIdentificacion;
 using Services.Usuario;
-using Services.Ventana;
-using System.IO;
-using System.Reflection;
 using System.Windows.Threading;
 
 namespace iZathfit
@@ -57,8 +60,15 @@ namespace iZathfit
                
 
                 services.AddTransient<HomePage>();
-                services.AddTransient<MantenimientosPage>();               
+                services.AddTransient<MantenimientosPage>();
+                services.AddTransient<ServiciosPage>();
                 services.AddTransient<MantenimientoPersonas>();
+                services.AddTransient<MantenimientoUsuarios>();
+                services.AddTransient<MantenimientoOcupaciones>();
+                services.AddTransient<MantenimientoTipoIdentificacion>();
+                services.AddTransient<MantenimientoPadecimientosEnfermedades>();
+                services.AddTransient<PlanDuracionPage>();
+                services.AddTransient<PlanesPage>();
 
                 services.AddScoped<MainWindow>();
                 services.AddScoped<LoginPage>();
@@ -73,16 +83,25 @@ namespace iZathfit
                 services.AddScoped<IGeneroService, GeneroService>();
                 services.AddScoped<ILoginService, LoginService>();
                 services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-                services.AddScoped<IOcupacionXPersonaRepository, OcupacionXPersonaRepository>();
+                services.AddScoped<IOcupacionService, OcupacionService>();
+                services.AddScoped<IOcupacionRepository, OcupacionRepository>();
                 services.AddScoped<IPersonaService, PersonaService>();
                 services.AddScoped<IUsuarioService, UsuarioService>();
-                services.AddScoped<IVentanaRepository, VentanaRepository>();
-                services.AddScoped<IVentanaService, VentanaService>();
                 services.AddScoped<ITipoIdentificacionRepository, TipoIdentificacionRepository>();
                 services.AddScoped<ITipoIdentificacionService, TipoIdentificacionService>();
                 services.AddScoped<IGlobalHelpers, GlobalHelpers>();
                 services.AddScoped<IRolRepository, RolRepository>();
                 services.AddScoped<IRolService, RolService>();
+                services.AddScoped<IPadecimientosEnfermedadesRepository, PadecimientosEnfermedadesRepository>();
+                services.AddScoped<IPadecimientosEnfermedadesService, PadecimientosEnfermedadesService>();
+                services.AddScoped<IServiciosRepositoryI, ServiciosRepository>();
+                services.AddScoped<IServiciosService, ServiciosService>();
+                services.AddScoped<ServiciosViewModel>();
+                services.AddScoped<IPlanDuracionRepository, PlanDuracionRepository>();
+                services.AddScoped<IPlanDuracionService, PlanDuracionService>();
+                services.AddScoped<PlanDuracionFormViewModel>();
+                services.AddScoped<IPlanRepository, PlanRepository>();
+                services.AddScoped<IPlanService, PlanService>();
 
                 services.AddSingleton<localDialogService>();
                 services.AddSingleton<GlobalService>();

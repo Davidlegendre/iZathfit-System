@@ -51,8 +51,8 @@ public partial class MainWindow : UiWindow
     private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
         if (NavigationView.Content.ToString() != typeof(LoginPage).FullName 
-            && localDialog?.ShowDialog(new() { Title = "Saliendo", Message = "Desea Salir?", 
-                aceptarContent = "Si", cancelarContent = "No" }, this) == true)
+            && localDialog?.ShowDialog(titulo: "Saliendo", mensaje: "Desea Salir?",
+            aceptarbutton: "Si", cancelarButton: "No", owner: this, ShowCancelButton: true) == true)
         {
             e.Cancel = true;
             _config?.SetUserSistema(null);

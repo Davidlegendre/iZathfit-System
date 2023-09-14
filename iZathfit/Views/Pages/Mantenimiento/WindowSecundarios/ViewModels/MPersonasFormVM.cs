@@ -1,7 +1,10 @@
-﻿using Configuration.GlobalHelpers;
+﻿using Configuration;
+using Configuration.GlobalHelpers;
 using iZathfit.Helpers;
+using iZathfit.Views.Windows;
 using Models;
 using Services.Genero;
+using Services.Ocupacion;
 using Services.Persona;
 using Services.Rol;
 using Services.TipoIdentificacion;
@@ -19,6 +22,8 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         IPersonaService? _personaService;
         IGlobalHelpers? _helpService;
         IExceptionHelperService? _helperex;
+        IGeneralConfiguration? _config;
+        IOcupacionService? _OcupacionService;
         
         public MPersonasFormVM()
         {
@@ -29,9 +34,9 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             _personaService = App.GetService<IPersonaService>();
             _helperex = App.GetService<IExceptionHelperService>();
             _helpService = App.GetService<IGlobalHelpers>();
+            _config = App.GetService<IGeneralConfiguration>();
+            _OcupacionService = App.GetService<IOcupacionService>();
         }
-
-        
 
         [ObservableProperty]
         ObservableCollection<TipoIdentificacionModel>? tipoIdentificacionList;
@@ -41,6 +46,9 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 
         [ObservableProperty]
         ObservableCollection<RolModel>? rolList;
+
+        [ObservableProperty]
+        ObservableCollection<Ocupacion>? ocupacionList;
 
         [ObservableProperty]
         string? identificacion = "";
@@ -58,7 +66,15 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         DateTime fechnacimiento = DateTime.Now;
 
         [ObservableProperty]
+        string? numemergencia1 = "";
+        [ObservableProperty]
+        string? numemergencia2 = "";
+
+        [ObservableProperty]
         TipoIdentificacionModel? tipoIdentificacion;
+
+        [ObservableProperty]
+        Ocupacion? ocupacionmodel;
 
         [ObservableProperty]
         GeneroModel? generoModel;
@@ -66,25 +82,36 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         [ObservableProperty]
         RolModel? rolModel;
 
-        public async Task CargarDatos(PersonaModel? persona = null) {
-            if (_TipoIdentificacionService == null || _generoservice == null || _rolservice == null) return;
+        [ObservableProperty]
+        Visibility limpiarbtnVisible = Visibility.Visible;
+
+        public async Task<bool> CargarDatos(UiWindow win,PersonaModel? persona = null) {
+            if (_TipoIdentificacionService == null || _generoservice == null || _rolservice == null 
+                || _OcupacionService == null) return false;
             var tipos = await _TipoIdentificacionService.GetTipoIdentificaciones();
             var gener = await _generoservice.GetGeneros();
             var rol = await _rolservice.GetRoles();
+            var ocup = await _OcupacionService.GetOcupaciones();
 
-            if (tipos == null || gener == null || rol == null)
-            { mensaje("No Puede Acceder, faltan: Tipo de Indentificacion, Genero o Rol", "Ups"); return; }
+            if (tipos == null || gener == null || rol == null || ocup == null 
+                || ocup.Count() == 0 || tipos.Count() == 0 || gener.Count() == 0 || rol.Count() ==0)
+            {
+                _dialog?.ShowDialog(
+                mensaje: "No Puede Acceder, faltan: Tipo de Indentificacion, Genero o Rol",
+                titulo: "Ups", owner: win); return false;
+            }
 
             TipoIdentificacionList = new ObservableCollection<TipoIdentificacionModel>(tipos);
             GeneroList = new ObservableCollection<GeneroModel>(gener);
             RolList = new ObservableCollection<RolModel>(rol);
+            OcupacionList = new ObservableCollection<Ocupacion>(ocup);
 
             if (TipoIdentificacionList != null)
                 TipoIdentificacion = persona != null ?
-                    tipos.Find(x => x.IdTipoIdentity == persona.IdTipoIdentity) : TipoIdentificacionList[0];
-            if (GeneroList != null) GeneroModel = persona != null ? gener.Find(x => x.IdGenero == persona.IdGenero) : GeneroList[0];
-            if (RolList != null) RolModel = persona != null ? rol.Find(x => x.IdRol == persona.IdRol) : RolList[0];
-
+                    tipos.Find(x => x.IdTipoIdentity == persona.IdTipoIdentity) : null;
+            if (GeneroList != null) GeneroModel = persona != null ? gener.Find(x => x.IdGenero == persona.IdGenero) : null;
+            if (RolList != null) RolModel = persona != null ? rol.Find(x => x.IdRol == persona.IdRol) : null;
+            if (OcupacionList != null) Ocupacionmodel = persona != null ? ocup.Find(x => x.IdOcupacion == persona.IdOcupacion) : null;
             if (persona != null)
             {
                 Identificacion = persona.Identificacion;
@@ -94,58 +121,99 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 Telefono = persona.Telefono;
                 Email = persona.Email;
                 Fechnacimiento = persona.Fech_Nacimiento;
+                Numemergencia1 = persona.NumeroEmergencia1;
+                Numemergencia2 = persona.NumeroEmergencia2;
+                LimpiarbtnVisible = Visibility.Collapsed;
             }
+
+            return true;
 
         }
 
+        public void Limpiar() {
+            Nombres = "";
+            Apellidos = "";
+            Direccion = "";
+            Email = "";
+            Fechnacimiento = DateTime.Now;
+            Identificacion = "";
+            GeneroModel = null;
+            RolModel = null;
+            Ocupacionmodel = null;
+            TipoIdentificacion = null;
+            Telefono = "";
+            Numemergencia1 = "";
+            Numemergencia2 = "";
+        }
+
         public async Task<bool> GuardarPersona(UiWindow win, ObservableCollection<PersonaModel> lista) {
-            if (!Verificar() || _helperex == null || _personaService == null)
+            var usuario = _config?.getuserSistema();
+            if (!Verificar() || _helperex == null || _personaService == null || usuario == null)
                 return false;
+            
+            if (_dialog?.ShowConfirmPassword(mensaje: "Hola, confirme la contraseña primero: ", 
+                titulo: "Credenciales", contrasena: usuario.contrasena, owner: win) == false)
+            { _dialog?.ShowDialog("Contraseña Invalida", owner: win); return false; }
 
             var persona = new PersonaModel() { 
                 Nombres = Nombres,
                 Apellidos = Apellidos,
-                Direccion = string.IsNullOrWhiteSpace(Direccion) ? "-": Direccion,
-                Email= string.IsNullOrWhiteSpace(Email) ? "-" : Email,
+                Direccion = Direccion,
+                Email= Email,
                 Fech_Nacimiento = Fechnacimiento,
                 Identificacion = Identificacion,
                 IdGenero = GeneroModel.IdGenero,
                 IdRol = RolModel.IdRol,
                 IdTipoIdentity = TipoIdentificacion.IdTipoIdentity,
-                Telefono = string.IsNullOrWhiteSpace(Telefono) ? "-" : Telefono
+                Telefono = Telefono,
+                IdOcupacion = Ocupacionmodel.IdOcupacion,
+                NumeroEmergencia1 = Numemergencia1,
+                NumeroEmergencia2 = Numemergencia2
             };
 
             var result = await _helperex.ExcepHandler(() => _personaService.InsertarPersona(persona), win);
             if (result != null)
             {
-                mensaje("Persona Ingresada correctamente");
+                _dialog?.ShowDialog("Persona Ingresada correctamente", owner: win);
                 lista.Add(result);
             }
             return result != null;
         }
 
-        public async Task<bool> ActualizarPersona(UiWindow win, Guid IdPersona ,ObservableCollection<PersonaModel> lista)
+        public async Task<bool> ActualizarPersona(UiWindow win, Guid IdPersona, ObservableCollection<PersonaModel> lista)
         {
-            if (!Verificar() || _helperex == null || _personaService == null)
+            var usuario = _config?.getuserSistema();
+            if (!Verificar() || _helperex == null || _personaService == null || usuario == null)
                 return false;
+
+            if (_dialog?.ShowConfirmPassword(mensaje: "Hola, confirme la contraseña primero: ",
+               titulo: "Credenciales", contrasena: usuario.contrasena, owner: win) == false)
+            {
+                _dialog?.ShowDialog("Contraseña Invalida", owner: win);
+                return false;
+            }
+
             var persona = new PersonaModel()
             {
                 IdPersona = IdPersona,
                 Nombres = Nombres,
                 Apellidos = Apellidos,
-                Direccion = string.IsNullOrWhiteSpace(Direccion) ? "-" : Direccion,
-                Email = string.IsNullOrWhiteSpace(Email) ? "-" : Email,
+                Direccion = Direccion,
+                Email = Email,
                 Fech_Nacimiento = Fechnacimiento,
                 Identificacion = Identificacion,
                 IdGenero = GeneroModel.IdGenero,
                 IdRol = RolModel.IdRol,
                 IdTipoIdentity = TipoIdentificacion.IdTipoIdentity,
-                Telefono = string.IsNullOrWhiteSpace(Telefono) ? "-" : Telefono
+                Telefono = Telefono,
+                IdOcupacion = Ocupacionmodel.IdOcupacion,
+                NumeroEmergencia1 = Numemergencia1,
+                NumeroEmergencia2 = Numemergencia2
             };
             var result = await _helperex.ExcepHandler(()=> _personaService.UpdatePersona(persona), win);
             if (result != null)
             {
-                mensaje("Persona Modificada correctamente");
+                _dialog?.ShowDialog("Persona Modificada correctamente", owner: win);
                 lista.Remove(lista.First(x => x.IdPersona == result.IdPersona));
                 lista.Insert(0, result);
             }
@@ -154,48 +222,54 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         }
 
 
-        bool mensaje(string mensaje, string titulo = "Mensaje", bool ShowCancelButton = false) {
-            if (_dialog == null) return false;
-            return _dialog.ShowDialog(new Models.ModelsCommons.DialogModel() { canShowCancelButton = ShowCancelButton, Title = titulo, Message = mensaje});
-        }
-
         bool Verificar() {
             if (_helpService == null) return false;
             if (!_helpService.IsNumber(Identificacion))
             {
-                mensaje("Identificacion es incorrecto o no tiene valor");
+                _dialog?.ShowDialog("Identificacion es incorrecto o no tiene valor");
                 return false;
             }
             if (string.IsNullOrWhiteSpace(Nombres))
             {
-                mensaje("Nombres no tiene valor");
+                _dialog?.ShowDialog("Nombres no tiene valor");
                 return false;
             }
             if (string.IsNullOrWhiteSpace(Apellidos))
             {
-                mensaje("Apellidos no tiene valor");
+                _dialog?.ShowDialog("Apellidos no tiene valor");
                 return false;
             }
            
             if (!_helpService.IsNumber(Telefono))
             {
-                mensaje("Telefono es incorrecto o no tiene valor");
+                _dialog?.ShowDialog("Telefono es incorrecto o no tiene valor");
                 return false;
-            }           
+            }
+
+            if (!_helpService.IsNumber(Numemergencia1))
+            {
+                _dialog?.ShowDialog("Numero de Emergencia 1 es incorrecto o no tiene valor");
+                return false;
+            }
 
             if (GeneroModel == null)
             {
-                mensaje("No hay Genero Seleccionado");
+                _dialog?.ShowDialog("No hay Genero Seleccionado");
                 return false;
             }
             if (RolModel == null)
             {
-                mensaje("No hay un Rol Seleccionado");
+                _dialog?.ShowDialog("No hay un Rol Seleccionado");
                 return false;
             }
             if (TipoIdentificacion == null)
             {
-                mensaje("No hay un Tipo de Indentificacion Seleccionado");
+                _dialog?.ShowDialog("No hay un Tipo de Indentificacion Seleccionado");
+                return false;
+            }
+            if (Ocupacionmodel == null)
+            {
+                _dialog?.ShowDialog("No hay una Ocupacion Seleccionada");
                 return false;
             }
             return true;

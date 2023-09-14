@@ -8,6 +8,10 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Helpers
 {
+    /// <summary>
+    /// IExceptionHelperService: obtiene las excepciones cualquiera y devuelve el resultado
+    /// Null si fue error o False si fue error depende
+    /// </summary>
     public class ExceptionsHelperService : IExceptionHelperService
     {
         localDialogService _dialog;
@@ -24,16 +28,33 @@ namespace iZathfit.Helpers
             }
             catch (Exception ex)
             {
-                _dialog.ShowDialog(new Models.ModelsCommons.DialogModel()
-                {
-                    Title = "Ups",
-                    Message = "No se alarme, solo contacte al desarrollador en caso de dudas\n\nError: " + ex.Message,
-                    Links = new List<Models.ModelsCommons.LinkModel>() {
-                         new Models.ModelsCommons.LinkModel(){ TitlePage = "Whatsapp", Url = "https://www.google.com"}
-                    },
-                    canShowCancelButton = false
-                }, owner);
+                _dialog.ShowDialog(mensaje: "No se alarme, solo contacte al desarrollador en caso de dudas\n\nError: " + ex.Message,
+                    titulo: "Ups",
+                    links: new Models.ModelsCommons.LinkModel[] 
+                    {
+                        new Models.ModelsCommons.LinkModel()
+                        { TitlePage = "Whatsapp", Url = "https://www.google.com"}
+                    }, owner: owner);
                 return default;
+            }
+        }
+        public async Task<bool> ExcepHandler(Func<Task> accion, UiWindow owner)
+        {
+            try
+            {
+                await accion();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _dialog.ShowDialog(mensaje: "No se alarme, solo contacte al desarrollador en caso de dudas\n\nError: " + ex.Message,
+                    titulo: "Ups",
+                    links: new Models.ModelsCommons.LinkModel[]
+                    {
+                        new Models.ModelsCommons.LinkModel()
+                        { TitlePage = "Whatsapp", Url = "https://www.google.com"}
+                    }, owner: owner);
+                return false;
             }
         }
     }

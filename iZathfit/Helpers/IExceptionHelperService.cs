@@ -7,8 +7,14 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Helpers
 {
+    /// <summary>
+    /// IExceptionHelperService: obtiene las excepciones cualquiera y devuelve el resultado
+    /// Null si fue error o False si fue error depende
+    /// </summary>
     public interface IExceptionHelperService
     {
+        
         public Task<T?> ExcepHandler<T>(Func<Task<T>> accion, UiWindow owner);
+        public Task<bool> ExcepHandler(Func<Task> accion, UiWindow owner);
     }
 }

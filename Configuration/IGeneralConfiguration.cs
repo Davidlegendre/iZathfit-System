@@ -13,5 +13,6 @@ namespace Configuration
         public void SetUserSistema(UsuarioSistema? usuario);
         public UsuarioSistema? getuserSistema();
         public string GetRol(TypeRol typerol);
+        public TypeRol GetRol(string rol);
     }
 }

@@ -1,4 +1,6 @@
-﻿using iZathfit.ModelsComponents;
+﻿using Configuration;
+using Configuration.GlobalHelpers;
+using iZathfit.ModelsComponents;
 using iZathfit.Views.Pages.Mantenimiento;
 using System;
 using System.Collections.Generic;
@@ -13,8 +15,10 @@ namespace iZathfit.ViewModels.Pages
 {
     public partial class MantenimientosVM : ObservableObject
     {
+        IGlobalHelpers? _helpers;
         public MantenimientosVM()
         { 
+            _helpers = App.GetService<IGlobalHelpers>();
             Mantenimientolist = new ObservableCollection<MenuItemCardsModel>()
             {
                 new MenuItemCardsModel() { Title = "Mantenimiento de Personas",
@@ -22,15 +26,51 @@ namespace iZathfit.ViewModels.Pages
                     "Eliminar, Actualizar y consultar todas las personas (algunos casos tienen restricciones)",
                     Icon = Wpf.Ui.Common.SymbolRegular.PersonEdit24,
                     Comando = () => {
-                        ChangeContentInterno(App.GetService<MantenimientoPersonas>(), 
+                        ChangeContentInterno(App.GetService<MantenimientoPersonas>(),
                             "Mantenimiento de Personas", Wpf.Ui.Common.SymbolRegular.PersonEdit24);
-                    }
+                    },
+                    Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño, TypeRol.Administrador)
+                    ? Visibility.Collapsed : Visibility.Visible
                 },
                 new MenuItemCardsModel()
                 {
-                    Title = "Mantenimiento de Ventanas",
-                    Description = "Acá puede administrar las ventanas del sistema, es para poder usarlos en los permisos posteriormente",
-                    Icon = SymbolRegular.WindowWrench24
+                    Title = "Mantenimiento de Usuarios",
+                    Description = "En esta seccion administrará los usuarios del sistema",
+                    Icon = SymbolRegular.LayerDiagonalPerson20,
+                    Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño)
+                    ? Visibility.Collapsed : Visibility.Visible,
+                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoUsuarios>(),
+                    "Mantenimiento de Usuario", SymbolRegular.LayerDiagonalPerson20); }
+                },
+                new MenuItemCardsModel()
+                {
+                    Title = "Mantenimiento de Ocupaciones",
+                    Description = "En esta seccion se administra las ocupaciones que hacen cada uno de sus trabajadores y clientes",
+                    Icon = SymbolRegular.ContactCardRibbon20,
+                    Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño, TypeRol.Administrador)
+                    ? Visibility.Collapsed : Visibility.Visible,
+                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoOcupaciones>(),
+                    "Mantenimiento de Ocupaciones", SymbolRegular.ContactCardRibbon20); }
+                },
+                new MenuItemCardsModel()
+                {
+                    Title = "Mantenimiento de Tipo de Identificaciones",
+                    Description = "En esta seccion se administra los tipos de identificaciones",
+                    Icon = SymbolRegular.Incognito20,
+                    Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño)
+                    ? Visibility.Collapsed : Visibility.Visible,
+                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoTipoIdentificacion>(),
+                    "Mantenimiento de Tipo de Identificaciones", SymbolRegular.Incognito20); }
+                },
+                new MenuItemCardsModel()
+                {
+                    Title = "Mantenimiento de Padecimientos y Enfermedades",
+                    Description = "En esta seccion se administra los Padecimientos y Enfermedades de todas las personas: trabajadores, clientes, etc",
+                    Icon = SymbolRegular.Stethoscope20,
+                    Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño, TypeRol.Administrador)
+                    ? Visibility.Collapsed : Visibility.Visible,
+                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoPadecimientosEnfermedades>(),
+                    "Mantenimiento de Padecimientos y Enfermedades", SymbolRegular.Stethoscope20); }
                 }
 
             };
@@ -65,7 +105,7 @@ namespace iZathfit.ViewModels.Pages
         }
 
         void ChangeContentInterno(UserControl? user, string titulo, SymbolRegular icon) {
-            Listahorizontalaligment = HorizontalAlignment.Left;
+            Listahorizontalaligment = HorizontalAlignment.Stretch;
             ContentMantenimientoPag = user;
             TitleActualPag = titulo;
             IconActualPag = icon;

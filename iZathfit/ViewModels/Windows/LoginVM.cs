@@ -60,12 +60,8 @@ public partial class LoginVM : ObservableObject
         if(_helperex == null || loginService== null) return;
         if (string.IsNullOrWhiteSpace(User) || string.IsNullOrWhiteSpace(Password))
         {
-            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
-            {
-                Title = "Login Incorrecto",
-                canShowCancelButton = false,
-                Message = "Usuario o Password incorrecto"
-            }, App.GetService<MainWindow>());
+            localDialogService?.ShowDialog(mensaje: "Usuario o Password incorrecto", 
+                titulo: "Login Incorrecto", owner: App.GetService<MainWindow>());
             return;
         }
 
@@ -73,12 +69,9 @@ public partial class LoginVM : ObservableObject
 
         if (user == null)
         {
-            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
-            {
-                Title = "Login Incorrecto",
-                canShowCancelButton = false,
-                Message = "Usuario o Password incorrecto"
-            }, App.GetService<MainWindow>());
+            localDialogService?.ShowDialog(
+                mensaje: "Usuario o Password incorrecto", titulo: "Login Incorrecto", 
+                owner: App.GetService<MainWindow>());
             return;
         }
 
@@ -99,19 +92,16 @@ public partial class LoginVM : ObservableObject
 
         if(string.IsNullOrWhiteSpace(email))
         {
-            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel() { Title = "Email Incorrecto", Message = "Ingrese un email",
-            canShowCancelButton = false}, App.GetService<MainWindow>());
+            localDialogService?.ShowDialog(
+                titulo: "Email Incorrecto", mensaje: "Ingrese un email", owner: App.GetService<MainWindow>());
             return;
         }
         var existemail = await _helperex.ExcepHandler(() => _personaservice.VerificarEmail(email), App.GetService<MainWindow>());
 
         if (existemail == null) {
-            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
-            {
-                Title = "Email Incorrecto",
-                Message = "Ese email no fue encontrado",
-                canShowCancelButton = false
-            }, App.GetService<MainWindow>());
+            localDialogService?.ShowDialog(titulo: "Email Incorrecto", 
+                mensaje: "Ese email no fue encontrado",
+                owner: App.GetService<MainWindow>());
             return;
         }
         GuidPersonForgot = existemail;
@@ -148,12 +138,9 @@ public partial class LoginVM : ObservableObject
     void VerificarCodigo(string? code) {
         if (code != CodeEmail)
         {
-            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
-            {
-                Title = "Codigo Incorrecto",
-                Message = "Ingrese el codigo correcto",
-                canShowCancelButton = false
-            }, App.GetService<MainWindow>());
+            localDialogService?.ShowDialog(
+                titulo: "Codigo Incorrecto", mensaje: "Ingrese el codigo correcto",
+                owner: App.GetService<MainWindow>());
             return;
         }
 
@@ -166,35 +153,26 @@ public partial class LoginVM : ObservableObject
         if (_helperex == null || _usuario == null) return;
         if (string.IsNullOrWhiteSpace(contraseña))
         {
-            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
-            {
-                Title = "Contraseña Incorrecta",
-                Message = "Ingrese una contraseña",
-                canShowCancelButton = false
-            }, App.GetService<MainWindow>());
+            localDialogService?.ShowDialog(
+                titulo: "Contraseña Incorrecta", mensaje: "Ingrese una contraseña",
+                owner: App.GetService<MainWindow>());
             return;
         }
 
         if (string.IsNullOrWhiteSpace(contraseña))
         {
-            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
-            {
-                Title = "Contraseña Incorrecta",
-                Message = "Ingrese una contraseña",
-                canShowCancelButton = false
-            }, App.GetService<MainWindow>());
+            localDialogService?.ShowDialog(
+                titulo: "Contraseña Incorrecta", mensaje: "Ingrese una contraseña", 
+                owner: App.GetService<MainWindow>());
             return;
         }
 
         var result = await _helperex.ExcepHandler(() => _usuario.CambiarContraseña(contraseña, GuidPersonForgot), App.GetService<MainWindow>());
         if (result > 0)
         {
-            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
-            {
-                Title = "Contraseña Cambiada",
-                Message = "Su Contraseña ha sido cambiada",
-                canShowCancelButton = false
-            }, App.GetService<MainWindow>());
+            localDialogService?.ShowDialog(
+                titulo: "Contraseña Cambiada", mensaje: "Su Contraseña ha sido cambiada",
+                owner: App.GetService<MainWindow>());
             EnableNewPasswordTxt = false;
 
         }

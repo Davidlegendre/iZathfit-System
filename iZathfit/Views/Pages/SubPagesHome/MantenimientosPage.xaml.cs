@@ -41,6 +41,7 @@ namespace iZathfit.Views.Pages.SubPagesHome
             var contexto = button.DataContext as MenuItemCardsModel;
             if (contexto != null && contexto.Comando != null)
             {
+                Wpf.Ui.Animations.Transitions.ApplyTransition(contenidowin, Wpf.Ui.Animations.TransitionType.FadeIn, 200);
                 contexto.Comando.Invoke();
             }
         }

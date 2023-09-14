@@ -10,5 +10,8 @@ namespace Domain.TipoIdentificacion
     public interface ITipoIdentificacionRepository
     {
         public Task<List<TipoIdentificacionModel>?> GetTipoIdentificacion();
+        public Task<TipoIdentificacionModel?> InsertTipoIdentificacion(TipoIdentificacionModel tipoidentificacion);
+        public Task<TipoIdentificacionModel?> UpdateTipoIdentificacion(TipoIdentificacionModel tipoidentificacion);
+        public Task<int> DeleteTipoIdentificacion(int IdTipoidentificacion);
     }
 }

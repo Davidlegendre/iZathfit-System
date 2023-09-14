@@ -49,8 +49,10 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
         private async void MPersonasForm_Loaded(object sender, RoutedEventArgs e)
         {
             if (_vm != null)
-               await _vm.CargarDatos(persona);
+                if (await _vm.CargarDatos(this,persona) == false)
+                    this.Close();
             TBTitulo.Title = persona == null ? "Agregar Persona" : "Modificar Persona";
+            txtidentificacion.Focus();
         }
 
         private void btncancelar_Click(object sender, RoutedEventArgs e)
@@ -60,6 +62,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
+
             var result = persona == null? await _vm!.GuardarPersona(this, _personas):
                 await _vm!.ActualizarPersona(this, persona.IdPersona, _personas);
             if(result)
@@ -67,6 +70,22 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
                 resultdialog = true;
                 this.Close();
             }    
+        }
+
+        private void btnlimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            if (_vm == null) return;
+            _vm.Limpiar();
+            txtidentificacion.Focus();
+        }
+
+        private void btnAddOcupacion_click(object sender, RoutedEventArgs e)
+        {
+            var win = 
+            new MOcupacionesForm(_vm.OcupacionList);
+            win.Owner = this;
+            win.ShowDialog();
+            
         }
     }
 }

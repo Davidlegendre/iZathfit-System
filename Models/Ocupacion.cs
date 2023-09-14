@@ -9,6 +9,6 @@ namespace Models
     public class Ocupacion
     {
         public int IdOcupacion { get; set; }
-        public string? Description { get; set; }
+        public string? descripcion { get; set; }
     }
 }

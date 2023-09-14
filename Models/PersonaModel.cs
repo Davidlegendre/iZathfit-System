@@ -20,12 +20,17 @@ namespace Models
         public string? Telefono { get; set; }
         public string? Email { get; set; }
         public int IdGenero { get; set; }
+        public string? NumeroEmergencia1 { get; set; }
+        public string? NumeroEmergencia2 { get; set; }
         public string? Identificacion { get; set; }
         public int IdTipoIdentity { get; set; }
 
         public string? Genero { get; set; }
         public string? TipoIdentificacion { get; set; } 
         public string? Rol { get; set; }
+        public string? CodeRol { get; set; }
+        public int IdOcupacion { get; set; }
+        public string? Ocupacion { get; set; }
 
         public string? GetCompleteName => Nombres + " " + Apellidos;
         public string? GetEdad => "Edad: " + Edad;

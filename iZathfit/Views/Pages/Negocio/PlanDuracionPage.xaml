@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="iZathfit.Views.Pages.Negocio.PlanDuracionPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iZathfit.Views.Pages.Negocio"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:viewmodels="clr-namespace:iZathfit.ViewModels.Pages.Negocio"
+             xmlns:helpers="clr-namespace:iZathfit.Helpers"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewmodels:PlanDuracionPageViewModel></viewmodels:PlanDuracionPageViewModel>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></helpers:BoolToVisibilityConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <ui:Card  Margin="10,0,7,0" BorderThickness="0" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right">
+                <ui:TextBox Name="txtSearch" Margin="0,0,0,0" KeyDown="txtSearch_keydown" Width="370" Icon="Search20" Background="Transparent" Padding="10,7,10,10" VerticalAlignment="Top" PlaceholderText="Buscador ">
+
+                </ui:TextBox>
+            </ui:Card>
+            <ui:Button Name="btnAdd" Click="btnAdd_Click" Icon="Add20"  VerticalAlignment="Stretch"></ui:Button>
+        </StackPanel>
+        <Label Grid.Row="1" Content="No hay Planes Duraciones" Visibility="{Binding Items.IsEmpty,ElementName=lista, Converter={StaticResource BoolToVisibilityConverter}}" Margin="10" FontFamily="segoe ui semibold" FontSize="15"></Label>
+        <ui:VirtualizingItemsControl Name="lista" Grid.Row="1" ItemsSource="{Binding Planduracion}" Margin="10">
+            <ui:VirtualizingItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel></WrapPanel>
+                </ItemsPanelTemplate>
+            </ui:VirtualizingItemsControl.ItemsPanel>
+            <ui:VirtualizingItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ui:Card Padding="8" VerticalAlignment="Top" Margin="0,10,10,0">
+                        <Grid Width="270">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:SymbolIcon VerticalAlignment="Center" Margin="0,0,0,0" Symbol="Clock20" FontSize="28"></ui:SymbolIcon>
+                            <StackPanel Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding GetMesesTiempoString}" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
+                                <TextBlock Text="{Binding descripcion}" TextWrapping="Wrap" Opacity="0.8"></TextBlock>
+                            </StackPanel>
+                            <UniformGrid Columns="1" Grid.Column="2">
+                                <ui:Button Icon="Edit20" Name="btnedit" Click="btnedit_Click" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" Cursor="Hand"></ui:Button>
+                                <ui:Button Icon="Delete20" Name="btndelete" Click="btndelete_Click" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" Cursor="Hand"></ui:Button>
+                            </UniformGrid>
+                        </Grid>
+                    </ui:Card>
+                </DataTemplate>
+            </ui:VirtualizingItemsControl.ItemTemplate>
+
+        </ui:VirtualizingItemsControl>
+
+    </Grid>
+</UserControl>

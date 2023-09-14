@@ -15,6 +15,9 @@
     <Compile Update="Components\MenuUsuario.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Components\TimePicker\TimePIcker.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\ForgotPassword\ForgotPasswordPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -24,10 +27,49 @@
     <Compile Update="Views\Pages\LoginPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\Mantenimiento\MantenimientoOcupaciones.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Mantenimiento\MantenimientoPadecimientosEnfermedades.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\Mantenimiento\MantenimientoPersonas.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\Mantenimiento\MantenimientoTipoIdentificacion.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Mantenimiento\MantenimientoUsuarios.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Mantenimiento\WindowSecundarios\MOcupacionesForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\Mantenimiento\WindowSecundarios\MPersonasForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Mantenimiento\WindowSecundarios\MTipoIdentifiacionForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Mantenimiento\WindowSecundarios\MUsuarioForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Negocio\PlanDuracionPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Negocio\ServiciosPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Negocio\Ventanas\PlanDuracionForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Negocio\PlanesPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Negocio\Ventanas\PlanForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Negocio\Ventanas\ServiciosForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\SubPagesHome\MantenimientosPage.xaml.cs">
@@ -44,6 +86,9 @@
     <Page Update="Components\MenuUsuario.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Components\TimePicker\TimePIcker.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\ForgotPassword\ForgotPasswordPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -53,10 +98,52 @@
     <Page Update="Views\Pages\LoginPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\Mantenimiento\MantenimientoOcupaciones.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Mantenimiento\MantenimientoPadecimientosEnfermedades.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\Mantenimiento\MantenimientoPersonas.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\Mantenimiento\MantenimientoTipoIdentificacion.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Mantenimiento\MantenimientoUsuarios.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Mantenimiento\WindowSecundarios\MPadecimientosEnfermedadesForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Mantenimiento\WindowSecundarios\MOcupacionesForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\Mantenimiento\WindowSecundarios\MPersonasForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Mantenimiento\WindowSecundarios\MTipoIdentifiacionForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Mantenimiento\WindowSecundarios\MUsuarioForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Negocio\PlanDuracionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Negocio\ServiciosPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Negocio\Ventanas\PlanDuracionForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Negocio\PlanesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Negocio\Ventanas\PlanForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Negocio\Ventanas\ServiciosForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\SubPagesHome\Home.xaml">

@@ -1,0 +1,44 @@
+﻿<ui:UiWindow x:Class="iZathfit.Views.Pages.Negocio.Ventanas.PlanDuracionForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas"
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        Background="{ui:ThemeResource}"       
+        mc:Ignorable="d"
+        Title="PlanDuracionForm" Height="270" MinWidth="0" MinHeight="0" Width="315" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ui:TitleBar Name="tbtitle" ShowMaximize="False" CanMaximize="False" Title="sad" ></ui:TitleBar>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ui:NumberBox Name="nbTiempoMeses" Icon="Clock20" PlaceholderText="Tiempo en Meses" Margin="7" Maximum="12" Minimum="1" MaxDecimalPlaces="0" LargeChange="12" AcceptsExpression="False" />
+                <TextBlock Grid.Column="1" FontFamily="Segoe Ui Semibold" Opacity="0.8" Text="Meses" VerticalAlignment="Center" FontSize="16" Foreground="{Binding Foreground,ElementName=tbtitle}" Margin="0,0,7,0"></TextBlock>
+            </Grid>
+            <ui:TextBox Name="txtdescripcion" Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxLength="100" PlaceholderText="Descripcion (opcional)" TextWrapping="Wrap" Icon="TextDescription24" AcceptsReturn="True" Margin="7">
+                
+            </ui:TextBox>
+            
+        </Grid>
+        <UniformGrid x:Name="uniformgridpanel" Grid.Row="2" Rows="1" Margin="7">
+            <ui:Button Name="btnadd" Click="btnadd_Click" Appearance="Primary" HorizontalAlignment="Stretch" Margin="0,0,5,0" Content="Guardar"></ui:Button>
+            <ui:Button Name="btncancelar" Click="btncancelar_Click" HorizontalAlignment="Stretch" Margin="0,0,5,0" Content="Cancelar"></ui:Button>
+            <ui:Button Name="btnlimpiar" Click="btnlimpiar_Click" HorizontalAlignment="Stretch" Content="Limpiar"></ui:Button>
+        </UniformGrid>
+    </Grid>
+</ui:UiWindow>

@@ -23,15 +23,15 @@ namespace Configuration.GlobalHelpers
             Cliente => no tiene usuario
              */
             if (rolModels == null) return rolModels;
-            var user = _config.getuserSistema();
             
-            if (user != null && user.CodeRol == _config.GetRol(TypeRol.Desarrollador))
+            if (PolicyReturnBool(TypeRol.Desarrollador))
                 return rolModels.Where(x => x.Code != _config.GetRol(TypeRol.Desarrollador)).ToList();
 
-            if (user != null && user.CodeRol == _config.GetRol(typerol: TypeRol.Dueño))
+            if (PolicyReturnBool(TypeRol.Dueño))
                 return rolModels.Where(x => x.Code != _config.GetRol(TypeRol.Desarrollador) 
                 && x.Code != _config.GetRol(TypeRol.Dueño)).ToList();
-            if (user != null && user.CodeRol == _config.GetRol(TypeRol.Administrador))
+
+            if (PolicyReturnBool(TypeRol.Administrador))
                 return rolModels.Where(x => x.Code != _config.GetRol(TypeRol.Desarrollador)
                 && x.Code != _config.GetRol(TypeRol.Dueño) && x.Code != _config.GetRol(TypeRol.Administrador)).ToList();
 
@@ -50,6 +50,23 @@ namespace Configuration.GlobalHelpers
                 }
             }
             return result;
+        }
+
+        public void Policy(params TypeRol[] typeRols) {
+            var user = _config.getuserSistema();
+            if (user == null || user.CodeRol == null) throw new Exception("No es autorizado");
+            if (!typeRols.ToList().Exists(x => x == _config.GetRol(user.CodeRol)))
+                throw new Exception("No es autorizado");
+        }
+
+        public bool PolicyReturnBool(params TypeRol[] typeRols)
+        {
+            var user = _config.getuserSistema();
+            if (user == null || user.CodeRol == null) return false;
+            if (!typeRols.ToList().Exists(x => x == _config.GetRol(user.CodeRol)))
+                return false;
+
+            return true;
         }
     }
 }

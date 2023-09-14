@@ -60,12 +60,9 @@ public partial class LoginPage : UserControl
     {
         if (!NetworkInterface.GetIsNetworkAvailable())
         {
-            localDialogService?.ShowDialog(new Models.ModelsCommons.DialogModel()
-            {
-                Title = "Ups No hay Internet",
-                canShowCancelButton = false,
-                Message = "No podemos iniciar este proceso, ya que no tiene internet, conectese primero"
-            });
+            localDialogService?.ShowDialog(
+                mensaje: "No podemos iniciar este proceso, ya que no tiene internet, conectese primero",
+                titulo: "Ups No hay Internet");
             return;
         }
         forgotpage.Visibility = Visibility.Visible;

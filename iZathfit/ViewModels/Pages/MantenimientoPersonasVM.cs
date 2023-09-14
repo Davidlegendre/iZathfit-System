@@ -37,7 +37,7 @@ namespace iZathfit.ViewModels.Pages
         public async Task EliminarPersona(PersonaModel? persona, UiWindow win, ObservableCollection<PersonaModel> lista)
         {
             if (persona == null || _handlex == null || _servicio == null) return;
-            if (mensaje("Desea Eliminar a la persona: " + persona.GetCompleteName + "?", ShowCancelButton: true) == true)
+            if (_dialog?.ShowDialog("Desea Eliminar a la persona: " + persona.GetCompleteName + "?", ShowCancelButton: true) == true)
             {
                 var result = await _handlex.ExcepHandler(() => _servicio.DeletePersona(persona.IdPersona), win);
                 if (result > 0)
@@ -48,7 +48,7 @@ namespace iZathfit.ViewModels.Pages
         public void VerDatosPersona(PersonaModel? persona)
         { 
             if(persona == null) return;
-            mensaje("Nombres: " + persona.Nombres + "\n" + "Apellidos: " +
+            _dialog?.ShowDialog("Nombres: " + persona.Nombres + "\n" + "Apellidos: " +
                 persona.Apellidos + "\n" + "Identificacion: " 
                 + persona.Identificacion + "\n" + "Fecha Nacimiento: " 
                 + persona.Fech_Nacimiento.ToShortDateString() + "\n" 
@@ -56,15 +56,11 @@ namespace iZathfit.ViewModels.Pages
                 + persona.GetTelefono + "" + "\n" +
                 "Email: " + persona.Email + "\n" 
                 + "Tipo Identificacion: " + persona.TipoIdentificacion + "\n"+
-                "Genero: " + persona.Genero + "\n" + "Rol: " + persona.Rol
+                "Genero: " + persona.Genero + "\n" + "Rol: " + persona.Rol + "\n" + "Ocupacion: " + persona.Ocupacion + "\n" + 
+                "Numeros de Emergencias: " + persona.NumeroEmergencia1 + ", " + persona.NumeroEmergencia2
                , titulo: "Datos de: " + persona.Nombres.Split(' ')[0]);
         }
 
-        bool mensaje(string mensaje, string titulo = "Mensaje", bool ShowCancelButton = false)
-        {
-            if (_dialog == null) return false;
-            return _dialog.ShowDialog(new Models.ModelsCommons.DialogModel() { canShowCancelButton = ShowCancelButton, Title = titulo, Message = mensaje });
-        }
 
     }
 }

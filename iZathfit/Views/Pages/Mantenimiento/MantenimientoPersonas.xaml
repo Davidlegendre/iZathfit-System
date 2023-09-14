@@ -6,11 +6,15 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:viewmodels="clr-namespace:iZathfit.ViewModels.Pages"
              xmlns:local="clr-namespace:iZathfit.Views.Pages.Mantenimiento"
+             xmlns:helpers="clr-namespace:iZathfit.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
         <viewmodels:MantenimientoPersonasVM></viewmodels:MantenimientoPersonasVM>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></helpers:BoolToVisibilityConverter>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -23,7 +27,9 @@
             <ui:TextBox Name="txtBuscar" KeyDown="txtBuscar_KeyDown" Icon="Search20"  Width="370" Padding="5"  PlaceholderText="Busca por Nombre o Apellido. Identificacion o Rol"></ui:TextBox>
 
         </StackPanel>
-        <ui:VirtualizingItemsControl Grid.Row="1" ItemsSource="{Binding Personas}" Padding="10" Margin="0,7,0,0">
+        <Label Grid.Row="1" Content="No hay Personas" Visibility="{Binding Items.IsEmpty,ElementName=lista, Converter={StaticResource BoolToVisibilityConverter}}" Margin="10" FontFamily="segoe ui semibold" FontSize="15"></Label>
+
+        <ui:VirtualizingItemsControl Name="lista" Grid.Row="1" ItemsSource="{Binding Personas}" Padding="10" Margin="0,7,0,0">
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel></WrapPanel>
@@ -34,9 +40,10 @@
                     <ui:Card Margin="7" Width="280">
                         <StackPanel>
                             <TextBlock Text="{Binding GetCompleteName}"></TextBlock>
-                            <TextBlock FontSize="12" Opacity="0.9" Text="{Binding GetEdad}"></TextBlock>
-                            <TextBlock FontSize="12" Opacity="0.8" Text="{Binding GetDireccion}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock FontSize="12" Opacity="0.9" Text="{Binding Fech_Nacimiento, StringFormat='dd-MM-yyyy'}"></TextBlock>
                             <TextBlock FontSize="12" Opacity="0.8" Text="{Binding GetTelefono}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock FontSize="12" Opacity="0.8" Text="{Binding NumeroEmergencia1}" TextWrapping="Wrap"></TextBlock>
+
                             <UniformGrid Rows="1" HorizontalAlignment="Left">
                                 <ui:Button Name="btnshow" Click="btnshow_Click" Icon="Eye20" Margin="2" Padding="5"></ui:Button>
                                 <ui:Button Name="btnEdit" Click="btnEdit_Click" Icon="Edit20" Margin="2" Padding="5"></ui:Button>
@@ -46,6 +53,7 @@
                     </ui:Card>
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
+
         </ui:VirtualizingItemsControl>
     </Grid>
 </UserControl>

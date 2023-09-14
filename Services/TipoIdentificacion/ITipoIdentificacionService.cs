@@ -10,5 +10,8 @@ namespace Services.TipoIdentificacion
     public interface ITipoIdentificacionService
     {
         public Task<List<TipoIdentificacionModel>?> GetTipoIdentificaciones();
+        public Task<TipoIdentificacionModel?> InsertTipoIdentificacion(TipoIdentificacionModel tipoidentificacion);
+        public Task<TipoIdentificacionModel?> UpdateTipoIdentificacion(TipoIdentificacionModel tipoidentificacion);
+        public Task<int> DeleteTipoIdentificacion(int IdTipoidentificacion);
     }
 }

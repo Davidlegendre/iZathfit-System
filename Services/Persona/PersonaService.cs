@@ -35,6 +35,7 @@ namespace Services.Persona
 
         public async Task<List<PersonaModel>?> SelectAllPersonasNormal()
         {
+            
             var result = await _personarepo.SelectAllPersonas();
             return result?.Where(x=>x.IdPersona != _generalConfiguration.getuserSistema()?.IdPersona).ToList();
         }
@@ -42,6 +43,21 @@ namespace Services.Persona
         public async Task<int> DeletePersona(Guid? idpersona)
         {
             return await _personarepo.DeletePersona(idpersona);
+        }
+
+        public async Task<PersonaModel> GetPersona(Guid id)
+        {
+            return await _personarepo.GetPersona(id);  
+        }
+
+        public async Task<long> GetCountPersonas()
+        {
+            return await _personarepo.GetCountPersonas();
+        }
+
+        public async Task<List<PersonaModel>> SelectAllAll()
+        {
+            return await _personarepo.SelectAllAll();
         }
     }
 }

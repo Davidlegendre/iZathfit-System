@@ -1,0 +1,57 @@
+﻿<ui:UiWindow x:Class="iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.MUsuarioForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iZathfit.Views.Pages.Mantenimiento.WindowSecundarios"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:viewmodels="clr-namespace:iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels"
+        Background="{ui:ThemeResource}"
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
+        mc:Ignorable="d"
+        Title="{Binding Title,ElementName=TBTitulo}" WindowStartupLocation="CenterScreen" Height="450" Width="800">
+    <ui:UiWindow.DataContext>
+        <viewmodels:MUsuarioFormVM></viewmodels:MUsuarioFormVM>
+    </ui:UiWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ui:TitleBar Name="TBTitulo" Title="titulo"></ui:TitleBar>
+        
+        <StackPanel Grid.Row="1" Margin="7">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="60*"/>
+                </Grid.ColumnDefinitions>
+                <UniformGrid Columns="1" VerticalAlignment="Top">
+                    <ui:TextBox Text="{Binding Usuario}" MaxLength="10" Margin="5" Icon="Person20" PlaceholderText="Usuario" Height="40" ></ui:TextBox>
+
+                    <ui:PasswordBox Name="txtPassword" Password="{Binding Password}" MaxLength="16" Margin="5" Icon="Password20" PlaceholderText="Contraseña" Height="40" ></ui:PasswordBox>
+                    <ui:ToggleSwitch Name="txttoggle" Checked="txttoggle_Checked" Unchecked="txttoggle_Unchecked" Margin="5" IsChecked="{Binding IsActivo}" ></ui:ToggleSwitch>
+                </UniformGrid>
+                <ListView Grid.Column="1" ItemsSource="{Binding PersonaList}" SelectedItem="{Binding Persona}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ui:Card>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding GetCompleteName}" ></TextBlock>
+                                    <TextBlock Text="{Binding Rol}" FontSize="12" Opacity="0.8"></TextBlock>
+                                </StackPanel>
+                            </ui:Card>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <ui:Button Name="btnGuardar" Content="Guardar" Click="btnGuardar_Click" Appearance="Success" Icon="Save24" Margin="7"></ui:Button>
+                <ui:Button Name="btncancelar" Content="Cancelar" Click="btncancelar_Click" Icon="DismissSquare20" Margin="7"></ui:Button>
+                <ui:Button Name="btnLimpiar" Content="Limpiar" Visibility="{Binding LimpiarbtnVisible}" Icon="Delete20" Margin="7"></ui:Button>
+
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</ui:UiWindow>

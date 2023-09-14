@@ -16,5 +16,8 @@ namespace Domain.Persona
         public Task<PersonaModel?> UpdatePersona(PersonaModel? persona);
         public Task<List<PersonaModel>?> SelectAllPersonas();
         public Task<int> DeletePersona(Guid? idpersona);
+        public Task<PersonaModel> GetPersona(Guid id);
+        public Task<long> GetCountPersonas();
+        public Task<List<PersonaModel>> SelectAllAll();
     }
 }

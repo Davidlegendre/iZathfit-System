@@ -37,5 +37,11 @@
     <Resource Include="Assets\wpfui-icon-1024.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Views\Pages\Mantenimiento\WindowSecundarios\MPadecimientosEnfermedadesForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 
 </Project>

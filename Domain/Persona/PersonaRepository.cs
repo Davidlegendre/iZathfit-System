@@ -1,4 +1,5 @@
 ﻿using Configuration;
+using Configuration.GlobalHelpers;
 using Dapper;
 using Domain.Genero;
 using Domain.Rol;
@@ -8,6 +9,7 @@ using Models.DTOS;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -21,15 +23,17 @@ namespace Domain.Persona
         IRolRepository _rolrepo;
         ITipoIdentificacionRepository _tipoIdentRepo;
         IGeneroRepository _generorepo;
+        IGlobalHelpers _helper;
         public PersonaRepository(IGeneralConfiguration generalConfiguration, 
             IRolRepository rolRepository, 
             ITipoIdentificacionRepository tipoIdentificacionRepository,
-            IGeneroRepository generoRepository)
+            IGeneroRepository generoRepository, IGlobalHelpers globalHelpers)
         {
             _generalConfiguration = generalConfiguration;
             _rolrepo = rolRepository;
             _generorepo = generoRepository;
             _tipoIdentRepo = tipoIdentificacionRepository;
+            _helper = globalHelpers;
         }
 
         public async Task<UsuarioSistema?> GetPersonaData(Guid? ID)
@@ -48,7 +52,8 @@ namespace Domain.Persona
         { 
             using(var con = new SqlConnection (_generalConfiguration.GetConnection()))
             {
-                var result = await con.ExecuteScalarAsync<Guid?>("VerificarEmailPersona", new { @email = email }, 
+                var result = await con.ExecuteScalarAsync<Guid?>("VerificarEmailPersona", 
+                    new { @email = email }, 
                     commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return result;
@@ -68,7 +73,10 @@ namespace Domain.Persona
                         @Email = persona.Email,
                         @idgenero = persona.IdGenero,
                         @Identificacion = persona.Identificacion,
-                        @idTipoIdent = persona.IdTipoIdentity
+                        @idTipoIdent = persona.IdTipoIdentity,
+                        @idocupacion = persona.IdOcupacion,
+                        @numemergencia1 = persona.NumeroEmergencia1,
+                        @numemergencia2 = persona.NumeroEmergencia2
                     }, 
                     commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
@@ -92,6 +100,9 @@ namespace Domain.Persona
                         @idgenero = persona.IdGenero,
                         @Identificacion = persona.Identificacion,
                         @idTipoIdent = persona.IdTipoIdentity,
+                        @idocupacion = persona.IdOcupacion,
+                        @numemergencia1 = persona.NumeroEmergencia1,
+                        @numemergencia2 = persona.NumeroEmergencia2,
                         @id = persona.IdPersona
                     }, commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
@@ -99,16 +110,59 @@ namespace Domain.Persona
             }
         }
 
+        /*Dueño => solo ve administradores y clientes
+         Desarrollador => Dueños, Administradores y clientes
+        Administrador => clientes*/
+
         public async Task<List<PersonaModel>?> SelectAllPersonas() {
+            _helper.Policy(TypeRol.Desarrollador, TypeRol.Administrador, TypeRol.Dueño);
             using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
             {
                 var results = await con.QueryAsync<PersonaModel>("SelectAllPersonas", 
                     commandType: System.Data.CommandType.StoredProcedure);
 
                 await con.CloseAsync();
+                results = _helper.PolicyReturnBool(TypeRol.Administrador) ? 
+                    results.Where(x => x.CodeRol == _generalConfiguration.GetRol(typerol: TypeRol.Cliente))
+                    : 
+                    (_helper.PolicyReturnBool(TypeRol.Dueño)?
+                    results.Where(x => x.CodeRol != _generalConfiguration.GetRol(typerol: TypeRol.Desarrollador)
+                    && x.CodeRol != _generalConfiguration.GetRol(TypeRol.Dueño)) : results);
+
                 return  results.Count() == 0 ? null : results.AsList();
             }
         }
+
+        public async Task<List<PersonaModel>> SelectAllAll() {
+
+            using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
+            {
+                var result = await con.QueryAsync<PersonaModel>("SelectAllPersonas",
+                    commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result.AsList();
+            }
+        }
+
+        public async Task<PersonaModel> GetPersona(Guid id)
+        {
+            using (var con = new SqlConnection(_generalConfiguration.GetConnection())) {
+                var result = await con.QueryFirstAsync<PersonaModel>("SelectOnePersona", new { @id = id }, 
+                    commandType: System.Data.CommandType.StoredProcedure);
+
+                await con.CloseAsync();
+                return result;
+            }
+        }
+
+        public async Task<long> GetCountPersonas() {
+            using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
+            {
+                var result = await con.ExecuteScalarAsync<long>("CountPersonas", commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result;
+            }
+        } 
 
         public async Task<int> DeletePersona(Guid? idpersona)
         {
