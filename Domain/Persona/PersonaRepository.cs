@@ -64,21 +64,24 @@ namespace Domain.Persona
             if (persona == null) throw new ArgumentNullException("Persona Es nula");
             using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
             {
-                var result = await con.QueryFirstAsync<PersonaModel?>("AgregarPersona", 
-                    new { @Nombres=persona.Nombres, @Apellidos = persona.Apellidos,
-                        @idrol = persona.IdRol,
-                        @Fech_nac = persona.Fech_Nacimiento,
-                        @Direccion = persona.Direccion,
-                        @telefono = persona.Telefono,
-                        @Email = persona.Email,
-                        @idgenero = persona.IdGenero,
-                        @Identificacion = persona.Identificacion,
-                        @idTipoIdent = persona.IdTipoIdentity,
-                        @idocupacion = persona.IdOcupacion,
-                        @numemergencia1 = persona.NumeroEmergencia1,
-                        @numemergencia2 = persona.NumeroEmergencia2
-                    }, 
-                    commandType: System.Data.CommandType.StoredProcedure);
+                var result = await con.QueryFirstAsync<PersonaModel?>("AgregarPersona",
+                  new
+                  {
+                      @Nombres = persona.Nombres,
+                      @Apellidos = persona.Apellidos,
+                      @idrol = persona.IdRol,
+                      @Fech_nac = persona.Fech_Nacimiento,
+                      @Direccion = persona.Direccion,
+                      @telefono = persona.Telefono,
+                      @Email = persona.Email,
+                      @idgenero = persona.IdGenero,
+                      @Identificacion = persona.Identificacion,
+                      @idTipoIdent = persona.IdTipoIdentity,
+                      @idocupacion = persona.IdOcupacion,
+                      @numemergencia1 = persona.NumeroEmergencia1,
+                      @numemergencia2 = persona.NumeroEmergencia2
+                  },
+                  commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return result;
             }

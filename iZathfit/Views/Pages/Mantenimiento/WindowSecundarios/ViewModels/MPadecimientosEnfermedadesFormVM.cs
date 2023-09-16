@@ -28,19 +28,19 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
       }
 
         [ObservableProperty]
-        ObservableCollection<PersonaModel> personaslist = new ObservableCollection<PersonaModel>();
+        ObservableCollection<PersonaModel> _personaslist = new ObservableCollection<PersonaModel>();
 
         [ObservableProperty]
-        ObservableCollection<Models.ModelsCommons.PadecimientoModelSencillo> padecimientos = new ObservableCollection<Models.ModelsCommons.PadecimientoModelSencillo>();
+        ObservableCollection<Models.ModelsCommons.PadecimientoModelSencillo> _padecimientos = new ObservableCollection<Models.ModelsCommons.PadecimientoModelSencillo>();
 
         [ObservableProperty]
-        PersonaModel? personamodel;
+        PersonaModel? _personamodel;
 
         [ObservableProperty]
-        string? padecimientotxt = "";
+        string? _padecimientotxt = "";
 
         [ObservableProperty]
-        Visibility limpiarbtnVisible = Visibility.Visible;
+        Visibility _limpiarbtnVisible = Visibility.Visible;
 
 
 

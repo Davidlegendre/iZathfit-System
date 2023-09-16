@@ -25,7 +25,7 @@ namespace iZathfit.ViewModels.Pages
         }
 
         [ObservableProperty]
-        ObservableCollection<PersonaModel> personas = new ObservableCollection<PersonaModel>();
+        ObservableCollection<PersonaModel> _personas = new ObservableCollection<PersonaModel>();
 
         public async Task ObtenerPersonas() {
             if (_servicio == null || _handlex == null) return;

@@ -98,6 +98,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             tphorarioinicio.TimeSelected = DateTime.Now;
             tpHorarioFin.TimeSelected = DateTime.Now;
             txtnombreservicio.Focus();
+            tgbGrupal.IsChecked = false;
         }
 
         bool validar() {

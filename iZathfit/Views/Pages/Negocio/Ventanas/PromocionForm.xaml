@@ -1,0 +1,55 @@
+﻿<ui:UiWindow x:Class="iZathfit.Views.Pages.Negocio.Ventanas.PromocionForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas"
+        xmlns:viewmodels="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas.ViewModels"
+        xmlns:components="clr-namespace:iZathfit.Components.DatePicker"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
+        Background="{ui:ThemeResource}"
+        mc:Ignorable="d"
+        Title="PromocionForm" MinHeight="0" MinWidth="0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Height="452" Width="339">
+    <ui:UiWindow.DataContext>
+        <viewmodels:PromocionFormViewModel></viewmodels:PromocionFormViewModel>
+    </ui:UiWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ui:TitleBar Name="tbtitle" Title="aiojsd" ShowMaximize="False" CanMaximize="False">
+            
+        </ui:TitleBar>
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Plan" Padding="7" Foreground="{Binding Foreground,ElementName=tbtitle}" FontSize="14"></TextBlock>
+            <ComboBox Margin="7,0,7,7" ItemsSource="{Binding Planes}" SelectedItem="{Binding Planselected}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding GetTitulo}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Grid  Margin="7,0,7,7">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <ui:NumberBox Name="txtpercent" MaxDecimalPlaces="0" Minimum="1" Maximum="100" PlaceholderText="Descuento en porcentajes"></ui:NumberBox>
+                <TextBlock Grid.Column="1" Text="%" Padding="7" FontSize="16" Foreground="{Binding Foreground,ElementName=tbtitle}" FontFamily="segoe ui semibold"></TextBlock>
+                
+            </Grid>
+            <ui:ToggleSwitch Name="tgactive" IsEnabled="False" IsChecked="{Binding Activechecked}" Checked="tgactive_Checked" Unchecked="tgactive_Unchecked" IsThreeState="False" Margin="7,0,7,7" HorizontalAlignment="Stretch" Content="No esta Activada"></ui:ToggleSwitch>
+            <components:DatePicker x:Name="dpDuracion" Header="Duracion de la Promoción" HeaderVisible="Visible" Margin="7,0,7,7"></components:DatePicker>
+            <ui:TextBox Icon="TextDescription24" MaxLength="100" AcceptsReturn="True" Height="100" PlaceholderText="Descripcion (opcional)" Margin="7,0,7,7"></ui:TextBox>
+        </StackPanel>
+        <UniformGrid x:Name="uniformgridpanel" Grid.Row="3" Rows="1" Margin="7">
+            <ui:Button Name="btnadd" Click="btnadd_Click" Appearance="Primary" HorizontalAlignment="Stretch" Margin="0,0,5,0" Content="Guardar"></ui:Button>
+            <ui:Button Name="btncancelar" Click="btncancelar_Click" HorizontalAlignment="Stretch" Margin="0,0,5,0" Content="Cancelar"></ui:Button>
+            <ui:Button Name="btnlimpiar" Click="btnlimpiar_Click" HorizontalAlignment="Stretch" Content="Limpiar"></ui:Button>
+        </UniformGrid>
+    </Grid>
+</ui:UiWindow>

@@ -1,61 +1,86 @@
 ﻿using Configuration;
 using Configuration.GlobalHelpers;
+using Dapper;
 using iZathfit.ModelsComponents;
 using iZathfit.Views.Pages;
 using iZathfit.Views.Pages.Negocio;
 using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
-using Microsoft.Windows.Themes;
 using Models;
-using Services.Genero;
+using Services;
+using Services.Promocion;
 using System.Collections.ObjectModel;
-using System.ComponentModel.Design;
+using System.Drawing;
 using System.Windows.Controls;
-using System.Windows.Media;
-using Wpf.Ui.Appearance;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Mvvm.Services;
 
 namespace iZathfit.ViewModels.Pages;
 public partial class HomePageVM : ObservableObject {
 
 	IGeneralConfiguration? _config;
-	SettingPage? _settingPage;
+	IGlobalHelpers? _helpers;
+	GlobalService? _globalservice;
 	Home? _homesub;
 	localDialogService? _dialog;
+	IPromocionService? _servicePromo;
 	public HomePageVM()
 	{
 		_config = App.GetService<IGeneralConfiguration>();
-		_settingPage = App.GetService<SettingPage>();
 		_homesub = App.GetService<Home>();
 		_dialog = App.GetService<localDialogService>();
+		_helpers = App.GetService<IGlobalHelpers>();
+		_globalservice = App.GetService<GlobalService>();
+		_servicePromo = App.GetService<IPromocionService>();
+        _globalservice.PromosEvent += _globalservice_PromosEvent;
 	}
 
-	[ObservableProperty]
-	string? personanombre = "";
+    private async void _globalservice_PromosEvent(object? sender, object? e)
+    {
+
+        if (_servicePromo != null)
+        {
+            var promos = await _servicePromo.GetPromocionesActive();
+            Promociones = promos != null ? new ObservableCollection<PromocionModelo>(promos) : null;
+            IsPromos = promos != null;
+            Apariencia = promos != null ? ControlAppearance.Success : ControlAppearance.Secondary;
+        }
+    }
 
 	[ObservableProperty]
-	string? ocupaciones = "";
-	[ObservableProperty]
-	string? rol = "";
+	ObservableCollection<PromocionModelo>? _promociones = new ObservableCollection<PromocionModelo>();
 
 	[ObservableProperty]
-	UserControl? userControl = null;
+	bool _isPromos = false;
 
 	[ObservableProperty]
-	string? bienvenidatexto = "";
+	Wpf.Ui.Common.ControlAppearance _apariencia = ControlAppearance.Secondary;
+
+    [ObservableProperty]
+	string? _personanombre = "";
 
 	[ObservableProperty]
-	string? iniciales = "";
+	string? _ocupaciones = "";
+	[ObservableProperty]
+	string? _rol = "";
 
 	[ObservableProperty]
-	double? heightButtonItemMenu = 48;
+	UserControl? _userControl = null;
+
+	[ObservableProperty]
+	string? _bienvenidatexto = "";
+
+	[ObservableProperty]
+	string? _iniciales = "";
+
+	[ObservableProperty]
+	double? _heightButtonItemMenu = 48;
+
 
 	
 
 	[ObservableProperty]
-	SymbolRegular iconAccount = SymbolRegular.DeveloperBoard20;
+	SymbolRegular _iconAccount = SymbolRegular.DeveloperBoard20;
 
 	public void DatoUsuario() {
 		var user = _config?.getuserSistema();
@@ -108,46 +133,47 @@ public partial class HomePageVM : ObservableObject {
 					}
 				}
 			},
-            new(){
-                TituloItem = "Administracion de Servicios",
-                Icon = SymbolRegular.ServiceBell20,
-                Comando = () => {
+			new(){
+				TituloItem = "Administracion de Servicios",
+				Icon = SymbolRegular.ServiceBell20,
+				Comando = () => {
 					if(UserControl is not ServiciosPage)
-                    {
-                        UserControl = App.GetService<ServiciosPage>();
-                        ChangeIndicator(SymbolRegular.ServiceBell20, "Esta en Administracion de Servicios");
-                    }
-                }
-            },
-            new(){
-                TituloItem = "Administracion de Duraciones de los Planes",
-                Icon = SymbolRegular.ClockToolbox20,
+					{
+						UserControl = App.GetService<ServiciosPage>();
+						ChangeIndicator(SymbolRegular.ServiceBell20, "Esta en Administracion de Servicios");
+					}
+				}
+			},
+			new(){
+				TituloItem = "Administracion de Duraciones de los Planes",
+				Icon = SymbolRegular.ClockToolbox20,
+				Comando = () => {
+					if(UserControl is not PlanDuracionPage)
+					{
+						UserControl = App.GetService<PlanDuracionPage>();
+						ChangeIndicator(SymbolRegular.ClockToolbox20, "Esta en Administracion de Duraciones de los Planes");
+					}
+				}
+			},
+			new(){
+				TituloItem = "Administracion de Planes",
+				Icon = SymbolRegular.Box24,
+				Comando = () => {
+					if(UserControl is not PlanesPage)
+					{
+						UserControl = App.GetService<PlanesPage>();
+						ChangeIndicator(SymbolRegular.Box24, "Esta en Administracion de Planes");
+					}
+				}
+			},
+			new(){
+				TituloItem = "Administracion de Promociones",
+				Icon = SymbolRegular.ShoppingBagPercent20,
+				Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño) ? Visibility.Collapsed:Visibility.Visible,
                 Comando = () => {
-                    if(UserControl is not PlanDuracionPage)
+                    if(UserControl is not PromocionesPage)
                     {
-                        UserControl = App.GetService<PlanDuracionPage>();
-                        ChangeIndicator(SymbolRegular.ClockToolbox20, "Esta en Administracion de Duraciones de los Planes");
-                    }
-                }
-            },
-            new(){
-                TituloItem = "Administracion de Planes",
-                Icon = SymbolRegular.Box24,
-                Comando = () => {
-                    if(UserControl is not PlanesPage)
-                    {
-                        UserControl = App.GetService<PlanesPage>();
-                        ChangeIndicator(SymbolRegular.Box24, "Esta en Administracion de Planes");
-                    }
-                }
-            },
-            new(){
-                TituloItem = "Administracion de Promociones",
-                Icon = SymbolRegular.ShoppingBagPercent20,
-                Comando = () => {
-                    if(UserControl is not PlanesPage)
-                    {
-                        UserControl = App.GetService<PlanesPage>();
+                        UserControl = App.GetService<PromocionesPage>();
                         ChangeIndicator(SymbolRegular.ShoppingBagPercent20, "Administracion de Promociones");
                     }
                 }
@@ -167,28 +193,28 @@ public partial class HomePageVM : ObservableObject {
 	}
 
 	[ObservableProperty]
-	ObservableCollection<MenuUserItemsModel>? menuitems;
+	ObservableCollection<MenuUserItemsModel>? _menuitems;
 
 	[ObservableProperty]
-	ObservableCollection<MenuUserItemsModel>? menulist;
+	ObservableCollection<MenuUserItemsModel>? _menulist;
 
 	[ObservableProperty]
-	bool isOpen = false;
+	bool _isOpen = false;
 
 	[ObservableProperty]
-	Visibility buttonHome = Visibility.Collapsed;
+	Visibility _buttonHome = Visibility.Collapsed;
 
 	[ObservableProperty]
-	double width = 48;
+	double _width = 48;
 
 	[ObservableProperty]
-	Thickness marginiconPerfil;
+	Thickness _marginiconPerfil;
 
 	[ObservableProperty]
-	SymbolRegular iconmenu = SymbolRegular.LineHorizontal320;
+	SymbolRegular _iconmenu = SymbolRegular.LineHorizontal320;
 
 	[ObservableProperty]
-	SymbolRegular iconIndicator = SymbolRegular.Home20;
+	SymbolRegular _iconIndicator = SymbolRegular.Home20;
 
 
 	[RelayCommand]
@@ -220,10 +246,10 @@ public partial class HomePageVM : ObservableObject {
 	}
 
 	[RelayCommand]
-	void openSettingsPage()
+	void OpenPanelNotificacion(Flyout panelnotify)
 	{
-		UserControl = _settingPage;
-		ChangeIndicator(SymbolRegular.Settings20, "Estas en Configuraciones");
+		panelnotify.Show();
+
 	}
 
 	[RelayCommand]
@@ -236,14 +262,14 @@ public partial class HomePageVM : ObservableObject {
 			{
 				new Models.ModelsCommons.LinkModel()
 				{
-					TitlePage = "Whatsapp Dev. 1",
-					Url = "https://google.com"
-				},
+					TitlePage = "Whatsapp Dev. David",
+					Url = "https://api.whatsapp.com/send?phone=51914847720"
+                },
 				new Models.ModelsCommons.LinkModel()
 				{
-					TitlePage = "Whatsapp Dev. 2...",
-					Url = "https://google.com"
-				}
+					TitlePage = "Whatsapp Dev. Francois",
+					Url = "https://api.whatsapp.com/send?phone=51998440211"
+                }
 				, new Models.ModelsCommons.LinkModel()
 				{
 					TitlePage = "Reportar a GitHub",

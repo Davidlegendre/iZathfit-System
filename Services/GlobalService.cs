@@ -13,6 +13,7 @@ namespace Services;
 public class GlobalService
 {
     Thread? TimeHour;
+    Thread? Promos;
     bool IsOnline = true;
 
     public void InitTimerHour()
@@ -46,6 +47,27 @@ public class GlobalService
                     }
                 }
             });
+            Promos = new Thread(() => {
+                while (IsOnline)
+                {
+                    if (PromosEvent != null)
+                    {
+                        try
+                        {
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                PromosEvent.Invoke(this, null);
+                            });
+                        }
+                        catch
+                        {
+                        }
+                        Thread.Sleep(20000);
+                    }
+                }
+            });
+            Promos.IsBackground = true;
+            Promos.Start();
             TimeHour.IsBackground = true;
             TimeHour.Start();
         }
@@ -53,13 +75,15 @@ public class GlobalService
 
     public void DisposeTimeHour()
     {
-        if (TimeHour != null)
+        if (TimeHour != null || Promos != null)
         {
             IsOnline = false;
             TimeHour = null;
+            Promos = null;
         }
     }
 
+    public event EventHandler<object?>? PromosEvent;
     public event EventHandler<HomeDataModel>? TimeSystemEvent;
 
 

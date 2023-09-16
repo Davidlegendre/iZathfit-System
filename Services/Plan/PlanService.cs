@@ -26,6 +26,11 @@ namespace Services.Plan
             return await _repo.GetPlanes();
         }
 
+        public async Task<List<PlanModel>?> GetPlanesWithoutServices()
+        {
+            return await _repo.GetPlanesWithoutServices();
+        }
+
         public async Task<bool> InsertPlan(PlanModel plan)
         {
            return await _repo.InsertPlan(plan);

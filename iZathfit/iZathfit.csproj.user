@@ -9,6 +9,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\DatePicker\DatePicker.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\LogoSVGModoFit.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -57,6 +60,9 @@
     <Compile Update="Views\Pages\Negocio\PlanDuracionPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\Negocio\PromocionesPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\Negocio\ServiciosPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -67,6 +73,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\Negocio\Ventanas\PlanForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Negocio\Ventanas\PromocionForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\Negocio\Ventanas\ServiciosForm.xaml.cs">
@@ -80,6 +89,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\DatePicker\DatePicker.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\LogoSVGModoFit.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -131,6 +143,9 @@
     <Page Update="Views\Pages\Negocio\PlanDuracionPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\Negocio\PromocionesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\Negocio\ServiciosPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -141,6 +156,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Negocio\Ventanas\PlanForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Negocio\Ventanas\PromocionForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Negocio\Ventanas\ServiciosForm.xaml">

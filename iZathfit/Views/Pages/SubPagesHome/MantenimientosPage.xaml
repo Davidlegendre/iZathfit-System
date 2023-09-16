@@ -49,7 +49,7 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon FontSize="18" Foreground="{Binding Background,ElementName=btnoculto}" Symbol="{Binding IconActualPag}" Margin="7,0,0,0"></ui:SymbolIcon>
-                    <TextBlock Text="{Binding TitleActualPag}" Grid.Column="1" VerticalAlignment="Center" Margin="7,0,0,0"></TextBlock>
+                    <TextBlock Text="{Binding TitleActualPag}" Grid.Column="1" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Margin="7,0,0,0"></TextBlock>
                     <ui:Button Icon="Dismiss16" Appearance="Transparent" BorderBrush="Transparent" VerticalAlignment="Stretch" Height="33" Command="{Binding ChangeTONormalCommand}" Margin="7,7,7,0" Grid.Column="2"></ui:Button>
                 </Grid>
                 <ContentControl x:Name="navigatemantenimientos" Content="{Binding ContentMantenimientoPag}" Grid.Row="1"></ContentControl>

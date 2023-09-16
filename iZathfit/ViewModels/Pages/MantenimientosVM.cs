@@ -76,25 +76,25 @@ namespace iZathfit.ViewModels.Pages
             };
         }
         [ObservableProperty]
-        ObservableCollection<MenuItemCardsModel>? mantenimientolist;
+        ObservableCollection<MenuItemCardsModel>? _mantenimientolist;
 
         [ObservableProperty]
-        HorizontalAlignment? listahorizontalaligment = HorizontalAlignment.Stretch;
+        HorizontalAlignment? _listahorizontalaligment = HorizontalAlignment.Stretch;
 
         [ObservableProperty]
-        string? titleActualPag = "";
+        string? _titleActualPag = "";
 
         [ObservableProperty]
-        Visibility visibilityCardWin = Visibility.Collapsed;
+        Visibility _visibilityCardWin = Visibility.Collapsed;
 
         [ObservableProperty]
-        UserControl? contentMantenimientoPag = null;
+        UserControl? _contentMantenimientoPag = null;
 
         [ObservableProperty]
-        SymbolRegular iconActualPag = SymbolRegular.Empty;
+        SymbolRegular _iconActualPag = SymbolRegular.Empty;
 
         [ObservableProperty]
-        bool enabledMenuMantenimiento = true;
+        bool _enabledMenuMantenimiento = true;
 
         [RelayCommand]
         void ChangeTONormal() {

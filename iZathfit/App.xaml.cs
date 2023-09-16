@@ -11,6 +11,7 @@ using Domain.PadecimientosEnfermedades;
 using Domain.Persona;
 using Domain.Plan;
 using Domain.PlanDuracion;
+using Domain.Promocion;
 using Domain.Rol;
 using Domain.Servicios;
 using Domain.TipoIdentificacion;
@@ -32,6 +33,7 @@ using Services.PadecimientosEnfermedades;
 using Services.Persona;
 using Services.Plan;
 using Services.PlanDuracion;
+using Services.Promocion;
 using Services.Rol;
 using Services.Servicios;
 using Services.TipoIdentificacion;
@@ -69,11 +71,11 @@ namespace iZathfit
                 services.AddTransient<MantenimientoPadecimientosEnfermedades>();
                 services.AddTransient<PlanDuracionPage>();
                 services.AddTransient<PlanesPage>();
+                services.AddTransient<PromocionesPage>();
 
                 services.AddScoped<MainWindow>();
                 services.AddScoped<LoginPage>();
                 services.AddScoped<Home>();
-                services.AddScoped<SettingPage>();
                 services.AddScoped<IExceptionHelperService, ExceptionsHelperService>();
                 services.AddScoped<IGeneralConfiguration, GeneralConfiguration>();
                 services.AddScoped<LoginService>();
@@ -102,6 +104,8 @@ namespace iZathfit
                 services.AddScoped<PlanDuracionFormViewModel>();
                 services.AddScoped<IPlanRepository, PlanRepository>();
                 services.AddScoped<IPlanService, PlanService>();
+                services.AddScoped<IPromocionRepository, PromocionRepository>();
+                services.AddScoped<IPromocionService, PromocionService>();
 
                 services.AddSingleton<localDialogService>();
                 services.AddSingleton<GlobalService>();

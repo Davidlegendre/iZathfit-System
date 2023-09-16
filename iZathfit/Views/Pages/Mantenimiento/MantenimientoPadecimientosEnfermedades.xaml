@@ -8,7 +8,7 @@
              xmlns:viewmodels="clr-namespace:iZathfit.ViewModels.Pages"
              xmlns:helpers="clr-namespace:iZathfit.Helpers"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" Margin="0,38,0,0" d:DesignWidth="800">
     <UserControl.DataContext>
         <viewmodels:MantenimientoPadecimientodEnfermedadesVM></viewmodels:MantenimientoPadecimientodEnfermedadesVM>
     </UserControl.DataContext>
@@ -20,24 +20,28 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="0,7,58,0" HorizontalAlignment="Right">
-            <ui:Button Padding="6" Margin="0,0,7,0" Name="btnagregar" Click="btnagregar_Click" Height="33" Icon="Add20" Content="Agregar">
+        <Grid Margin="10,7,7,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ui:Button Padding="6" Margin="0,0,7,0" Name="btnagregar" Click="btnagregar_Click" Height="33" Icon="Add20">
 
             </ui:Button>
-            <ui:TextBox Name="txtBuscar" Icon="Search20" KeyDown="txtBuscar_KeyDown"  Width="370" Padding="5"  PlaceholderText="Busca por persona"></ui:TextBox>
+            <ui:TextBox Name="txtBuscar" Grid.Column="1" HorizontalAlignment="Left" Icon="Search20" KeyDown="txtBuscar_KeyDown" MinWidth="270"  MaxWidth="370" Padding="5"  PlaceholderText="Busca por persona"></ui:TextBox>
 
-        </StackPanel>
+        </Grid>
         <Label Grid.Row="1" Content="No hay Padecimientos ni Enfermedades" Visibility="{Binding Items.IsEmpty,ElementName=lista, Converter={StaticResource BoolToVisibilityConverter}}" Margin="10" FontFamily="segoe ui semibold" FontSize="15"></Label>
 
         <ui:VirtualizingItemsControl Name="lista" Grid.Row="1" ItemsSource="{Binding Padecimientos}" Padding="10" Margin="0,7,0,0">
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel></WrapPanel>
+                    <ui:VirtualizingWrapPanel StretchItems="True"></ui:VirtualizingWrapPanel>
                 </ItemsPanelTemplate>
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:Card Margin="7" Width="280">
+                    <ui:Card Margin="7" MinWidth="280">
                         <StackPanel>
                             <TextBlock Text="{Binding Persona.GetCompleteName}"></TextBlock>
                             <TextBlock Text="{Binding Persona.Rol}" FontSize="12" Opacity="0.8"></TextBlock>

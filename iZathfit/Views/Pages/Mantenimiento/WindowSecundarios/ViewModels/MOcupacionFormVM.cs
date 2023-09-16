@@ -24,10 +24,10 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         }
 
         [ObservableProperty]
-        string? ocupaciontxt = "";
+        string? _ocupaciontxt = "";
 
         [ObservableProperty]
-        Visibility limpiarbtnVisible = Visibility.Visible;
+        Visibility _limpiarbtnVisible = Visibility.Visible;
 
         public void CargarDatos(Ocupacion? ocupacion)
         {
@@ -40,10 +40,11 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 
         public async Task<bool> AgregarOcupacion(UiWindow win, ObservableCollection<Ocupacion> lista)
         {
+            if (_helpexec == null || _servicio == null) return false;
             if (!validar())
                 return false;
 
-            var result = await _helpexec.ExcepHandler(()=> _servicio.InsertOcupacion(new Ocupacion() { descripcion= ocupaciontxt }),
+            var result = await _helpexec.ExcepHandler(()=> _servicio.InsertOcupacion(new Ocupacion() { descripcion= Ocupaciontxt }),
                 win);
 
             if(result != null)

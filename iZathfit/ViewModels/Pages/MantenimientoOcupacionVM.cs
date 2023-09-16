@@ -25,7 +25,7 @@ namespace iZathfit.ViewModels.Pages
         }
 
         [ObservableProperty]
-        ObservableCollection<Models.Ocupacion>? ocupaciones;
+        ObservableCollection<Models.Ocupacion>? _ocupaciones;
 
         public async Task<bool> CargarDatos() {
             if (_helperx == null || _dialog == null || _servicio == null) return false;

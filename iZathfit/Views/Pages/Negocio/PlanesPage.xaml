@@ -8,7 +8,7 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:viewmodels="clr-namespace:iZathfit.ViewModels.Pages.Negocio"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" Margin="0,10,0,0" d:DesignWidth="800">
     <UserControl.DataContext>
         <viewmodels:PlanViewModel></viewmodels:PlanViewModel>
     </UserControl.DataContext>
@@ -20,25 +20,27 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <ui:Card  Margin="10,0,7,0" BorderThickness="0" Padding="0" VerticalAlignment="Top" HorizontalAlignment="Right">
-                <ui:TextBox Name="txtSearch" Margin="0,0,0,0" KeyDown="txtSearch_keydown" Width="370" Icon="Search20" Background="Transparent" Padding="10,7,10,10" VerticalAlignment="Top" PlaceholderText="Buscador ">
+        <Grid  Margin="10,0,7,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ui:TextBox Name="txtSearch" HorizontalAlignment="Left" Grid.Column="1" KeyDown="txtSearch_keydown" MinWidth="270" MaxWidth="370" Icon="Search20" PlaceholderText="Buscador ">
 
-                </ui:TextBox>
-            </ui:Card>
-            <ui:Button Name="btnAdd" Click="btnAdd_Click" Icon="Add20"  VerticalAlignment="Stretch"></ui:Button>
-        </StackPanel>
+            </ui:TextBox>
+            <ui:Button Name="btnAdd" Margin="0,0,7,0" Click="btnAdd_Click" Icon="Add20"  VerticalAlignment="Stretch"></ui:Button>
+        </Grid>
         <Label Grid.Row="1" Content="No hay Planes" Visibility="{Binding Items.IsEmpty,ElementName=lista, Converter={StaticResource BoolToVisibilityConverter}}" Margin="10" FontFamily="segoe ui semibold" FontSize="15"></Label>
         <ui:VirtualizingItemsControl Name="lista" Grid.Row="1" ItemsSource="{Binding Planes}" Margin="10">
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel></WrapPanel>
+                    <ui:VirtualizingWrapPanel StretchItems="True"></ui:VirtualizingWrapPanel>
                 </ItemsPanelTemplate>
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:Card Padding="8" VerticalAlignment="Top" Margin="0,10,10,0">
-                        <Grid Width="290">
+                    <ui:Card Padding="8"  Margin="0,10,10,0">
+                        <Grid MinWidth="290">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>

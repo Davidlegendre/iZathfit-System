@@ -39,51 +39,51 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         }
 
         [ObservableProperty]
-        ObservableCollection<TipoIdentificacionModel>? tipoIdentificacionList;
+        ObservableCollection<TipoIdentificacionModel>? _tipoIdentificacionList;
 
         [ObservableProperty]
-        ObservableCollection<GeneroModel>? generoList;
+        ObservableCollection<GeneroModel>? _generoList;
 
         [ObservableProperty]
-        ObservableCollection<RolModel>? rolList;
+        ObservableCollection<RolModel>? _rolList;
 
         [ObservableProperty]
-        ObservableCollection<Ocupacion>? ocupacionList;
+        ObservableCollection<Ocupacion>? _ocupacionList;
 
         [ObservableProperty]
-        string? identificacion = "";
+        string? _identificacion = "";
         [ObservableProperty]
-        string? nombres = "";
+        string? _nombres = "";
         [ObservableProperty]
-        string? apellidos = "";
+        string? _apellidos = "";
         [ObservableProperty]
-        string? direccion = "";
+        string? _direccion = "";
         [ObservableProperty]
-        string? telefono = "";
+        string? _telefono = "";
         [ObservableProperty]
-        string? email = "";
+        string? _email = "";
         [ObservableProperty]
-        DateTime fechnacimiento = DateTime.Now;
+        DateTime _fechnacimiento = DateTime.Now;
 
         [ObservableProperty]
-        string? numemergencia1 = "";
+        string? _numemergencia1 = "";
         [ObservableProperty]
-        string? numemergencia2 = "";
+        string? _numemergencia2 = "";
 
         [ObservableProperty]
-        TipoIdentificacionModel? tipoIdentificacion;
+        TipoIdentificacionModel? _tipoIdentificacion;
 
         [ObservableProperty]
-        Ocupacion? ocupacionmodel;
+        Ocupacion? _ocupacionmodel;
 
         [ObservableProperty]
-        GeneroModel? generoModel;
+        GeneroModel? _generoModel;
 
         [ObservableProperty]
-        RolModel? rolModel;
+        RolModel? _rolModel;
 
         [ObservableProperty]
-        Visibility limpiarbtnVisible = Visibility.Visible;
+        Visibility _limpiarbtnVisible = Visibility.Visible;
 
         public async Task<bool> CargarDatos(UiWindow win,PersonaModel? persona = null) {
             if (_TipoIdentificacionService == null || _generoservice == null || _rolservice == null 

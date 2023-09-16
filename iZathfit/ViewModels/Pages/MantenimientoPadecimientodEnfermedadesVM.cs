@@ -28,7 +28,7 @@ namespace iZathfit.ViewModels.Pages
         }
 
         [ObservableProperty]
-        ObservableCollection<PadecimientosEnfermedadesDTO>? padecimientos;
+        ObservableCollection<PadecimientosEnfermedadesDTO>? _padecimientos;
 
         public async Task<bool> CargarDatos() { 
            if(_servicio == null || _personaservice == null || _dialog == null) return false;

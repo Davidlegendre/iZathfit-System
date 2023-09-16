@@ -11,7 +11,7 @@
         WindowBackdropType="Mica"
         Background="{ui:ThemeResource}"
         mc:Ignorable="d"
-        Title="ServiciosForm" Height="375" MinWidth="0" MinHeight="0" WindowStartupLocation="CenterScreen" Width="308">
+        Title="ServiciosForm" Height="370" MinWidth="0" MinHeight="0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Width="308">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
@@ -23,7 +23,7 @@
             <ui:TextBox Name="txtnombreservicio" MaxLength="100" PlaceholderText="Nombre del Servicio" Icon="Dumbbell28" Margin="7"></ui:TextBox>
             <components:TimePIcker x:Name="tphorarioinicio" IsSecondsVisible="False" Header="Horario de Inicio" HeaderVisible="Visible" Margin="7"></components:TimePIcker>
             <components:TimePIcker x:Name="tpHorarioFin" IsSecondsVisible="False" Header="Horario de Fin" HeaderVisible="Visible" Margin="7"></components:TimePIcker>
-            <ui:ToggleSwitch Checked="tgbGrupal_Checked" Unchecked="tgbGrupal_Unchecked" Name="tgbGrupal" IsThreeState="False" Content="No es Grupal" HorizontalAlignment="Stretch" Margin="7"></ui:ToggleSwitch>
+            <ToggleButton Checked="tgbGrupal_Checked" Unchecked="tgbGrupal_Unchecked" Name="tgbGrupal" IsThreeState="False" Content="No es Grupal" HorizontalAlignment="Stretch" Margin="7"></ToggleButton>
             
         </StackPanel>
         <UniformGrid x:Name="uniformgridpanel" Grid.Row="2" Rows="1" Margin="7">

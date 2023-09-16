@@ -35,25 +35,25 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         }
 
         [ObservableProperty]
-        ObservableCollection<Models.PersonaModel>? personaList;
+        ObservableCollection<Models.PersonaModel>? _personaList;
 
         [ObservableProperty]
-        ObservableCollection<Models.Usuario>? usuarioList;
+        ObservableCollection<Models.Usuario>? _usuarioList;
 
         [ObservableProperty]
-        bool isActivo = true;
+        bool _isActivo = true;
 
         [ObservableProperty]
-        string password = "";
+        string _password = "";
 
         [ObservableProperty]
-        string usuario = "";
+        string _usuario = "";
 
         [ObservableProperty]
-        PersonaModel? persona = null;
+        PersonaModel? _persona = null;
 
         [ObservableProperty]
-        Visibility limpiarbtnVisible = Visibility.Visible;
+        Visibility _limpiarbtnVisible = Visibility.Visible;
 
         public async Task<bool> CargarDatos(UiWindow win,Models.Usuario? usermod = null) {
            
@@ -140,7 +140,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 IdPersona = Persona.IdPersona,
                 usuario = Usuario,
                 contrasena = Password,
-                IsActivo = isActivo
+                IsActivo = IsActivo
             };
 
             var result = await _helperex.ExcepHandler(()=> _usuarioService.UpdateUsuario(usernew), win);

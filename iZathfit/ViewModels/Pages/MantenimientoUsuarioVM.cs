@@ -28,7 +28,7 @@ namespace iZathfit.ViewModels.Pages
             _config = App.GetService<IGeneralConfiguration>();
         }
         [ObservableProperty]
-        ObservableCollection<Models.Usuario>? usuarioList;
+        ObservableCollection<Models.Usuario>? _usuarioList;
 
         public async Task CargarDatos()
         {

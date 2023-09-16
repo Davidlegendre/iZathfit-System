@@ -28,12 +28,20 @@ namespace iZathfit.Helpers
             }
             catch (Exception ex)
             {
-                _dialog.ShowDialog(mensaje: "No se alarme, solo contacte al desarrollador en caso de dudas\n\nError: " + ex.Message,
+                _dialog.ShowDialog(mensaje: "No se alarme, solo contacte a algun desarrollador en caso de dudas\n\nError: " + ex.Message,
                     titulo: "Ups",
-                    links: new Models.ModelsCommons.LinkModel[] 
+                    links: new Models.ModelsCommons.LinkModel[]
                     {
                         new Models.ModelsCommons.LinkModel()
-                        { TitlePage = "Whatsapp", Url = "https://www.google.com"}
+                        {
+                            TitlePage = "Whatsapp Dev. David Legendre",
+                            Url = "https://api.whatsapp.com/send?phone=51914847720"
+                        },
+                        new Models.ModelsCommons.LinkModel()
+                        {
+                            TitlePage = "Whatsapp Dev. Francois Renquifo",
+                            Url = "https://api.whatsapp.com/send?phone=51998440211"
+                        }
                     }, owner: owner);
                 return default;
             }
@@ -47,12 +55,20 @@ namespace iZathfit.Helpers
             }
             catch (Exception ex)
             {
-                _dialog.ShowDialog(mensaje: "No se alarme, solo contacte al desarrollador en caso de dudas\n\nError: " + ex.Message,
+                _dialog.ShowDialog(mensaje: "No se alarme, solo contacte a algun desarrollador en caso de dudas\n\nError: " + ex.Message,
                     titulo: "Ups",
                     links: new Models.ModelsCommons.LinkModel[]
                     {
                         new Models.ModelsCommons.LinkModel()
-                        { TitlePage = "Whatsapp", Url = "https://www.google.com"}
+                        {
+                            TitlePage = "Whatsapp Dev. David",
+                            Url = "https://api.whatsapp.com/send?phone=51914847720"
+                        },
+                        new Models.ModelsCommons.LinkModel()
+                        {
+                            TitlePage = "Whatsapp Dev. Francois",
+                            Url = "https://api.whatsapp.com/send?phone=51998440211"
+                        }
                     }, owner: owner);
                 return false;
             }

@@ -24,13 +24,13 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         }
 
         [ObservableProperty]
-        string? tipoIdenttxt = "";
+        string? _tipoIdenttxt = "";
 
         [ObservableProperty]
-        string? abreviaturatxt = "";
+        string? _abreviaturatxt = "";
 
         [ObservableProperty]
-        Visibility visibleLimpiar = Visibility.Visible;
+        Visibility _visibleLimpiar = Visibility.Visible;
 
         public void Cargar(TipoIdentificacionModel? tipo) { 
             if (tipo != null)

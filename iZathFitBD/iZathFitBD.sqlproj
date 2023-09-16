@@ -73,6 +73,7 @@
     <Folder Include="dbo\Stored Procedures\Planes" />
     <Folder Include="dbo\Types" />
     <Folder Include="dbo\Stored Procedures\ServicioXPlanes" />
+    <Folder Include="dbo\Stored Procedures\Promociones" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\TipoPago.sql" />
@@ -138,6 +139,11 @@
     <Build Include="dbo\Stored Procedures\Planes\UpdatePlanes.sql" />
     <Build Include="dbo\Stored Procedures\Planes\DeletePlan.sql" />
     <Build Include="dbo\Stored Procedures\ServicioXPlanes\SelectOneServicioXPlanes.sql" />
+    <Build Include="dbo\Stored Procedures\Promociones\SelectAllPromociones.sql" />
+    <Build Include="dbo\Stored Procedures\Promociones\InsertarPromocion.sql" />
+    <Build Include="dbo\Stored Procedures\Promociones\UpdatePromocion.sql" />
+    <Build Include="dbo\Stored Procedures\Promociones\DeletePromocion.sql" />
+    <Build Include="dbo\Stored Procedures\Promociones\SelectActiveAllPromociones.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

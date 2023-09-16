@@ -42,6 +42,17 @@ namespace Domain.Plan
             }
         }
 
+        public async Task<List<PlanModel>?> GetPlanesWithoutServices()
+        {
+            using (var con = new SqlConnection(_config.GetConnection()))
+            {
+                var result = await con.QueryAsync<PlanModel>("SelectAllPlanes",
+                    commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result.Count() == 0 ? null : result.AsList();
+            }
+        }
+
         public async Task<bool> InsertPlan(PlanModel plan)
         {
             if (plan.Servicios == null) return false;

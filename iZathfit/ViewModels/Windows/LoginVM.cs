@@ -41,19 +41,19 @@ public partial class LoginVM : ObservableObject
     }
 
     [ObservableProperty]
-    string? codeEmail = "";
+    string? _codeEmail = "";
 
     [ObservableProperty]
-    bool enableEmailtxt = true;
+    bool _enableEmailtxt = true;
 
     [ObservableProperty]
-    bool enableCodeTXT = false;
+    bool _enableCodeTXT = false;
 
     [ObservableProperty]
-    bool enableNewPasswordTxt = false;
+    bool _enableNewPasswordTxt = false;
 
     [ObservableProperty]
-    Guid? guidPersonForgot = null;
+    Guid? _guidPersonForgot = null;
 
     public async Task verificarusuario(string? User, string? Password)
     {

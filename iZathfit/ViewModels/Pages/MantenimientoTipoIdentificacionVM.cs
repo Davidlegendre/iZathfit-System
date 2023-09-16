@@ -24,7 +24,7 @@ namespace iZathfit.ViewModels.Pages
         }
 
         [ObservableProperty]
-        ObservableCollection<Models.TipoIdentificacionModel>? tipoIdentificacionlist;
+        ObservableCollection<Models.TipoIdentificacionModel>? _tipoIdentificacionlist;
 
         //mostrar, eliminar
 
