@@ -1,4 +1,5 @@
 ﻿using Configuration;
+using iZathfit.ModelsComponents;
 using iZathfit.ViewModels.Pages;
 using System;
 using System.Collections.Generic;
@@ -23,18 +24,27 @@ namespace iZathfit.Components
     public partial class MenuUsuario : UserControl
     {
         IGeneralConfiguration? _config;
+        HomePageVM? _vm;
         public MenuUsuario()
         {
             InitializeComponent();
+           
             _config = App.GetService<IGeneralConfiguration>();
+            this.Loaded += MenuUsuario_Loaded;
         }
 
-        private void prueba_click(object sender, RoutedEventArgs e)
+        private void MenuUsuario_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_config != null && _config.getuserSistema() != null)
+            _vm = DataContext as HomePageVM;
+        }
+
+        private void listamenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = listamenu.SelectedItem as MenuUserItemsModel;
+            if (item != null)
             {
-                _config.getuserSistema().Nombres = "Fulano de tal";
-                App.GetService<HomePageVM>()?.DatoUsuario();
+                item.Comando?.Invoke();
+                listamenu.SelectedIndex = -1;
             }
         }
     }

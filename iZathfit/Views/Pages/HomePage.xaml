@@ -102,7 +102,7 @@
                 <ui:Badge  Padding="2" VerticalAlignment="Center" Appearance="Secondary">
                     <ui:SymbolIcon Symbol="{Binding IconAccount}" FontSize="22"></ui:SymbolIcon>
                 </ui:Badge>
-                <ui:Button Name="btnmenuusuario" Click="btnmenuusuario_Click" Margin="5,7,7,7" Appearance="Primary" Grid.Column="3" Padding="7" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalContentAlignment="Left" Content="{Binding Iniciales}" IconFilled="True" VerticalAlignment="Stretch"/>
+                <ui:Button Name="btnmenuusuario" FontFamily="Segoe UI Semibold" Foreground="{Binding Foreground,ElementName=icon}" Click="btnmenuusuario_Click" Margin="5,7,7,7" Appearance="Primary" Grid.Column="3" Padding="7" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalContentAlignment="Left" Content="{Binding Iniciales}" IconFilled="True" VerticalAlignment="Stretch"/>
                 
             </StackPanel>
         </Grid>

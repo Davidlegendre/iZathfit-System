@@ -1,7 +1,11 @@
 ﻿using Models;
+using Models.DTOS;
+using Models.ModelsCommons;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -67,6 +71,27 @@ namespace Configuration.GlobalHelpers
                 return false;
 
             return true;
+        }
+
+        public int ColumnsFromWidthWindow(int ActuaWidthWindow) {
+            return ActuaWidthWindow / 270;
+        }
+
+        public LinkModel[] GetLinksContacts()
+        {
+            return new Models.ModelsCommons.LinkModel[]
+                        {
+                        new Models.ModelsCommons.LinkModel()
+                        {
+                            TitlePage = "Dev. David",
+                            Url = "https://api.whatsapp.com/send?phone=51914847720"
+                        },
+                        new Models.ModelsCommons.LinkModel()
+                        {
+                            TitlePage = "Dev. Francois",
+                            Url = "https://api.whatsapp.com/send?phone=51998440211"
+                        }
+                        };
         }
     }
 }

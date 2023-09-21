@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="iZathfit.Components.ElementosUsuario.DatosPerfilChangeComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iZathfit.Components.ElementosUsuario"
+             xmlns:components="clr-namespace:iZathfit.Components.DatePicker"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mc:Ignorable="d" 
+              d:DesignHeight="415"  d:DesignWidth="330">
+    <UserControl.DataContext>
+        <local:DatosPerfilViewModel></local:DatosPerfilViewModel>
+    </UserControl.DataContext>
+    <StackPanel Margin="0">
+        <ui:TextBox Name="txtnombres" MaxLength="50" Text="{Binding Nombres}" PlaceholderText="Nombres" Icon="Person20" Margin="0,0,0,10"></ui:TextBox>
+        <ui:TextBox PlaceholderText="Apellidos" Text="{Binding Apellidos}" MaxLength="50" Icon="Person20" Margin="0,0,0,10"></ui:TextBox>
+        <components:DatePicker x:Name="dpfechanacimiento" Header="Fecha de Nacimiento" HeaderVisible="Visible" Margin="0,0,0,10"></components:DatePicker>
+        <ui:TextBox PlaceholderText="Direccion" Text="{Binding Direccion}" MaxLength="100" Icon="Location20" Margin="0,0,0,10"></ui:TextBox>
+        <ui:TextBox PlaceholderText="Telefono" Text="{Binding Numerotelefono}" MaxLength="9" Icon="Phone20" Margin="0,0,0,10"></ui:TextBox>
+        <ui:TextBox PlaceholderText="Email" Text="{Binding Email}" MaxLength="255" Icon="Mention20" Margin="0,0,0,10"></ui:TextBox>
+        <ui:Button HorizontalAlignment="Stretch" Icon="Save20" Click="btnguardar_click" Content="Guardar"></ui:Button>
+
+    </StackPanel>
+</UserControl>

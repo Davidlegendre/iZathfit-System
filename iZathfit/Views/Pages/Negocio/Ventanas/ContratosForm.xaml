@@ -1,0 +1,129 @@
+﻿<ui:UiWindow x:Class="iZathfit.Views.Pages.Negocio.Ventanas.ContratosForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas"
+        xmlns:components="clr-namespace:iZathfit.Components.SelectSearchComponent"
+        xmlns:viewmodels="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas.ViewModels"
+        ExtendsContentIntoTitleBar="True"
+        WindowBackdropType="Mica"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        Background="{ui:ThemeResource}"       
+        mc:Ignorable="d"
+        Title="Contratos" Height="620" ResizeMode="NoResize" MinWidth="0" MinHeight="0" Width="570" WindowStartupLocation="CenterScreen">
+    <ui:UiWindow.DataContext>
+        <viewmodels:ContratoFormViewModel></viewmodels:ContratoFormViewModel>
+    </ui:UiWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ui:TitleBar Name="tbtitle" ShowMaximize="False" CanMaximize="False" Title="sad" ></ui:TitleBar>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Text="Persona" FontSize="14" Opacity="0.8" Foreground="{Binding Foreground,ElementName=tbtitle}" Margin="7">
+
+                </TextBlock>
+                <components:SelectSearch x:Name="searchidentificacion" Margin="7">
+                </components:SelectSearch>
+            </StackPanel>
+            <Grid VerticalAlignment="Top" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Plan" FontSize="14" Opacity="0.8" Foreground="{Binding Foreground,ElementName=tbtitle}" Margin="7">
+
+                        </TextBlock>
+                        <ComboBox Margin="7,0,7,0" ItemsSource="{Binding Planlist}" SelectedItem="{Binding SelectedPlan}" SelectionChanged="planSelect_Change">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding GetTitulo}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <Grid Margin="7">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="1" Text="{Binding TitlePromociones}" VerticalAlignment="Center" FontSize="14" Opacity="0.8" Foreground="{Binding Foreground,ElementName=tbtitle}" >
+
+                            </TextBlock>
+                            <ui:Button Click="btnQuitarPromoSelected_click" IsEnabled="{Binding EnableIfHavePromociones}" Margin="0,0,10,0" Icon="Dismiss20" VerticalAlignment="Stretch" Padding="5"></ui:Button>
+                        </Grid>
+                        <ComboBox IsEnabled="{Binding EnableIfHavePromociones}" Margin="7,0,7,0" ItemsSource="{Binding Promocioneslist}" SelectedItem="{Binding SelectedPromo}" SelectionChanged="promos_selectedchange">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding GetTitulo}" TextWrapping="Wrap"></TextBlock>
+                                        <Grid Opacity="0.7">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock  Text="{Binding GetDescuento}"></TextBlock>
+                                            <TextBlock Grid.Column="1" Text=" - "></TextBlock>
+                                            <TextBlock Grid.Column="2" Text="{Binding GetValidDatetime}" TextWrapping="Wrap"></TextBlock>
+                                        </Grid>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="Tipo de Pago" FontSize="14" Opacity="0.8" Foreground="{Binding Foreground,ElementName=tbtitle}" Margin="7">
+
+                        </TextBlock>
+                        <ComboBox Margin="7,0,7,0" ItemsSource="{Binding Tipopagolist}" SelectedItem="{Binding SelectedTipoPago}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding descripcion}"></TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="7" >
+                    <TextBlock Text="Codigo Contrato" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <ui:TextBox Icon="DocumentRibbon20" MaxLength="6" Text="{Binding CodigoContrato}" PlaceholderText="Contrato" Margin="0,0,0,8"></ui:TextBox>
+                    
+                    <TextBlock Text="Fecha de Inicio" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <TextBlock Text="{Binding FechaInicio}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+
+                    <TextBlock Text="Fecha de Fin" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <TextBlock Text="{Binding FechaFin}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+
+                    <TextBlock Text="Subtotal" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <TextBlock Text="{Binding Subtotal}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+
+                    <TextBlock Text="Descuento" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <TextBlock Text="{Binding Descuento}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+
+                    <TextBlock Text="Total" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <TextBlock Text="{Binding Total}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+      
+        <UniformGrid x:Name="uniformgridpanel" Grid.Row="2" Rows="1" Margin="7">
+            <ui:Button Name="btnadd" Click="btnadd_Click" Appearance="Primary" HorizontalAlignment="Stretch" Margin="0,0,5,0" Content="Guardar"></ui:Button>
+            <ui:Button Name="btncancelar" Click="btncancelar_Click" HorizontalAlignment="Stretch" Margin="0,0,5,0" Content="Cancelar"></ui:Button>
+            <ui:Button Name="btnlimpiar" Click="btnlimpiar_Click" HorizontalAlignment="Stretch" Content="Limpiar"></ui:Button>
+        </UniformGrid>
+    </Grid>
+</ui:UiWindow>

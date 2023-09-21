@@ -30,6 +30,9 @@ namespace iZathfit.ViewModels.Pages
         [ObservableProperty]
         ObservableCollection<Models.Usuario>? _usuarioList;
 
+        [ObservableProperty]
+        int _columns = 4;
+
         public async Task CargarDatos()
         {
             if (_service == null || _helperexc == null) return;

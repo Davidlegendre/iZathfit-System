@@ -1,0 +1,18 @@
+﻿using Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Services.Contratos
+{
+    public interface IContratosService
+    {
+        public Task<List<ContratoModel>?> GetContratos();
+        public Task<List<ContratoModel>?> SelectOneContratoPerDNIPerson(string identificacion);
+        public Task<bool> InsertContrato(ContratoModel contrato);
+        public Task<bool> SetContratoNotValid(Guid idcontrato, bool idnotvalid, string description);
+        public Task<bool> EliminarContrato(Guid idcontrato);
+    }
+}

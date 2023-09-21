@@ -15,5 +15,6 @@ namespace Services.Plan
         public Task<bool> UpdatePlan(PlanModel plan);
         public Task<bool> DeletePlan(int idplan);
         public Task<List<PlanModel>?> GetPlanesWithoutServices();
+        public Task<PlanModel?> GetPlanByID(int idplan);
     }
 }

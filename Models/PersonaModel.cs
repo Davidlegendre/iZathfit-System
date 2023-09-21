@@ -36,6 +36,8 @@ namespace Models
         public string? GetEdad => "Edad: " + Edad;
         public string? GetDireccion => "Dir: " + Direccion;
         public string? GetTelefono => "Tlf: " + Telefono;
+        public string? getNumEmergencia => "Tlf Emergencia: " + NumeroEmergencia1;
+        public string? GetFechaNacimiento => "Fecha de Nacimiento: " + Fech_Nacimiento.ToLongDateString();
 
 
     }

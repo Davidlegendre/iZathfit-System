@@ -1,4 +1,5 @@
-﻿using iZathfit.ViewModels.Pages.Negocio;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.ViewModels.Pages.Negocio;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -25,11 +26,22 @@ namespace iZathfit.Views.Pages.Negocio
     {
         PromocionViewModel? _vm;
         ObservableCollection<PromocionModelo>? _copy;
+        IGlobalHelpers? _helpers;
         public PromocionesPage()
         {
             InitializeComponent();
             _vm = this.DataContext as PromocionViewModel;
+            _helpers = App.GetService<IGlobalHelpers>();
             this.Loaded += PromocionesPage_Loaded;
+            this.SizeChanged += PromocionesPage_SizeChanged;
+        }
+
+        private void PromocionesPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_vm != null && _helpers != null)
+            {
+                _vm.Columns = _helpers.ColumnsFromWidthWindow(Convert.ToInt32(this.ActualWidth));
+            }
         }
 
         private async void PromocionesPage_Loaded(object sender, RoutedEventArgs e)

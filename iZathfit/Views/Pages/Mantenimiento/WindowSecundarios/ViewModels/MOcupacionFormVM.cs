@@ -38,7 +38,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             }
         }
 
-        public async Task<bool> AgregarOcupacion(UiWindow win, ObservableCollection<Ocupacion> lista)
+        public async Task<bool> AgregarOcupacion(UiWindow win, List<Ocupacion> lista, ObservableCollection<Ocupacion>? listacollection = null)
         {
             if (_helpexec == null || _servicio == null) return false;
             if (!validar())
@@ -51,12 +51,14 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             {
                 _dialog?.ShowDialog("Ocupacion Insertada Correctamente");
                 lista.Add(result);
+                if (listacollection != null)
+                    listacollection.Add(result);
             }
 
             return result != null;
         }
 
-        public async Task<bool> UpdateOcupacion(UiWindow win, ObservableCollection<Ocupacion> lista, int idocupacion)
+        public async Task<bool> UpdateOcupacion(UiWindow win, List<Ocupacion> lista, int idocupacion)
         {
             if (!validar())
                 return false;

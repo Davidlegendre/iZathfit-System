@@ -1,4 +1,5 @@
-﻿using iZathfit.ModelsComponents;
+﻿using iZathfit.Components;
+using iZathfit.ModelsComponents;
 using iZathfit.ViewModels.Pages;
 using Services.Genero;
 using System.Windows.Controls;

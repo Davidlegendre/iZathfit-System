@@ -27,16 +27,22 @@ namespace iZathfit.ViewModels.Pages
         [ObservableProperty]
         ObservableCollection<Models.Ocupacion>? _ocupaciones;
 
+        public List<Models.Ocupacion> _listaocupacion = new List<Ocupacion>();
+
+        [ObservableProperty]
+        int _columns = 4;
+
         public async Task<bool> CargarDatos() {
             if (_helperx == null || _dialog == null || _servicio == null) return false;
             var ocups = await _servicio.GetOcupaciones();
+            _listaocupacion.Clear();
             if (ocups == null || ocups.Count() == 0)
             {
                 _dialog.ShowDialog("No hay Ocupaciones");
                 return false;   
             }
-
-            Ocupaciones = new ObservableCollection<Models.Ocupacion>(ocups);
+            _listaocupacion = ocups;
+            //Ocupaciones = new ObservableCollection<Models.Ocupacion>(ocups);
             return true;            
         }
 
@@ -50,7 +56,7 @@ namespace iZathfit.ViewModels.Pages
             }
 
             _dialog?.ShowDialog("Ocupacion eliminada");
-            Ocupaciones.Remove(Ocupaciones.First(x => x.IdOcupacion == ocupacion.IdOcupacion));
+            _listaocupacion.Remove(_listaocupacion.First(x => x.IdOcupacion == ocupacion.IdOcupacion));
             return true;
         }
 

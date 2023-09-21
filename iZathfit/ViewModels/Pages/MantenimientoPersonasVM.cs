@@ -1,4 +1,5 @@
-﻿using iZathfit.Helpers;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.Helpers;
 using iZathfit.Views.Windows;
 using Models;
 using Services.Persona;
@@ -27,21 +28,27 @@ namespace iZathfit.ViewModels.Pages
         [ObservableProperty]
         ObservableCollection<PersonaModel> _personas = new ObservableCollection<PersonaModel>();
 
+        public List<PersonaModel> _personaslist = new List<PersonaModel>();
+
+        [ObservableProperty]
+        int _columns = 4;
+
         public async Task ObtenerPersonas() {
             if (_servicio == null || _handlex == null) return;
             var result = await _handlex.ExcepHandler(() => _servicio.SelectAllPersonasNormal(), App.GetService<MainWindow>());
-            if (result == null) return;
-            Personas = new ObservableCollection<PersonaModel>(result);
+            if (result == null) { _personaslist.Clear(); return; }
+            _personaslist = result;
+
         }
 
-        public async Task EliminarPersona(PersonaModel? persona, UiWindow win, ObservableCollection<PersonaModel> lista)
+        public async Task EliminarPersona(PersonaModel? persona, UiWindow win)
         {
             if (persona == null || _handlex == null || _servicio == null) return;
             if (_dialog?.ShowDialog("Desea Eliminar a la persona: " + persona.GetCompleteName + "?", ShowCancelButton: true) == true)
             {
                 var result = await _handlex.ExcepHandler(() => _servicio.DeletePersona(persona.IdPersona), win);
                 if (result > 0)
-                    lista.Remove(persona);
+                    _personaslist.Remove(persona);
             }
         }
 

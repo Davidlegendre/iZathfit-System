@@ -2,6 +2,7 @@
 using iZathfit.Helpers;
 using iZathfit.Views.Windows;
 using Models;
+using Models.ServiciodeModelos;
 using Services.Promocion;
 using System;
 using System.Collections.Generic;
@@ -27,10 +28,16 @@ namespace iZathfit.ViewModels.Pages.Negocio
         [ObservableProperty]
         ObservableCollection<PromocionModelo>? _promociones;
 
+        [ObservableProperty]
+        int _columns = 4;
+
         public async Task<bool> GetData() {
             if (_servicio == null || _helperexec == null) return false;
             var result = await _helperexec.ExcepHandler(() => _servicio.GetPromociones(), App.GetService<MainWindow>());
             Promociones = result == null ? null : new ObservableCollection<PromocionModelo>(result);
+
+            if (Promociones != null)
+                NotificadorServicesInModels.NotificarPromos(Promociones);
             return result != null;
         }
 
@@ -43,7 +50,10 @@ namespace iZathfit.ViewModels.Pages.Negocio
             var result = await _helperexec.ExcepHandler(() => _servicio.DeletePromocion(idPromo), App.GetService<MainWindow>());
             if (result)
             {
+                NotificadorServicesInModels.NotificarEliminaciondePromo(Promociones.First(x => x.IdPromocion == idPromo));
                 Promociones.Remove(Promociones.First(x => x.IdPromocion == idPromo));
+                
+                
             }
 
         }

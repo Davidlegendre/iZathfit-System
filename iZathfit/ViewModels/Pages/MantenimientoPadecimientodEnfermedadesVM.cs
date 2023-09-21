@@ -30,6 +30,12 @@ namespace iZathfit.ViewModels.Pages
         [ObservableProperty]
         ObservableCollection<PadecimientosEnfermedadesDTO>? _padecimientos;
 
+
+        public List<PadecimientosEnfermedadesDTO> _padecimientoslist = new List<PadecimientosEnfermedadesDTO>();
+
+        [ObservableProperty]
+        int _columns = 4;
+
         public async Task<bool> CargarDatos() { 
            if(_servicio == null || _personaservice == null || _dialog == null) return false;
             var countpersonas = await _personaservice.GetCountPersonas();
@@ -40,15 +46,15 @@ namespace iZathfit.ViewModels.Pages
             }
 
             var padecimientos = await _servicio.GetAll();
+            _padecimientoslist.Clear();
             if (padecimientos != null && padecimientos.Count() != 0)
             {                //si hay padecimientos  los agrupo por idpersona
                 /*
                     luego agrego las enfermedades y busco datos de esa persona
                 luego los agrego al dto dentro de la coleccion
-                 */
-                    Padecimientos = new ObservableCollection<PadecimientosEnfermedadesDTO>();
+                 */                
                 var agrupado = padecimientos.GroupBy(x => x.IdPersona).AsList();
-                agrupado.ForEach(async x =>
+                foreach (var x in agrupado)
                 {
                     var enfermedades = new List<string>();
                     x.AsList().ForEach(padecimiento =>
@@ -57,17 +63,15 @@ namespace iZathfit.ViewModels.Pages
                     });
                     var persona = await _personaservice.GetPersona(x.Key);
 
-                    Padecimientos.Add(new PadecimientosEnfermedadesDTO()
+                    _padecimientoslist.Add(new PadecimientosEnfermedadesDTO()
                     {
                         Idpersona = x.Key,
                         Enfermedades = enfermedades,
                         Persona = persona
                     });
-                });
+                }
 
             }
-            else
-                Padecimientos = new ObservableCollection<PadecimientosEnfermedadesDTO>();
             return true;
         }
 
@@ -82,10 +86,14 @@ namespace iZathfit.ViewModels.Pages
             if (_exceptionhelper == null || _servicio == null) return false;
             var result = await _exceptionhelper.ExcepHandler(() => _servicio.DeletePadecimientosEnfermedades(enfermedadesDTO.Idpersona),
                 App.GetService<MainWindow>());
-            if(result)
+            if (result)
             {
                 _dialog?.ShowDialog("Padecimientos y Enfermedades eliminadas");
                 await CargarDatos();
+            }
+            else
+            {
+                _dialog?.ShowDialog("Padecimientos y Enfermedades Rechazadas");
             }
             return result;
         }

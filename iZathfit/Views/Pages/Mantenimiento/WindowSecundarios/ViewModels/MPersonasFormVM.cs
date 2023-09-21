@@ -50,6 +50,8 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         [ObservableProperty]
         ObservableCollection<Ocupacion>? _ocupacionList;
 
+
+
         [ObservableProperty]
         string? _identificacion = "";
         [ObservableProperty]
@@ -146,7 +148,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             Numemergencia2 = "";
         }
 
-        public async Task<bool> GuardarPersona(UiWindow win, ObservableCollection<PersonaModel> lista) {
+        public async Task<bool> GuardarPersona(UiWindow win, List<PersonaModel> lista) {
             var usuario = _config?.getuserSistema();
             if (!Verificar() || _helperex == null || _personaService == null || usuario == null)
                 return false;
@@ -180,7 +182,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             return result != null;
         }
 
-        public async Task<bool> ActualizarPersona(UiWindow win, Guid IdPersona, ObservableCollection<PersonaModel> lista)
+        public async Task<bool> ActualizarPersona(UiWindow win, Guid IdPersona, List<PersonaModel> lista)
         {
             var usuario = _config?.getuserSistema();
             if (!Verificar() || _helperex == null || _personaService == null || usuario == null)

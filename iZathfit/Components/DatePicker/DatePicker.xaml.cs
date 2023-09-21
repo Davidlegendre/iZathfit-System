@@ -32,7 +32,7 @@ namespace iZathfit.Components.DatePicker
 
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
-            DateSelect = DateTime.Now;
+           
         }
 
         string _MonthSeleted = "";
@@ -40,7 +40,7 @@ namespace iZathfit.Components.DatePicker
        
         string _YearSelected = "";
 
-        DateTime _DateSelected;
+        DateTime _DateSelected = DateTime.Now;
         public DateTime DateSelect
         {
             get => _DateSelected;

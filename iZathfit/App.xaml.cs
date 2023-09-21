@@ -5,6 +5,7 @@
 
 using Configuration;
 using Configuration.GlobalHelpers;
+using Domain.Contratos;
 using Domain.Genero;
 using Domain.Ocupaciones;
 using Domain.PadecimientosEnfermedades;
@@ -13,9 +14,13 @@ using Domain.Plan;
 using Domain.PlanDuracion;
 using Domain.Promocion;
 using Domain.Rol;
+using Domain.Saldos;
+using Domain.SaldosXPersona;
 using Domain.Servicios;
 using Domain.TipoIdentificacion;
+using Domain.TipoPago;
 using Domain.Usuario;
+using iZathfit.Components.ElementosUsuario;
 using iZathfit.Helpers;
 using iZathfit.ServicesSystem;
 using iZathfit.Views.Pages;
@@ -26,6 +31,9 @@ using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Models;
+using Models.ServiciodeModelos;
+using Services.Contratos;
 using Services.Genero;
 using Services.Login;
 using Services.Ocupacion;
@@ -35,8 +43,11 @@ using Services.Plan;
 using Services.PlanDuracion;
 using Services.Promocion;
 using Services.Rol;
+using Services.Saldos;
+using Services.SaldoXPersona;
 using Services.Servicios;
 using Services.TipoIdentificacion;
+using Services.TipoPago;
 using Services.Usuario;
 using System.Windows.Threading;
 
@@ -72,6 +83,11 @@ namespace iZathfit
                 services.AddTransient<PlanDuracionPage>();
                 services.AddTransient<PlanesPage>();
                 services.AddTransient<PromocionesPage>();
+                services.AddTransient<PromocionModelo>();
+                services.AddTransient<MantenimientoTipoPago>();
+                services.AddTransient<Contratos>();
+                services.AddTransient<PagosPage>();
+                services.AddTransient<ClienteDataView>();
 
                 services.AddScoped<MainWindow>();
                 services.AddScoped<LoginPage>();
@@ -106,6 +122,14 @@ namespace iZathfit
                 services.AddScoped<IPlanService, PlanService>();
                 services.AddScoped<IPromocionRepository, PromocionRepository>();
                 services.AddScoped<IPromocionService, PromocionService>();
+                services.AddScoped<ITipoPagoRepository, TipoPagoRepository>();
+                services.AddScoped<ITipoPagoService, TipoPagoService>();
+                services.AddScoped<IContratoRepository, ContratosRepository>();
+                services.AddScoped<IContratosService, ContratosService>();  
+                services.AddScoped<ISaldoXPersonaRepository, SaldoXPersonaRepository>();
+                services.AddScoped<ISaldoXPersonaService, SaldoXPersonaService>();
+                services.AddScoped<ISaldosRepository, SaldosRepository>();
+                services.AddScoped<ISaldoService, SaldoService>();
 
                 services.AddSingleton<localDialogService>();
                 services.AddSingleton<GlobalService>();

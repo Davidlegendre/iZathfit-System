@@ -9,13 +9,17 @@ namespace iZathfit.Views.Pages.SubPagesHome
     public partial class Home : UserControl
     {
         GlobalService? _globalService;
+        SubHomeViewmodel? _vm;
         public Home()
         {
             InitializeComponent();
-            _globalService = App.GetService<GlobalService>();            
+            _globalService = App.GetService<GlobalService>();  
+            _vm = DataContext as SubHomeViewmodel;
             this.Loaded += Home_Loaded;
             
         }
+
+        public SubHomeViewmodel? vm => _vm;
 
         private void Home_Loaded(object sender, RoutedEventArgs e)
         {
@@ -30,6 +34,7 @@ namespace iZathfit.Views.Pages.SubPagesHome
             saludar(DateTime.Now.Hour, (DateTime.Now.Hour > 12 ? TypeHora.PM : TypeHora.AM));
             if (_globalService != null)
                 _globalService.TimeSystemEvent += _globalService_TimeSystemEvent;
+            _vm.RelojPanel = RelojHome;
         }
 
         private void _globalService_TimeSystemEvent(object? sender, HomeDataModel e)
@@ -69,6 +74,17 @@ namespace iZathfit.Views.Pages.SubPagesHome
                 Symbol.Symbol = Wpf.Ui.Common.SymbolRegular.WeatherPartlyCloudyDay48;
             if (hour > 18)
                 Symbol.Symbol = Wpf.Ui.Common.SymbolRegular.WeatherMoon48;
+        }
+
+        private void txtBuscarDatosCliente_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+           if(e.Key == System.Windows.Input.Key.Enter)
+            {
+                if (_vm != null) {
+                    _vm.ViewDataUser(txtIdentificacion.Text);
+                    txtIdentificacion.Clear();
+                }
+            }
         }
     }
 

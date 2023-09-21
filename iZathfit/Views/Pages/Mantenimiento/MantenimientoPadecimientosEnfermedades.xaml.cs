@@ -1,4 +1,6 @@
-﻿using iZathfit.ViewModels.Pages;
+﻿using Configuration.GlobalHelpers;
+using Dapper;
+using iZathfit.ViewModels.Pages;
 using iZathfit.Views.Pages.Mantenimiento.WindowSecundarios;
 using iZathfit.Views.Windows;
 using Models;
@@ -29,12 +31,23 @@ namespace iZathfit.Views.Pages.Mantenimiento
         MantenimientoPadecimientodEnfermedadesVM? _vm;
         localDialogService? _dialog;
         ObservableCollection<PadecimientosEnfermedadesDTO>? _copy;
+        IGlobalHelpers? _helpers;
         public MantenimientoPadecimientosEnfermedades()
         {
             InitializeComponent();
             _vm = this.DataContext as MantenimientoPadecimientodEnfermedadesVM;
+            _helpers = App.GetService<IGlobalHelpers>();
             _dialog = App.GetService<localDialogService>();
             this.Loaded += MantenimientoPadecimientosEnfermedades_Loaded;
+            this.SizeChanged += MantenimientoPadecimientosEnfermedades_SizeChanged;
+        }
+
+        private void MantenimientoPadecimientosEnfermedades_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_vm != null && _helpers != null)
+            {
+                _vm.Columns = _helpers.ColumnsFromWidthWindow(Convert.ToInt32(this.ActualWidth));
+            }
         }
 
         private async void MantenimientoPadecimientosEnfermedades_Loaded(object sender, RoutedEventArgs e)
@@ -42,20 +55,20 @@ namespace iZathfit.Views.Pages.Mantenimiento
             Wpf.Ui.Animations.Transitions.ApplyTransition(this, Wpf.Ui.Animations.TransitionType.FadeInWithSlide, 500);
             if (_vm == null) return;
             if (await _vm.CargarDatos() == false) return;
+            _copy = new ObservableCollection<PadecimientosEnfermedadesDTO>(_vm._padecimientoslist);
+            _vm.Padecimientos = paginator.GetPaginationCollection(_copy);
         }
 
         private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                if (_vm == null) return;
+                if (_vm == null || _copy == null) return;
                 if (string.IsNullOrWhiteSpace(txtBuscar.Text))
-                { if (_copy != null) _vm.Padecimientos = _copy; _copy = null; }
+                { _vm.Padecimientos = paginator.GetPaginationCollection(_copy); }
                 else
                 {
-                    if (_copy == null) _copy = _vm.Padecimientos;
-
-                    _vm.Padecimientos = new ObservableCollection<PadecimientosEnfermedadesDTO>(_copy.Where(x =>
+                    _vm.Padecimientos = paginator.BuscarWithPagination(_copy.Where(x =>
                         x.Persona.GetCompleteName.ToLower().Contains(txtBuscar.Text.ToLower())
                         || x.Persona.Identificacion.Contains(txtBuscar.Text)));
                 }
@@ -67,11 +80,12 @@ namespace iZathfit.Views.Pages.Mantenimiento
             if (_vm == null) return;
             var btn = (Wpf.Ui.Controls.Button)sender;
             var context = btn.DataContext as Models.DTOS.PadecimientosEnfermedadesDTO;
-            if (context == null) return;
-            if (_copy != null) { _vm.Padecimientos = _copy; _copy = null; };
-            if (new MPadecimientosEnfermedadesForm(_vm.Padecimientos, context).ShowDialog() == true)
+            if (context == null || _copy == null) return;
+            if (new MPadecimientosEnfermedadesForm(context).ShowDialog() == true)
             {
                 await _vm.CargarDatos();
+                _copy = new ObservableCollection<PadecimientosEnfermedadesDTO>(_vm._padecimientoslist);
+                _vm.Padecimientos = paginator.GetPaginationCollection(_copy);
             }
 
         }
@@ -81,10 +95,12 @@ namespace iZathfit.Views.Pages.Mantenimiento
             if (_vm == null) return;
             var btn = (Wpf.Ui.Controls.Button)sender;
             var context = btn.DataContext as Models.DTOS.PadecimientosEnfermedadesDTO;
-            if (context == null) return;
+            if (context == null || _copy == null ) return;
             if (_dialog?.ShowDialog("Desea eliminar los Padecimientos de: " + context.Persona.GetCompleteName + "?", "Eliminando", true) == true)
             {
                await _vm.Eliminar(context);
+                _copy = new ObservableCollection<PadecimientosEnfermedadesDTO>(_vm._padecimientoslist);
+                _vm.Padecimientos = paginator.GetPaginationCollection(_copy);
             }
         }
 
@@ -100,10 +116,20 @@ namespace iZathfit.Views.Pages.Mantenimiento
 
         private async void btnagregar_Click(object sender, RoutedEventArgs e)
         {
-            if (_copy != null) { _vm.Padecimientos = _copy; _copy = null; };
-            if (new MPadecimientosEnfermedadesForm(_vm.Padecimientos).ShowDialog() == true)
+            if (_copy == null || _vm == null) return;
+            if (new MPadecimientosEnfermedadesForm().ShowDialog() == true)
             {
                 await _vm.CargarDatos();
+                _copy = new ObservableCollection<PadecimientosEnfermedadesDTO>(_vm._padecimientoslist);
+                _vm.Padecimientos = paginator.GetPaginationCollection(_copy);
+            }
+        }
+
+        private void paginator_ChangePageEvent(object sender, EventArgs e)
+        {
+            if (_vm != null && _copy != null)
+            {
+                _vm.Padecimientos = paginator.GetPaginationCollection(_copy);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using iZathfit.ViewModels.Pages.Negocio;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.ViewModels.Pages.Negocio;
 using iZathfit.Views.Pages.Negocio.Ventanas;
 using iZathfit.Views.Windows;
 using Models;
@@ -28,12 +29,23 @@ namespace iZathfit.Views.Pages.Negocio
         PlanViewModel? _vm;
         localDialogService? _dialog;
         ObservableCollection<PlanModel>? _copy;
+        IGlobalHelpers? _helpers;
         public PlanesPage()
         {
             InitializeComponent();
             _dialog = App.GetService<localDialogService>();
+            _helpers= App.GetService<IGlobalHelpers>();
             _vm = this.DataContext as PlanViewModel;
             this.Loaded += PlanesPage_Loaded;
+            this.SizeChanged += PlanesPage_SizeChanged;
+        }
+
+        private void PlanesPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_vm != null && _helpers != null)
+            {
+                _vm.Columns = _helpers.ColumnsFromWidthWindow(Convert.ToInt32(this.ActualWidth));
+            }
         }
 
         private async void PlanesPage_Loaded(object sender, RoutedEventArgs e)

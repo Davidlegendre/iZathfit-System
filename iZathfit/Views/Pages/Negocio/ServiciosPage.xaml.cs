@@ -1,4 +1,5 @@
-﻿using iZathfit.ViewModels.Pages.Negocio;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.ViewModels.Pages.Negocio;
 using iZathfit.Views.Pages.Negocio.Ventanas.ViewModels;
 using iZathfit.Views.Windows;
 using Models;
@@ -28,12 +29,23 @@ namespace iZathfit.Views.Pages.Negocio
         ServiciosPageVM? _vm;
         ServiciosViewModel? _svm;
         ObservableCollection<ServicioModel>? _copy;
+        IGlobalHelpers? _helpers;
         public ServiciosPage()
         {
             InitializeComponent();
             _vm = this.DataContext as ServiciosPageVM;
             _svm= App.GetService<ServiciosViewModel>(); 
+            _helpers = App.GetService<IGlobalHelpers>();
             this.Loaded += ServiciosPage_Loaded;
+            this.SizeChanged += ServiciosPage_SizeChanged;
+        }
+
+        private void ServiciosPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_vm != null && _helpers != null)
+            {
+                _vm.Columns = _helpers.ColumnsFromWidthWindow(Convert.ToInt32(this.ActualWidth));
+            }
         }
 
         private async void ServiciosPage_Loaded(object sender, RoutedEventArgs e)

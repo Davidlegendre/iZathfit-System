@@ -1,4 +1,5 @@
-﻿using iZathfit.ViewModels.Pages;
+﻿using Dapper;
+using iZathfit.ViewModels.Pages;
 using iZathfit.ViewModels.Windows;
 using iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels;
 using Models;
@@ -30,8 +31,8 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
         MPersonasFormVM? _vm;
         PersonaModel? persona;
         bool resultdialog = false;
-        ObservableCollection<PersonaModel> _personas;
-        public MPersonasForm(ObservableCollection<PersonaModel> personaslista, PersonaModel? persona = null)
+        List<PersonaModel> _personas;
+        public MPersonasForm(List<PersonaModel> personaslista, PersonaModel? persona = null)
         {
             InitializeComponent();
             _vm = this.DataContext as MPersonasFormVM;
@@ -81,8 +82,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
 
         private void btnAddOcupacion_click(object sender, RoutedEventArgs e)
         {
-            var win = 
-            new MOcupacionesForm(_vm.OcupacionList);
+            var win = new MOcupacionesForm(ocupacions: _vm.OcupacionList.AsList(),ocupacionescollection: _vm.OcupacionList);
             win.Owner = this;
             win.ShowDialog();
             

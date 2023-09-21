@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="iZathfit.Views.Pages.SubPagesHome.ClienteDataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:iZathfit.Components.Paginator"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="822">
+    <DockPanel LastChildFill="{Binding Lastchild}">
+        <ui:Button Name="btnback" Content="Volver" HorizontalContentAlignment="Left" VerticalAlignment="Top" DockPanel.Dock="{Binding DockPanels}" Command="{Binding ViewRelojPanelCommand}" Margin="7,7,0,5" Icon="ChevronLeft20"></ui:Button>
+        <Separator VerticalAlignment="Top" DockPanel.Dock="{Binding DockPanels}"></Separator>
+        <ScrollViewer DockPanel.Dock="{Binding DockPanels}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <DockPanel LastChildFill="{Binding Lastchild}">
+                <StackPanel Margin="7" DockPanel.Dock="{Binding DockPanels}">
+                    <ui:CardExpander IsExpanded="True"  ContentPadding="10,15,10,10" VerticalContentAlignment="Top" VerticalAlignment="Top" >
+                        <ui:CardExpander.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <ui:SymbolIcon Symbol="DataArea24" FontSize="22"></ui:SymbolIcon>
+                                <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="7,0,7,0" Text="Datos Generales del Usuario"></TextBlock>
+                            </Grid>
+                        </ui:CardExpander.Header>
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <ui:SymbolIcon Symbol="Person20" FontSize="18" Filled="True"></ui:SymbolIcon>
+                                <TextBlock Text="Nombres" VerticalAlignment="Center" FontFamily="Segoe Ui Semibold" Grid.Column="1" Margin="10,0,0,0"></TextBlock>
+                            </Grid>
+                            <Separator Margin="0,7,0,7"></Separator>
+                            <TextBlock Text="{Binding DataUserModel.Persona.GetCompleteName}"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.Identificacion}" FontSize="12" Opacity="0.7"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.Ocupacion}" FontSize="12" Opacity="0.7"></TextBlock>
+                            <Separator Margin="0,7,0,7"></Separator>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <ui:SymbolIcon Symbol="DataBarVertical24" FontSize="18" Filled="True"></ui:SymbolIcon>
+                                <TextBlock Text="Estadisticas Globales" VerticalAlignment="Center" FontFamily="Segoe Ui Semibold" Grid.Column="1" Margin="10,0,0,0"></TextBlock>
+                            </Grid>
+                            <Separator Margin="0,7,0,7"></Separator>
+                            <TextBlock Text="{Binding DataUserModel.GetContratosContratados}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetContratosPagados}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetContratosAdeudados}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetCantidadFaltante}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetContratosVencidosNoPagos}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetCantidadPagada}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetUltimaFechadePago}" HorizontalAlignment="Left" MaxWidth="255" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetUltimoContratoPagado}" TextWrapping="Wrap"></TextBlock>
+                        </StackPanel>
+                    </ui:CardExpander>
+                </StackPanel>
+               
+                <Grid DockPanel.Dock="{Binding DockPanels}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <UniformGrid Columns="3" HorizontalAlignment="{Binding AligmentButtons}" Height="48" Margin="7,7,0,0">
+                        <RadioButton x:Name="rbpagados" Tag="1" GroupName="Filtro1" Background="Transparent" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Checked="filtros1radios_checked" Padding="0" VerticalAlignment="Stretch" Unchecked="filtros1radios_unchecked" BorderThickness="1,1,1,5" Style="{StaticResource {x:Type ToggleButton}}" Margin="0,0,7,7" HorizontalAlignment="Stretch">
+                            <RadioButton.BorderBrush>
+                                <SolidColorBrush Color="DarkOliveGreen" Opacity="0.8">
+                                   
+                                </SolidColorBrush>
+                            </RadioButton.BorderBrush>
+                            <Grid Background="{Binding Background,ElementName=btnback}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,0,10,0">
+                                    <ui:SymbolIcon Foreground="{Binding Foreground,ElementName=txtpagado}" Symbol="EmojiLaugh24" FontSize="20"></ui:SymbolIcon>
+                                    <TextBlock Name="txtpagado" Foreground="{Binding Foreground,ElementName=btnback}" Text="Pagados"  Margin="7,0,0,0"  Visibility="{Binding Visibletextosbuttons}" FontSize="14" FontFamily="Segoe UI Semibold" VerticalAlignment="Center"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </RadioButton>
+                        <RadioButton GroupName="Filtro1" Tag="2" Checked="filtros1radios_checked" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0" VerticalAlignment="Stretch" Unchecked="filtros1radios_unchecked" BorderThickness="1,1,1,5" Style="{StaticResource {x:Type ToggleButton}}" Margin="0,0,7,7" HorizontalAlignment="Stretch">
+                            <RadioButton.BorderBrush>
+                                <SolidColorBrush Color="YellowGreen" Opacity="0.8">
+
+                                </SolidColorBrush>
+                            </RadioButton.BorderBrush>
+                            <Grid Background="{Binding Background,ElementName=btnback}">
+                                <StackPanel Margin="10,0,10,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <ui:SymbolIcon Foreground="{Binding Foreground,ElementName=txtadeudos}" Symbol="EmojiSadSlight24" FontSize="20" ></ui:SymbolIcon>
+                                    <TextBlock x:Name="txtadeudos" Foreground="{Binding Foreground,ElementName=btnback}" Text="Adeudos"  Margin="7,0,0,0"  Visibility="{Binding Visibletextosbuttons}" FontSize="14" FontFamily="Segoe UI Semibold" VerticalAlignment="Center"></TextBlock>
+
+                                </StackPanel>
+                            </Grid>
+                        </RadioButton>
+                        <RadioButton GroupName="Filtro1" Tag="3" Checked="filtros1radios_checked" Padding="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch" Unchecked="filtros1radios_unchecked" BorderThickness="1,1,1,5" Style="{StaticResource {x:Type ToggleButton}}" Margin="0,0,7,7" HorizontalAlignment="Stretch">
+                            <RadioButton.BorderBrush>
+                                <SolidColorBrush Color="Red" Opacity="0.8">
+
+                                </SolidColorBrush>
+                            </RadioButton.BorderBrush>
+                            <Grid Background="{Binding Background,ElementName=btnback}">
+                                <StackPanel Margin="10,0,10,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <ui:SymbolIcon Foreground="{Binding Foreground,ElementName=txtvencidos}" Symbol="EmojiSad24" FontSize="20" ></ui:SymbolIcon>
+                                    <TextBlock x:Name="txtvencidos" Foreground="{Binding Foreground,ElementName=btnback}" Text="Vencidos" Visibility="{Binding Visibletextosbuttons}" Margin="7,0,0,0" FontSize="14" FontFamily="Segoe UI Semibold" VerticalAlignment="Center"></TextBlock>
+
+                                </StackPanel>
+                            </Grid>
+                        </RadioButton>
+                    </UniformGrid>
+                    <ui:VirtualizingItemsControl Name="listcontracts"  ItemsSource="{Binding ContratosObser}" Grid.Row="1">
+                        <ui:VirtualizingItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Grid.Row="1" Columns="{Binding Columns}" VerticalAlignment="Top">
+
+                                </UniformGrid>
+                            </ItemsPanelTemplate>
+                        </ui:VirtualizingItemsControl.ItemsPanel>
+                        <ui:VirtualizingItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ui:Card VerticalAlignment="Top" Margin="7" Padding="0">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <ui:SymbolIcon Symbol="Bookmark20" Foreground="{Binding ColorString}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="48" Filled="True" Margin="5,-15,0,0"></ui:SymbolIcon>
+
+                                        <ui:SymbolIcon Opacity="0.5" Symbol="Bookmark20" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="48" Margin="5,-15,0,0"></ui:SymbolIcon>
+                                        <TextBlock Margin="0,20,0,20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding NombreContrato}" FontSize="16" FontFamily="segoe ui semibold"></TextBlock>
+                                        <Separator VerticalAlignment="Bottom"></Separator>
+                                        <StackPanel Grid.Row="1" Margin="10">
+                                            <TextBlock Text="{Binding GetPrecioTotal}"  TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding GetUtimoPago}" Opacity="0.9" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding GetPagoFaltante}"  Opacity="0.9"  TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding GetFechaContrato}" Opacity="0.7" FontSize="12" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding GetFechaFinal}" Opacity="0.7" FontSize="12" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding NombrePlan}" Opacity="0.7" FontSize="12" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding Servicios}" Opacity="0.7" FontSize="12" TextWrapping="Wrap"></TextBlock>
+                                            
+                                        </StackPanel>
+                                    </Grid>
+                                </ui:Card>
+                            </DataTemplate>
+                        </ui:VirtualizingItemsControl.ItemTemplate>
+
+                    </ui:VirtualizingItemsControl>
+                    <components:PaginatorComponent x:Name="paginator" ChangePageEvent="paginator_ChangePageEvent" Grid.Row="2"></components:PaginatorComponent>
+                </Grid>
+            </DockPanel>
+        </ScrollViewer>
+    </DockPanel>
+</UserControl>

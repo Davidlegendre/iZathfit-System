@@ -1,4 +1,5 @@
-﻿using iZathfit.ViewModels.Pages.Negocio;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.ViewModels.Pages.Negocio;
 using iZathfit.Views.Pages.Negocio.Ventanas.ViewModels;
 using iZathfit.Views.Windows;
 using Models;
@@ -28,12 +29,23 @@ namespace iZathfit.Views.Pages.Negocio
         PlanDuracionPageViewModel? _vm;
         ObservableCollection<PlanDuracionModel>? _copy;
         PlanDuracionFormViewModel? _form;
+        IGlobalHelpers? _helpers;
         public PlanDuracionPage()
         {
             InitializeComponent();
             _vm = this.DataContext as PlanDuracionPageViewModel;
             _form = App.GetService<PlanDuracionFormViewModel>();
+            _helpers= App.GetService<IGlobalHelpers>();
             this.Loaded += PlanDuracionPage_Loaded;
+            this.SizeChanged += PlanDuracionPage_SizeChanged;     
+        }
+
+        private void PlanDuracionPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_vm != null && _helpers != null)
+            {
+                _vm.Columns = _helpers.ColumnsFromWidthWindow(Convert.ToInt32(this.ActualWidth));
+            }
         }
 
         private async void PlanDuracionPage_Loaded(object sender, RoutedEventArgs e)

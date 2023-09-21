@@ -53,6 +53,16 @@ namespace Domain.Plan
             }
         }
 
+        public async Task<PlanModel?> GetPlanByID(int idplan) {
+            using(var con = new SqlConnection(_config.GetConnection()))
+            {
+                var result = await con.QueryFirstAsync<PlanModel?>("SelectOnePlan",
+                    new { @idplan = idplan }, commandType: CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result;
+            }
+        }
+
         public async Task<bool> InsertPlan(PlanModel plan)
         {
             if (plan.Servicios == null) return false;

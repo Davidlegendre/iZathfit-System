@@ -6,43 +6,67 @@
              xmlns:local="clr-namespace:iZathfit.Components"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:components="clr-namespace:iZathfit.Components"
-             mc:Ignorable="d" d:DesignHeight="370" d:DesignWidth="330" MaxHeight="370">
-    <ui:Card Background="{ui:ThemeResource}" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch">
-        <StackPanel >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <components:LogoSVGModoFit VerticalAlignment="Top" Height="48" Width="48" Tag="{Binding Background,ElementName=btnoculto}"></components:LogoSVGModoFit>
-                <StackPanel Orientation="Vertical" Margin="7,5,0,0" Grid.Column="1">
-                    <TextBlock Text="{Binding Personanombre}" FontFamily="Segoe Ui Semibold" TextTrimming="CharacterEllipsis" Padding="0,0,0,0"></TextBlock>
-                    <TextBlock Text="{Binding Rol}" FontSize="14" Padding="0,0,0,0" Opacity="0.8" TextWrapping="Wrap"></TextBlock>
-                    <TextBlock Text="{Binding Ocupaciones}" FontSize="12" Padding="0,0,0,0" Opacity="0.5" TextWrapping="Wrap"></TextBlock>
-                    <ui:Button Name="btnoculto" Command="{Binding cerrarSesionCommand}" Margin="0,8,0,0" Icon="LockClosed24" FontFamily="Segoe Ui Semibold" Content="Cerrar Sesion" FontSize="12" Padding="5"  Appearance="Primary"></ui:Button>
-                </StackPanel>
-            </Grid>
-            <Separator Margin="0,10,0,0"></Separator>
-            <ListView x:Name="listamenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Menuitems}" SelectionMode="Single">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="1" VerticalAlignment="Top"></UniformGrid>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="7,4,7,4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
+             mc:Ignorable="d" d:DesignHeight="370" d:DesignWidth="330">
+    <ui:Card Background="{ui:ThemeResource}" VerticalAlignment="Stretch" ClipToBounds="True" VerticalContentAlignment="Stretch">
+        <Grid>
+            <StackPanel x:Name="contentprincipal" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <components:LogoSVGModoFit VerticalAlignment="Top" Height="48" Width="48" Tag="{Binding Background,ElementName=btnoculto}"></components:LogoSVGModoFit>
+                    <StackPanel Orientation="Vertical" Margin="7,5,0,0" Grid.Column="1">
+                        <TextBlock Name="txtpersonanombre" Text="{Binding Personanombre}" FontFamily="Segoe Ui Semibold" TextTrimming="CharacterEllipsis" Padding="0,0,0,0"></TextBlock>
+                        <TextBlock Text="{Binding Rol}" FontSize="14" Padding="0,0,0,0" Opacity="0.8" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Text="{Binding Ocupaciones}" FontSize="12" ToolTip="{Binding Ocupaciones}" Padding="0,0,0,0" Opacity="0.7" TextTrimming="CharacterEllipsis"></TextBlock>
+                        <TextBlock Text="{Binding Email}" FontSize="12" ToolTip="{Binding Email}" Padding="0,0,0,0" Opacity="0.5" TextTrimming="CharacterEllipsis"></TextBlock>
 
-                            <ui:SymbolIcon Symbol="{Binding Icon}"></ui:SymbolIcon>
-                            <TextBlock Margin="10,0,0,0" Text="{Binding TituloItem}" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"></TextBlock>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
+                    </StackPanel>
+                    <ui:Button Name="btnoculto" Command="{Binding cerrarSesionCommand}" HorizontalAlignment="Stretch" Foreground="{Binding Foreground,ElementName=txtpersonanombre}" Margin="0,48,0,0" Icon="LockClosed24" FontFamily="Segoe Ui Semibold" Padding="2"  Appearance="Primary"></ui:Button>
+
+                </Grid>
+                <Separator Margin="0,7,0,0"></Separator>
+                <ListView x:Name="listamenu" SelectionChanged="listamenu_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding Menuitems}" SelectionMode="Single">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" VerticalAlignment="Top"></UniformGrid>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="7,4,7,4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+
+                                <ui:SymbolIcon Symbol="{Binding Icon}"></ui:SymbolIcon>
+                                <TextBlock Margin="10,0,0,0" Text="{Binding TituloItem}" Grid.Column="1" TextWrapping="Wrap" VerticalAlignment="Center"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Separator Margin="0,0,0,10"></Separator>
+                <StackPanel>
+                    <TextBlock Text="{Binding TitleProgram}" FontSize="12" FontFamily="Segoe Ui Semibold" Margin="0,0,0,4"></TextBlock>
+                    <TextBlock Text="{Binding VersionApp}" FontSize="12" Opacity="0.7" Margin="0,0,0,10"></TextBlock>
+                    <TextBlock Text="{Binding CopyRigth}" FontSize="12" Opacity="0.7"></TextBlock>
+                    <ItemsControl Name="links" ItemsSource="{Binding Links}" Margin="0,10,0,0">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <ui:Anchor Icon="Link20" Margin="0,4,4,0" Padding="5" NavigateUri="{Binding Url}" Content="{Binding TitlePage}"></ui:Anchor>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </ui:Card>
 </UserControl>

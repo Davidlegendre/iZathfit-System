@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="iZathfit.Components.SelectSearchComponent.SelectContrato"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iZathfit.Components.SelectSearchComponent"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="280">
+    <UserControl.DataContext>
+        <local:SelectSearchViewModel></local:SelectSearchViewModel>
+    </UserControl.DataContext>
+    <ui:Card VerticalAlignment="Top" Padding="0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ui:TextBox Name="txtbuscar" Icon="Search20" KeyDown="TextBox_KeyDown" IconPlacement="Left" PlaceholderText="Buscar Contrato por Codigo" Background="Transparent" BorderBrush="Transparent">
+
+            </ui:TextBox>
+            <TextBlock Grid.Row="1" Margin="17" Visibility="{Binding VisibleVacioTexto}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Opacity="0.7" Text="Sin Datos"></TextBlock>
+            <Grid Grid.Row="1"  Visibility="{Binding VisibleContent}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding Header}" Padding="10,10,10,2"></TextBlock>
+                    <TextBlock Text="{Binding Content}" Grid.Row="1" Padding="10,0,10,10" FontSize="12" Opacity="0.7"></TextBlock>
+                </Grid>
+                <ui:Button Grid.Column="1" Padding="5" Click="Button_Click" HorizontalAlignment="Center" Margin="7" VerticalAlignment="Center" Icon="Dismiss20"></ui:Button>
+            </Grid>
+        </Grid>
+    </ui:Card>
+</UserControl>

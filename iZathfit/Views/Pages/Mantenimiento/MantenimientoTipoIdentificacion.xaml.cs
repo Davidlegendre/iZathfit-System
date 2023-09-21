@@ -1,4 +1,5 @@
-﻿using iZathfit.ViewModels.Pages;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.ViewModels.Pages;
 using iZathfit.Views.Pages.Mantenimiento.WindowSecundarios;
 using iZathfit.Views.Windows;
 using Models;
@@ -28,12 +29,23 @@ namespace iZathfit.Views.Pages.Mantenimiento
         MantenimientoTipoIdentificacionVM? _vm;
         localDialogService? _dialog;
         ObservableCollection<TipoIdentificacionModel>? _copy;
+        IGlobalHelpers? _helpers;
         public MantenimientoTipoIdentificacion()
         {
             InitializeComponent();
             _vm = this.DataContext as MantenimientoTipoIdentificacionVM;
             _dialog = App.GetService<localDialogService>();
+            _helpers = App.GetService<IGlobalHelpers>();
             this.Loaded += MantenimientoTipoIdentificacion_Loaded;
+            this.SizeChanged += MantenimientoTipoIdentificacion_SizeChanged;
+        }
+
+        private void MantenimientoTipoIdentificacion_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_vm != null && _helpers != null)
+            {
+                _vm.Columns = _helpers.ColumnsFromWidthWindow(Convert.ToInt32(this.ActualWidth));
+            }
         }
 
         private async void MantenimientoTipoIdentificacion_Loaded(object sender, RoutedEventArgs e)

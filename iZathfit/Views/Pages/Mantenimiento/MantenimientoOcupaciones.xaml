@@ -6,6 +6,7 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:local="clr-namespace:iZathfit.Views.Pages.Mantenimiento"
              xmlns:viewmodel="clr-namespace:iZathfit.ViewModels.Pages"
+              xmlns:components="clr-namespace:iZathfit.Components.Paginator"
              xmlns:helpers="clr-namespace:iZathfit.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Margin="0,38,0,0">
@@ -19,6 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid  Margin="10,7,7,0">
             <Grid.ColumnDefinitions>
@@ -36,23 +38,29 @@
         <ui:VirtualizingItemsControl Name="lista" Grid.Row="1" ItemsSource="{Binding Ocupaciones}" Padding="10" Margin="0,7,0,0">
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ui:VirtualizingWrapPanel StretchItems="True"></ui:VirtualizingWrapPanel>
+                    <UniformGrid VerticalAlignment="Top" Columns="{Binding Columns}"></UniformGrid>
                 </ItemsPanelTemplate>
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:Card Margin="7" MinWidth="280">
-                        <StackPanel>
-                            <TextBlock Text="{Binding descripcion}"></TextBlock>
-                            <UniformGrid Rows="1" HorizontalAlignment="Left">
+                    <ui:Card Margin="7" MinWidth="250">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding descripcion}" MaxWidth="270" VerticalAlignment="Center" Padding="0,0,10,0" TextWrapping="Wrap"></TextBlock>
+                            <UniformGrid Rows="1" Grid.Column="1">
                                 <ui:Button Name="btnEdit" Click="btnEdit_Click" Icon="Edit20" Margin="2" Padding="5"></ui:Button>
                                 <ui:Button Name="btndelete" Click="btndelete_Click" Icon="Delete20" Margin="2" Padding="5"></ui:Button>
                             </UniformGrid>
-                        </StackPanel>
+                        </Grid>
                     </ui:Card>
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
-           
+            
         </ui:VirtualizingItemsControl>
+        <components:PaginatorComponent x:Name="paginator" ChangePageEvent="paginator_ChangePageEvent" Grid.Row="2"></components:PaginatorComponent>
+
     </Grid>
 </UserControl>

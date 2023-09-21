@@ -1,16 +1,24 @@
 ﻿using Configuration;
 using Configuration.GlobalHelpers;
 using Dapper;
+using iZathfit.Components;
+using iZathfit.Components.ElementosUsuario;
 using iZathfit.ModelsComponents;
 using iZathfit.Views.Pages;
 using iZathfit.Views.Pages.Negocio;
 using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
 using Models;
+using Models.DTOS;
+using Models.ModelsCommons;
+using Models.ServiciodeModelos;
 using Services;
 using Services.Promocion;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Drawing;
+using System.Reflection;
+using System.Security.Policy;
 using System.Windows.Controls;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
@@ -20,35 +28,40 @@ public partial class HomePageVM : ObservableObject {
 
 	IGeneralConfiguration? _config;
 	IGlobalHelpers? _helpers;
-	GlobalService? _globalservice;
 	Home? _homesub;
 	localDialogService? _dialog;
 	IPromocionService? _servicePromo;
+	
 	public HomePageVM()
 	{
 		_config = App.GetService<IGeneralConfiguration>();
 		_homesub = App.GetService<Home>();
 		_dialog = App.GetService<localDialogService>();
 		_helpers = App.GetService<IGlobalHelpers>();
-		_globalservice = App.GetService<GlobalService>();
 		_servicePromo = App.GetService<IPromocionService>();
-        _globalservice.PromosEvent += _globalservice_PromosEvent;
+		NotificadorServicesInModels.PromoEliminarEvent += NotificadorServicesInModels_PromoEliminarEvent;
+		NotificadorServicesInModels.PromosEvent += NotificadorServicesInModels_PromosEvent;
 	}
 
-    private async void _globalservice_PromosEvent(object? sender, object? e)
-    {
+	private void NotificadorServicesInModels_PromoEliminarEvent(object? sender, PromocionModelo e)
+	{
+		if (Promociones.AsList().Exists(x => x.IdPromocion == e.IdPromocion))
+		{
+			Promociones.Remove(e);
+			IsPromos = Promociones.Count() != 0;
+			Apariencia = Promociones.Count() != 0 ? ControlAppearance.Success : ControlAppearance.Secondary;
+		}
+	}
 
-        if (_servicePromo != null)
-        {
-            var promos = await _servicePromo.GetPromocionesActive();
-            Promociones = promos != null ? new ObservableCollection<PromocionModelo>(promos) : null;
-            IsPromos = promos != null;
-            Apariencia = promos != null ? ControlAppearance.Success : ControlAppearance.Secondary;
-        }
-    }
+	private void NotificadorServicesInModels_PromosEvent(object? sender, ObservableCollection<PromocionModelo> e)
+	{
+		Promociones = new ObservableCollection<PromocionModelo>(e.AsList().Where(x => x.DuracionTiempo.Date >= DateTime.Now.Date));
+		IsPromos = e.Count() != 0;
+		Apariencia = e.Count() != 0 ? ControlAppearance.Success : ControlAppearance.Secondary;
+	}
 
 	[ObservableProperty]
-	ObservableCollection<PromocionModelo>? _promociones = new ObservableCollection<PromocionModelo>();
+	ObservableCollection<PromocionModelo> _promociones = new ObservableCollection<PromocionModelo>();
 
 	[ObservableProperty]
 	bool _isPromos = false;
@@ -56,13 +69,16 @@ public partial class HomePageVM : ObservableObject {
 	[ObservableProperty]
 	Wpf.Ui.Common.ControlAppearance _apariencia = ControlAppearance.Secondary;
 
-    [ObservableProperty]
+	[ObservableProperty]
 	string? _personanombre = "";
 
 	[ObservableProperty]
 	string? _ocupaciones = "";
 	[ObservableProperty]
 	string? _rol = "";
+
+	[ObservableProperty]
+	string? _email = "";
 
 	[ObservableProperty]
 	UserControl? _userControl = null;
@@ -76,48 +92,77 @@ public partial class HomePageVM : ObservableObject {
 	[ObservableProperty]
 	double? _heightButtonItemMenu = 48;
 
+	[ObservableProperty]
+	string? _versionApp = "4.1.7";
 
-	
+	[ObservableProperty]
+	string? _titleProgram = "iZathFit [Modo Fit]";
+
+	[ObservableProperty]
+	string? _copyRigth = "CopyRigth iZathFit 2023";
+
+	[ObservableProperty]
+	LinkModel[] _links;	
 
 	[ObservableProperty]
 	SymbolRegular _iconAccount = SymbolRegular.DeveloperBoard20;
 
-	public void DatoUsuario() {
-		var user = _config?.getuserSistema();
-		Iniciales = user.Nombres.Substring(0, 1).ToUpper() + user.Apellidos.Substring(0, 1).ToUpper();
-		if (UserControl is Home)
+
+	void ChangeDatosPerfil() {
+        var user = _config?.getuserSistema();
+        Iniciales = user.Nombres.Substring(0, 1).ToUpper() + user.Apellidos.Substring(0, 1).ToUpper();
+        Personanombre = user?.Nombres?.Split(' ')[0].ToUpper() + " " + user?.Apellidos?.Split(' ')[0].ToUpper();
+        Email = user?.Email;
+		
+    }
+
+	async void DatoUsuario() {
+        var user = _config?.getuserSistema();
+        if (UserControl is Home)
 		{
 			Bienvenidatexto = (user?.generoCode == "M" ? "Bienvenido " : "Bienvenida ")
 						+ user?.Nombres?.Split(' ')[0] + " " + user?.Apellidos?.Split(' ')[0] + " al Home de iZathFit";
 			IconIndicator = SymbolRegular.Home20;
 		}
-		Personanombre = user?.Nombres?.Split(' ')[0].ToUpper() + " " + user?.Apellidos?.Split(' ')[0].ToUpper();
+		
 		Ocupaciones = user?.Ocupacion;
-		Rol = user?.Rol;
+		Rol = user?.Rol;		
+
+		var promos = await _servicePromo.GetPromocionesActive();
+		if(promos != null)
+		NotificadorServicesInModels.NotificarPromos(new ObservableCollection<PromocionModelo>(promos));
 
 		if (user.CodeRol == _config.GetRol(TypeRol.Desarrollador)) IconAccount = SymbolRegular.DeveloperBoard20;
 		else if (user.CodeRol == _config.GetRol(TypeRol.Administrador)) IconAccount = SymbolRegular.ShieldPerson20;
 		else if (user.CodeRol == _config.GetRol(typerol: TypeRol.Dueño)) IconAccount = SymbolRegular.PersonSettings20;
 		else IconAccount = SymbolRegular.Person20;
+
+		Links = _helpers.GetLinksContacts();
     }
 
-	public void CargarDatos() {		
-		
-		UserControl = _homesub;
+	public void CargarDatos() {
+        var user = _config?.getuserSistema();
+        UserControl = _homesub;
+		ChangeDatosPerfil();
         DatoUsuario();
         Menuitems = new ObservableCollection<MenuUserItemsModel>() {
 			new MenuUserItemsModel(){
 				TituloItem = "Cambiar Contraseña",
 				Icon = SymbolRegular.Password20,
-			},
+                Comando = () => {
+                        var contraseñawin = new CambiarContraseñaWin();
+                        contraseñawin.ShowDialog();
+                    }
+            },
 			new MenuUserItemsModel()
 			{
 				TituloItem = "Cambiar Datos Personales",
-				Icon = SymbolRegular.Book20
-			},
-			new MenuUserItemsModel(){
-				TituloItem = "Acerca de",
-				Icon = SymbolRegular.Info20
+				Icon = SymbolRegular.Book20,
+				Comando = () => {
+						var userdatawin = new DatosPerfinWindow(user);
+						userdatawin.ChangeUserAction = () => ChangeDatosPerfil();
+						userdatawin.ShowDialog();
+					}				
 			}
 		};
 
@@ -182,10 +227,21 @@ public partial class HomePageVM : ObservableObject {
                 TituloItem = "Administracion de Contratos",
                 Icon = SymbolRegular.ReceiptCube24,
                 Comando = () => {
-                    if(UserControl is not MantenimientosPage)
+                    if(UserControl is not Contratos)
                     {
-                        UserControl = App.GetService<MantenimientosPage>();
+                        UserControl = App.GetService<Contratos>();
                         ChangeIndicator(SymbolRegular.ReceiptCube24, "Esta en Administracion de Contratos");
+                    }
+                }
+            },
+            new(){
+                TituloItem = "Administracion de Pagos",
+                Icon = SymbolRegular.MoneyHand20,
+                Comando = () => {
+                    if(UserControl is not PagosPage)
+                    {
+                        UserControl = App.GetService<PagosPage>();
+                        ChangeIndicator(SymbolRegular.MoneyHand20, "Esta en Administracion de Pagos");
                     }
                 }
             }
@@ -225,7 +281,13 @@ public partial class HomePageVM : ObservableObject {
 
 	[RelayCommand]
 	void volverHome() {
+		
+
         UserControl = _homesub;
+		if (_homesub != null && _homesub.vm != null)
+		{
+			_homesub.vm.ViewRelojPanelCommand.Execute(null);
+		}
         DatoUsuario();
 		ButtonHome = Visibility.Collapsed;
 		
@@ -249,6 +311,7 @@ public partial class HomePageVM : ObservableObject {
 	void OpenPanelNotificacion(Flyout panelnotify)
 	{
 		panelnotify.Show();
+		
 
 	}
 
@@ -258,24 +321,7 @@ public partial class HomePageVM : ObservableObject {
 		_dialog?.ShowDialog(
 			titulo: "Desea Reportar un Bug?",
 			mensaje: "Usted puede contactar con los siguientes enlaces",
-			links: new Models.ModelsCommons.LinkModel[]
-			{
-				new Models.ModelsCommons.LinkModel()
-				{
-					TitlePage = "Whatsapp Dev. David",
-					Url = "https://api.whatsapp.com/send?phone=51914847720"
-                },
-				new Models.ModelsCommons.LinkModel()
-				{
-					TitlePage = "Whatsapp Dev. Francois",
-					Url = "https://api.whatsapp.com/send?phone=51998440211"
-                }
-				, new Models.ModelsCommons.LinkModel()
-				{
-					TitlePage = "Reportar a GitHub",
-					Url = "https://github.com/Davidlegendre/iZathfit-System"
-				}
-			}, owner: App.GetService<MainWindow>());
+			links: _helpers?.GetLinksContacts(), owner: App.GetService<MainWindow>());
 	}
 
 	void ChangeIndicator(SymbolRegular icon, string texto)
@@ -284,6 +330,7 @@ public partial class HomePageVM : ObservableObject {
         Bienvenidatexto = texto;
         ButtonHome = Visibility.Visible;
     }
+
 
 
 	

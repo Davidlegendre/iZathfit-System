@@ -34,7 +34,7 @@
         <ui:VirtualizingItemsControl Name="lista" Grid.Row="1" ItemsSource="{Binding Planes}" Margin="10">
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ui:VirtualizingWrapPanel StretchItems="True"></ui:VirtualizingWrapPanel>
+                    <UniformGrid VerticalAlignment="Top" Columns="{Binding Columns}"></UniformGrid>
                 </ItemsPanelTemplate>
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>

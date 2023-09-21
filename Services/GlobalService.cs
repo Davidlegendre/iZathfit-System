@@ -1,5 +1,6 @@
 ﻿using Commons;
 using Models.ModelsCommons;
+using Models.ServiciodeModelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ public class GlobalService
                                     datatimehome.Hora = DateTime.Now.ToString("hh:mm");
                                     datatimehome.Hora24 = DateTime.Now.Hour;
                                     datatimehome.TypeHora = DateTime.Now.Hour > 12 ? TypeHora.PM : TypeHora.AM;
+                                    NotificadorServicesInModels.NotificarTiempoAModelos();
                                     TimeSystemEvent.Invoke(this, datatimehome);
                                 });
                         }
@@ -47,27 +49,6 @@ public class GlobalService
                     }
                 }
             });
-            Promos = new Thread(() => {
-                while (IsOnline)
-                {
-                    if (PromosEvent != null)
-                    {
-                        try
-                        {
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                PromosEvent.Invoke(this, null);
-                            });
-                        }
-                        catch
-                        {
-                        }
-                        Thread.Sleep(20000);
-                    }
-                }
-            });
-            Promos.IsBackground = true;
-            Promos.Start();
             TimeHour.IsBackground = true;
             TimeHour.Start();
         }
@@ -79,11 +60,9 @@ public class GlobalService
         {
             IsOnline = false;
             TimeHour = null;
-            Promos = null;
         }
     }
 
-    public event EventHandler<object?>? PromosEvent;
     public event EventHandler<HomeDataModel>? TimeSystemEvent;
 
 

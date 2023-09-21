@@ -1,4 +1,6 @@
-﻿using iZathfit.ViewModels.Pages;
+﻿using Configuration.GlobalHelpers;
+using Dapper;
+using iZathfit.ViewModels.Pages;
 using iZathfit.Views.Pages.Mantenimiento.WindowSecundarios;
 using iZathfit.Views.Windows;
 using Models;
@@ -27,34 +29,53 @@ namespace iZathfit.Views.Pages.Mantenimiento
     {
         MantenimientoPersonasVM? _vm;
         ObservableCollection<PersonaModel>? _peopleCopy;
+        IGlobalHelpers? _helpers;
         public MantenimientoPersonas()
         {
             InitializeComponent();
             _vm = this.DataContext as MantenimientoPersonasVM;
+            _helpers = App.GetService<IGlobalHelpers>();
             this.Loaded += MantenimientoPersonas_Loaded;
+            this.SizeChanged += MantenimientoPersonas_SizeChanged;
+        }
+
+        private void MantenimientoPersonas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_vm != null && _helpers != null)
+            {
+                _vm.Columns = _helpers.ColumnsFromWidthWindow(Convert.ToInt32(this.ActualWidth));
+            }
         }
 
         private async void MantenimientoPersonas_Loaded(object sender, RoutedEventArgs e)
         {
             Wpf.Ui.Animations.Transitions.ApplyTransition(this, Wpf.Ui.Animations.TransitionType.FadeInWithSlide, 500);
             if (_vm != null)
+            {
                 await _vm.ObtenerPersonas();
+                _peopleCopy = new ObservableCollection<PersonaModel>(_vm._personaslist);
+                _vm.Personas = paginator.GetPaginationCollection(_peopleCopy);
+            }
+            
         }
 
         private void btnagregar_Click(object sender, RoutedEventArgs e)
         {
-            if (_vm == null) return;
-            if (_peopleCopy != null) { _vm.Personas = _peopleCopy; _peopleCopy = null; };
-            new MPersonasForm(_vm.Personas).ShowDialog();
+            if (_vm == null || _peopleCopy == null) return;
+            new MPersonasForm(_vm._personaslist).ShowDialog();
+            _peopleCopy = new ObservableCollection<PersonaModel>(_vm._personaslist);
+            _vm.Personas = paginator.GetPaginationCollection(_peopleCopy);
         }
 
         private async void btndelete_Click(object sender, RoutedEventArgs e)
         {
             var btn = (Wpf.Ui.Controls.Button)sender;
             var context = btn.DataContext as PersonaModel;
-            if (context != null && _vm != null)
+            if (context != null && _vm != null && _peopleCopy != null)
             {
-                await _vm.EliminarPersona(context, App.GetService<MainWindow>(), _vm.Personas);
+                await _vm.EliminarPersona(context, App.GetService<MainWindow>());
+                _peopleCopy = new ObservableCollection<PersonaModel>(_vm._personaslist);
+                _vm.Personas = paginator.GetPaginationCollection(_peopleCopy);
             }
         }
 
@@ -72,10 +93,11 @@ namespace iZathfit.Views.Pages.Mantenimiento
         {
             var btn = (Wpf.Ui.Controls.Button)sender;
             var context = btn.DataContext as PersonaModel;
-            if (context != null && _vm != null)
+            if (context != null && _vm != null && _peopleCopy != null)
             {
-                if (_peopleCopy != null) { _vm.Personas = _peopleCopy; _peopleCopy = null; };
-                if (_vm != null) new MPersonasForm(_vm.Personas, persona: context).ShowDialog();
+                new MPersonasForm(_vm._personaslist, persona: context).ShowDialog();
+                _peopleCopy = new ObservableCollection<PersonaModel>(_vm._personaslist);
+                _vm.Personas = paginator.GetPaginationCollection(_peopleCopy);
             }
         }
 
@@ -84,18 +106,24 @@ namespace iZathfit.Views.Pages.Mantenimiento
 
             if (e.Key == Key.Enter)
             {
-                if (_vm == null) return;
+                if (_vm == null || _peopleCopy == null) return;
                 if (string.IsNullOrWhiteSpace(txtBuscar.Text))
-                { if (_peopleCopy != null) _vm.Personas = _peopleCopy; _peopleCopy = null; }
+                { }
                 else
                 {
-                    if (_peopleCopy == null) _peopleCopy = _vm.Personas;
-
-                    _vm.Personas = new ObservableCollection<PersonaModel>(_peopleCopy.Where(x => 
-                        x.GetCompleteName.ToLower().Contains(txtBuscar.Text.ToLower()) || 
-                        x.Identificacion.Contains(txtBuscar.Text) || 
+                    _vm.Personas = paginator.BuscarWithPagination(_peopleCopy.Where(x =>
+                        x.GetCompleteName.ToLower().Contains(txtBuscar.Text.ToLower()) ||
+                        x.Identificacion.Contains(txtBuscar.Text) ||
                         x.Rol.ToLower().Contains(txtBuscar.Text.ToLower())));
                 }
+            }
+        }
+
+        private void paginator_ChangePageEvent(object sender, EventArgs e)
+        {
+            if (_vm != null && _peopleCopy != null)
+            {
+                _vm.Personas = paginator.GetPaginationCollection(_peopleCopy);
             }
         }
     }

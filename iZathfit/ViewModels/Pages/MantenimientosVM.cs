@@ -71,6 +71,16 @@ namespace iZathfit.ViewModels.Pages
                     ? Visibility.Collapsed : Visibility.Visible,
                     Comando = () => {ChangeContentInterno(App.GetService<MantenimientoPadecimientosEnfermedades>(),
                     "Mantenimiento de Padecimientos y Enfermedades", SymbolRegular.Stethoscope20); }
+                },
+                new MenuItemCardsModel()
+                {
+                    Title = "Mantenimiento de Tipo de Pagos",
+                    Description = "En esta seccion se administra los Padecimientos y Enfermedades de todas las personas: trabajadores, clientes, etc",
+                    Icon = SymbolRegular. MoneyHand20,
+                    Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño)
+                    ? Visibility.Collapsed : Visibility.Visible,
+                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoTipoPago>(),
+                    "Mantenimiento de Tipo de Pagos", SymbolRegular.MoneyHand20); }
                 }
 
             };

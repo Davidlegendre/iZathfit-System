@@ -24,6 +24,9 @@ namespace iZathfit.ViewModels.Pages.Negocio
         [ObservableProperty]
         ObservableCollection<PlanDuracionModel>? _planduracion;
 
+        [ObservableProperty]
+        int _columns = 4;
+
         public async Task<bool> CargarDatos() {
             if (_servicio == null || _helperexcep == null || _helperexcep == null) return false;
             var result = await _helperexcep.ExcepHandler(() => _servicio.GetPlanesDuracion(), App.GetService<MainWindow>());

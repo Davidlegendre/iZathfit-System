@@ -18,5 +18,6 @@ namespace Services.Persona
         public Task<PersonaModel> GetPersona(Guid id);
         public Task<long> GetCountPersonas();
         public Task<List<PersonaModel>> SelectAllAll();
+        public Task<bool> UpdatePersonaSistema(PersonaModel persona);
     }
 }

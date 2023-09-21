@@ -36,32 +36,38 @@
         <ui:VirtualizingItemsControl Name="lista" Grid.Row="1" ItemsSource="{Binding UsuarioList}" Padding="10" Margin="0,7,0,0">
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ui:VirtualizingWrapPanel StretchItems="True"></ui:VirtualizingWrapPanel>
+                    <UniformGrid VerticalAlignment="Top" Columns="{Binding Columns}"></UniformGrid>
                 </ItemsPanelTemplate>
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
                     <ui:Card Margin="7" MinWidth="280">
-                        <StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"></ColumnDefinition>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Usuario: "></TextBlock>
-
-                                <TextBlock Grid.Column="1" Text="{Binding usuario}"></TextBlock>
-
-                            </Grid>
-                            <TextBlock Text="{Binding Persona}" FontSize="12" Opacity="0.8"></TextBlock>
-                            <TextBlock Text="{Binding Rol}" FontSize="12" Opacity="0.8"></TextBlock>
-                            <ui:ToggleSwitch Margin="0,7,0,0" IsChecked="{Binding IsActivo}" Content="{Binding ActivoString}" IsEnabled="False"></ui:ToggleSwitch>
-                            <UniformGrid Margin="0,7,0,0" Rows="1" HorizontalAlignment="Left">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel MaxWidth="200" HorizontalAlignment="Left">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Usuario: "></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="{Binding usuario}"></TextBlock>
+                                </Grid>
+                                <TextBlock Text="{Binding Persona}" FontSize="12" Opacity="0.8"></TextBlock>
+                                <TextBlock Text="{Binding Rol}" FontSize="12" Opacity="0.8"></TextBlock>
+                                <ui:ToggleSwitch Margin="0,7,0,0" IsChecked="{Binding IsActivo}" Content="{Binding ActivoString}" IsEnabled="False"></ui:ToggleSwitch>
+                                
+                            </StackPanel>
+                            <UniformGrid  Columns="1" Grid.Column="1"  HorizontalAlignment="Left">
                                 <ui:Button Name="btnshow" Click="btnshow_Click" Icon="Eye20" Margin="2" Padding="5"></ui:Button>
                                 <ui:Button Name="btnEdit" Click="btnEdit_Click" Icon="Edit20" Margin="2" Padding="5"></ui:Button>
                                 <ui:Button Name="btndelete" Click="btndelete_Click" Icon="Delete20" Margin="2" Padding="5"></ui:Button>
                             </UniformGrid>
-                        </StackPanel>
+                        </Grid>
+                       
                     </ui:Card>
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>

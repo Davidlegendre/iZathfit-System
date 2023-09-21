@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Configuration.GlobalHelpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,11 @@ namespace iZathfit.Helpers
     public class ExceptionsHelperService : IExceptionHelperService
     {
         localDialogService _dialog;
-        public ExceptionsHelperService(localDialogService dialog)
+        IGlobalHelpers _globalHelpers;
+        public ExceptionsHelperService(localDialogService dialog, IGlobalHelpers globalHelpers)
         {
             _dialog = dialog;
+            _globalHelpers = globalHelpers;
         }
 
         public async Task<T?> ExcepHandler<T>(Func<Task<T>> accion, UiWindow owner)
@@ -30,19 +33,7 @@ namespace iZathfit.Helpers
             {
                 _dialog.ShowDialog(mensaje: "No se alarme, solo contacte a algun desarrollador en caso de dudas\n\nError: " + ex.Message,
                     titulo: "Ups",
-                    links: new Models.ModelsCommons.LinkModel[]
-                    {
-                        new Models.ModelsCommons.LinkModel()
-                        {
-                            TitlePage = "Whatsapp Dev. David Legendre",
-                            Url = "https://api.whatsapp.com/send?phone=51914847720"
-                        },
-                        new Models.ModelsCommons.LinkModel()
-                        {
-                            TitlePage = "Whatsapp Dev. Francois Renquifo",
-                            Url = "https://api.whatsapp.com/send?phone=51998440211"
-                        }
-                    }, owner: owner);
+                    links: _globalHelpers.GetLinksContacts(), owner: owner);
                 return default;
             }
         }
@@ -57,19 +48,7 @@ namespace iZathfit.Helpers
             {
                 _dialog.ShowDialog(mensaje: "No se alarme, solo contacte a algun desarrollador en caso de dudas\n\nError: " + ex.Message,
                     titulo: "Ups",
-                    links: new Models.ModelsCommons.LinkModel[]
-                    {
-                        new Models.ModelsCommons.LinkModel()
-                        {
-                            TitlePage = "Whatsapp Dev. David",
-                            Url = "https://api.whatsapp.com/send?phone=51914847720"
-                        },
-                        new Models.ModelsCommons.LinkModel()
-                        {
-                            TitlePage = "Whatsapp Dev. Francois",
-                            Url = "https://api.whatsapp.com/send?phone=51998440211"
-                        }
-                    }, owner: owner);
+                    links: _globalHelpers.GetLinksContacts(), owner: owner);
                 return false;
             }
         }

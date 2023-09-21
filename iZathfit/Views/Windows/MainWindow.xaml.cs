@@ -1,6 +1,7 @@
 ﻿using Configuration;
 using iZathfit.ViewModels.Windows;
 using iZathfit.Views.Pages;
+using iZathfit.Views.Pages.SubPagesHome;
 using Models;
 using Models.DTOS;
 using Wpf.Ui.Appearance;
@@ -38,13 +39,17 @@ public partial class MainWindow : UiWindow
 
     private void LoginVM_UsuarioLogeado(object? sender, UsuarioSistema e)
     {
+        var home = App.GetService<HomePage>();
+        NavigationView.Content = home;
         
-        NavigationView.Content = App.GetService<HomePage>();
         _config?.SetUserSistema(e);
         this.WindowState = WindowState.Maximized;
         this.ResizeMode = ResizeMode.CanResize;
         _global?.InitTimerHour();
-        
+        if (home.HOMEnavidation.Content is Home subhome)
+        {
+            subhome.vm.ViewRelojPanelCommand.Execute(null);
+        }
         //ViewModel.ShowButtons = true;
     }
 

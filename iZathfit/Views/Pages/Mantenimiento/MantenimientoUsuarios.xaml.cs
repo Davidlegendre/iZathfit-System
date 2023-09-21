@@ -1,4 +1,5 @@
 ﻿using Configuration;
+using Configuration.GlobalHelpers;
 using iZathfit.ViewModels.Pages;
 using iZathfit.Views.Pages.Mantenimiento.WindowSecundarios;
 using iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels;
@@ -31,13 +32,24 @@ namespace iZathfit.Views.Pages.Mantenimiento
         ObservableCollection<Models.Usuario>? _copy;
         localDialogService? _dialog;
         IGeneralConfiguration? _config;
+        IGlobalHelpers? _helpers;
         public MantenimientoUsuarios()
         {
             InitializeComponent();
             _vm = this.DataContext as MantenimientoUsuarioVM;
             this.Loaded += MantenimientoUsuarios_Loaded;
             _dialog =App.GetService<localDialogService>();
+            _helpers = App.GetService<IGlobalHelpers>();
             _config = App.GetService<IGeneralConfiguration>();
+            this.SizeChanged += MantenimientoUsuarios_SizeChanged;
+        }
+
+        private void MantenimientoUsuarios_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (_vm != null && _helpers != null)
+            {
+                _vm.Columns = _helpers.ColumnsFromWidthWindow(Convert.ToInt32(this.ActualWidth));
+            }
         }
 
         private async void MantenimientoUsuarios_Loaded(object sender, RoutedEventArgs e)

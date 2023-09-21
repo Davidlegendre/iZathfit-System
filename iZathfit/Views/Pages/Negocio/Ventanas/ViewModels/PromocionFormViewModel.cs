@@ -69,12 +69,11 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         public async Task<bool> Agregar(UiWindow win) {
             if (_servicio == null || _dialog == null || _helperexcep == null) return false;
             if (!validar()) return false;
-            var promo = new PromocionModelo() {
-                IdPlan = Planselected.IdPlanes,
-                DuracionTiempo = SelectedDate.Value,
-                DescuentoPercent = Convert.ToInt32(PercentText),
-                descripcion = Description
-            };
+            var promo = App.GetService<PromocionModelo>();
+            promo.IdPlan = Planselected.IdPlanes;
+            promo.DuracionTiempo = SelectedDate.Value;
+            promo.DescuentoPercent = Convert.ToInt32(PercentText);
+            promo.descripcion = Description;
             var result = await _helperexcep.ExcepHandler(() => _servicio.InsertPromocion(promo), win);
             _dialog.ShowDialog(result ? "Promocion Guardada" : "Promocion Rechazada");
             return result;
@@ -84,14 +83,12 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         {
             if (_servicio == null || _dialog == null || _helperexcep == null) return false;
             if (!validar()) return false;
-            var promo = new PromocionModelo()
-            {
-                IdPromocion = idpromocion,
-                IdPlan = Planselected.IdPlanes,
-                DuracionTiempo = SelectedDate.Value,
-                DescuentoPercent = Convert.ToInt32(PercentText),
-                descripcion = Description
-            };
+            var promo = App.GetService<PromocionModelo>();
+            promo.IdPromocion = idpromocion;
+            promo.IdPlan = Planselected.IdPlanes;
+            promo.DuracionTiempo = SelectedDate.Value;
+            promo.DescuentoPercent = Convert.ToInt32(PercentText);
+            promo.descripcion = Description;
             var result = await _helperexcep.ExcepHandler(() => _servicio.UpdatePromocion(promo), win);
             _dialog.ShowDialog(result ? "Promocion Modificada" : "Promocion Rechazada");
             return result;

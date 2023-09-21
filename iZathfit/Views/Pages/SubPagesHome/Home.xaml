@@ -3,13 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-            
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:local="clr-namespace:iZathfit.Views.Pages.SubPagesHome"
+             xmlns:viewmodel="clr-namespace:iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="603.328" d:DesignWidth="768">
+    <UserControl.DataContext>
+        <local:SubHomeViewmodel></local:SubHomeViewmodel>
+    </UserControl.DataContext>
     <Grid>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-            <ui:TextBox PlaceholderText="DNI del cliente" Icon="Search20" IconPlacement="Right" Margin="0,0,0,10"></ui:TextBox>
+        <ContentPresenter Content="{Binding Datausercontrol}" DataContext="{Binding}"></ContentPresenter>
+        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleRelojPanel}" x:Name="RelojHome" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+            <ui:TextBox Name="txtIdentificacion" PlaceholderText="DNI del cliente" KeyDown="txtBuscarDatosCliente_KeyDown" Icon="Search20" IconPlacement="Right" Margin="0,0,0,10"></ui:TextBox>
             <ui:Card  Grid.Row="0" MinWidth="280" MaxHeight="290">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -37,5 +42,6 @@
             </ui:Card>
             
         </StackPanel>
+       
     </Grid>
 </UserControl>

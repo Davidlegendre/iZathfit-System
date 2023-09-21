@@ -14,6 +14,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Domain.Persona
 {
@@ -70,7 +71,7 @@ namespace Domain.Persona
                       @Nombres = persona.Nombres,
                       @Apellidos = persona.Apellidos,
                       @idrol = persona.IdRol,
-                      @Fech_nac = persona.Fech_Nacimiento,
+                      @Fech_nac = persona.Fech_Nacimiento.Date,
                       @Direccion = persona.Direccion,
                       @telefono = persona.Telefono,
                       @Email = persona.Email,
@@ -95,7 +96,7 @@ namespace Domain.Persona
                     new {
                         @Nombres = persona.Nombres,
                         @Apellidos = persona.Apellidos,
-                        @Fech_nac = persona.Fech_Nacimiento,
+                        @Fech_nac = persona.Fech_Nacimiento.Date,
                         @Direccion = persona.Direccion,
                         @idRol = persona.IdRol,
                         @telefono = persona.Telefono,
@@ -110,6 +111,25 @@ namespace Domain.Persona
                     }, commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return result;
+            }
+        }
+
+        public async Task<bool> UpdatePersonaSistema(PersonaModel persona)
+        {
+            using (var con = new SqlConnection(_generalConfiguration.GetConnection())) {
+                var result = await con.ExecuteAsync("UpdatePersonaDatosPerfil",
+                    new
+                    {
+                        @nombre = persona.Nombres,
+                        @apellido = persona.Apellidos,
+                        @fechnacimiento = persona.Fech_Nacimiento.Date,
+                        @direccion = persona.Direccion,
+                        @telefono = persona.Telefono,
+                        @email = persona.Email,
+                        @idpersona = persona.IdPersona
+                    }, commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result != 0;
             }
         }
 
@@ -137,7 +157,6 @@ namespace Domain.Persona
         }
 
         public async Task<List<PersonaModel>> SelectAllAll() {
-
             using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
             {
                 var result = await con.QueryAsync<PersonaModel>("SelectAllPersonas",

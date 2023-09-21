@@ -59,5 +59,10 @@ namespace Services.Persona
         {
             return await _personarepo.SelectAllAll();
         }
+
+        public async Task<bool> UpdatePersonaSistema(PersonaModel persona)
+        {
+            return await _personarepo.UpdatePersonaSistema(persona);
+        }
     }
 }

@@ -21,6 +21,11 @@ namespace Services.Plan
             return await _repo.DeletePlan(idplan);
         }
 
+        public async Task<PlanModel?> GetPlanByID(int idplan)
+        {
+           return await _repo.GetPlanByID(idplan);
+        }
+
         public async Task<List<PlanModel>?> GetPlanes()
         {
             return await _repo.GetPlanes();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,8 @@ namespace Models.DTOS
         public Guid IdPersona { get; }
         public Guid idUsuario { get; set; }
         public string contrasena { get; set; }
-        public string? Nombres { get; set;}
+
+        public string? Nombres { get; set; }
         public string? Apellidos { get; set; }
         public DateTime Fech_Nacimiento { get; set; }
         public int Edad { get; }
@@ -30,7 +32,5 @@ namespace Models.DTOS
         public string?  TipoIdentityDescripcion { get; set; }
         public string? abreviadoTipo { get; set; }
         public string? Ocupacion { get; set; }
-        public List<Ocupacion>? Ocupaciones { get; set; }
-        
     }
 }

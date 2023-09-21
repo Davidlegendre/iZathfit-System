@@ -1,5 +1,6 @@
 ﻿using Configuration;
 using Configuration.GlobalHelpers;
+using Dapper;
 using iZathfit.Helpers;
 using iZathfit.Views.Windows;
 using Models;
@@ -38,9 +39,6 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         ObservableCollection<Models.PersonaModel>? _personaList;
 
         [ObservableProperty]
-        ObservableCollection<Models.Usuario>? _usuarioList;
-
-        [ObservableProperty]
         bool _isActivo = true;
 
         [ObservableProperty]
@@ -70,6 +68,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             }
             //los clientes no tienen usuario
             personas = personas.Where(x => x.CodeRol != _config.GetRol(TypeRol.Cliente)).ToList();
+            
 
             PersonaList = new ObservableCollection<PersonaModel>(personas);
 

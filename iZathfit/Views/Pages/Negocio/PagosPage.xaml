@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="iZathfit.Views.Pages.Negocio.PagosPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iZathfit.Views.Pages.Negocio"
+              xmlns:components="clr-namespace:iZathfit.Components.Paginator"
+             xmlns:helpers="clr-namespace:iZathfit.Helpers"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:viewmodels="clr-namespace:iZathfit.ViewModels.Pages.Negocio"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewmodels:PagosPageViewModel></viewmodels:PagosPageViewModel>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></helpers:BoolToVisibilityConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid  Margin="10,0,7,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ui:TextBox Name="txtSearch" HorizontalAlignment="Left" Grid.Column="1" ToolTip="{Binding PlaceholderText,ElementName=txtSearch}" KeyDown="txtSearch_keydown" MinWidth="270" MaxWidth="370" Icon="Search20" PlaceholderText="Busca por numero de contrato, identificacion o nombre de persona">
+
+            </ui:TextBox>
+            <ui:Button Name="btnAdd" Margin="0,0,7,0" Click="btnAdd_Click" Icon="Add20"  VerticalAlignment="Stretch"></ui:Button>
+        </Grid>
+        <Label Grid.Row="1" Content="No hay Pagos" Visibility="{Binding Items.IsEmpty,ElementName=lista, Converter={StaticResource BoolToVisibilityConverter}}" Margin="10" FontFamily="segoe ui semibold" FontSize="15"></Label>
+        <ui:VirtualizingItemsControl Name="lista" Grid.Row="1" ItemsSource="{Binding SaldoXPersonaslist}" Margin="10">
+            <ui:VirtualizingItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid VerticalAlignment="Top" Columns="{Binding Columns}"></UniformGrid>
+                </ItemsPanelTemplate>
+            </ui:VirtualizingItemsControl.ItemsPanel>
+            <ui:VirtualizingItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ui:Card Padding="8"  Margin="0,10,10,0">
+                        <Grid MinWidth="290">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:SymbolIcon VerticalAlignment="Center" Margin="10,0,10,0" Symbol="MoneyHand20" FontSize="28"></ui:SymbolIcon>
+                            <StackPanel Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding GetNumeroContrato}" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
+                                <TextBlock Text="{Binding NombrePersona}" TextWrapping="Wrap" Opacity="0.8"></TextBlock>
+                                <TextBlock Text="{Binding GetFechaPago}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"></TextBlock>
+                                <TextBlock Text="{Binding GetTotalFaltante}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"></TextBlock>
+                            </StackPanel>
+                            <UniformGrid Columns="1" Grid.Column="2">
+                                <ui:Button Icon="Eye20" Name="btnView" Click="btnView_Click" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" Cursor="Hand"></ui:Button>
+                                <ui:Button Icon="Delete20" Name="btndelete" Click="btndelete_Click" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" Cursor="Hand"></ui:Button>
+                            </UniformGrid>
+                        </Grid>
+                    </ui:Card>
+                </DataTemplate>
+            </ui:VirtualizingItemsControl.ItemTemplate>
+        </ui:VirtualizingItemsControl>
+        <components:PaginatorComponent x:Name="paginator" ChangePageEvent="paginator_ChangePageEvent" Grid.Row="2"></components:PaginatorComponent>
+
+    </Grid>
+</UserControl>

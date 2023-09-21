@@ -26,6 +26,8 @@ namespace iZathfit.ViewModels.Pages
         [ObservableProperty]
         ObservableCollection<Models.TipoIdentificacionModel>? _tipoIdentificacionlist;
 
+        [ObservableProperty]
+        int _columns = 4;
         //mostrar, eliminar
 
         public async Task<bool> Cargardatos(UiWindow win) { 

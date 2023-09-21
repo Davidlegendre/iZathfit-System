@@ -21,6 +21,9 @@ namespace iZathfit.ViewModels.Pages.Negocio
         [ObservableProperty]
         ObservableCollection<ServicioModel>? _servicios = new ObservableCollection<ServicioModel>();
 
+        [ObservableProperty]
+        int _columns = 4;
+
         public async Task CargarDatos() {
             if (_servicio == null) return;
             var serv = await _servicio.GetServicios();

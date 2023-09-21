@@ -28,8 +28,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
         bool resultdialog = false;
         PadecimientosEnfermedadesDTO? _padecimiento;
         MPadecimientosEnfermedadesFormVM? _vm;
-        ObservableCollection<Models.DTOS.PadecimientosEnfermedadesDTO>? _padecimientos;
-        public MPadecimientosEnfermedadesForm(ObservableCollection<Models.DTOS.PadecimientosEnfermedadesDTO>? padecimientos,
+        public MPadecimientosEnfermedadesForm(
             PadecimientosEnfermedadesDTO? padecimiento = null)
         {
             InitializeComponent();
@@ -37,7 +36,6 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
             
             _vm = this.DataContext as MPadecimientosEnfermedadesFormVM;
             _padecimiento = padecimiento;
-            _padecimientos = padecimientos;
             this.Loaded += MPadecimientosEnfermedadesForm_Loaded;
             this.Closing += MPadecimientosEnfermedadesForm_Closing;
         }

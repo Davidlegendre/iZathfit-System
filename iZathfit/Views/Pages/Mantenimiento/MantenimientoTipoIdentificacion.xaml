@@ -36,20 +36,28 @@
         <ui:VirtualizingItemsControl Name="lista" Grid.Row="1" ItemsSource="{Binding TipoIdentificacionlist}" Padding="10" Margin="0,7,0,0">
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ui:VirtualizingWrapPanel StretchItems="True"></ui:VirtualizingWrapPanel>
+                    <UniformGrid VerticalAlignment="Top" Columns="{Binding Columns}"></UniformGrid>
                 </ItemsPanelTemplate>
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:Card Margin="7" MinWidth="280">
-                        <StackPanel>
-                            <TextBlock Text="{Binding descripcion}"></TextBlock>
-                            <TextBlock Text="{Binding abreviado}" FontSize="12" Opacity="0.8"></TextBlock>
-                            <UniformGrid Rows="1" HorizontalAlignment="Left">
+                    <ui:Card Margin="7" VerticalAlignment="Stretch">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel MaxWidth="210" HorizontalAlignment="Left" Margin="0,0,10,0">
+                                <TextBlock Text="{Binding descripcion}" TextWrapping="Wrap"></TextBlock>
+                                <TextBlock Text="{Binding abreviado}" FontSize="12" Opacity="0.8"></TextBlock>
+
+                            </StackPanel>
+                            <UniformGrid Rows="1" Grid.Column="1" HorizontalAlignment="Left">
                                 <ui:Button Name="btnEdit" Click="btnEdit_Click" Icon="Edit20" Margin="2" Padding="5"></ui:Button>
                                 <ui:Button Name="btndelete" Click="btndelete_Click" Icon="Delete20" Margin="2" Padding="5"></ui:Button>
                             </UniformGrid>
-                        </StackPanel>
+                        </Grid>
+                        
                     </ui:Card>
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>

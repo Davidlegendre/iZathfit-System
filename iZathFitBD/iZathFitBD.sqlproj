@@ -74,6 +74,10 @@
     <Folder Include="dbo\Types" />
     <Folder Include="dbo\Stored Procedures\ServicioXPlanes" />
     <Folder Include="dbo\Stored Procedures\Promociones" />
+    <Folder Include="dbo\Stored Procedures\Contratos" />
+    <Folder Include="dbo\Stored Procedures\TipoPago" />
+    <Folder Include="dbo\Stored Procedures\Saldos" />
+    <Folder Include="dbo\Stored Procedures\SaldosXPersona" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\TipoPago.sql" />
@@ -90,7 +94,7 @@
     <Build Include="dbo\Tables\Promociones.sql" />
     <Build Include="dbo\Tables\Contrato.sql" />
     <Build Include="dbo\Tables\Saldos.sql" />
-    <None Include="Scripts\ScriptsIgnoredOnImport.sql" />
+    <None Include="Scripts\InitialData.sql" />
     <Build Include="dbo\Stored Procedures\Persona\DeletePersona.sql" />
     <Build Include="dbo\Stored Procedures\Persona\AgregarPersona.sql" />
     <Build Include="dbo\Stored Procedures\Persona\SelectAllPersonas.sql" />
@@ -144,6 +148,25 @@
     <Build Include="dbo\Stored Procedures\Promociones\UpdatePromocion.sql" />
     <Build Include="dbo\Stored Procedures\Promociones\DeletePromocion.sql" />
     <Build Include="dbo\Stored Procedures\Promociones\SelectActiveAllPromociones.sql" />
+    <Build Include="dbo\Stored Procedures\Contratos\SelectAllContratos.sql" />
+    <Build Include="dbo\Stored Procedures\Contratos\SelectOneContratoPerDNIPerson.sql" />
+    <Build Include="dbo\Stored Procedures\TipoPago\SelectAllTipoPago.sql" />
+    <Build Include="dbo\Stored Procedures\TipoPago\SelectOneTIpoPago.sql" />
+    <Build Include="dbo\Stored Procedures\TipoPago\InsertTipoPago.sql" />
+    <Build Include="dbo\Stored Procedures\TipoPago\UpdateTipoPago.sql" />
+    <Build Include="dbo\Stored Procedures\TipoPago\DeleteTipoPago.sql" />
+    <Build Include="dbo\Stored Procedures\Planes\SelectOnePlan.sql" />
+    <Build Include="dbo\Stored Procedures\Contratos\InsertContratos.sql" />
+    <Build Include="dbo\Stored Procedures\Contratos\DeleteContratos.sql" />
+    <Build Include="dbo\Tables\SaldosXPersona.sql" />
+    <Build Include="dbo\Stored Procedures\Contratos\SetContratoNotValid.sql" />
+    <Build Include="dbo\Stored Procedures\SaldosXPersona\SelectAllSaldoXPersona.sql" />
+    <Build Include="dbo\Stored Procedures\SaldosXPersona\insertSaldoXPersona.sql" />
+    <Build Include="dbo\Stored Procedures\SaldosXPersona\deleteSaldoXPersona.sql" />
+    <Build Include="dbo\Stored Procedures\Persona\UpdatePersonaDatosPerfil.sql" />
+    <Build Include="dbo\Stored Procedures\Saldos\EstadisticasSaldo.sql" />
+    <Build Include="dbo\Stored Procedures\SaldosXPersona\EstadisticasSaldosXPersona.sql" />
+    <Build Include="dbo\Stored Procedures\SaldosXPersona\SelectAllSaldosXPersonaByPersona.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

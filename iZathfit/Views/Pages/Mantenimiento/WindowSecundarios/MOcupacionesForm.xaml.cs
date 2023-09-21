@@ -27,14 +27,17 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
         bool resultdialog = false;
         Ocupacion? _ocupacion;
         MOcupacionFormVM? _vm;
-        ObservableCollection<Models.Ocupacion>? _ocupaciones;
-        public MOcupacionesForm(ObservableCollection<Models.Ocupacion>? ocupacions, Ocupacion? ocupacion = null)
+        List<Models.Ocupacion>? _ocupaciones;
+        ObservableCollection<Models.Ocupacion>? _ocupacionescollection;
+        public MOcupacionesForm(List<Models.Ocupacion>? ocupacions = null, ObservableCollection<Models.Ocupacion>? ocupacionescollection = null,
+            Ocupacion? ocupacion = null)
         {
             InitializeComponent();
             _dialog = App.GetService<localDialogService>();
             _ocupacion = ocupacion;
             _vm = this.DataContext as MOcupacionFormVM;
             _ocupaciones = ocupacions;
+            _ocupacionescollection = ocupacionescollection;
             this.Loaded += MOcupacionesForm_Loaded;
             this.Closing += MOcupacionesForm_Closing;
         }
@@ -55,7 +58,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
         {
             if (_ocupaciones == null) return;
             if (_dialog.ShowDialog("Desea guardar esta ocupacion?", "Guardando", true) == true) {
-                var result = _ocupacion == null ? await _vm.AgregarOcupacion(this, _ocupaciones) :
+                var result = _ocupacion == null ? await _vm.AgregarOcupacion(this, _ocupaciones, listacollection: _ocupacionescollection) :
                     await _vm.UpdateOcupacion(this, _ocupaciones, _ocupacion.IdOcupacion);
                 if (result)
                 {

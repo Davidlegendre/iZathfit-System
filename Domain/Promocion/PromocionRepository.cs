@@ -2,6 +2,7 @@
 using Configuration.GlobalHelpers;
 using Dapper;
 using Models;
+using Models.ServiciodeModelos;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
