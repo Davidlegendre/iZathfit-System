@@ -47,6 +47,10 @@ Solo recuerda que necesitas saber estos temas:
 - Task o Thread
 - HttpClientFactory
 
+### Notas Finales
+Recuerda que este Sistema esta basado en una empresa, por lo que si quieres aplicar cambios, tienes que cambiar el logo y Nombre, y algunas cosas referentes a tu negocio.
+Recuerda que ni el logo ni el Nombre: Modo Fit Centro Medico Deportivo son libres, tienen derechos de autor, así que cambialos si no quieres problemas legales. (el icono de la app tambien).
+
 ### Autores
 - David Legendre
 - [LinkedIn](https://www.linkedin.com/in/david-legendre-albites-904a361a7/)
