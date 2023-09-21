@@ -29,7 +29,7 @@ namespace Models
         public string GetNumeroContrato => "Contrato: " + NumeroContrato;
         public string GetTotalContrato => "Total Contrato: " + totalContrato.ToString("0.00") + " S/";
         public string GetTotalFaltante => "Faltan: " + TotalFaltante.ToString("0.00") + " S/";
-        public string GetTotalPagado => "Pagado: " + TotalPagado.ToString("0.00") + " S/";
+        public string GetTotalPagado => "Pagado: " + TotalPagadoActual.ToString("0.00") + " S/";
         public string GetTipoPago => "Tipo Pago: " + TipoPago;
 
         public string GetFechaPago => "Fecha de Pago: " + FechaPago.ToLongDateString();
