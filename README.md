@@ -50,7 +50,8 @@ Solo recuerda que necesitas saber estos temas:
 ### Autores
 David Legendre
 - [LinkedIn](https://www.linkedin.com/in/david-legendre-albites-904a361a7/)
-Francoid Renquifo
+Francois Renquifo
+- [LinkedIn](https://www.linkedin.com/in/francois-renquifo-mercado-544141192/)
 
 ### Librerias
 - Dapper
