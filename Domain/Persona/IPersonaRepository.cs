@@ -20,5 +20,6 @@ namespace Domain.Persona
         public Task<long> GetCountPersonas();
         public Task<List<PersonaModel>> SelectAllAll();
         public Task<bool> UpdatePersonaSistema(PersonaModel persona);
+        public Task<List<PersonaModel>?> SearchPersonaByNameLastNameIdenfity(string texto);
     }
 }

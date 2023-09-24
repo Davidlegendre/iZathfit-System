@@ -1,4 +1,6 @@
-﻿namespace Models
+﻿using Models.ServiciodeModelos;
+
+namespace Models
 {
     public class PlanModel
     {
@@ -14,7 +16,7 @@
 
         public string? GetPrecioString => Precio.ToString("0.00") + " S/";
         public string? GetTitulo => "Plan paquete de: " + GetMesesTiempoString;
-        public string? GetServicios => Servicios != null ? string.Join(", ", Servicios.Select(x => x.NombreServicio)) : "" ;
-        public string GetMesesTiempoString => MesesTiempo >= 12 ? "1 Año" : (MesesTiempo == 1) ? "1 Mes" : MesesTiempo + " Meses";
+        public string? GetServicios => Servicios != null ? string.Join(", ", Servicios.Select(x => x.NombreServicio)) : "";
+        public string GetMesesTiempoString => NotificadorServicesInModels.TransformMonthsToString(MesesTiempo);
     }
 }

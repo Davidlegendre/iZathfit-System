@@ -24,7 +24,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.ColumnSpan="2" Grid.Row="0" FontSize="14" Text="{Binding Header}" Padding="7,5,0,5" Opacity="0.9" Visibility="{Binding HeaderVisible}"></TextBlock>
-                    <Rectangle Grid.ColumnSpan="2" VerticalAlignment="Bottom" Height="1" Fill="{Binding Background,ElementName=clockcard}"></Rectangle>
+                    <Rectangle Visibility="{Binding HeaderVisible}" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Height="1" Fill="{Binding Background,ElementName=clockcard}"></Rectangle>
                     <ui:SymbolIcon Grid.Row="1" Symbol="CalendarLtr20" Margin="7"></ui:SymbolIcon>
                     <Grid Grid.Row="1" Grid.Column="1" >
                         <Grid.ColumnDefinitions>
@@ -37,7 +37,7 @@
                         <Label Grid.Column="2" Content="{Binding YearSelected}" BorderBrush="{Binding Background,ElementName=clockcard}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Foreground="{Binding Foreground,ElementName=clockcard}"></Label>
                     </Grid>
                     <ui:Flyout Margin="0" Padding="0">
-                        <Calendar SelectedDate="{Binding DateSelect}" Width="{Binding ActualWidth,ElementName=contenttime}"></Calendar>
+                        <Calendar x:Name="calendar" DisplayDate="{Binding DateSelect}" SelectionMode="SingleDate" SelectedDate="{Binding DateSelect}" Width="{Binding ActualWidth,ElementName=contenttime}"></Calendar>
                     </ui:Flyout>
                 </Grid>
             </ui:CardAction>

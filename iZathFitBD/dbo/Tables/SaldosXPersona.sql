@@ -10,5 +10,5 @@
 	foreign key (IdPersona) references Persona(IdPersona),
 	foreign key (IdContrato) references Contrato(IdContrato),
 	foreign key (IdSaldo) references Saldos(IdSaldos),
-	foreign key (IdTipoPago) references TipoPago(IdTipoPago)
+	foreign key (IdTipoPago) references TipoPago(IdtipoPago)
 )

@@ -76,14 +76,14 @@ namespace iZathfit.Views.Pages.SubPagesHome
                 Symbol.Symbol = Wpf.Ui.Common.SymbolRegular.WeatherMoon48;
         }
 
-        private void txtBuscarDatosCliente_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private async void cbuscarpersona_selectedChanged(object sender, Models.PersonaModel e)
         {
-           if(e.Key == System.Windows.Input.Key.Enter)
+            if (_vm != null && e != null)
             {
-                if (_vm != null) {
-                    _vm.ViewDataUser(txtIdentificacion.Text);
-                    txtIdentificacion.Clear();
-                }
+                await _vm.ViewDataUser(e);
+                cbuscarpersona.PersonaSelected = null;
+                cbuscarpersona.ResultadoBusqueda = null;
+                cbuscarpersona.txtBuscarPersona.Clear();
             }
         }
     }

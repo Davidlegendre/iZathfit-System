@@ -39,8 +39,8 @@
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:Card Padding="8"  Margin="0,10,10,0">
-                        <Grid MinWidth="290">
+                    <ui:Card VerticalAlignment="Stretch" Padding="8,15"  Margin="0,10,10,0">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -48,7 +48,7 @@
                             </Grid.ColumnDefinitions>
                             <ui:SymbolIcon VerticalAlignment="Center" Margin="10,0,10,0" Symbol="Box24" FontSize="28"></ui:SymbolIcon>
                             <StackPanel Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding GetTitulo}" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
+                                <TextBlock Text="{Binding GetTitulo}" TextWrapping="Wrap" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
                                 <TextBlock Text="{Binding GetPrecioString}" TextWrapping="Wrap" Opacity="0.8"></TextBlock>
                                 <TextBlock Text="{Binding GetServicios}" ToolTip="{Binding GetServicios}" TextTrimming="CharacterEllipsis" FontSize="12" Opacity="0.7"></TextBlock>
                             </StackPanel>

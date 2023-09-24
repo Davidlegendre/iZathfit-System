@@ -39,8 +39,8 @@
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:Card Padding="8" Margin="0,10,10,0">
-                        <Grid MinWidth="270">
+                    <ui:Card Padding="8,15" VerticalAlignment="Stretch" Margin="0,10,10,0">
+                        <Grid >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -49,11 +49,11 @@
                             <ui:SymbolIcon VerticalAlignment="Center" Margin="10,0,10,0" Symbol="Dumbbell20" FontSize="30"></ui:SymbolIcon>
                             <StackPanel  Grid.Column="1" Margin="10,0,10,0">
                                 <TextBlock Text="{Binding NombreServicio}" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
-                                <StackPanel Margin="0,7,0,0" Orientation="Horizontal">
+                                <WrapPanel Margin="0,7,0,0" >
                                     <TextBlock Text="{Binding GetHorarioInicio}" Opacity="0.8"></TextBlock>
                                     <TextBlock Text=" - "></TextBlock>
                                     <TextBlock Text="{Binding GetHorarioFin}" Opacity="0.8"></TextBlock>
-                                </StackPanel>
+                                </WrapPanel>
                                 <ui:ToggleSwitch Margin="-1,10,0,0" IsChecked="{Binding IsGrupal}" Content="{Binding GetIsGrupalInString}" IsEnabled="False" ></ui:ToggleSwitch>
                             </StackPanel>
                             <UniformGrid Columns="1" Grid.Column="2">

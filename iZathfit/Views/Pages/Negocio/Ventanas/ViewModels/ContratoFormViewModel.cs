@@ -37,9 +37,6 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         }
 
        static string _nohayplanseleccionadotexto = "Plan No seleccionado";
-        
-        [ObservableProperty]
-        ObservableCollection<PersonaModel>? _personaslist;
 
         [ObservableProperty]
         ObservableCollection<PlanModel>? _planlist;
@@ -80,13 +77,18 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         string? _fechaFin = _nohayplanseleccionadotexto;
 
         [ObservableProperty]
-        string? _subtotal = _nohayplanseleccionadotexto;
+        DateTime _dateselected = DateTime.Now;
 
         [ObservableProperty]
-        string? _descuento = _nohayplanseleccionadotexto;
+        string? _subtotal = "0.00 S/";
 
         [ObservableProperty]
-        string? _total = _nohayplanseleccionadotexto;
+        string? _descuento ="0 %" ;
+
+        [ObservableProperty]
+        string? _total = "0.00 S/";
+
+       
 
 
         public async Task<bool> Cargardatos(UiWindow win) {
@@ -101,9 +103,10 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 return false;
             }
 
-            Personaslist = new ObservableCollection<PersonaModel>(personas);
             Planlist = new ObservableCollection<PlanModel>(planes);
             Tipopagolist = new ObservableCollection<TipoPagoModel>(tipopagos);
+            FechaFin = _nohayplanseleccionadotexto;
+
             _promosoriginal = promos;
             return true;
         }
@@ -127,20 +130,20 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             if (SelectedPlan == null) {
                 FechaInicio = _nohayplanseleccionadotexto;
                 FechaFin = _nohayplanseleccionadotexto;
-                Subtotal = _nohayplanseleccionadotexto;
-                Descuento = _nohayplanseleccionadotexto;
-                Total = _nohayplanseleccionadotexto;
+                Subtotal = "0.00 S/";
+                Descuento = "0 %";
+                Total = "0.00 S/";
+                Dateselected = DateTime.Now;
                 return;
             }
-
-            FechaInicio = DateTime.Now.AddDays(1).ToLongDateString();
-            FechaFin = DateTime.Now.AddMonths(SelectedPlan.MesesTiempo).AddDays(1).ToLongDateString();
+            Dateselected = DateTime.Now.AddMonths(SelectedPlan.MesesTiempo);
+            FechaInicio = DateTime.Now.Date.ToLongDateString();
+            FechaFin = "Fecha Calculada Final: " +  Dateselected.ToLongDateString();
+            
             Subtotal = SelectedPlan.GetPrecioString;
-            Descuento = SelectedPromo != null ? SelectedPromo.GetDescuento : "no tiene";
+            Descuento = SelectedPromo != null ? SelectedPromo.GetDescuento : "0 %";
             Total = SelectedPromo != null ? SelectedPromo.GetTotalEnDescuento : Subtotal;            
         }
-
-
 
         public async Task<bool> Guardar(UiWindow win)
         {
@@ -154,8 +157,9 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 ValorTotal = SelectedPromo != null ? SelectedPromo.GetTotalDescuento : SelectedPlan.Precio,
                 Descuento = SelectedPromo != null ? SelectedPromo.DescuentoPercent : 0,
                 ValorOriginal = SelectedPlan.Precio,
-                FechaFinal = DateTime.Now.AddMonths(SelectedPlan.MesesTiempo).AddDays(1).Date,
+                FechaFinal = Dateselected.Date,
                 NumeroContrato = CodigoContrato,
+                FechaFinalReal = DateTime.Parse(FechaFin.Split(": ")[1]),
                 IdTipoPago = SelectedTipoPago.IdtipoPago
             };
 
@@ -165,7 +169,36 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         }
 
 
+        public async Task<bool> UpdateContrato(UiWindow win, Guid idcontrato) {
+            if (_helperexcep == null || _contratosService == null || _dialog == null) return false;
+            if(!validarUpdate(win)) return false;
+            if (_dialog?.ShowDialog("Desea modificar este contrato?", ShowCancelButton: true, owner: win) == false) return false;
 
+            var result = await _helperexcep.ExcepHandler(() => _contratosService.UpdateContrato(idcontrato, Dateselected.Date, CodigoContrato), win);
+            _dialog.ShowDialog(result ? "Contrato modificado correctamente" : "Contrato rechazado", owner: win);
+            return result;
+
+        }
+
+
+        bool validarUpdate(UiWindow win) {
+            if (string.IsNullOrWhiteSpace(CodigoContrato))
+            {
+                _dialog?.ShowDialog("Codigo de contrato fisico no esta ingresado", owner: win);
+                return false;
+            }
+            if (Dateselected.Date == DateTime.Now.Date)
+            {
+                _dialog?.ShowDialog("Selecione una fecha final", owner: win);
+                return false;
+            }
+            if (Dateselected.Date < DateTime.Parse(FechaFin.Split(": ")[1]).Date)
+            {
+                _dialog?.ShowDialog("La fecha final no debe ser menor a la calculada", owner: win);
+                return false;
+            }
+            return true;
+        }
 
 
         bool validar(UiWindow win) {
@@ -192,6 +225,16 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             if (CodigoContrato.Length < 6)
             {
                 _dialog?.ShowDialog("El Codigo de contrato debe tener 6 digitos", owner: win);
+                return false;
+            }
+            if (Dateselected.Date == DateTime.Now.Date)
+            {
+                _dialog?.ShowDialog("Selecione una fecha final", owner: win);
+                return false;
+            }
+            if (Dateselected.Date < DateTime.Now.AddMonths(SelectedPlan.MesesTiempo).Date)
+            {
+                _dialog?.ShowDialog("La fecha final no debe ser menor a la calculada", owner: win);
                 return false;
             }
             return true;

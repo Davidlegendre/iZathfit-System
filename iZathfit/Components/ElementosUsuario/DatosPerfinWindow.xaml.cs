@@ -32,6 +32,7 @@ namespace iZathfit.Components.ElementosUsuario
 
         private void DatosPerfinWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            
             datosperfil.PersonaModel = _persona;
         }
 

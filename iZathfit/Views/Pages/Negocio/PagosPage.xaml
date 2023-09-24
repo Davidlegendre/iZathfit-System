@@ -41,8 +41,8 @@
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:Card Padding="8"  Margin="0,10,10,0">
-                        <Grid MinWidth="290">
+                    <ui:Card Padding="8,10" VerticalAlignment="Stretch"  Margin="0,10,10,0">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -50,6 +50,7 @@
                             </Grid.ColumnDefinitions>
                             <ui:SymbolIcon VerticalAlignment="Center" Margin="10,0,10,0" Symbol="MoneyHand20" FontSize="28"></ui:SymbolIcon>
                             <StackPanel Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Center">
+                                <TextBlock Text="Pago" FontSize="14" FontFamily="segoe ui semibold"></TextBlock>
                                 <TextBlock Text="{Binding GetNumeroContrato}" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
                                 <TextBlock Text="{Binding NombrePersona}" TextWrapping="Wrap" Opacity="0.8"></TextBlock>
                                 <TextBlock Text="{Binding GetFechaPago}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"></TextBlock>
@@ -57,7 +58,7 @@
                             </StackPanel>
                             <UniformGrid Columns="1" Grid.Column="2">
                                 <ui:Button Icon="Eye20" Name="btnView" Click="btnView_Click" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" Cursor="Hand"></ui:Button>
-                                <ui:Button Icon="Delete20" Name="btndelete" Click="btndelete_Click" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" Cursor="Hand"></ui:Button>
+                                <ui:Button Icon="Delete20"  Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibilityConverter}}" Name="btndelete" Click="btndelete_Click" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" Cursor="Hand"></ui:Button>
                             </UniformGrid>
                         </Grid>
                     </ui:Card>

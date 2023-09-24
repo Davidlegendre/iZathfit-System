@@ -6,42 +6,67 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              xmlns:local="clr-namespace:iZathfit.Views.Pages.SubPagesHome"
              xmlns:viewmodel="clr-namespace:iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels"
+             xmlns:component="clr-namespace:iZathfit.Components"
+             xmlns:BuscaPersona="clr-namespace:iZathfit.Components.BuscaPersona"
+             xmlns:Tiles="clr-namespace:iZathfit.Views.Pages.Tiles"
+             xmlns:helpers="clr-namespace:iZathfit.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="603.328" d:DesignWidth="768">
     <UserControl.DataContext>
         <local:SubHomeViewmodel></local:SubHomeViewmodel>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"></helpers:BoolToVisibilityConverter>
+    </UserControl.Resources>
     <Grid>
         <ContentPresenter Content="{Binding Datausercontrol}" DataContext="{Binding}"></ContentPresenter>
-        <StackPanel Orientation="Vertical" Visibility="{Binding VisibleRelojPanel}" x:Name="RelojHome" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
-            <ui:TextBox Name="txtIdentificacion" PlaceholderText="DNI del cliente" KeyDown="txtBuscarDatosCliente_KeyDown" Icon="Search20" IconPlacement="Right" Margin="0,0,0,10"></ui:TextBox>
-            <ui:Card  Grid.Row="0" MinWidth="280" MaxHeight="290">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"></ColumnDefinition>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <ui:SymbolIcon Name="Symbol" Grid.Column="1" Filled="True" FontSize="200" ></ui:SymbolIcon>
-                    <UniformGrid Columns="1" VerticalAlignment="Center">
-                        
-                        <TextBlock Name="txthour" Text="00" TextAlignment="Center" FontSize="67" FontFamily="Century Gothic"></TextBlock>
-                        <TextBlock x:Name="txtmin" Text="00" FontSize="67" FontFamily="{Binding FontFamily,ElementName=txthour}" TextAlignment="Center"></TextBlock>
-                        <TextBlock Name="txttimeAMPM" Text="PM" FontSize="48" TextAlignment="Center" FontFamily="{Binding FontFamily,ElementName=txthour}" FontWeight="UltraLight"></TextBlock>
-                    </UniformGrid>
-                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
-                        <TextBlock Name="txtSaludo"  Grid.Row="1" Text="Buenos Días"  FontSize="16" TextWrapping="Wrap" FontFamily="Segoe UI Semibold"></TextBlock>
+        <ui:Button Name="btninvisible" Appearance="Primary" Visibility="Collapsed"></ui:Button>
+        <ScrollViewer  Visibility="{Binding VisibleRelojPanel}">
+            <WrapPanel MaxWidth="640" HorizontalAlignment="Center" Margin="0,40,0,40" VerticalAlignment="Center">
+                
+                <ui:Card  Margin="7,7,0,0" VerticalAlignment="Top" Padding="0">
+                    <Grid Height="320" Width="310">
+                        <component:LogoSVGModoFit Margin="27,76,27,27" Tag="{Binding Background,ElementName=btninvisible}"></component:LogoSVGModoFit>
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="10,17,0,0" VerticalAlignment="Top">
+                            <Label Content="Modo Fit" Padding="2" Foreground="{Binding Background, ElementName=btninvisible}" FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" FontSize="24"/>
+                            <Label Content="Centro Medico Deportivo" HorizontalAlignment="Center" FontFamily="Segoe UI semibold" Padding="2" Margin="0,-5,0,0"></Label>
+                        </StackPanel>
+                    </Grid>
+                </ui:Card>
+                <StackPanel x:Name="RelojHome" Orientation="Vertical" Margin="7,7,0,0">
+                    <BuscaPersona:BuscarPersonaComponent x:Name="cbuscarpersona" selectedChanged="cbuscarpersona_selectedChanged" Margin="0,0,0,7" ></BuscaPersona:BuscarPersonaComponent>
+                    <ui:Card  Grid.Row="0" Width="310" Height="243">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock  Name="txtFechaLarga" FontSize="14" Opacity="0.5" Text="lunes, 21 de Diciembre 2021" FontFamily="Segoe UI Semibold"></TextBlock>
+                            <ui:SymbolIcon Name="Symbol" Grid.Column="1" Filled="True" FontSize="170" ></ui:SymbolIcon>
+                            <UniformGrid Columns="1" VerticalAlignment="Center">
 
-                    </StackPanel>
-                 </Grid>
-            </ui:Card>
-            
-        </StackPanel>
-       
+                                <TextBlock Name="txthour" Text="00" TextAlignment="Center" FontSize="53" FontFamily="Century Gothic"></TextBlock>
+                                <TextBlock x:Name="txtmin" Text="00" FontSize="53" FontFamily="{Binding FontFamily,ElementName=txthour}" TextAlignment="Center"></TextBlock>
+                                <TextBlock Name="txttimeAMPM" Text="PM" FontSize="39" TextAlignment="Center" FontFamily="{Binding FontFamily,ElementName=txthour}" FontWeight="UltraLight"></TextBlock>
+                            </UniformGrid>
+                            <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+                                <TextBlock Name="txtSaludo"  Grid.Row="1" Text="Buenos Días"  FontSize="16" TextWrapping="Wrap" FontFamily="Segoe UI Semibold"></TextBlock>
+
+                                <TextBlock  Name="txtFechaLarga" FontSize="14" Opacity="0.5" Text="lunes, 21 de Diciembre 2021" FontFamily="Segoe UI Semibold"></TextBlock>
+
+                            </StackPanel>
+                        </Grid>
+                    </ui:Card>
+
+                </StackPanel>
+                <Tiles:TextoTile VerticalAlignment="Top" Margin="7,7,0,0"></Tiles:TextoTile>
+                <Tiles:CalendarSearchTotalesTile VerticalAlignment="Top" Margin="7,7,0,0"></Tiles:CalendarSearchTotalesTile>
+            </WrapPanel>
+        </ScrollViewer>
+           
     </Grid>
 </UserControl>

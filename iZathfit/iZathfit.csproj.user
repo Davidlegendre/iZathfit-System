@@ -9,6 +9,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Components\BuscaPersona\BuscarPersonaComponent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Components\DatePicker\DatePicker.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,12 +31,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Components\Paginator\PaginatorComponent.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Components\SelectSearchComponent\SelectContrato.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="Components\SelectSearchComponent\SelectSearch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Components\TimePicker\TimePIcker.xaml.cs">
@@ -96,6 +93,9 @@
     <Compile Update="Views\Pages\Negocio\ServiciosPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\Negocio\Ventanas\ContratoFormUpdate.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\Negocio\Ventanas\ContratosForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -114,10 +114,16 @@
     <Compile Update="Views\Pages\Negocio\Ventanas\PromocionForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\Negocio\Ventanas\Rutina.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\Pages\Negocio\Ventanas\SaldoXPersonaForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\Negocio\Ventanas\ServiciosForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Negocio\WizardCliente.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Pages\SubPagesHome\ClienteDataView.xaml.cs">
@@ -129,8 +135,17 @@
     <Compile Update="Views\Pages\SubPagesHome\SettingPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\Pages\Tiles\CalendarSearchTotalesTile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Pages\Tiles\TextoTile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Components\BuscaPersona\BuscarPersonaComponent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Components\DatePicker\DatePicker.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -150,12 +165,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\Paginator\PaginatorComponent.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Components\SelectSearchComponent\SelectContrato.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Components\SelectSearchComponent\SelectSearch.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Components\TimePicker\TimePIcker.xaml">
@@ -221,6 +230,9 @@
     <Page Update="Views\Pages\Negocio\ServiciosPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\Negocio\Ventanas\ContratoFormUpdate.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\Negocio\Ventanas\ContratosForm.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -239,10 +251,16 @@
     <Page Update="Views\Pages\Negocio\Ventanas\PromocionForm.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Pages\Negocio\Ventanas\Rutina.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\Pages\Negocio\Ventanas\SaldoXPersonaForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Negocio\Ventanas\ServiciosForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Negocio\WizardCliente.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\SubPagesHome\ClienteDataView.xaml">
@@ -255,6 +273,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\SubPagesHome\SettingPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Tiles\CalendarSearchTotalesTile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Pages\Tiles\TextoTile.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Windows\MainWindow.xaml">

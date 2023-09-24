@@ -1,4 +1,5 @@
 ﻿using Configuration;
+using Configuration.GlobalHelpers;
 using iZathfit.Helpers;
 using iZathfit.Views.Windows;
 using Models;
@@ -13,12 +14,14 @@ namespace iZathfit.ViewModels.Pages.Negocio
         localDialogService? _dialog;
         IExceptionHelperService? _helperexcep;
         IGeneralConfiguration? _config;
+        IGlobalHelpers? _helpers;
         public PagosPageViewModel()
         {
             _service = App.GetService<ISaldoXPersonaService>();
             _dialog = App.GetService<localDialogService>();
             _helperexcep = App.GetService<IExceptionHelperService>();
             _config = App.GetService<IGeneralConfiguration>();
+            _helpers = App.GetService<IGlobalHelpers>();
         }
         [ObservableProperty]
         ObservableCollection<SaldoXPersonaModel>? _saldoXPersonaslist;
@@ -29,10 +32,15 @@ namespace iZathfit.ViewModels.Pages.Negocio
         int? _columns = 4;
 
         public async Task<bool> GetSaldosXPersona() {
-            if (_service == null || _dialog == null || _helperexcep == null) return false;
+            if (_service == null || _dialog == null || _helperexcep == null || _helpers == null) return false;
             var result = await _helperexcep.ExcepHandler(() => _service.GetSaldoXPersonas(), App.GetService<MainWindow>());
             if (result != null)
+            {
+                var isNotAdmin = !_helpers.PolicyReturnBool(TypeRol.Administrador);
+                result.ForEach(x => x.IsVisible = isNotAdmin);
                 _pagoslist = result;
+            }
+               
             else
                 _pagoslist.Clear();
             return result != null;

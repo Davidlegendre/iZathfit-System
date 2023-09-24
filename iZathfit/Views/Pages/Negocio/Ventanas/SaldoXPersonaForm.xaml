@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas"
-        xmlns:components="clr-namespace:iZathfit.Components.SelectSearchComponent"
         xmlns:viewmodels="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas.ViewModels"
+        xmlns:component="clr-namespace:iZathfit.Components.BuscaPersona"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -25,12 +25,25 @@
         <StackPanel Grid.Row="1">
             <TextBlock Text="Persona" FontSize="14" Opacity="0.8" Foreground="{Binding Foreground,ElementName=tbtitle}" Margin="7">
             </TextBlock>
-            <components:SelectSearch x:Name="searchidentificacion" Margin="7">
-            </components:SelectSearch>
+            <component:BuscarPersonaComponent x:Name="Cbuscarpersona" selectedChanged="BuscarPersonaComponent_selectedChanged" Margin="7"></component:BuscarPersonaComponent>
             <TextBlock Text="Contrato" FontSize="14" Opacity="0.8" Foreground="{Binding Foreground,ElementName=tbtitle}" Margin="7">
             </TextBlock>
-            <components:SelectContrato x:Name="searchContrato" Margin="7">
-            </components:SelectContrato>
+            <ComboBox ItemsSource="{Binding ContratolistByperson}" SelectedItem="{Binding Contratoselected}" Margin="7">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Background="{Binding GetBackgroundIfIsVencido}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding GetMesesTiempoString}" FontFamily="segoe ui semibold" TextTrimming="WordEllipsis" ToolTip="{Binding GetNombreContrato}"></TextBlock>
+                            <TextBlock Grid.Row="1" Text="{Binding GetTotalFaltante}" Opacity="0.8" TextTrimming="WordEllipsis" ToolTip="{Binding GetNombreContrato}"></TextBlock>
+
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                
+            </ComboBox>
             <TextBlock Text="Tipo de Pago" FontSize="14" Opacity="0.8" Foreground="{Binding Foreground,ElementName=tbtitle}" Margin="7">
             </TextBlock>
             <ComboBox Margin="7" ItemsSource="{Binding Tiposdepagolist}" SelectedItem="{Binding Tipopagoselected}">

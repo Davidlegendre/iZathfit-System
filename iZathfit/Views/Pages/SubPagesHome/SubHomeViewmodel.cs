@@ -26,7 +26,6 @@ namespace iZathfit.Views.Pages.SubPagesHome
 {
     public partial class SubHomeViewmodel : ObservableObject
     {
-        IPersonaService? _personaservice;
         IContratosService? _contratosService;
         ISaldoService? _saldoService;
         ISaldoXPersonaService? _saldoXPersonaService;
@@ -35,7 +34,6 @@ namespace iZathfit.Views.Pages.SubPagesHome
 
         public SubHomeViewmodel()
         {
-            _personaservice = App.GetService<IPersonaService>();
             _contratosService = App.GetService<IContratosService>();
             _saldoService = App.GetService<ISaldoService>();
             _saldoXPersonaService = App.GetService<ISaldoXPersonaService>();
@@ -47,7 +45,7 @@ namespace iZathfit.Views.Pages.SubPagesHome
         UserControl? _datausercontrol;
 
         [ObservableProperty]
-        int? _columns = 4;
+        int? _columns = 3;
 
         [ObservableProperty]
         Visibility _visibletextosbuttons = Visibility.Visible;
@@ -75,48 +73,39 @@ namespace iZathfit.Views.Pages.SubPagesHome
             new ComboBoxModelBasic(){ Id = 1, Name ="Fecha " }
         };
 
-
         public List<ContratosModDataView> _contratosList = new List<ContratosModDataView>();
 
         [ObservableProperty]
         ObservableCollection<ContratosModDataView>? _ContratosObser;
 
         public StackPanel? RelojPanel { get; set; }
-        public async Task ViewDataUser(string Identificacion) {
-            if (_personaservice == null || _contratosService == null
+        public async Task ViewDataUser(PersonaModel personaModel) {
+            if (_contratosService == null
                 || _saldoService == null || _saldoXPersonaService == null || _dialog == null
                 || _PlanService == null) return;
-            var contratos = await _contratosService.SelectOneContratoPerDNIPerson(Identificacion);
+            var contratos = await _contratosService.SelectOneContratoPerDNIPerson(personaModel.Identificacion);
 
             if (contratos == null) {
                 _dialog.ShowDialog("No hay Datos para esta Persona", owner: App.GetService<MainWindow>());
                 return;
             }
-            var persona = await _personaservice.GetPersona(contratos[0].IdPersona);
-            var saldosxpersonas = await _saldoXPersonaService.GetSaldosXPersonasbyPersona(persona.IdPersona);
-            if (saldosxpersonas != null)
-            {
-                var planes = await _PlanService.GetPlanes();
-                var contratosmod = from ct in contratos
-                                   join sald in saldosxpersonas
-                                   on ct.IdContrato equals sald.IdContrato
-                                   select new ContratosModDataView()
-                                   {
-                                       NombreContrato = ct.GetNombreContrato,
-                                       FechaContrato = ct.Fecha_contrato,
-                                       FechaFinal = ct.FechaFinal,
-                                       PagoFaltante = sald.TotalFaltante,
-                                       PrecioTotal = ct.ValorTotal,
-                                       UltimoPago = saldosxpersonas.Where(x => x.IdContrato == ct.IdContrato)
-                                                    .OrderByDescending(x => x.FechaPago).First().TotalPagadoActual,
-                                       Servicios = planes.First(y => y.IdPlanes == ct.IdPlan).GetServicios,
-                                       NombrePlan = planes.First(x => x.IdPlanes == ct.IdPlan).GetTitulo
-                                   };
-                _contratosList = contratosmod.DistinctBy(x => x.NombreContrato).AsList();
-                ContratosObser = new ObservableCollection<ContratosModDataView>(_contratosList);
-            }
-
-
+            var saldosxpersonas = await _saldoXPersonaService.GetSaldosXPersonasbyPersona(personaModel.IdPersona);
+            var planes = await _PlanService.GetPlanes();
+            _contratosList.Clear();
+            contratos.ForEach(ct => {
+                var saldo = saldosxpersonas?.Find(y => y.IdContrato == ct.IdContrato);
+                var contratomod = new ContratosModDataView();
+                contratomod.NombreContrato = ct.GetNombreContrato;
+                contratomod.FechaContrato = ct.Fecha_contrato;
+                contratomod.FechaFinal = ct.FechaFinal;
+                contratomod.PagoFaltante = saldo != null ? saldo.TotalFaltante : ct.ValorTotal;
+                contratomod.PrecioTotal = ct.ValorTotal;
+                contratomod.UltimoPago = saldo != null ? saldosxpersonas.Where(x => x.IdContrato == ct.IdContrato)
+                             .OrderByDescending(x => x.FechaPago).First().TotalPagadoActual : 0;
+                contratomod.Servicios = planes.First(y => y.IdPlanes == ct.IdPlan).GetServicios;
+                contratomod.NombrePlan = planes.First(x => x.IdPlanes == ct.IdPlan).GetTitulo;
+                _contratosList.Add(contratomod);
+            });
             /*
                 Nombre de Contrato,
                 Precio Total,
@@ -128,12 +117,12 @@ namespace iZathfit.Views.Pages.SubPagesHome
                 Filtros: Pagados, Adeudos, Vencidos Por Pagar
                 Filtrar 2: Fecha, NumeroContrato, Descendente, Ascendente
              */
-            var estadisticassaldos = await _saldoService.GetEstadisticas(persona.IdPersona);
-            var estadisticassaldosxpersona = await _saldoXPersonaService.GetEstadisticas(persona.IdPersona);
+            var estadisticassaldos = await _saldoService.GetEstadisticas(personaModel.IdPersona);
+            var estadisticassaldosxpersona = await _saldoXPersonaService.GetEstadisticas(personaModel.IdPersona);
             DataUserModel = new DataViewUserModel() {
                 SaldosEstadisticasDTO = estadisticassaldos,
                 SaldosXpersonaEstidisticas = estadisticassaldosxpersona,
-                Persona = persona,
+                Persona = personaModel,
                 Contratoscontrat = contratos.Count()
             };
 

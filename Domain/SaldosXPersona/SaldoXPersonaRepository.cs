@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Domain.SaldosXPersona
 {
@@ -78,5 +79,15 @@ namespace Domain.SaldosXPersona
                 return result;
             }
         }
+
+        public async Task<List<TotalesByDateModel>?> GetTotalesPagos(DateTime fecha) {
+            using (var con = new SqlConnection(_config.GetConnection()))
+            {
+                var result = await con.QueryAsync<TotalesByDateModel>("SumPagosGroupPersonaByDate",
+                    new { @date = fecha }, commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result.Count() == 0? null : result.AsList();
+            }
+        } 
     }
 }

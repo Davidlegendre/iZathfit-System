@@ -14,6 +14,7 @@ using Domain.Plan;
 using Domain.PlanDuracion;
 using Domain.Promocion;
 using Domain.Rol;
+using Domain.Rutina;
 using Domain.Saldos;
 using Domain.SaldosXPersona;
 using Domain.Servicios;
@@ -43,6 +44,7 @@ using Services.Plan;
 using Services.PlanDuracion;
 using Services.Promocion;
 using Services.Rol;
+using Services.Rutina;
 using Services.Saldos;
 using Services.SaldoXPersona;
 using Services.Servicios;
@@ -130,7 +132,9 @@ namespace iZathfit
                 services.AddScoped<ISaldoXPersonaService, SaldoXPersonaService>();
                 services.AddScoped<ISaldosRepository, SaldosRepository>();
                 services.AddScoped<ISaldoService, SaldoService>();
-
+                services.AddScoped<IRutinaRepository, RutinaRepository>();
+                services.AddScoped<IRutinaService, RutinaService>();
+                    
                 services.AddSingleton<localDialogService>();
                 services.AddSingleton<GlobalService>();
 

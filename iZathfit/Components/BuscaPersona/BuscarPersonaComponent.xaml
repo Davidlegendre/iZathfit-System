@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="iZathfit.Components.BuscaPersona.BuscarPersonaComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:iZathfit.Components.BuscaPersona"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" d:DesignWidth="300" Name="buscarpersona">
+    <Grid>
+        <ui:CardAction Name="btnbuscarpersona" Click="btnbuscarpersona_Click" VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding NombrePersona}" TextTrimming="WordEllipsis" FontFamily="Segoe UI Semibold"></TextBlock>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Identificacion}" Margin="7,0,0,0" Grid.Column="1" Opacity="0.8"></TextBlock>
+                    <TextBlock Text="{Binding IdentificacionTipo}" Opacity="0.8"></TextBlock>
+                </Grid>
+            </Grid>
+        </ui:CardAction>
+        <ui:Flyout Name="flyoutpanel" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+            <Grid Width="300">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ui:TextBox Name="txtBuscarPersona" Icon="Search20" KeyDown="txtBuscarPersona_keydown" IconPlacement="Right" PlaceholderText="Busca Nombre, Apellido o Identificacion"></ui:TextBox>
+                <ListView Grid.Row="1" Margin="0,10,0,0" Height="170" ItemsSource="{Binding ResultadoBusqueda}" SelectedItem="{Binding PersonaSelected}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid VerticalAlignment="Top" Columns="1"></UniformGrid>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="7">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding GetCompleteName}" TextTrimming="WordEllipsis" FontFamily="Segoe UI Semibold"></TextBlock>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Identificacion}" Margin="7,0,0,0" Grid.Column="1" Opacity="0.8"></TextBlock>
+                                    <TextBlock Text="{Binding TipoIdentAbreviado}" Opacity="0.8"></TextBlock>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </ui:Flyout>
+    </Grid>
+</UserControl>

@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas"
-        xmlns:components="clr-namespace:iZathfit.Components.SelectSearchComponent"
+        xmlns:datepicker="clr-namespace:iZathfit.Components.DatePicker"
         xmlns:viewmodels="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas.ViewModels"
+        xmlns:component ="clr-namespace:iZathfit.Components.BuscaPersona"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -31,8 +32,7 @@
                 <TextBlock Text="Persona" FontSize="14" Opacity="0.8" Foreground="{Binding Foreground,ElementName=tbtitle}" Margin="7">
 
                 </TextBlock>
-                <components:SelectSearch x:Name="searchidentificacion" Margin="7">
-                </components:SelectSearch>
+                <component:BuscarPersonaComponent x:Name="Cbuscapersona" Margin="7,0,7,0" selectedChanged="BuscarPersonaComponent_selectedChanged"></component:BuscarPersonaComponent>
             </StackPanel>
             <Grid VerticalAlignment="Top" Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -104,18 +104,33 @@
                     <TextBlock Text="{Binding FechaInicio}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
 
                     <TextBlock Text="Fecha de Fin" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                    <TextBlock Text="{Binding FechaFin}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <datepicker:DatePicker x:Name="datepicker" DateSelectChanged="datepicker_DateSelectChanged"></datepicker:DatePicker>
+                    <TextBlock Text="{Binding FechaFin}" TextWrapping="Wrap" Margin="1,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
 
-                    <TextBlock Text="Subtotal" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                    <TextBlock Text="{Binding Subtotal}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <ui:Card Padding="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Margin="7" HorizontalAlignment="Center">
+                                <TextBlock Text="Subtotal" HorizontalAlignment="Center" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                                <TextBlock Text="{Binding Subtotal}" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                            </StackPanel>
+                            <Separator Grid.Column="1" HorizontalAlignment="Left"></Separator>
+                            <StackPanel Grid.Column="1" Margin="7" HorizontalAlignment="Center">
+                                <TextBlock Text="Descuento" Margin="0,0,0,7" HorizontalAlignment="Center" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                                <TextBlock Text="{Binding Descuento}" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
 
-                    <TextBlock Text="Descuento" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                    <TextBlock Text="{Binding Descuento}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-
-                    <TextBlock Text="Total" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                    <TextBlock Text="{Binding Total}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-
-
+                            </StackPanel >
+                            <Separator Grid.Column="2" HorizontalAlignment="Left"></Separator>
+                            <StackPanel Grid.Column="2" Margin="7" HorizontalAlignment="Center">
+                                <TextBlock Text="Total" Margin="0,0,0,7" HorizontalAlignment="Center" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                                <TextBlock Text="{Binding Total}" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </ui:Card>
                 </StackPanel>
             </Grid>
         </Grid>

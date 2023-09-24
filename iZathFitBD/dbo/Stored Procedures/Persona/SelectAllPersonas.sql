@@ -4,7 +4,7 @@
 		Select p.Nombres, p.Apellidos, p.Direccion, p.Edad, p.Email, 
 		p.Fech_Nacimiento, p.Identificacion, p.Telefono, p.IdPersona, g.descripcion as 'Genero',
 		ti.descripcion as 'TipoIdentificacion', r.descripcion as 'Rol', r.IdRol,
-		r.code as 'CodeRol',
+		r.code as 'CodeRol',ti.abreviado as 'TipoIdentAbreviado',
 		g.IdGenero, ti.IdTipoIdentity, o.descripcion as 'Ocupacion', o.IdOcupacion, p.NumeroEmergencia1,
 		p.NumeroEmergencia2
 		from Persona p

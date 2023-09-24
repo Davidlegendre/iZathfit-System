@@ -78,6 +78,7 @@
     <Folder Include="dbo\Stored Procedures\TipoPago" />
     <Folder Include="dbo\Stored Procedures\Saldos" />
     <Folder Include="dbo\Stored Procedures\SaldosXPersona" />
+    <Folder Include="dbo\Stored Procedures\Rutina" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\TipoPago.sql" />
@@ -157,7 +158,6 @@
     <Build Include="dbo\Stored Procedures\TipoPago\DeleteTipoPago.sql" />
     <Build Include="dbo\Stored Procedures\Planes\SelectOnePlan.sql" />
     <Build Include="dbo\Stored Procedures\Contratos\InsertContratos.sql" />
-    <Build Include="dbo\Stored Procedures\Contratos\DeleteContratos.sql" />
     <Build Include="dbo\Tables\SaldosXPersona.sql" />
     <Build Include="dbo\Stored Procedures\Contratos\SetContratoNotValid.sql" />
     <Build Include="dbo\Stored Procedures\SaldosXPersona\SelectAllSaldoXPersona.sql" />
@@ -167,6 +167,13 @@
     <Build Include="dbo\Stored Procedures\Saldos\EstadisticasSaldo.sql" />
     <Build Include="dbo\Stored Procedures\SaldosXPersona\EstadisticasSaldosXPersona.sql" />
     <Build Include="dbo\Stored Procedures\SaldosXPersona\SelectAllSaldosXPersonaByPersona.sql" />
+    <Build Include="dbo\Stored Procedures\Contratos\UpdateContrato.sql" />
+    <Build Include="dbo\Tables\Rutina.sql" />
+    <Build Include="dbo\Stored Procedures\Rutina\InsertRutina.sql" />
+    <Build Include="dbo\Stored Procedures\Rutina\SumRutinasByDate.sql" />
+    <Build Include="dbo\Stored Procedures\ServicioXPlanes\SumPagosGroupPersonaByDate.sql" />
+    <Build Include="dbo\Stored Procedures\Persona\SearchPersonaByNameLastNameIdentify.sql" />
+    <Build Include="dbo\Stored Procedures\Contratos\SearchContratoByPersona.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

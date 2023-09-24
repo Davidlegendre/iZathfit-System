@@ -37,10 +37,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         ObservableCollection<TipoPagoModel>? _tiposdepagolist;
 
         [ObservableProperty]
-        ObservableCollection<ContratoModel>? _contratolist;
-
-        [ObservableProperty]
-        ObservableCollection<PersonaModel>? _personalist;
+        ObservableCollection<ContratoModel>? _contratolistByperson;
 
         [ObservableProperty]
         TipoPagoModel? _tipopagoselected;
@@ -69,10 +66,20 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             }
 
             Tiposdepagolist = new ObservableCollection<TipoPagoModel>(tipopagos);
-            Contratolist = new ObservableCollection<ContratoModel>(contratos);
-            Personalist = new ObservableCollection<PersonaModel>(personas);
 
             return true;
+
+        }
+
+        public async Task GetContratosByPerson(Guid idperson, UiWindow win)
+        {
+            if ( _contratoService == null || _dialog == null || _helperexcep == null)
+                return;
+            
+            var result = await _helperexcep.ExcepHandler(() => _contratoService.SearchContratoByPersona(idperson), win);
+            ContratolistByperson = result == null ? null
+                 : new ObservableCollection<ContratoModel>(result);
+
 
         }
 
@@ -80,6 +87,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             if (_tipopagoService == null || _contratoService == null || _saldoXPersonaService == null 
                 || _personaService == null || _dialog == null || _helperexcep == null)
                 return false;
+            if(!validar(win)) return false;
             if (_dialog?.ShowDialog("Desea Guardar este Pago?", ShowCancelButton: true, owner: win) == false) return false;
 
             var saldoxpersona = new SaldoXPersonaModel() {
@@ -99,12 +107,12 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         {
             if (Personaselected == null)
             {
-                _dialog?.ShowDialog("Busque a una persona por su identificacion", owner: win);
+                _dialog?.ShowDialog("Busque a una persona", owner: win);
                 return false;
             }
             if(Contratoselected == null)
             {
-                _dialog?.ShowDialog("Busque a un contrato por su codigo", owner: win);
+                _dialog?.ShowDialog("Seleccione un Contrato", owner: win);
                 return false;
             }
             if (Tipopagoselected == null)

@@ -37,6 +37,11 @@ namespace Services.SaldoXPersona
             return await _repo.GetSaldoXPersonas();
         }
 
+        public async Task<List<TotalesByDateModel>?> GetTotalesPagos(DateTime fecha)
+        {
+            return await _repo.GetTotalesPagos(fecha);
+        }
+
         public async Task<bool> InsertSaldoXPersona(SaldoXPersonaModel saldoxpersona)
         {
             return await _repo.InsertSaldoXPersona(saldoxpersona);

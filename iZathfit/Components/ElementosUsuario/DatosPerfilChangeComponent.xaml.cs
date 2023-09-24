@@ -15,6 +15,13 @@ namespace iZathfit.Components.ElementosUsuario
         {
             InitializeComponent();
             _vm = DataContext as DatosPerfilViewModel;
+            this.Loaded += DatosPerfilChangeComponent_Loaded;
+
+        }
+
+        private void DatosPerfilChangeComponent_Loaded(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         UsuarioSistema? _usuariosistema;
@@ -28,6 +35,14 @@ namespace iZathfit.Components.ElementosUsuario
                 _vm.Direccion = PersonaModel?.Direccion;
                 _vm.Numerotelefono = PersonaModel?.Telefono;
                 _vm.Email = PersonaModel?.Email;
+                new Task(() => {
+                    App.Current.Dispatcher.BeginInvoke(async () =>
+                    {
+                        await _vm.GetData(Win);
+
+                        _vm.Generoselected = _vm.Generolist.First(x => x.code == PersonaModel.generoCode);
+                    });
+                }).Start();
                 txtnombres.Focus();
             }
         }

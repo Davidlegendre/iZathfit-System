@@ -124,21 +124,6 @@ namespace iZathfit.Views.Pages.Negocio
             }
         }
 
-        private async void btndelete_Click(object sender, RoutedEventArgs e)
-        {
-            var btn = (Wpf.Ui.Controls.Button)sender;
-            var context = btn.DataContext as ContratoModel;
-            if (context != null && _vm != null && _copy != null)
-            {
-                if (await _vm.EliminarContrato(context.IdContrato) == true)
-                {
-                    await _vm.Getdata();
-                    _copy = new ObservableCollection<ContratoModel>(_vm._contratoslist);
-                    _vm.Contratos = paginator.GetPaginationCollection(
-                        new ObservableCollection<ContratoModel>(_copy.Where(x => x.IsNotValid == btnVerNovalidos.IsChecked)));
-                }
-            }
-        }
 
         private async void btnValidar_Click(object sender, RoutedEventArgs e)
         {
@@ -162,6 +147,22 @@ namespace iZathfit.Views.Pages.Negocio
             {
                 _vm.Contratos = paginator.GetPaginationCollection(
                     new ObservableCollection<ContratoModel>(_copy.Where(x => x.IsNotValid == btnVerNovalidos.IsChecked)));
+            }
+        }
+
+        private async void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Wpf.Ui.Controls.Button;
+            var contexto = btn?.DataContext as ContratoModel;
+            if (_vm != null && _copy != null && contexto != null)
+            {
+                if (new ContratoFormUpdate(contexto).ShowDialog() == true)
+                {
+                    await _vm.Getdata();
+                    _copy = new ObservableCollection<ContratoModel>(_vm._contratoslist);
+                    _vm.Contratos = paginator.GetPaginationCollection(
+                    new ObservableCollection<ContratoModel>(_copy.Where(x => x.IsNotValid == btnVerNovalidos.IsChecked)));
+                }
             }
         }
     }

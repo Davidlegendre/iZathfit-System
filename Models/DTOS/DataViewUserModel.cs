@@ -27,7 +27,7 @@ namespace Models.DTOS
         public string GetContratosVencidosNoPagos => "Contratos Vencido sin Pagar: " + SaldosEstadisticasDTO?.ContratosVencidosNoPagos;
         public string GetCantidadPagada => "Cantidad Pagada: " + SaldosEstadisticasDTO?.CantidadPagada.ToString("0.00") + " S/";
 
-        public string GetUltimaFechadePago => "Ultima Fecha de Pago: " + SaldosXpersonaEstidisticas?.UltimaFechadePago.ToLongDateString();
+        public string GetUltimaFechadePago => "Ultima Fecha de Pago: " + (SaldosXpersonaEstidisticas?.UltimaFechadePago.Date == DateTime.MinValue.Date? "" : SaldosXpersonaEstidisticas?.UltimaFechadePago.ToLongDateString());
         public string GetUltimoContratoPagado => "Ultimo Contrato Pagado: " + SaldosXpersonaEstidisticas?.UltimoContratoPagado;
         
     }

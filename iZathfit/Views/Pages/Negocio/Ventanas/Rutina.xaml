@@ -1,0 +1,42 @@
+﻿<ui:UiWindow x:Class="iZathfit.Views.Pages.Negocio.Ventanas.Rutina"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas"
+             xmlns:viewmodels ="clr-namespace:iZathfit.Views.Pages.Negocio.Ventanas.ViewModels"
+        ExtendsContentIntoTitleBar="True"
+             WindowBackdropType="Mica"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             Background="{ui:ThemeResource}"       
+             mc:Ignorable="d"
+             Title="Contratos Update" Height="310" ResizeMode="NoResize" 
+             MinWidth="0" MinHeight="0" Width="323" WindowStartupLocation="CenterScreen">
+    <ui:UiWindow.DataContext>
+        <viewmodels:RutinasViewModel></viewmodels:RutinasViewModel>
+    </ui:UiWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ui:TitleBar Name="tbtitle" CanMaximize="False" ShowMaximize="False" Title="Rutinas"></ui:TitleBar>
+        <StackPanel Grid.Row="1" Margin="7">
+            <TextBlock Text="Tipo de Pago" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+            <ComboBox ItemsSource="{Binding Tipopagolist}" SelectedItem="{Binding Tipopagoselect}" Margin="0,0,0,7" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding descripcion}"></TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="Monto" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+            <ui:NumberBox Name="nbMonto" MaxDecimalPlaces="2" Minimum="1" Text="{Binding Monto}" PlaceholderText="Monto de la Rutina"></ui:NumberBox>
+        </StackPanel>
+        <UniformGrid x:Name="uniformgridpanel" Grid.Row="2" Rows="1" Margin="7">
+            <ui:Button Name="btnadd" Click="btnadd_Click" Appearance="Primary" HorizontalAlignment="Stretch" Margin="0,0,5,0" Content="Guardar"></ui:Button>
+            <ui:Button Name="btncancelar" Click="btncancelar_Click" HorizontalAlignment="Stretch" Margin="0,0,5,0" Content="Cancelar"></ui:Button>
+        </UniformGrid>
+    </Grid>
+</ui:UiWindow>

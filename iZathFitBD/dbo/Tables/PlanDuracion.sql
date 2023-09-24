@@ -2,7 +2,7 @@
 IdPlanDuracion int identity not null,
 descripcion varchar(100),
 IdUsuario uniqueidentifier not null,
-MesesTiempo int  not null check (MesesTiempo >= 1 and MesesTiempo <= 12),
+MesesTiempo int  not null,
 Primary Key (IdPlanDuracion),
 foreign key (IdUsuario) references Usuario(idUsuario)
 )

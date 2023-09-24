@@ -9,7 +9,7 @@
         Background="{ui:ThemeResource}"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
-        Title="Datos Perfil" Height="448" MinHeight="0" MinWidth="0" ResizeMode="NoResize" Width="305" WindowStartupLocation="CenterScreen">
+        Title="Datos Perfil" Height="520" MinHeight="0" MinWidth="0" ResizeMode="NoResize" Width="305" WindowStartupLocation="CenterScreen">
     
     <Grid>
         <Label VerticalAlignment="Top" Margin="15" FontSize="22" Content="Datos Perfil Usuario"></Label>

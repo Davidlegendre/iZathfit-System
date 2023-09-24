@@ -3,10 +3,12 @@ using iZathfit.Helpers;
 using iZathfit.ViewModels.Pages;
 using iZathfit.Views.Windows;
 using Models;
+using Services.Genero;
 using Services.Persona;
 using Services.Usuario;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +23,7 @@ namespace iZathfit.Components.ElementosUsuario
         localDialogService? _dialog;
         IExceptionHelperService? _helperexcep;
         IUsuarioService? _usuarioService;
+        IGeneroService? _generoService;
 
         public DatosPerfilViewModel()
         {
@@ -29,6 +32,7 @@ namespace iZathfit.Components.ElementosUsuario
             _dialog = App.GetService<localDialogService>();
             _helperexcep = App.GetService<IExceptionHelperService>();
             _usuarioService = App.GetService<IUsuarioService>();
+            _generoService = App.GetService<IGeneroService>();
         }
 
         [ObservableProperty]
@@ -58,6 +62,19 @@ namespace iZathfit.Components.ElementosUsuario
         [ObservableProperty]
         string? _contraseñarepetidanueva = "";
 
+        [ObservableProperty]
+        GeneroModel? _generoselected;
+
+        [ObservableProperty]
+        ObservableCollection<GeneroModel>? _generolist;
+
+        public async Task GetData(UiWindow? win) {
+            if (_helperexcep == null || _generoService == null) return;
+            var result = await _helperexcep.ExcepHandler(() => _generoService.GetGeneros(), win != null ? win : App.GetService<MainWindow>());
+            if (result == null) return;
+            Generolist = new ObservableCollection<GeneroModel>(result);
+        }
+
         public async Task<bool> GuardarDatos(Action ChangeDatosUsuario, UiWindow win) {
             if (_personaservice == null || _config == null || _dialog == null || _helperexcep == null) return false;
             if(!Validar(win)) return false;
@@ -74,7 +91,9 @@ namespace iZathfit.Components.ElementosUsuario
                 Direccion = Direccion,
                 Telefono = Numerotelefono,
                 Email = Email,
-                IdPersona = user.IdPersona
+                IdPersona = user.IdPersona,
+                Genero = Generoselected.descripcion,
+                IdGenero = Generoselected.IdGenero
             };
             var result = await _helperexcep.ExcepHandler(() => _personaservice.UpdatePersonaSistema(persona), win);
             _dialog?.ShowDialog(result ? "Persona Actualizada" : "Persona Rechazada", owner: win);
@@ -86,6 +105,8 @@ namespace iZathfit.Components.ElementosUsuario
                 user.Direccion = persona.Direccion;
                 user.Telefono = persona.Telefono;
                 user.Email = persona.Email;
+                user.generoCode = Generoselected.code;
+                user.GeneroDescripcion = Generoselected.descripcion; 
                 ChangeDatosUsuario();
             }
             return result;
@@ -152,6 +173,11 @@ namespace iZathfit.Components.ElementosUsuario
             }
             if (string.IsNullOrWhiteSpace(Numerotelefono)) {
                 _dialog?.ShowDialog("Numero de Telefono esta vacio", owner: win);
+                return false;
+            }
+            if (Generoselected == null)
+            {
+                _dialog?.ShowDialog("Seleccione un Genero", owner: win);
                 return false;
             }
 

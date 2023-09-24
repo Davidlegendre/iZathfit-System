@@ -15,10 +15,6 @@ namespace Services.Contratos
         {
                 _repo= repo;
         }
-        public async Task<bool> EliminarContrato(Guid idcontrato)
-        {
-            return await _repo.EliminarContrato(idcontrato);
-        }
 
         public async Task<List<ContratoModel>?> GetContratos()
         {
@@ -30,6 +26,11 @@ namespace Services.Contratos
             return await _repo.InsertContrato(contrato);
         }
 
+        public async Task<List<ContratoModel>?> SearchContratoByPersona(Guid IdPersona)
+        {
+            return await _repo.SearchContratoByPersona(IdPersona);
+        }
+
         public async Task<List<ContratoModel>?> SelectOneContratoPerDNIPerson(string identificacion)
         {
             return await _repo.SelectOneContratoPerDNIPerson(identificacion);
@@ -38,6 +39,11 @@ namespace Services.Contratos
         public async Task<bool> SetContratoNotValid(Guid idcontrato, bool idnotvalid, string description)
         {
             return await _repo.SetContratoNotValid(idcontrato, idnotvalid, description);    
+        }
+
+        public async Task<bool> UpdateContrato(Guid idcontrato, DateTime fechafinal, string numerocontrato)
+        {
+            return await _repo.UpdateContrato(idcontrato, fechafinal, numerocontrato);
         }
     }
 }

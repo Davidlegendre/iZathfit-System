@@ -25,6 +25,8 @@ namespace Models
         public DateTime FechaPago { get; set; }
         public string GetIsCompletePagado => TotalFaltante == 0 ? "Contrato Pagado" : "Aun Falta";
 
+        public bool IsVisible { get; set; }
+
         public string GetIdentificacion => "Id: " + Identificacion;
         public string GetNumeroContrato => "Contrato: " + NumeroContrato;
         public string GetTotalContrato => "Total Contrato: " + totalContrato.ToString("0.00") + " S/";

@@ -53,6 +53,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
                 if (await _vm.CargarDatos(this,persona) == false)
                     this.Close();
             TBTitulo.Title = persona == null ? "Agregar Persona" : "Modificar Persona";
+            datepicker.DateSelect = persona == null ? DateTime.Now : persona.Fech_Nacimiento;
             txtidentificacion.Focus();
         }
 
@@ -86,6 +87,12 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
             win.Owner = this;
             win.ShowDialog();
             
+        }
+
+        private void datepicker_DateSelectChanged(object sender, DateTime e)
+        {
+            if (_vm != null)
+                _vm.Fechnacimiento = e;
         }
     }
 }

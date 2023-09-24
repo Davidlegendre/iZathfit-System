@@ -64,5 +64,10 @@ namespace Services.Persona
         {
             return await _personarepo.UpdatePersonaSistema(persona);
         }
+
+        public async Task<List<PersonaModel>?> SearchPersonaByNameLastNameIdenfity(string texto)
+        {
+            return await _personarepo.SearchPersonaByNameLastNameIdenfity(texto);
+        }
     }
 }

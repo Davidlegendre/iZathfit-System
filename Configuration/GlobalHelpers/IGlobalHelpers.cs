@@ -18,5 +18,6 @@ namespace Configuration.GlobalHelpers
         public bool PolicyReturnBool(params TypeRol[] typeRols);
         public int ColumnsFromWidthWindow(int ActuaWidthWindow);
         public LinkModel[] GetLinksContacts();
+        public string TransformMonthsToString(int Months);
     }
 }

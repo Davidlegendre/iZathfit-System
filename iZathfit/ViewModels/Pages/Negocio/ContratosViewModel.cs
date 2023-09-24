@@ -1,4 +1,6 @@
-﻿using iZathfit.Helpers;
+﻿using Configuration;
+using Configuration.GlobalHelpers;
+using iZathfit.Helpers;
 using iZathfit.Views.Windows;
 using Models;
 using Services.Contratos;
@@ -18,12 +20,14 @@ namespace iZathfit.ViewModels.Pages.Negocio
         IContratosService? _service;
         localDialogService? _dialog;
         IExceptionHelperService? _helperexcep;
+        IGlobalHelpers? _helpers;
 
         public ContratosViewModel()
         {
             _service = App.GetService<IContratosService>();
             _dialog = App.GetService<localDialogService>();
             _helperexcep = App.GetService<IExceptionHelperService>();
+            _helpers = App.GetService<IGlobalHelpers>();
         }
 
         [ObservableProperty]
@@ -34,13 +38,17 @@ namespace iZathfit.ViewModels.Pages.Negocio
         [ObservableProperty]
         int _columns = 4;
 
+        [ObservableProperty]
+        bool? _IsNotAdmin;
+
         public async Task Getdata()
         {
-            if (_service == null || _helperexcep == null) return;
+            if (_service == null || _helperexcep == null || _helpers == null) return;
             var result = await _helperexcep.ExcepHandler(() => _service.GetContratos(), App.GetService<MainWindow>());
             if (result != null)
             {
-                _contratoslist = result;
+                IsNotAdmin = !_helpers.PolicyReturnBool(TypeRol.Administrador);
+                _contratoslist = _helpers.PolicyReturnBool(TypeRol.Administrador) ? result.Where(x => x.IsNotValid == false).ToList() : result;
             }
             else
                 _contratoslist.Clear();
@@ -52,7 +60,8 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 + "\nPrecio del Plan: " + contrato.ValorOriginal.ToString("0.00") + " S/" + "\nDescuento de Promocion: " + contrato.Descuento + "%" +
                 "\nTotal descontado: " + contrato.ValorTotal.ToString("0.00") + " S/" +
                 "\nFecha de Inicio: " + contrato.FechaInicio.ToLongDateString()
-                + "\nFecha de Fin: " + contrato.FechaFinal.ToLongDateString() + "\nValidez: " + (contrato.IsValid ? "Valido" : "No Valido")
+                + "\nFecha de Fin: " + contrato.FechaFinal.ToLongDateString() + "\n" + contrato.GetFechaFinalReal
+                + "\nValidez: " + (!contrato.IsNotValid ? "Valido" : "No Valido")
                 + (contrato.IsNotValid ? "\nRazon: " + contrato.DescripcionIsNotValid : ""),
                 titulo: contrato.GetNombreContrato,
                 owner: App.GetService<MainWindow>());
@@ -64,15 +73,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
             if (_dialog?.ShowDialog("Desea Validar Otra Vez este contrato?", ShowCancelButton: true, owner: App.GetService<MainWindow>()) == false) return false;
             var result = await _helperexcep.ExcepHandler(() => _service.SetContratoNotValid(idcontrato, false, ""), App.GetService<MainWindow>());
             _dialog?.ShowDialog(result ? "Contrato Validado" : "Validacion rechazada", owner: App.GetService<MainWindow>());
-            return result;
-        }
-
-        public async Task<bool> EliminarContrato(Guid idcontrato)
-        {
-            if (_service == null || _helperexcep == null) return false;
-            if (_dialog?.ShowDialog("Desea Eliminar este contrato?", ShowCancelButton: true, owner: App.GetService<MainWindow>()) == false) return false;
-            var result = await _helperexcep.ExcepHandler(() => _service.EliminarContrato(idcontrato), App.GetService<MainWindow>());
-            _dialog?.ShowDialog(result ? "Eliminacion realizada" : "Eliminacion rechazada", owner: App.GetService<MainWindow>());
             return result;
         }
 

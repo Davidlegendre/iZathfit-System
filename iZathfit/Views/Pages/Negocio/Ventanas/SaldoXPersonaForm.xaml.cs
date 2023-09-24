@@ -29,21 +29,16 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             if (_vm != null)
             {
                 if (await _vm.Getdata(this) == false) Close();
-                searchidentificacion.txtbuscar.Focus();
-                if (_vm.Personalist != null && _vm.Contratolist != null)
-                {
-                    searchidentificacion.SetCollectionToFind(_vm.Personalist);
-                    searchContrato.SetCollectionToFind(_vm.Contratolist);
-                }
+                
             }
         }
 
         private async void btnadd_Click(object sender, RoutedEventArgs e)
         {
-            if (_vm != null)
-            {
-                _vm.Contratoselected = searchContrato.SelectedContrato;
-                _vm.Personaselected = searchidentificacion.selectedPersona;
+            if (_vm != null) { 
+            //{
+            //    _vm.Contratoselected = searchContrato.SelectedContrato;
+            //    _vm.Personaselected = searchidentificacion.selectedPersona;
                 if (await _vm.Guardar(this) == true)
                 {
                     resultdialog = true;
@@ -65,10 +60,20 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
                 _vm.Personaselected = null;
                 _vm.Tipopagoselected = null;
                 _vm.Contratoselected = null;
-                searchidentificacion.Limpiar();
-                searchContrato.Limpiar();
                 _vm.Cantidadpago = "";
-                searchidentificacion.txtbuscar.Focus();
+                Cbuscarpersona.PersonaSelected = null;
+            }
+        }
+
+        private async void BuscarPersonaComponent_selectedChanged(object sender, PersonaModel e)
+        {
+            if (_vm != null)
+            {
+                _vm.Contratoselected = null;
+                _vm.ContratolistByperson = null;
+                _vm.Personaselected = e;
+                if(e != null)
+                    await _vm.GetContratosByPerson(e.IdPersona, this);
             }
         }
     }

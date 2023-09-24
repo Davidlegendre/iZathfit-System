@@ -15,5 +15,6 @@ namespace Services.SaldoXPersona
         public Task<bool> DeleteSaldoXPersona(SaldoXPersonaModel saldoXPersona);
         public Task<SaldosXpersonaEstidisticas?> GetEstadisticas(Guid IdPersona);
         public Task<List<SaldoXPersonaModel>?> GetSaldosXPersonasbyPersona(Guid idpersona);
+        public Task<List<TotalesByDateModel>?> GetTotalesPagos(DateTime fecha);
     }
 }

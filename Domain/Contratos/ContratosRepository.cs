@@ -63,6 +63,7 @@ namespace Domain.Contratos
                         @ValorOriginal = contrato.ValorOriginal,
                         @FechaFinal = contrato.FechaFinal,
                         @NumeroContrato = contrato.NumeroContrato,
+                        @Fechafinalreal = contrato.FechaFinalReal,
                         @IdTipoPago = contrato.IdTipoPago
                     }, commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
@@ -86,14 +87,25 @@ namespace Domain.Contratos
             }
         }
 
-        public async Task<bool> EliminarContrato(Guid idcontrato) {
-            _helpers.Policy(TypeRol.Desarrollador, TypeRol.Dueño);
+        public async Task<bool> UpdateContrato(Guid idcontrato, DateTime fechafinal, string numerocontrato ) { 
+            using(var con = new SqlConnection(_config.GetConnection()))
+            {
+                var result = await con.ExecuteAsync("UpdateContrato",
+                    new { @idcontrato = idcontrato, @fechafinal = fechafinal,
+                        @numcontrato = numerocontrato
+                    }, commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result != 0;
+            }
+        }
+
+        public async Task<List<ContratoModel>?> SearchContratoByPersona(Guid IdPersona) {
             using (var con = new SqlConnection(_config.GetConnection()))
             {
-                var result = await con.ExecuteAsync("DeleteContratos",
-                    new { @idcontratos = idcontrato }, commandType: System.Data.CommandType.StoredProcedure);
-                await con.CloseAsync(); 
-                return result != 0;
+                var result = await con.QueryAsync<ContratoModel>("SearchContratoByPersona",
+                    new { @idpersona = IdPersona }, commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result.Count() == 0 ? null : result.AsList();
             }
         }
 

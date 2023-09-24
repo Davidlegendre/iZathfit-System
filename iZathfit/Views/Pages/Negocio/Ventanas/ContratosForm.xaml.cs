@@ -42,17 +42,12 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             if (_vm == null) return;
             tbtitle.Title = "Agregar";
             if (await _vm.Cargardatos(this) == false) Close();
-            searchidentificacion.txtbuscar.Focus();
-            if (_vm.Personaslist != null)
-            {
-                searchidentificacion.SetCollectionToFind(_vm.Personaslist);
-            }
+            datepicker.DateSelect = _vm.Dateselected;
         }
 
         private async void btnadd_Click(object sender, RoutedEventArgs e)
         {
             if (_vm == null) return;
-            _vm.SelectedPersona = searchidentificacion.selectedPersona;
             if (await _vm.Guardar(this) == true)
             {
                 resultdialog = true;
@@ -69,7 +64,6 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         private void btnlimpiar_Click(object sender, RoutedEventArgs e)
         {
             if (_vm == null) return;
-            searchidentificacion.Limpiar();
             _vm.SelectedPlan = null;
             _vm.SelectedPromo = null;
             _vm.Promocioneslist= null;
@@ -77,7 +71,8 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             _vm.TitlePromociones = "Promociones (No hay para el plan)";
             _vm.SelectedTipoPago = null;
             _vm.CodigoContrato = "";
-            searchidentificacion.txtbuscar.Focus();
+            _vm.Dateselected = DateTime.Now;
+            Cbuscapersona.PersonaSelected = null;
         }
 
         private void planSelect_Change(object sender, SelectionChangedEventArgs e)
@@ -85,6 +80,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             if (_vm == null) return;
             _vm.Cargarpromociones();
             _vm.cargarDatosCalculados();
+            datepicker.DateSelect = _vm.Dateselected;
         }
 
         private void btnQuitarPromoSelected_click(object sender, RoutedEventArgs e)
@@ -97,6 +93,20 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         {
             if (_vm == null) return;
             _vm.cargarDatosCalculados();
+        }
+
+        private void datepicker_DateSelectChanged(object sender, DateTime e)
+        {
+            if(_vm == null) return;
+            _vm.Dateselected = e.Date;
+        }
+
+        private void BuscarPersonaComponent_selectedChanged(object sender, PersonaModel e)
+        {
+            if (_vm != null)
+            {                
+                _vm.SelectedPersona = e;
+            }
         }
     }
 }

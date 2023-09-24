@@ -25,6 +25,8 @@ namespace Models
         public string? Identificacion { get; set; }
         public int IdTipoIdentity { get; set; }
 
+        public string? TipoIdentAbreviado { get; set; }
+
         public string? Genero { get; set; }
         public string? TipoIdentificacion { get; set; } 
         public string? Rol { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,12 +52,20 @@ namespace iZathfit.Components.DatePicker
                     DaySelected = DateSelect.Day.ToString("00");
                     MonthSeleted = DateSelect.Date.ToString("MMMM");
                     YearSelected = DateSelect.Year.ToString("0000");
+                    if(DateSelectChanged != null)
+                    {
+                        DateSelectChanged.Invoke(this, DateSelect);
+                    }
+                    change(nameof(DateSelect));
                     change(nameof(MonthSeleted));
                     change(nameof(DaySelected));
                     change(nameof(YearSelected));
                 }
             }
         }
+
+        public event EventHandler<DateTime>? DateSelectChanged;
+
 
         public string MonthSeleted
         {
@@ -106,6 +115,8 @@ namespace iZathfit.Components.DatePicker
                 change(nameof(Header));
             }
         }
+
+
 
         Visibility _HeaderVisible = Visibility.Collapsed;
         public Visibility HeaderVisible

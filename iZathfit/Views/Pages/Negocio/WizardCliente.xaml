@@ -1,0 +1,105 @@
+﻿<ui:UiWindow x:Class="iZathfit.Views.Pages.Negocio.WizardCliente"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:iZathfit.Views.Pages.Negocio"
+             xmlns:datepicker="clr-namespace:iZathfit.Components.DatePicker"
+
+             ExtendsContentIntoTitleBar="True"
+             WindowBackdropType="Mica"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             Background="{ui:ThemeResource}"       
+             mc:Ignorable="d"
+             Title="Contratos Update" WindowStartupLocation="CenterScreen" MinHeight="630" MinWidth="570">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ui:TitleBar Name="TBTitulo" Title="Wizard Cliente"></ui:TitleBar>
+        <UniformGrid VerticalAlignment="Top" Columns="2" Grid.Row="1" Margin="10,0,10,0">
+            <ui:TextBox Name="txtidentificacion" Text="{Binding Identificacion}" MaxLength="20" Margin="5" Icon="ContactCard24" PlaceholderText="Identificación" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtnombres" MaxLength="50" Text="{Binding Nombres}" Margin="5" Icon="Person20" PlaceholderText="Nombres" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtapellidos" MaxLength="50" Text="{Binding Apellidos}" Margin="5" Icon="Person20" PlaceholderText="Apellidos" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtdireccion" MaxLength="100" Text="{Binding Direccion}" Margin="5" Icon="Map20" PlaceholderText="Direccion (opcional)" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txttelefono" MaxLength="9" Text="{Binding Telefono}" Margin="5" Icon="Phone20" PlaceholderText="Telefono" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="email" MaxLength="100" Text="{Binding Email}" Margin="5" Icon="Mail20" PlaceholderText="Email (opcional)" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtNumEmergencia1" MaxLength="10" Text="{Binding Numemergencia1}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 1" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtNumEmergencia2" MaxLength="10" Text="{Binding Numemergencia2}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 2 (opcional)" Height="40" ></ui:TextBox>
+
+            <StackPanel
+                Margin="5">
+                <Label Content="Fecha de Nacimiento" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
+
+                <datepicker:DatePicker x:Name="datepicker" ></datepicker:DatePicker>
+            </StackPanel>
+            <StackPanel Margin="5">
+                <Label Content="Tipo Identificacion" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
+                <ComboBox Name="cbTipoidentify" SelectedItem="{Binding TipoIdentificacion}" ItemsSource="{Binding TipoIdentificacionList}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding abreviado}" Margin="0,0,5,0"></TextBlock>
+                                <TextBlock Grid.Column="1" Text="{Binding descripcion}"></TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Margin="5">
+                <Label Content="Genero" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
+                <ComboBox Name="cbGenero" SelectedItem="{Binding GeneroModel}" ItemsSource="{Binding GeneroList}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding descripcion}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <Label Content="Rol" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
+                <ComboBox Name="cbRol" SelectedItem="{Binding RolModel}" ItemsSource="{Binding RolList}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding descripcion}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+
+            <StackPanel
+                Margin="5">
+                <Label Content="Ocupacion" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Name="cbOcupacion" SelectedItem="{Binding Ocupacionmodel}" ItemsSource="{Binding OcupacionList}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding descripcion}"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <ui:Button Margin="7,0,0,0" Grid.Column="1" VerticalAlignment="Stretch" Icon="Add20"></ui:Button>
+                </Grid>
+            </StackPanel>
+
+        </UniformGrid>
+        <StackPanel Margin="7" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
+            <ui:Button Name="btncancelar" Content="Cancelar" Icon="DismissSquare20" Margin="7"></ui:Button>
+            <ui:Button Name="btnAtras" VerticalAlignment="Stretch" Icon="ChevronLeft20" Margin="7"></ui:Button>
+            <ui:Button Name="btnSiguiente" VerticalAlignment="Stretch" Icon="ChevronRight20" Margin="7"></ui:Button>
+
+        </StackPanel>
+    </Grid>
+</ui:UiWindow>

@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <ui:NumberBox Name="nbTiempoMeses" Icon="Clock20" PlaceholderText="Tiempo en Meses" Margin="7" Maximum="12" Minimum="1" MaxDecimalPlaces="0" LargeChange="12" AcceptsExpression="False" />
+                <ui:NumberBox Name="nbTiempoMeses" Icon="Clock20" PlaceholderText="Tiempo en Meses" Margin="7" Minimum="1" MaxDecimalPlaces="0" LargeChange="12" AcceptsExpression="False" />
                 <TextBlock Grid.Column="1" FontFamily="Segoe Ui Semibold" Opacity="0.8" Text="Meses" VerticalAlignment="Center" FontSize="16" Foreground="{Binding Foreground,ElementName=tbtitle}" Margin="0,0,7,0"></TextBlock>
             </Grid>
             <ui:TextBox Name="txtdescripcion" Grid.Row="1" VerticalScrollBarVisibility="Auto" MaxLength="100" PlaceholderText="Descripcion (opcional)" TextWrapping="Wrap" Icon="TextDescription24" AcceptsReturn="True" Margin="7">

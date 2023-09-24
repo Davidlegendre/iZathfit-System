@@ -15,6 +15,7 @@ namespace Models.DTOS
         public DateTime FechaContrato { get; set; }
         public decimal PagoFaltante { get; set; }
         public DateTime FechaFinal { get; set; }
+        
         public string NombrePlan { get; set; }
 
         public string ColorString => PagoFaltante == 0 ? "#FF556B2F" : 

@@ -27,7 +27,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <ui:SymbolIcon Name="symbol" Symbol="Chat32"></ui:SymbolIcon>
-            <TextBlock Name="label" Grid.Column="1" Padding="0,0,0,0" TextWrapping="Wrap" Text="{Binding Title}" Foreground="{Binding Foreground,ElementName=symbol}" VerticalAlignment="Center" FontSize="16"></TextBlock>
+            <TextBox Name="label" Grid.Column="1" Padding="0,0,0,0" TextWrapping="Wrap" BorderBrush="Transparent" Background="Transparent" Style="{x:Null}" Text="{Binding Title}" Foreground="{Binding Foreground,ElementName=symbol}" IsReadOnly="True" BorderThickness="0" VerticalAlignment="Center" FontSize="16"></TextBox>
 
         </Grid>
         <Grid Grid.Row="1">

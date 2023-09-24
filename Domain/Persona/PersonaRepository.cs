@@ -126,7 +126,8 @@ namespace Domain.Persona
                         @direccion = persona.Direccion,
                         @telefono = persona.Telefono,
                         @email = persona.Email,
-                        @idpersona = persona.IdPersona
+                        @idpersona = persona.IdPersona,
+                        @idgenero = persona.IdGenero
                     }, commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return result != 0;
@@ -145,13 +146,6 @@ namespace Domain.Persona
                     commandType: System.Data.CommandType.StoredProcedure);
 
                 await con.CloseAsync();
-                results = _helper.PolicyReturnBool(TypeRol.Administrador) ? 
-                    results.Where(x => x.CodeRol == _generalConfiguration.GetRol(typerol: TypeRol.Cliente))
-                    : 
-                    (_helper.PolicyReturnBool(TypeRol.Dueño)?
-                    results.Where(x => x.CodeRol != _generalConfiguration.GetRol(typerol: TypeRol.Desarrollador)
-                    && x.CodeRol != _generalConfiguration.GetRol(TypeRol.Dueño)) : results);
-
                 return  results.Count() == 0 ? null : results.AsList();
             }
         }
@@ -195,6 +189,17 @@ namespace Domain.Persona
                     new { @idPersona = idpersona }, commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return result;
+            }
+        }
+
+        public async Task<List<PersonaModel>?> SearchPersonaByNameLastNameIdenfity(string texto) { 
+            using(var con = new SqlConnection(_generalConfiguration.GetConnection())) {
+                var result = await con.QueryAsync<PersonaModel>("SearchPersonaByNameLastNameIdentify",
+                    new {
+                        @Texto= texto
+                    }, commandType: System.Data.CommandType.StoredProcedure);
+                await con.CloseAsync();
+                return result.Count() == 0? null: result.AsList();
             }
         }
     }

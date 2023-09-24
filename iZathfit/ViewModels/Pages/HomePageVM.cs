@@ -6,6 +6,7 @@ using iZathfit.Components.ElementosUsuario;
 using iZathfit.ModelsComponents;
 using iZathfit.Views.Pages;
 using iZathfit.Views.Pages.Negocio;
+using iZathfit.Views.Pages.Negocio.Ventanas;
 using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
 using Models;
@@ -167,10 +168,27 @@ public partial class HomePageVM : ObservableObject {
 		};
 
 		Menulist = new ObservableCollection<MenuUserItemsModel>() {
-			new(){
+			new MenuUserItemsModel()
+			{
+				TituloItem = "Agregar Cliente",
+				Icon = SymbolRegular.PeopleCommunity24,
+				Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Administrador) ? Visibility.Collapsed : Visibility.Visible,
+				Comando = () => new WizardCliente().ShowDialog()
+            },
+            new MenuUserItemsModel()
+            {
+                TituloItem = "Agregar Rutina",
+                Icon = SymbolRegular.PersonRunning20,
+                Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Administrador) ? Visibility.Collapsed : Visibility.Visible,
+				Comando = () => {
+					new Rutina().ShowDialog();
+				}
+            }
+            ,new(){
 				TituloItem = "Mantenimientos",
 				Icon = SymbolRegular.EditSettings24,
-				Comando = () => {
+				Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño) ? Visibility.Collapsed : Visibility.Visible,
+                Comando = () => {
 					if(UserControl is not MantenimientosPage)
 					{
 						UserControl = App.GetService<MantenimientosPage>();
@@ -181,7 +199,8 @@ public partial class HomePageVM : ObservableObject {
 			new(){
 				TituloItem = "Administracion de Servicios",
 				Icon = SymbolRegular.ServiceBell20,
-				Comando = () => {
+                Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño) ? Visibility.Collapsed : Visibility.Visible,
+                Comando = () => {
 					if(UserControl is not ServiciosPage)
 					{
 						UserControl = App.GetService<ServiciosPage>();
@@ -192,7 +211,8 @@ public partial class HomePageVM : ObservableObject {
 			new(){
 				TituloItem = "Administracion de Duraciones de los Planes",
 				Icon = SymbolRegular.ClockToolbox20,
-				Comando = () => {
+                Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño) ? Visibility.Collapsed : Visibility.Visible,
+                Comando = () => {
 					if(UserControl is not PlanDuracionPage)
 					{
 						UserControl = App.GetService<PlanDuracionPage>();
@@ -203,7 +223,8 @@ public partial class HomePageVM : ObservableObject {
 			new(){
 				TituloItem = "Administracion de Planes",
 				Icon = SymbolRegular.Box24,
-				Comando = () => {
+                Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño) ? Visibility.Collapsed : Visibility.Visible,
+                Comando = () => {
 					if(UserControl is not PlanesPage)
 					{
 						UserControl = App.GetService<PlanesPage>();

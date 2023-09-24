@@ -13,7 +13,7 @@ AS
 		and s.IdPositionRow = @IdPositionRow)
 
 		delete from SaldosXPersona where IdContrato = @idContrato and IdSaldo = @IdSaldo and IdPositionRow = @IdPositionRow
-		update Saldos set TotalPagado = TotalPagado - @totalanterior where IdSaldos = @IdSaldo
+		update Saldos set TotalPagado = TotalPagado - @totalanterior where IdSaldos = @IdSaldo and IdContrato = @idContrato
 	end
 
 RETURN 0

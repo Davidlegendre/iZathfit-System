@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:iZathfit.Views.Pages.Mantenimiento.WindowSecundarios"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:datepicker="clr-namespace:iZathfit.Components.DatePicker"
         xmlns:viewmodels="clr-namespace:iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels"
         ExtendsContentIntoTitleBar="True"
         WindowBackdropType="Mica"
@@ -36,16 +37,8 @@
             <StackPanel
                 Margin="5">
                 <Label Content="Fecha de Nacimiento" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
-                <DatePicker Name="dpFechnacimiento" Padding="4" SelectedDate="{Binding Fechnacimiento}">
-                    <DatePicker.Resources>
-                        <Style TargetType="DatePickerTextBox" >
-                            <Setter Property="BorderThickness" Value="0"></Setter>
-                            <Setter Property="BorderBrush" Value="Transparent"></Setter>
-                            <Setter Property="Background" Value="Transparent"></Setter>
-                            <Setter Property="IsReadOnly" Value="True"></Setter>
-                        </Style>
-                    </DatePicker.Resources>
-                </DatePicker>
+                
+                <datepicker:DatePicker x:Name="datepicker" DateSelectChanged="datepicker_DateSelectChanged"></datepicker:DatePicker>
             </StackPanel>
             <StackPanel Margin="5">
                 <Label Content="Tipo Identificacion" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
