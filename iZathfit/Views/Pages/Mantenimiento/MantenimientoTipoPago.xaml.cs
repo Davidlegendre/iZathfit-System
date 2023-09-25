@@ -24,7 +24,7 @@ namespace iZathfit.Views.Pages.Mantenimiento
     /// <summary>
     /// Lógica de interacción para MantenimientoTipoPago.xaml
     /// </summary>
-    public partial class MantenimientoTipoPago : UserControl
+    public partial class MantenimientoTipoPago : UserControl, IDisposable
     {
         localDialogService? _dialog;
         MantenimientoTipoPagoViewModel? _vm;
@@ -53,8 +53,7 @@ namespace iZathfit.Views.Pages.Mantenimiento
             Wpf.Ui.Animations.Transitions.ApplyTransition(this, Wpf.Ui.Animations.TransitionType.FadeInWithSlide, 500);
             if (_vm != null)
             {
-                await _vm.CargarDatos();
-               
+                await _vm.CargarDatos();               
             }
         }
 
@@ -78,7 +77,7 @@ namespace iZathfit.Views.Pages.Mantenimiento
         private async void btnagregar_Click(object sender, RoutedEventArgs e)
         {
             if (_vm == null) return;
-             _vm.Tipopagoslist = _copy; _copy = null;
+            if (_copy != null) { _vm.Tipopagoslist = _copy; _copy = null; };
             if (new MTipoPagoForm().ShowDialog() == true)
             {
                 _dialog.ShowDialog("Tipo de Pago Guardado", owner: App.GetService<MainWindow>());
@@ -110,6 +109,14 @@ namespace iZathfit.Views.Pages.Mantenimiento
             {
                 await _vm.Delete(context.IdtipoPago);
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _helpers = null;
+            _dialog = null;
+            _copy = null;
         }
     }
 }

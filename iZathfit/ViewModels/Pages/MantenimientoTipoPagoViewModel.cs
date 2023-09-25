@@ -12,7 +12,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.ViewModels.Pages
 {
-    public partial class MantenimientoTipoPagoViewModel : ObservableObject
+    public partial class MantenimientoTipoPagoViewModel : ObservableObject, IDisposable
     {
         ITipoPagoService? _servicio;
         IExceptionHelperService? _helperexcep;
@@ -52,6 +52,14 @@ namespace iZathfit.ViewModels.Pages
             _dialog?.ShowDialog("Tipo de Pago Eliminada Correctamente", owner: App.GetService<MainWindow>());
 
             Tipopagoslist.Remove(Tipopagoslist.First(x => x.IdtipoPago == idtipopago));
+        }
+
+        public void Dispose()
+        {
+            _servicio = null;
+            _helperexcep =null;
+            _dialog = null;
+            Tipopagoslist = null;
         }
     }
 }

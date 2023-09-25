@@ -46,7 +46,7 @@ public class PromocionModelo : INotifyPropertyChanged
     public string? GetDescuento => DescuentoPercent.ToString() + "%";
     public string? GetPrecioString => Precio.ToString("0.00") + " S/";
     public string? GetTitulo => "Promocion de paquete de: " + GetMesesTiempoString;
-    public string GetMesesTiempoString => MesesTiempo >= 12 ? "1 Año" : (MesesTiempo == 1) ? "1 Mes" : MesesTiempo + " Meses";
+    public string GetMesesTiempoString => NotificadorServicesInModels.TransformMonthsToString(MesesTiempo);
 
     void change(string property)
     {

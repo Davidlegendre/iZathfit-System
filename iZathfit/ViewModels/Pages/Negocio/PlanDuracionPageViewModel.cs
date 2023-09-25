@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace iZathfit.ViewModels.Pages.Negocio
 {
-    public partial class PlanDuracionPageViewModel : ObservableObject
+    public partial class PlanDuracionPageViewModel : ObservableObject, IDisposable
     {
         IPlanDuracionService? _servicio;
         IExceptionHelperService? _helperexcep;
@@ -32,6 +32,13 @@ namespace iZathfit.ViewModels.Pages.Negocio
             var result = await _helperexcep.ExcepHandler(() => _servicio.GetPlanesDuracion(), App.GetService<MainWindow>());
             Planduracion = result != null ? new ObservableCollection<PlanDuracionModel>(result) : null;
             return true;
+        }
+
+        public void Dispose()
+        {
+            Planduracion = null;
+            _servicio = null;
+            _helperexcep = null;
         }
     }
 }

@@ -15,7 +15,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 {
-    public partial class SaldoXPersonaFormViewModel : ObservableObject
+    public partial class SaldoXPersonaFormViewModel : ObservableObject, IDisposable
     {
         ITipoPagoService? _tipopagoService;
         IContratosService? _contratoService;
@@ -126,6 +126,21 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 return false;
             }
             return true;
+        }
+
+        public void Dispose()
+        {
+            _tipopagoService = null;
+            _contratoService = null;
+            _personaService = null;
+            _dialog = null;
+            _helperexcep = null;
+            _saldoXPersonaService = null;
+            Tiposdepagolist = null;
+            ContratolistByperson = null;
+            Tipopagoselected = null;
+            Personaselected = null;
+            Contratoselected = null;
         }
     }
 }

@@ -11,7 +11,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 {
-    public class PlanDuracionFormViewModel
+    public class PlanDuracionFormViewModel : IDisposable
     {
         IPlanDuracionService? _servicio;
         localDialogService? _dialog;
@@ -57,6 +57,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             var result = await _helperexcep.ExcepHandler(() => _servicio.DeletePlanDuracion(planduracion.IdPlanDuracion), win);
             _dialog.ShowDialog(result ? "Plan de duracion eliminada" : "Plan de duracion no eliminada");
             return result;
+        }
+
+        public void Dispose()
+        {
+            _servicio = null;
+            _dialog =null;
+            _helperexcep =null;
         }
     }
 }

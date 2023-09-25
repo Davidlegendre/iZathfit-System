@@ -26,7 +26,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
     /// <summary>
     /// Lógica de interacción para MPersonasForm.xaml
     /// </summary>
-    public partial class MPersonasForm : UiWindow
+    public partial class MPersonasForm : UiWindow, IDisposable
     {
         MPersonasFormVM? _vm;
         PersonaModel? persona;
@@ -44,6 +44,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
 
         private void MPersonasForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -93,6 +94,13 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
         {
             if (_vm != null)
                 _vm.Fechnacimiento = e;
+        }
+
+        public void Dispose()
+        {
+            //_personas.Clear();
+            persona = null;
+            _vm?.Dispose();
         }
     }
 }

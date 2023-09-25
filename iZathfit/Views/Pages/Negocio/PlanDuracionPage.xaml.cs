@@ -12,7 +12,7 @@ namespace iZathfit.Views.Pages.Negocio
     /// <summary>
     /// Lógica de interacción para PlanDuracionPage.xaml
     /// </summary>
-    public partial class PlanDuracionPage : UserControl
+    public partial class PlanDuracionPage : UserControl, IDisposable
     {
         PlanDuracionPageViewModel? _vm;
         ObservableCollection<PlanDuracionModel>? _copy;
@@ -101,6 +101,15 @@ namespace iZathfit.Views.Pages.Negocio
                     }
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _copy = null;
+            _form?.Dispose();
+            _helpers = null;
+
         }
     }
 }

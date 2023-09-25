@@ -1,31 +1,28 @@
 ﻿using Configuration;
 using Configuration.GlobalHelpers;
 using Dapper;
-using iZathfit.Components;
 using iZathfit.Components.ElementosUsuario;
 using iZathfit.ModelsComponents;
-using iZathfit.Views.Pages;
 using iZathfit.Views.Pages.Negocio;
 using iZathfit.Views.Pages.Negocio.Ventanas;
 using iZathfit.Views.Pages.SubPagesHome;
 using iZathfit.Views.Windows;
 using Models;
-using Models.DTOS;
 using Models.ModelsCommons;
 using Models.ServiciodeModelos;
-using Services;
 using Services.Promocion;
 using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Drawing;
-using System.Reflection;
-using System.Security.Policy;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Windows.Controls;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 
 namespace iZathfit.ViewModels.Pages;
-public partial class HomePageVM : ObservableObject {
+public partial class HomePageVM : ObservableObject, IDisposable
+{
+
+	
 
 	IGeneralConfiguration? _config;
 	IGlobalHelpers? _helpers;
@@ -62,7 +59,7 @@ public partial class HomePageVM : ObservableObject {
 	}
 
 	[ObservableProperty]
-	ObservableCollection<PromocionModelo> _promociones = new ObservableCollection<PromocionModelo>();
+	ObservableCollection<PromocionModelo>? _promociones = new ObservableCollection<PromocionModelo>();
 
 	[ObservableProperty]
 	bool _isPromos = false;
@@ -173,7 +170,11 @@ public partial class HomePageVM : ObservableObject {
 				TituloItem = "Agregar Cliente",
 				Icon = SymbolRegular.PeopleCommunity24,
 				Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Administrador) ? Visibility.Collapsed : Visibility.Visible,
-				Comando = () => new WizardCliente().ShowDialog()
+				Comando = () => {
+				new WizardCliente().ShowDialog();
+					Liberar();
+
+                }
             },
             new MenuUserItemsModel()
             {
@@ -182,6 +183,7 @@ public partial class HomePageVM : ObservableObject {
                 Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Administrador) ? Visibility.Collapsed : Visibility.Visible,
 				Comando = () => {
 					new Rutina().ShowDialog();
+					Liberar();
 				}
             }
             ,new(){
@@ -191,6 +193,7 @@ public partial class HomePageVM : ObservableObject {
                 Comando = () => {
 					if(UserControl is not MantenimientosPage)
 					{
+						Liberar();
 						UserControl = App.GetService<MantenimientosPage>();
 						ChangeIndicator(SymbolRegular.EditSettings24, "Esta en Mantenimientos");
 					}
@@ -203,7 +206,8 @@ public partial class HomePageVM : ObservableObject {
                 Comando = () => {
 					if(UserControl is not ServiciosPage)
 					{
-						UserControl = App.GetService<ServiciosPage>();
+                        Liberar();
+                        UserControl = App.GetService<ServiciosPage>();
 						ChangeIndicator(SymbolRegular.ServiceBell20, "Esta en Administracion de Servicios");
 					}
 				}
@@ -215,7 +219,8 @@ public partial class HomePageVM : ObservableObject {
                 Comando = () => {
 					if(UserControl is not PlanDuracionPage)
 					{
-						UserControl = App.GetService<PlanDuracionPage>();
+                        Liberar();
+                        UserControl = App.GetService<PlanDuracionPage>();
 						ChangeIndicator(SymbolRegular.ClockToolbox20, "Esta en Administracion de Duraciones de los Planes");
 					}
 				}
@@ -227,7 +232,8 @@ public partial class HomePageVM : ObservableObject {
                 Comando = () => {
 					if(UserControl is not PlanesPage)
 					{
-						UserControl = App.GetService<PlanesPage>();
+                        Liberar();
+                        UserControl = App.GetService<PlanesPage>();
 						ChangeIndicator(SymbolRegular.Box24, "Esta en Administracion de Planes");
 					}
 				}
@@ -239,6 +245,7 @@ public partial class HomePageVM : ObservableObject {
                 Comando = () => {
                     if(UserControl is not PromocionesPage)
                     {
+                        Liberar();
                         UserControl = App.GetService<PromocionesPage>();
                         ChangeIndicator(SymbolRegular.ShoppingBagPercent20, "Administracion de Promociones");
                     }
@@ -250,6 +257,7 @@ public partial class HomePageVM : ObservableObject {
                 Comando = () => {
                     if(UserControl is not Contratos)
                     {
+                        Liberar();
                         UserControl = App.GetService<Contratos>();
                         ChangeIndicator(SymbolRegular.ReceiptCube24, "Esta en Administracion de Contratos");
                     }
@@ -261,6 +269,7 @@ public partial class HomePageVM : ObservableObject {
                 Comando = () => {
                     if(UserControl is not PagosPage)
                     {
+                        Liberar();
                         UserControl = App.GetService<PagosPage>();
                         ChangeIndicator(SymbolRegular.MoneyHand20, "Esta en Administracion de Pagos");
                     }
@@ -311,6 +320,7 @@ public partial class HomePageVM : ObservableObject {
 		}
         DatoUsuario();
 		ButtonHome = Visibility.Collapsed;
+		App.GetService<MainWindow>()?.Alzeimer();
 		
     }
 
@@ -353,9 +363,22 @@ public partial class HomePageVM : ObservableObject {
     }
 
 
+	void Liberar() {
+		UserControl?.GetType().GetMethod("Dispose")?.Invoke(UserControl, null);
+		App.GetService<MainWindow>()?.Alzeimer();
+    }
 
-	
-	
-
-
+    public void Dispose()
+    {
+		Liberar();
+		_config = null;
+		_homesub = null;
+		_dialog = null;
+        _helpers = null;
+        _servicePromo = null;
+		Promociones = null;
+		Menuitems = null;
+		Menulist = null;
+		UserControl = null;
+    }
 }

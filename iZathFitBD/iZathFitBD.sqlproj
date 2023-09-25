@@ -79,6 +79,7 @@
     <Folder Include="dbo\Stored Procedures\Saldos" />
     <Folder Include="dbo\Stored Procedures\SaldosXPersona" />
     <Folder Include="dbo\Stored Procedures\Rutina" />
+    <Folder Include="dbo\Stored Procedures\ACliente" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\TipoPago.sql" />
@@ -174,6 +175,8 @@
     <Build Include="dbo\Stored Procedures\ServicioXPlanes\SumPagosGroupPersonaByDate.sql" />
     <Build Include="dbo\Stored Procedures\Persona\SearchPersonaByNameLastNameIdentify.sql" />
     <Build Include="dbo\Stored Procedures\Contratos\SearchContratoByPersona.sql" />
+    <Build Include="dbo\Stored Procedures\ACliente\InsertarClienteTodoConContratoYPago.sql" />
+    <Build Include="dbo\Types\PadecimientoType.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

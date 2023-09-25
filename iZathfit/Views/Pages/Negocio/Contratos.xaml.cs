@@ -26,7 +26,7 @@ namespace iZathfit.Views.Pages.Negocio
     /// <summary>
     /// Lógica de interacción para Contratos.xaml
     /// </summary>
-    public partial class Contratos : UserControl
+    public partial class Contratos : UserControl, IDisposable
     {
         ContratosViewModel? _vm;
         IGlobalHelpers? _helpers;
@@ -164,6 +164,13 @@ namespace iZathfit.Views.Pages.Negocio
                     new ObservableCollection<ContratoModel>(_copy.Where(x => x.IsNotValid == btnVerNovalidos.IsChecked)));
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _helpers = null;
+            _copy = null;
         }
     }
 }

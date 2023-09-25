@@ -9,7 +9,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
     /// <summary>
     /// Lógica de interacción para MTipoIdentifiacionForm.xaml
     /// </summary>
-    public partial class MTipoIdentifiacionForm : UiWindow
+    public partial class MTipoIdentifiacionForm : UiWindow, IDisposable
     {
         TipoIdentificacionModel? _tipoidenty;
         MTIpoIdentificacionVM? _Vm;
@@ -29,6 +29,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
 
         private void MTipoIdentifiacionForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -69,6 +70,13 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
                 _Vm.limpiar();
                 txtTipoIdenty.Focus();
             }
+        }
+
+        public void Dispose()
+        {
+            _tipoidenty = null;
+            _Vm?.Dispose();
+            _dialog = null;
         }
     }
 }

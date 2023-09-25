@@ -16,7 +16,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Components.ElementosUsuario
 {
-    public partial class DatosPerfilViewModel : ObservableObject
+    public partial class DatosPerfilViewModel : ObservableObject, IDisposable
     {
         IPersonaService? _personaservice;
         IGeneralConfiguration? _config;
@@ -182,6 +182,18 @@ namespace iZathfit.Components.ElementosUsuario
             }
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            _personaservice = null;
+            _config = null;
+            _dialog = null;
+            _helperexcep = null;
+            _usuarioService = null;
+            _generoService = null;
+            Generoselected = null;
+            Generolist = null;
         }
     }
 }

@@ -11,7 +11,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 {
-    public partial class MTIpoIdentificacionVM : ObservableObject
+    public partial class MTIpoIdentificacionVM : ObservableObject, IDisposable
     {
         IExceptionHelperService? _helpexcep;
         localDialogService? _dialog;
@@ -107,6 +107,11 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             return true;
         }
 
-
+        public void Dispose()
+        {
+            _helpexcep = null;
+            _dialog = null;
+            _servicio = null;
+        }
     }
 }

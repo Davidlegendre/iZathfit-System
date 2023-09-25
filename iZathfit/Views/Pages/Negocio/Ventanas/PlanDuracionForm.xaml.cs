@@ -20,7 +20,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
     /// <summary>
     /// Lógica de interacción para PlanDuracionForm.xaml
     /// </summary>
-    public partial class PlanDuracionForm : UiWindow
+    public partial class PlanDuracionForm : UiWindow, IDisposable
     {
         PlanDuracionModel? _model;
         PlanDuracionFormViewModel? _vm;
@@ -38,6 +38,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
 
         private void PlanDuracionForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -100,6 +101,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
                 return false;
             }
             return true;
+        }
+
+        public void Dispose()
+        {
+            _model = null;
+            _vm?.Dispose();
+            _dialog = null;
         }
     }
 }

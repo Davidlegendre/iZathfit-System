@@ -15,7 +15,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 {
-    public partial class PlanFormViewModel : ObservableObject
+    public partial class PlanFormViewModel : ObservableObject, IDisposable
     {
         IPlanService? _planservice;
         IServiciosService? _serviciosservice;
@@ -174,5 +174,16 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             return true;
         }
 
+        public void Dispose()
+        {
+            _planservice = null;
+            _serviciosservice = null;
+            _dialog = null;
+            _helpexcep =null;
+            _planduracionservice = null;
+            Servicios = null;
+            Planduraciones = null;
+            SelectedPlanDuracion = null;
+        }
     }
 }

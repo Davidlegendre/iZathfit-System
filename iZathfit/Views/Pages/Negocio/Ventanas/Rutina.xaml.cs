@@ -19,7 +19,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
     /// <summary>
     /// Lógica de interacción para Rutina.xaml
     /// </summary>
-    public partial class Rutina : UiWindow
+    public partial class Rutina : UiWindow, IDisposable
     {
         RutinasViewModel? _vm;
         bool resultdialog = false;
@@ -33,6 +33,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
 
         private void Rutina_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -58,6 +59,11 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         {
             resultdialog = false;
             Close();
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
         }
     }
 }

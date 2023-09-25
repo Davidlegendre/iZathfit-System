@@ -20,7 +20,7 @@ namespace iZathfit.Components.ElementosUsuario
     /// <summary>
     /// Lógica de interacción para DatosPerfinWindow.xaml
     /// </summary>
-    public partial class DatosPerfinWindow : UiWindow
+    public partial class DatosPerfinWindow : UiWindow, IDisposable
     {
         UsuarioSistema? _persona;
         public DatosPerfinWindow(UsuarioSistema? persona)
@@ -28,6 +28,12 @@ namespace iZathfit.Components.ElementosUsuario
             InitializeComponent();
             _persona = persona;
             this.Loaded += DatosPerfinWindow_Loaded;
+            this.Closing += DatosPerfinWindow_Closing;
+        }
+
+        private void DatosPerfinWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Dispose();
         }
 
         private void DatosPerfinWindow_Loaded(object sender, RoutedEventArgs e)
@@ -51,7 +57,11 @@ namespace iZathfit.Components.ElementosUsuario
             Close();
         }
 
-
-
+        public void Dispose()
+        {
+            _persona = null;
+            datosperfil.Dispose();
+            datosperfil = null;
+        }
     }
 }

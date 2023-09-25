@@ -20,7 +20,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
     /// <summary>
     /// Lógica de interacción para ContratosForm.xaml
     /// </summary>
-    public partial class ContratosForm : UiWindow
+    public partial class ContratosForm : UiWindow, IDisposable
     {
         ContratoFormViewModel? _vm;
         bool resultdialog = false;
@@ -34,6 +34,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
 
         private void ContratosForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -107,6 +108,11 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             {                
                 _vm.SelectedPersona = e;
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
         }
     }
 }

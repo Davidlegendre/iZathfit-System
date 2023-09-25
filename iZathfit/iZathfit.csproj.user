@@ -132,9 +132,6 @@
     <Compile Update="Views\Pages\SubPagesHome\MantenimientosPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Views\Pages\SubPagesHome\SettingPage.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="Views\Pages\Tiles\CalendarSearchTotalesTile.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -270,9 +267,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\SubPagesHome\MantenimientosPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Views\Pages\SubPagesHome\SettingPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Pages\Tiles\CalendarSearchTotalesTile.xaml">

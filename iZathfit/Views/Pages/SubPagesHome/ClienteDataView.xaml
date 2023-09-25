@@ -35,8 +35,10 @@
                             </Grid>
                             <Separator Margin="0,7,0,7"></Separator>
                             <TextBlock Text="{Binding DataUserModel.Persona.GetCompleteName}"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.Persona.Identificacion}" FontSize="12" Opacity="0.7"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.GetIdentificacion}" FontSize="12" Opacity="0.7"></TextBlock>
                             <TextBlock Text="{Binding DataUserModel.Persona.Ocupacion}" FontSize="12" Opacity="0.7"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.GetNumerosEmergencias}" FontSize="12" Opacity="0.7"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.GetTelefono}" FontSize="12" Opacity="0.7"></TextBlock>
                             <Separator Margin="0,7,0,7"></Separator>
                             <Grid>
                                 <Grid.ColumnDefinitions>

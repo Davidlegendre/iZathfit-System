@@ -5,6 +5,7 @@
 
 using Configuration;
 using Configuration.GlobalHelpers;
+using Domain.ACliente;
 using Domain.Contratos;
 using Domain.Genero;
 using Domain.Ocupaciones;
@@ -34,6 +35,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Models;
 using Models.ServiciodeModelos;
+using Services.ACliente;
 using Services.Contratos;
 using Services.Genero;
 using Services.Login;
@@ -90,10 +92,12 @@ namespace iZathfit
                 services.AddTransient<Contratos>();
                 services.AddTransient<PagosPage>();
                 services.AddTransient<ClienteDataView>();
+                services.AddTransient<ServiciosViewModel>();
+                services.AddTransient<PlanDuracionFormViewModel>();
 
-                services.AddScoped<MainWindow>();
-                services.AddScoped<LoginPage>();
                 services.AddScoped<Home>();
+                services.AddScoped<MainWindow>();
+                services.AddScoped<LoginPage>();                
                 services.AddScoped<IExceptionHelperService, ExceptionsHelperService>();
                 services.AddScoped<IGeneralConfiguration, GeneralConfiguration>();
                 services.AddScoped<LoginService>();
@@ -115,11 +119,9 @@ namespace iZathfit
                 services.AddScoped<IPadecimientosEnfermedadesRepository, PadecimientosEnfermedadesRepository>();
                 services.AddScoped<IPadecimientosEnfermedadesService, PadecimientosEnfermedadesService>();
                 services.AddScoped<IServiciosRepositoryI, ServiciosRepository>();
-                services.AddScoped<IServiciosService, ServiciosService>();
-                services.AddScoped<ServiciosViewModel>();
+                services.AddScoped<IServiciosService, ServiciosService>();                
                 services.AddScoped<IPlanDuracionRepository, PlanDuracionRepository>();
-                services.AddScoped<IPlanDuracionService, PlanDuracionService>();
-                services.AddScoped<PlanDuracionFormViewModel>();
+                services.AddScoped<IPlanDuracionService, PlanDuracionService>();                
                 services.AddScoped<IPlanRepository, PlanRepository>();
                 services.AddScoped<IPlanService, PlanService>();
                 services.AddScoped<IPromocionRepository, PromocionRepository>();
@@ -134,6 +136,8 @@ namespace iZathfit
                 services.AddScoped<ISaldoService, SaldoService>();
                 services.AddScoped<IRutinaRepository, RutinaRepository>();
                 services.AddScoped<IRutinaService, RutinaService>();
+                services.AddScoped<IAClienteService, AClienteService>();
+                services.AddScoped<IAClienteRepository, AClienteRepository>();
                     
                 services.AddSingleton<localDialogService>();
                 services.AddSingleton<GlobalService>();

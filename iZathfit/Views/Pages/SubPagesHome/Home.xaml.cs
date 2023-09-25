@@ -86,6 +86,7 @@ namespace iZathfit.Views.Pages.SubPagesHome
                 cbuscarpersona.txtBuscarPersona.Clear();
             }
         }
+
     }
 
     static internal class EnumSaludos {

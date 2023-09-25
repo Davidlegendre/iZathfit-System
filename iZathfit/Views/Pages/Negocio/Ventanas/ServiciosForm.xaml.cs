@@ -20,7 +20,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
     /// <summary>
     /// Lógica de interacción para ServiciosForm.xaml
     /// </summary>
-    public partial class ServiciosForm : UiWindow
+    public partial class ServiciosForm : UiWindow, IDisposable
     {
         localDialogService? _dialog;
         ServiciosViewModel? _viewmodel;
@@ -38,6 +38,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
 
         private void ServiciosForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -124,6 +125,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         private void tgbGrupal_Unchecked(object sender, RoutedEventArgs e)
         {
             tgbGrupal.Content = "No es Grupal";
+        }
+
+        public void Dispose()
+        {
+            _dialog = null;
+            _viewmodel?.Dispose();
+            _model = null;
         }
     }
 }

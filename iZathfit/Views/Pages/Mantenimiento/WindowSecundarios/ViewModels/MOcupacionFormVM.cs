@@ -11,7 +11,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 {
-    public partial class MOcupacionFormVM : ObservableObject
+    public partial class MOcupacionFormVM : ObservableObject, IDisposable
     {
         IOcupacionService? _servicio;
         IExceptionHelperService? _helpexec;
@@ -85,6 +85,13 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 return false;
             }
             return true;
+        }
+
+        public void Dispose()
+        {
+            _servicio = null;
+            _dialog = null;
+            _helpexec = null;
         }
     }
 }

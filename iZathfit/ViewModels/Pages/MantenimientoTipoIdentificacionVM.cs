@@ -11,7 +11,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.ViewModels.Pages
 {
-    public partial class MantenimientoTipoIdentificacionVM : ObservableObject
+    public partial class MantenimientoTipoIdentificacionVM : ObservableObject, IDisposable
     {
         ITipoIdentificacionService? _servicio;
         localDialogService? _dialog;
@@ -50,6 +50,14 @@ namespace iZathfit.ViewModels.Pages
 
             _dialog.ShowDialog("Tipo de Identificacion Eliminada Correctamente");
             TipoIdentificacionlist.Remove(TipoIdentificacionlist.First(x => x.IdTipoIdentity == tipo.IdTipoIdentity));
+        }
+
+        public void Dispose()
+        {
+            _servicio = null;
+            _dialog = null;
+            _helpexec = null;
+            TipoIdentificacionlist = null;
         }
     }
 }

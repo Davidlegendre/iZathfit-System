@@ -20,7 +20,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
     /// <summary>
     /// Lógica de interacción para InvalidarContratoForm.xaml
     /// </summary>
-    public partial class InvalidarContratoForm : UiWindow
+    public partial class InvalidarContratoForm : UiWindow, IDisposable
     {
         ContratoModel _model;
         bool resultdialog= false;
@@ -35,6 +35,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
 
         private void InvalidarContratoForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -64,6 +65,11 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
                 _vm.Textdescription = "";
                 txtdescripcion.Focus();
             }    
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
         }
     }
 }

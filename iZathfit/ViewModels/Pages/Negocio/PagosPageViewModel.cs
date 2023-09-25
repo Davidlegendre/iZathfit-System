@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace iZathfit.ViewModels.Pages.Negocio
 {
-    public partial class PagosPageViewModel : ObservableObject
+    public partial class PagosPageViewModel : ObservableObject, IDisposable
     {
         ISaldoXPersonaService? _service;
         localDialogService? _dialog;
@@ -26,7 +26,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
         [ObservableProperty]
         ObservableCollection<SaldoXPersonaModel>? _saldoXPersonaslist;
 
-        public List<SaldoXPersonaModel> _pagoslist = new List<SaldoXPersonaModel>();
+        public List<SaldoXPersonaModel>? _pagoslist = new List<SaldoXPersonaModel>();
 
         [ObservableProperty]
         int? _columns = 4;
@@ -61,6 +61,17 @@ namespace iZathfit.ViewModels.Pages.Negocio
             var result = await _helperexcep.ExcepHandler(() => _service.DeleteSaldoXPersona(model), App.GetService<MainWindow>());
             _dialog?.ShowDialog(result ? "Pago Eliminado" : "Pago Rechazado");
             return result;  
+        }
+
+        public void Dispose()
+        {
+            _pagoslist = null;
+            SaldoXPersonaslist = null;
+            _service = null;
+            _dialog = null;
+            _helperexcep = null;
+            _config = null;
+            _helpers = null;
         }
     }
 }

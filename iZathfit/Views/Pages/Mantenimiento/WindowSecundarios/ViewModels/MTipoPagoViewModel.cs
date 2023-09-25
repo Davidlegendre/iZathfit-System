@@ -10,7 +10,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 {
-    public partial class MTipoPagoViewModel : ObservableObject
+    public partial class MTipoPagoViewModel : ObservableObject, IDisposable
     {
         ITipoPagoService? _servicio;
         localDialogService? _dialog;
@@ -70,6 +70,14 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 return false;
             }
             return true;
+        }
+
+        public void Dispose()
+        {
+            _servicio = null;
+            _dialog = null;
+            _helperexcep = null;
+           
         }
     }
 }

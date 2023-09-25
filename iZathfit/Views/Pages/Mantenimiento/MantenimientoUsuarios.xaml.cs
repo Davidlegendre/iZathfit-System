@@ -26,7 +26,7 @@ namespace iZathfit.Views.Pages.Mantenimiento
     /// <summary>
     /// Lógica de interacción para MantenimientoUsuarios.xaml
     /// </summary>
-    public partial class MantenimientoUsuarios : UserControl
+    public partial class MantenimientoUsuarios : UserControl, IDisposable
     {
         MantenimientoUsuarioVM? _vm;
         ObservableCollection<Models.Usuario>? _copy;
@@ -123,5 +123,12 @@ namespace iZathfit.Views.Pages.Mantenimiento
             }
         }
 
+        public void Dispose()
+        {
+            _dialog = null;
+            _helpers = null;
+            _config = null;
+            _vm?.Dispose();
+        }
     }
 }

@@ -62,6 +62,7 @@ namespace Domain.Persona
         }
         public async Task<PersonaModel?> InsertarPersona(PersonaModel? persona)
         {
+            Guid? idpersona = null;
             if (persona == null) throw new ArgumentNullException("Persona Es nula");
             using (var con = new SqlConnection(_generalConfiguration.GetConnection()))
             {
@@ -80,7 +81,8 @@ namespace Domain.Persona
                       @idTipoIdent = persona.IdTipoIdentity,
                       @idocupacion = persona.IdOcupacion,
                       @numemergencia1 = persona.NumeroEmergencia1,
-                      @numemergencia2 = persona.NumeroEmergencia2
+                      @numemergencia2 = persona.NumeroEmergencia2,
+                      @idpersona = idpersona
                   },
                   commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();

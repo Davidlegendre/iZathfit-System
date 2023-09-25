@@ -23,7 +23,7 @@ namespace iZathfit.Components.TimePicker
     /// <summary>
     /// Lógica de interacción para TimePIcker.xaml
     /// </summary>
-    public partial class TimePIcker : UserControl, INotifyPropertyChanged
+    public partial class TimePIcker : UserControl, INotifyPropertyChanged, IDisposable
     {
         HelperTimerPicker? _timerPicker;
         public TimePIcker()
@@ -256,6 +256,14 @@ namespace iZathfit.Components.TimePicker
                 listSecond.ScrollIntoView(listSecond.SelectedItem);
             }
             
+        }
+
+        public void Dispose()
+        {
+            _timerPicker = null;
+            Minutes.Clear();
+            Seconds.Clear();
+            AMPM.Clear();
         }
     }
 }

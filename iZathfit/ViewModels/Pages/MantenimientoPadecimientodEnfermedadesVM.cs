@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace iZathfit.ViewModels.Pages
 {
-    public partial class MantenimientoPadecimientodEnfermedadesVM : ObservableObject
+    public partial class MantenimientoPadecimientodEnfermedadesVM : ObservableObject, IDisposable
     {
         IPadecimientosEnfermedadesService? _servicio;
         IPersonaService? _personaservice;
@@ -31,7 +31,7 @@ namespace iZathfit.ViewModels.Pages
         ObservableCollection<PadecimientosEnfermedadesDTO>? _padecimientos;
 
 
-        public List<PadecimientosEnfermedadesDTO> _padecimientoslist = new List<PadecimientosEnfermedadesDTO>();
+        public List<PadecimientosEnfermedadesDTO>? _padecimientoslist = new List<PadecimientosEnfermedadesDTO>();
 
         [ObservableProperty]
         int _columns = 4;
@@ -96,6 +96,16 @@ namespace iZathfit.ViewModels.Pages
                 _dialog?.ShowDialog("Padecimientos y Enfermedades Rechazadas");
             }
             return result;
+        }
+
+        public void Dispose()
+        {
+            _servicio = null;
+            _dialog = null;
+            _personaservice = null;
+            _exceptionhelper = null;
+            _padecimientoslist = null;
+            Padecimientos = null;
         }
     }
 }

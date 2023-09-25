@@ -13,7 +13,7 @@ using Wpf.Ui.Common;
 
 namespace iZathfit.ViewModels.Pages
 {
-    public partial class MantenimientosVM : ObservableObject
+    public partial class MantenimientosVM : ObservableObject,IDisposable
     {
         IGlobalHelpers? _helpers;
         public MantenimientosVM()
@@ -26,6 +26,7 @@ namespace iZathfit.ViewModels.Pages
                     "Eliminar, Actualizar y consultar todas las personas (algunos casos tienen restricciones)",
                     Icon = Wpf.Ui.Common.SymbolRegular.PersonEdit24,
                     Comando = () => {
+                        Limpiar();
                         ChangeContentInterno(App.GetService<MantenimientoPersonas>(),
                             "Mantenimiento de Personas", Wpf.Ui.Common.SymbolRegular.PersonEdit24);
                     },
@@ -39,7 +40,7 @@ namespace iZathfit.ViewModels.Pages
                     Icon = SymbolRegular.LayerDiagonalPerson20,
                     Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño)
                     ? Visibility.Collapsed : Visibility.Visible,
-                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoUsuarios>(),
+                    Comando = () => {  Limpiar(); ChangeContentInterno(App.GetService<MantenimientoUsuarios>(),
                     "Mantenimiento de Usuario", SymbolRegular.LayerDiagonalPerson20); }
                 },
                 new MenuItemCardsModel()
@@ -49,7 +50,7 @@ namespace iZathfit.ViewModels.Pages
                     Icon = SymbolRegular.ContactCardRibbon20,
                     Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño, TypeRol.Administrador)
                     ? Visibility.Collapsed : Visibility.Visible,
-                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoOcupaciones>(),
+                    Comando = () => { Limpiar(); ChangeContentInterno(App.GetService<MantenimientoOcupaciones>(),
                     "Mantenimiento de Ocupaciones", SymbolRegular.ContactCardRibbon20); }
                 },
                 new MenuItemCardsModel()
@@ -59,7 +60,7 @@ namespace iZathfit.ViewModels.Pages
                     Icon = SymbolRegular.Incognito20,
                     Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño)
                     ? Visibility.Collapsed : Visibility.Visible,
-                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoTipoIdentificacion>(),
+                    Comando = () => {  Limpiar(); ChangeContentInterno(App.GetService<MantenimientoTipoIdentificacion>(),
                     "Mantenimiento de Tipo de Identificaciones", SymbolRegular.Incognito20); }
                 },
                 new MenuItemCardsModel()
@@ -69,7 +70,7 @@ namespace iZathfit.ViewModels.Pages
                     Icon = SymbolRegular.Stethoscope20,
                     Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño, TypeRol.Administrador)
                     ? Visibility.Collapsed : Visibility.Visible,
-                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoPadecimientosEnfermedades>(),
+                    Comando = () => {  Limpiar(); ChangeContentInterno(App.GetService<MantenimientoPadecimientosEnfermedades>(),
                     "Mantenimiento de Padecimientos y Enfermedades", SymbolRegular.Stethoscope20); }
                 },
                 new MenuItemCardsModel()
@@ -79,7 +80,7 @@ namespace iZathfit.ViewModels.Pages
                     Icon = SymbolRegular. MoneyHand20,
                     Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño)
                     ? Visibility.Collapsed : Visibility.Visible,
-                    Comando = () => {ChangeContentInterno(App.GetService<MantenimientoTipoPago>(),
+                    Comando = () => { Limpiar(); ChangeContentInterno(App.GetService<MantenimientoTipoPago>(),
                     "Mantenimiento de Tipo de Pagos", SymbolRegular.MoneyHand20); }
                 }
 
@@ -123,6 +124,15 @@ namespace iZathfit.ViewModels.Pages
             EnabledMenuMantenimiento = false;
         }
 
-       
+        void Limpiar() {
+            ContentMantenimientoPag?.GetType().GetMethod("Dispose")?.Invoke(ContentMantenimientoPag, null);
+        }
+
+        public void Dispose()
+        {
+            _helpers = null;
+            Mantenimientolist = null;
+            ContentMantenimientoPag = null;
+        }
     }
 }

@@ -21,7 +21,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
     /// <summary>
     /// Lógica de interacción para MOcupacionesForm.xaml
     /// </summary>
-    public partial class MOcupacionesForm : UiWindow
+    public partial class MOcupacionesForm : UiWindow, IDisposable
     {
         localDialogService? _dialog;
         bool resultdialog = false;
@@ -44,6 +44,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
 
         private void MOcupacionesForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -77,6 +78,14 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
         {
             _vm?.Limpiar();
             txtocupacion.Focus();
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _dialog = null;
+            _ocupaciones = null;
+            _ocupacionescollection = null;
         }
     }
 }

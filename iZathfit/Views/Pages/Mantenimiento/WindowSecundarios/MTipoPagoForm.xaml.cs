@@ -20,7 +20,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
     /// <summary>
     /// Lógica de interacción para MTipoPagoForm.xaml
     /// </summary>
-    public partial class MTipoPagoForm : UiWindow
+    public partial class MTipoPagoForm : UiWindow, IDisposable
     {
         MTipoPagoViewModel? _vm;
         TipoPagoModel? _tipopagomodel;
@@ -36,6 +36,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
 
         private void MTipoPagoForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -73,6 +74,12 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
                 _vm.TipoPago = "";
                 txtTipoPago.Focus();
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _tipopagomodel = null;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace iZathfit.Components.ElementosUsuario
     /// <summary>
     /// Lógica de interacción para DatosPerfilChangeComponent.xaml
     /// </summary>
-    public partial class DatosPerfilChangeComponent : UserControl
+    public partial class DatosPerfilChangeComponent : UserControl, IDisposable
     {
         DatosPerfilViewModel? _vm;
         public DatosPerfilChangeComponent()
@@ -16,7 +16,6 @@ namespace iZathfit.Components.ElementosUsuario
             InitializeComponent();
             _vm = DataContext as DatosPerfilViewModel;
             this.Loaded += DatosPerfilChangeComponent_Loaded;
-
         }
 
         private void DatosPerfilChangeComponent_Loaded(object sender, RoutedEventArgs e)
@@ -57,6 +56,11 @@ namespace iZathfit.Components.ElementosUsuario
                 _vm.Fechanacimiento = dpfechanacimiento.DateSelect;
                 if (await _vm.GuardarDatos(ChangeUserAction, Win) == true) Win.Close();
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
         }
     }
 }

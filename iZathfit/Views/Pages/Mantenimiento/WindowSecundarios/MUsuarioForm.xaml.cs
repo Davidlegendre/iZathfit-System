@@ -7,7 +7,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
     /// <summary>
     /// Lógica de interacción para MUsuarioForm.xaml
     /// </summary>
-    public partial class MUsuarioForm : UiWindow
+    public partial class MUsuarioForm : UiWindow, IDisposable
     {
         Models.Usuario? usuario;
         bool resultdialog = false;
@@ -25,6 +25,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
 
         private void MUsuarioForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -62,6 +63,12 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
                 resultdialog = true;
                 this.Close();
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            usuario = null;
         }
     }
 }

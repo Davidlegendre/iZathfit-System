@@ -13,7 +13,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 {
-    public partial class RutinasViewModel :ObservableObject
+    public partial class RutinasViewModel :ObservableObject, IDisposable
     {
         IRutinaService? _service;
         ITipoPagoService? _tipoPagoService;
@@ -78,6 +78,16 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             }
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            _service = null;
+            _tipoPagoService = null;
+            _helpexec = null;
+            _dialog = null;
+            Tipopagolist = null;
+            Tipopagoselect = null;
         }
     }
 }

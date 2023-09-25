@@ -24,7 +24,7 @@ namespace iZathfit.Views.Pages.Negocio
     /// <summary>
     /// Lógica de interacción para ServiciosPage.xaml
     /// </summary>
-    public partial class ServiciosPage : UserControl
+    public partial class ServiciosPage : UserControl, IDisposable
     {
         ServiciosPageVM? _vm;
         ServiciosViewModel? _svm;
@@ -116,6 +116,14 @@ namespace iZathfit.Views.Pages.Negocio
                     if(_copy != null) _vm.Servicios = _copy;
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _svm?.Dispose();
+            _helpers = null;
+            _copy = null;
         }
     }
 }

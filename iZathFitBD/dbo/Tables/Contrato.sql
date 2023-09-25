@@ -17,6 +17,6 @@ DescripcionIsNotValid varchar(200) default(''),
 primary key (IdContrato),
 foreign key (IdPlan) references Planes(IdPlanes),
 foreign key (IdPersona) references Persona(IdPersona),
-foreign key (IdTipoPago) references TipoPago(IdTipoPago),
+foreign key (IdTipoPago) references TipoPago(IdtipoPago),
 foreign key (IdUsuario) references Usuario(idUsuario)
 )

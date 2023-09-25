@@ -7,7 +7,7 @@ namespace iZathfit.Views.Pages;
 /// <summary>
 /// Lógica de interacción para LoginPage.xaml
 /// </summary>
-public partial class LoginPage : UserControl
+public partial class LoginPage : UserControl, IDisposable
 {
     localDialogService? localDialogService;
     
@@ -90,5 +90,12 @@ public partial class LoginPage : UserControl
         vm.EnableEmailtxt = true;
         vm.CodeEmail = "";
         vm.GuidPersonForgot = null;
+    }
+
+    public void Dispose()
+    {
+
+        localDialogService = null;
+        vm?.Dispose();
     }
 }

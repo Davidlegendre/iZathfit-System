@@ -42,6 +42,11 @@ namespace iZathfit.Components.BuscaPersona
                     NombrePersona = _personaselected == null ? "Persona no Seleccionada" : _personaselected.GetCompleteName;
                     IdentificacionTipo = _personaselected == null ? "Busca una Persona": _personaselected.TipoIdentAbreviado;
                     Identificacion = _personaselected?.Identificacion;
+                    if (_personaselected == null)
+                    {
+                        txtBuscarPersona.Clear();
+                        ResultadoBusqueda = null;
+                    }
                     change(nameof(NombrePersona));
                     change(nameof(IdentificacionTipo));
                     change(nameof(Identificacion));

@@ -14,7 +14,7 @@ using Services.Usuario;
 
 namespace iZathfit.ViewModels.Windows;
 
-public partial class LoginVM : ObservableObject
+public partial class LoginVM : ObservableObject, IDisposable
 {
     localDialogService? localDialogService;
     ILoginService? loginService;
@@ -180,7 +180,18 @@ public partial class LoginVM : ObservableObject
 
     }
 
-
+    public void Dispose()
+    {
+        localDialogService = null;
+        loginService = null;
+        _helperex = null;
+        _personaservice = null;
+        _factoryclient = null;
+        _crypto = null;
+        _usuario = null;
+        GuidPersonForgot = null;
+        UsuarioLogeado= null;
+    }
 
     public event EventHandler<UsuarioSistema>? UsuarioLogeado;
 

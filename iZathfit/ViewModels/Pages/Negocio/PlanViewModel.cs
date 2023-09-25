@@ -13,7 +13,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.ViewModels.Pages.Negocio
 {
-    public partial class PlanViewModel : ObservableObject
+    public partial class PlanViewModel : ObservableObject, IDisposable
     {
         IPlanService? _servicio;
         IExceptionHelperService? _helperexcep;
@@ -59,5 +59,13 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 ,titulo: "Datos del Paquete", owner: App.GetService<MainWindow>());
         }
 
+        public void Dispose()
+        {
+            Planes = null;
+            _servicio = null;
+            _helperexcep = null;
+            _dialog = null;
+
+        }
     }
 }

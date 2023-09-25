@@ -18,7 +18,7 @@ namespace iZathfit.Components.ElementosUsuario
     /// <summary>
     /// Lógica de interacción para CambiarContraseñaWin.xaml
     /// </summary>
-    public partial class CambiarContraseñaWin : UiWindow
+    public partial class CambiarContraseñaWin : UiWindow, IDisposable
     {
         DatosPerfilViewModel? _vm;
        
@@ -27,6 +27,12 @@ namespace iZathfit.Components.ElementosUsuario
             InitializeComponent();
             _vm = DataContext as DatosPerfilViewModel;
             this.Loaded += CambiarContraseñaWin_Loaded;
+            this.Closing += CambiarContraseñaWin_Closing;
+        }
+
+        private void CambiarContraseñaWin_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Dispose();
         }
 
         private void CambiarContraseñaWin_Loaded(object sender, RoutedEventArgs e)
@@ -45,6 +51,11 @@ namespace iZathfit.Components.ElementosUsuario
         private void btnclose_click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
         }
     }
 }

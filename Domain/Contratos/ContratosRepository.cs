@@ -48,6 +48,7 @@ namespace Domain.Contratos
 
         public async Task<bool> InsertContrato(ContratoModel contrato)
         {
+            Guid? idcontrato = null;
             var user = _config.getuserSistema();
             if(user == null) return false;
             using(var con = new SqlConnection(_config.GetConnection()))
@@ -64,7 +65,8 @@ namespace Domain.Contratos
                         @FechaFinal = contrato.FechaFinal,
                         @NumeroContrato = contrato.NumeroContrato,
                         @Fechafinalreal = contrato.FechaFinalReal,
-                        @IdTipoPago = contrato.IdTipoPago
+                        @IdTipoPago = contrato.IdTipoPago,
+                        @idcontrato = idcontrato
                     }, commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return result != 0;

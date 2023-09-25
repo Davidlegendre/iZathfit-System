@@ -5,7 +5,7 @@
 		@Email varchar(255), @idgenero int, 
 		@Identificacion varchar(20), @idTipoIdent int,
 		@numemergencia1 varchar(10), @numemergencia2 varchar(10),
-		@idocupacion int
+		@idocupacion int, @idpersona uniqueidentifier output
 	as
 	BEGIN
 		declare @uid uniqueidentifier
@@ -23,4 +23,5 @@
 		@idrol, @telefono,@Email,@idgenero,@Identificacion,@idTipoIdent, @idocupacion, @numemergencia1, @numemergencia2)
 
 		exec izathfitbd.dbo.SelectOnePersona @uid
+		set @idpersona = @uid
 	END

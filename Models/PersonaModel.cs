@@ -28,7 +28,7 @@ namespace Models
         public string? TipoIdentAbreviado { get; set; }
 
         public string? Genero { get; set; }
-        public string? TipoIdentificacion { get; set; } 
+        public string? TipoIdentificacion { get; set; }
         public string? Rol { get; set; }
         public string? CodeRol { get; set; }
         public int IdOcupacion { get; set; }
@@ -38,6 +38,8 @@ namespace Models
         public string? GetEdad => "Edad: " + Edad;
         public string? GetDireccion => "Dir: " + Direccion;
         public string? GetTelefono => "Tlf: " + Telefono;
+        public string? GetIdentificacion => TipoIdentAbreviado + ": " + Identificacion;
+        public string? GetNumerosEmergencias => "Emergencias: " + NumeroEmergencia1 + ", " + NumeroEmergencia2;
         public string? getNumEmergencia => "Tlf Emergencia: " + NumeroEmergencia1;
         public string? GetFechaNacimiento => "Fecha de Nacimiento: " + Fech_Nacimiento.ToLongDateString();
 

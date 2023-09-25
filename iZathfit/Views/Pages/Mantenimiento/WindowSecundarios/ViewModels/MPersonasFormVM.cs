@@ -13,7 +13,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 {
-    public partial class MPersonasFormVM : ObservableObject
+    public partial class MPersonasFormVM : ObservableObject, IDisposable
     {
         ITipoIdentificacionService? _TipoIdentificacionService;
         IGeneroService? _generoservice;
@@ -276,6 +276,25 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             }
             return true;
         }
-        
+
+        public void Dispose()
+        {
+            _TipoIdentificacionService = null;
+            _generoservice = null;
+            _rolservice = null;
+            _dialog = null;
+            _personaService = null;
+            _helperex = null;
+            _helpService = null;
+            _config = null;
+            _OcupacionService = null;
+            TipoIdentificacion = null;
+            TipoIdentificacionList = null;GeneroList = null;
+            RolList = null;
+            OcupacionList = null;
+            Ocupacionmodel = null;
+            GeneroModel = null;
+            RolModel = null;
+        }
     }
 }

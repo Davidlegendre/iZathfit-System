@@ -22,7 +22,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
     /// <summary>
     /// Lógica de interacción para MOcupacionesForm.xaml
     /// </summary>
-    public partial class MPadecimientosEnfermedadesForm : UiWindow
+    public partial class MPadecimientosEnfermedadesForm : UiWindow, IDisposable
     {
         localDialogService? _dialog;
         bool resultdialog = false;
@@ -42,6 +42,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
 
         private void MPadecimientosEnfermedadesForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -49,7 +50,8 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
         {
             if (_vm != null) await _vm.CargarDatos(this, _padecimiento);
             TBTitulo.Title = _padecimiento == null ? "Agregar" : "Modifica";
-            comboPersona.Focus();
+            if (_padecimiento != null)
+                Cbuscarpersona.PersonaSelected = _padecimiento.Persona;
         }
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e)
@@ -73,6 +75,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
         {
             _vm?.limpiar();
             txtpadecimiento.Focus();
+            Cbuscarpersona.PersonaSelected = null;
         }
 
         private void btnaddpadecimiento_click(object sender, RoutedEventArgs e)
@@ -100,10 +103,26 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios
             {
                 if (_vm != null)
                 {
+                    _vm.Padecimientotxt = txtpadecimiento.Text;
                     _vm.agregarPadecimientoLocal();
                 }
                 txtpadecimiento.Focus();
             }
+        }
+
+        private void Cbuscarpersona_selectedChanged(object sender, PersonaModel e)
+        {
+            if (_vm != null)
+            {
+                _vm.Personamodel = e;
+            }
+        }
+
+        public void Dispose()
+        {
+            _dialog = null;
+            _padecimiento = null;
+            _vm?.Dispose();
         }
     }
 }

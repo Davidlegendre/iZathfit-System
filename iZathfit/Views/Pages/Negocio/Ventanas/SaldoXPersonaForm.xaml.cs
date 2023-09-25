@@ -7,7 +7,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
     /// <summary>
     /// Lógica de interacción para SaldoXPersonaForm.xaml
     /// </summary>
-    public partial class SaldoXPersonaForm : UiWindow
+    public partial class SaldoXPersonaForm : UiWindow, IDisposable
     {
         SaldoXPersonaFormViewModel? _vm;
         bool resultdialog = false;
@@ -21,6 +21,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
 
         private void SaldoXPersonaForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -75,6 +76,11 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
                 if(e != null)
                     await _vm.GetContratosByPerson(e.IdPersona, this);
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
         }
     }
 }

@@ -12,7 +12,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 {
-    public partial class PromocionFormViewModel : ObservableObject
+    public partial class PromocionFormViewModel : ObservableObject, IDisposable
     {
         IPlanService? _planservice;
         IExceptionHelperService? _helperexcep;
@@ -120,6 +120,16 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             }
 
             return true;
+        }
+
+        public void Dispose()
+        {
+            _planservice = null;
+            _dialog = null;
+            _helperexcep = null;
+            _servicio = null;
+            Planes = null;
+            Planselected = null;
         }
     }
 }

@@ -15,7 +15,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.ViewModels.Pages.Negocio
 {
-    public partial class ContratosViewModel : ObservableObject
+    public partial class ContratosViewModel : ObservableObject, IDisposable
     {
         IContratosService? _service;
         localDialogService? _dialog;
@@ -33,7 +33,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
         [ObservableProperty]
         ObservableCollection<ContratoModel>? _contratos;
 
-        public List<ContratoModel> _contratoslist = new List<ContratoModel>();
+        public List<ContratoModel>? _contratoslist = new List<ContratoModel>();
 
         [ObservableProperty]
         int _columns = 4;
@@ -76,5 +76,14 @@ namespace iZathfit.ViewModels.Pages.Negocio
             return result;
         }
 
+        public void Dispose()
+        {
+            _contratoslist = null;
+            Contratos = null;
+            _service = null;
+            _dialog = null;
+            _helperexcep= null;
+            _helpers = null;
+        }
     }
 }

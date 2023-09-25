@@ -22,7 +22,7 @@ namespace iZathfit.Views.Pages.Negocio
     /// <summary>
     /// Lógica de interacción para PromocionesPage.xaml
     /// </summary>
-    public partial class PromocionesPage : UserControl
+    public partial class PromocionesPage : UserControl, IDisposable
     {
         PromocionViewModel? _vm;
         ObservableCollection<PromocionModelo>? _copy;
@@ -99,6 +99,13 @@ namespace iZathfit.Views.Pages.Negocio
             var context = btn.DataContext as PromocionModelo;
             if (context != null)
                 await _vm.Eliminar(context.IdPromocion);
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _copy = null;
+            _helpers = null;
         }
     }
 }

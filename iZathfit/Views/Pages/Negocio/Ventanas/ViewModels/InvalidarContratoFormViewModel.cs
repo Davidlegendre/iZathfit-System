@@ -10,7 +10,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 {
-    public partial class InvalidarContratoFormViewModel : ObservableObject
+    public partial class InvalidarContratoFormViewModel : ObservableObject, IDisposable
     {
         IContratosService? _service;
         IExceptionHelperService? _helperexcep;
@@ -40,6 +40,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 return false;
             }
             return true;
+        }
+
+        public void Dispose()
+        {
+            _service = null;
+            _helperexcep =null;
+            _dialog = null;
         }
     }
 }

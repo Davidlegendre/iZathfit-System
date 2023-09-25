@@ -106,5 +106,6 @@ namespace iZathfit.Views.Pages.SubPagesHome
             if (_vm != null)
                 _vm.ContratosObser = paginator.GetPaginationCollection(new ObservableCollection<ContratosModDataView>(_vm._contratosList));
         }
+
     }
 }

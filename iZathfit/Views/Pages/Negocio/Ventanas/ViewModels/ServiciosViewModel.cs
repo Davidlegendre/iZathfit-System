@@ -11,7 +11,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 {
-    public class ServiciosViewModel
+    public class ServiciosViewModel : IDisposable
     {
         IServiciosService? _service;
         localDialogService? _dialog;
@@ -56,6 +56,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             _dialog.ShowDialog(result ? "Servicio Eliminado" : "Servicio no fue Eliminado");
             return result;
 
+        }
+
+        public void Dispose()
+        {
+            _service = null;
+            _dialog = null;
+            _helperexcep = null;
         }
     }
 }

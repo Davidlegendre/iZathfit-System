@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace iZathfit.ViewModels.Pages.Negocio
 {
-    public partial class ServiciosPageVM : ObservableObject
+    public partial class ServiciosPageVM : ObservableObject, IDisposable
     {
         IServiciosService? _servicio;
         public ServiciosPageVM()
@@ -31,5 +31,10 @@ namespace iZathfit.ViewModels.Pages.Negocio
 
         }
 
+        public void Dispose()
+        {
+            Servicios = null;
+            _servicio = null;
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace iZathfit.Views.Pages.SubPagesHome
     /// <summary>
     /// Lógica de interacción para MantenimientosPage.xaml
     /// </summary>
-    public partial class MantenimientosPage : UserControl
+    public partial class MantenimientosPage : UserControl, IDisposable
     {
         MantenimientosVM? _vm;
         public MantenimientosPage()
@@ -44,6 +44,12 @@ namespace iZathfit.Views.Pages.SubPagesHome
                 Wpf.Ui.Animations.Transitions.ApplyTransition(contenidowin, Wpf.Ui.Animations.TransitionType.FadeIn, 200);
                 contexto.Comando.Invoke();
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _vm = null;
         }
     }
 }

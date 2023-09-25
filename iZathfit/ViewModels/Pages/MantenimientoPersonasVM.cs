@@ -13,7 +13,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.ViewModels.Pages
 {
-    public partial class MantenimientoPersonasVM : ObservableObject
+    public partial class MantenimientoPersonasVM : ObservableObject, IDisposable
     {
         IPersonaService? _servicio;
         IExceptionHelperService? _handlex;
@@ -26,9 +26,9 @@ namespace iZathfit.ViewModels.Pages
         }
 
         [ObservableProperty]
-        ObservableCollection<PersonaModel> _personas = new ObservableCollection<PersonaModel>();
+        ObservableCollection<PersonaModel>? _personas = new ObservableCollection<PersonaModel>();
 
-        public List<PersonaModel> _personaslist = new List<PersonaModel>();
+        public List<PersonaModel>? _personaslist = new List<PersonaModel>();
 
         [ObservableProperty]
         int _columns = 4;
@@ -68,6 +68,13 @@ namespace iZathfit.ViewModels.Pages
                , titulo: "Datos de: " + persona.Nombres.Split(' ')[0]);
         }
 
-
+        public void Dispose()
+        {
+            _servicio = null;
+            _handlex = null;
+            _dialog = null;
+            Personas = null;
+            _personaslist = null;
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace iZathfit.Views.Pages.Mantenimiento
     /// <summary>
     /// Lógica de interacción para MantenimientoPadecimientosEnfermedades.xaml
     /// </summary>
-    public partial class MantenimientoPadecimientosEnfermedades : UserControl
+    public partial class MantenimientoPadecimientosEnfermedades : UserControl, IDisposable
     {
         MantenimientoPadecimientodEnfermedadesVM? _vm;
         localDialogService? _dialog;
@@ -131,6 +131,14 @@ namespace iZathfit.Views.Pages.Mantenimiento
             {
                 _vm.Padecimientos = paginator.GetPaginationCollection(_copy);
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _dialog = null;
+            _copy = null;
+            _helpers = null;
         }
     }
 }

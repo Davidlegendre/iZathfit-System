@@ -14,7 +14,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 {
-    public partial class MUsuarioFormVM : ObservableObject
+    public partial class MUsuarioFormVM : ObservableObject, IDisposable
     {
         ITipoIdentificacionService? _TipoIdentificacionService;
         localDialogService? _dialog;
@@ -172,6 +172,18 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             }
             return true;
         }
-        
+
+        public void Dispose()
+        {
+            _TipoIdentificacionService = null;
+            _dialog = null;
+            _personaService = null;
+            _helperex = null;
+            _helpService = null;
+            _config = null;
+            _usuarioService = null;
+            Persona = null;
+            PersonaList = null;
+        }
     }
 }

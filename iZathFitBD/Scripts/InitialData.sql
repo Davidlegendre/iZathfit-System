@@ -11,7 +11,7 @@ GO
 	insert into dbo.Genero(descripcion, code) values('Masculino','M'),('Femenino','F')
 	insert into dbo.Rol(descripcion, code) values('Desarrollador','DEVP'),
 	('Dueño', 'DUNO'),('Cliente','CLNT'),('Administrador', 'ADMN')
-	insert into dbo.Ocupacion(descripcion) values ('Ventas'),('Instructor/Entrenador'),('Limpieza'),('Tec. Computacion e Informatica')
+	insert into dbo.Ocupacion(descripcion) values ('Otros'),('Ventas'),('Instructor/Entrenador'),('Limpieza'),('Tec. Computacion e Informatica')
 	insert into dbo.TipoIdentity(descripcion, abreviado) values
 	('Documento Nacional de Indentidad', 'DNI'),
 	('Carnet de Extranjeria', 'CE'),
@@ -25,11 +25,11 @@ GO
 	insert into dbo.Persona(IdPersona, Nombres, 
 	Apellidos,Direccion,Email,Fech_Nacimiento,Identificacion,Telefono,idRol, 
 	idGenero, idtipoIdentificacion, idOcupacion, NumeroEmergencia1) values
-	(@uid,'Nombres', 'Apellidos', 'Direccion','Email','Fech_Nacimiento Año-Mes-Dia',
-	'Identificacion','Telefono','IdRol','IdGenero','IdTipoIdentify','IdOcupacion', 'NumeroEmergencia')
+	(@uid,'David', 'Legendre', 'Urb. La Perla','dlegendre74@gmail.com','1996-09-06',
+	'49001564','914847720',1,1,1,5, '914847720')
 	declare @uidusuario uniqueidentifier
 	set @uidusuario = newid()
 	insert into dbo.Usuario(idUsuario,IdPersona, usuario, contrasena,IsActivo) values
-	(@uidusuario,@uid, 'Usuario', 'Contraseña', '1 (Activo) 0 (Inactivo)')
+	(@uidusuario,@uid, 'David', 'David123', 1)
 
 GO

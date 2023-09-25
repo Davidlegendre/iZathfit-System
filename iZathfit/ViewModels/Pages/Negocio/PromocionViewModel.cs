@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace iZathfit.ViewModels.Pages.Negocio
 {
-    public partial class PromocionViewModel : ObservableObject
+    public partial class PromocionViewModel : ObservableObject, IDisposable
     {
         IPromocionService? _servicio;
         IExceptionHelperService? _helperexec;
@@ -58,5 +58,13 @@ namespace iZathfit.ViewModels.Pages.Negocio
 
         }
 
+        public void Dispose()
+        {
+            Promociones = null;
+            _servicio = null;
+            _helperexec =null;
+            _dialog = null;
+
+        }
     }
 }

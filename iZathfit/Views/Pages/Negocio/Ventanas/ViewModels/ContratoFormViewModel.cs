@@ -16,7 +16,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 {
-    public partial class ContratoFormViewModel : ObservableObject
+    public partial class ContratoFormViewModel : ObservableObject, IDisposable
     {
         IPersonaService? _personaService;
         IPlanService? _planService;
@@ -238,6 +238,24 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 return false;
             }
             return true;
+        }
+
+        public void Dispose()
+        {
+            _personaService = null;
+            _planService = null;
+            _tipoPagoService = null;
+            _promocionService = null;
+            _dialog = null;
+            _helperexcep = null;
+            _contratosService =null;
+            Planlist = null;
+            Tipopagolist = null;
+            Promocioneslist = null;
+            SelectedPersona= null;
+            SelectedPlan = null;
+            SelectedPromo = null;
+            SelectedTipoPago = null;
         }
     }
 }

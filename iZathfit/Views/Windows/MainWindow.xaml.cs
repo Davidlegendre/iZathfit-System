@@ -4,6 +4,8 @@ using iZathfit.Views.Pages;
 using iZathfit.Views.Pages.SubPagesHome;
 using Models;
 using Models.DTOS;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -11,6 +13,10 @@ namespace iZathfit.Views.Windows;
 
 public partial class MainWindow : UiWindow
 {
+    [STAThread]
+    [DllImport("Kernel32.dll", EntryPoint = "SetProcessWorkingSetSize", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+    private static extern int SetProcessWorkingSetSize(IntPtr process, int minimumWorkingSize, int maximumWorkingSetSize);
+
     MainWindowViewModel? ViewModel;
     localDialogService? localDialog;
     GlobalService? _global;
@@ -51,10 +57,12 @@ public partial class MainWindow : UiWindow
             subhome.vm.ViewRelojPanelCommand.Execute(null);
         }
         //ViewModel.ShowButtons = true;
+        Alzeimer();
     }
 
     private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
+       
         if (NavigationView.Content.ToString() != typeof(LoginPage).FullName 
             && localDialog?.ShowDialog(titulo: "Saliendo", mensaje: "Desea Salir?",
             aceptarbutton: "Si", cancelarButton: "No", owner: this, ShowCancelButton: true) == true)
@@ -72,6 +80,7 @@ public partial class MainWindow : UiWindow
             _global?.DisposeTimeHour();
             e.Cancel = true;
         }
+     
     }
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -83,5 +92,12 @@ public partial class MainWindow : UiWindow
 
     void salirYLogin() {
         NavigationView.Content = loginpage;
+        Alzeimer();
+    }
+
+    public void Alzeimer() {
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        SetProcessWorkingSetSize(Process.GetCurrentProcess().Handle, -1, -1);
     }
 }

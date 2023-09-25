@@ -20,7 +20,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
     /// <summary>
     /// Lógica de interacción para PlanForm.xaml
     /// </summary>
-    public partial class PlanForm : UiWindow
+    public partial class PlanForm : UiWindow, IDisposable
     {
         PlanModel? _model;
         bool resultdialog = false;
@@ -38,6 +38,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
 
         private void PlanForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdialog;
         }
 
@@ -87,6 +88,11 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             }
         }
 
-        
+        public void Dispose()
+        {
+            _model = null;
+            _vm?.Dispose();
+            _dialog = null;
+        }
     }
 }

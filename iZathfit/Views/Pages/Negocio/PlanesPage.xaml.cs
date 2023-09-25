@@ -24,7 +24,7 @@ namespace iZathfit.Views.Pages.Negocio
     /// <summary>
     /// Lógica de interacción para PlanesPage.xaml
     /// </summary>
-    public partial class PlanesPage : UserControl
+    public partial class PlanesPage : UserControl, IDisposable
     {
         PlanViewModel? _vm;
         localDialogService? _dialog;
@@ -137,6 +137,14 @@ namespace iZathfit.Views.Pages.Negocio
                 }
 
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _helpers = null;
+            _copy = null;
+            _dialog = null;
         }
     }
 }

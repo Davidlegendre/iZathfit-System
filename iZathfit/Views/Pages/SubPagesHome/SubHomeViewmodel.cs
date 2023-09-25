@@ -68,12 +68,7 @@ namespace iZathfit.Views.Pages.SubPagesHome
         [ObservableProperty]
         ComboBoxModelBasic? _SelectItemCombo;
 
-        [ObservableProperty]
-        ObservableCollection<ComboBoxModelBasic> _ComboBoxModelBasic = new ObservableCollection<ComboBoxModelBasic>() {
-            new ComboBoxModelBasic(){ Id = 1, Name ="Fecha " }
-        };
-
-        public List<ContratosModDataView> _contratosList = new List<ContratosModDataView>();
+        public List<ContratosModDataView>? _contratosList = new List<ContratosModDataView>();
 
         [ObservableProperty]
         ObservableCollection<ContratosModDataView>? _ContratosObser;
@@ -85,27 +80,32 @@ namespace iZathfit.Views.Pages.SubPagesHome
                 || _PlanService == null) return;
             var contratos = await _contratosService.SelectOneContratoPerDNIPerson(personaModel.Identificacion);
 
-            if (contratos == null) {
-                _dialog.ShowDialog("No hay Datos para esta Persona", owner: App.GetService<MainWindow>());
-                return;
-            }
+            //if (contratos == null)
+            //{
+            //    _dialog.ShowDialog("No hay Datos para esta Persona", owner: App.GetService<MainWindow>());
+            //    return;
+            //}
             var saldosxpersonas = await _saldoXPersonaService.GetSaldosXPersonasbyPersona(personaModel.IdPersona);
             var planes = await _PlanService.GetPlanes();
-            _contratosList.Clear();
-            contratos.ForEach(ct => {
-                var saldo = saldosxpersonas?.Find(y => y.IdContrato == ct.IdContrato);
-                var contratomod = new ContratosModDataView();
-                contratomod.NombreContrato = ct.GetNombreContrato;
-                contratomod.FechaContrato = ct.Fecha_contrato;
-                contratomod.FechaFinal = ct.FechaFinal;
-                contratomod.PagoFaltante = saldo != null ? saldo.TotalFaltante : ct.ValorTotal;
-                contratomod.PrecioTotal = ct.ValorTotal;
-                contratomod.UltimoPago = saldo != null ? saldosxpersonas.Where(x => x.IdContrato == ct.IdContrato)
-                             .OrderByDescending(x => x.FechaPago).First().TotalPagadoActual : 0;
-                contratomod.Servicios = planes.First(y => y.IdPlanes == ct.IdPlan).GetServicios;
-                contratomod.NombrePlan = planes.First(x => x.IdPlanes == ct.IdPlan).GetTitulo;
-                _contratosList.Add(contratomod);
-            });
+            if (contratos != null)
+            {
+                _contratosList.Clear();
+                contratos.ForEach(ct =>
+                {
+                    var saldo = saldosxpersonas?.Find(y => y.IdContrato == ct.IdContrato);
+                    var contratomod = new ContratosModDataView();
+                    contratomod.NombreContrato = ct.GetNombreContrato;
+                    contratomod.FechaContrato = ct.Fecha_contrato;
+                    contratomod.FechaFinal = ct.FechaFinal;
+                    contratomod.PagoFaltante = saldo != null ? saldo.TotalFaltante : ct.ValorTotal;
+                    contratomod.PrecioTotal = ct.ValorTotal;
+                    contratomod.UltimoPago = saldo != null ? saldosxpersonas.Where(x => x.IdContrato == ct.IdContrato)
+                                 .OrderByDescending(x => x.FechaPago).First().TotalPagadoActual : 0;
+                    contratomod.Servicios = planes.First(y => y.IdPlanes == ct.IdPlan).GetServicios;
+                    contratomod.NombrePlan = planes.First(x => x.IdPlanes == ct.IdPlan).GetTitulo;
+                    _contratosList.Add(contratomod);
+                });
+            }
             /*
                 Nombre de Contrato,
                 Precio Total,
@@ -117,13 +117,13 @@ namespace iZathfit.Views.Pages.SubPagesHome
                 Filtros: Pagados, Adeudos, Vencidos Por Pagar
                 Filtrar 2: Fecha, NumeroContrato, Descendente, Ascendente
              */
-            var estadisticassaldos = await _saldoService.GetEstadisticas(personaModel.IdPersona);
-            var estadisticassaldosxpersona = await _saldoXPersonaService.GetEstadisticas(personaModel.IdPersona);
+            var estadisticassaldos = contratos == null ? new SaldosEstadisticasDTO() : await _saldoService.GetEstadisticas(personaModel.IdPersona);
+            var estadisticassaldosxpersona = contratos == null ? new SaldosXpersonaEstidisticas() : await _saldoXPersonaService.GetEstadisticas(personaModel.IdPersona);
             DataUserModel = new DataViewUserModel() {
                 SaldosEstadisticasDTO = estadisticassaldos,
                 SaldosXpersonaEstidisticas = estadisticassaldosxpersona,
                 Persona = personaModel,
-                Contratoscontrat = contratos.Count()
+                Contratoscontrat = contratos == null ? 0 : contratos.Count()
             };
 
             var datauser = App.GetService<ClienteDataView>();

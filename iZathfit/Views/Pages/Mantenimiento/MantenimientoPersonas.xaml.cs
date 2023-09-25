@@ -25,7 +25,7 @@ namespace iZathfit.Views.Pages.Mantenimiento
     /// <summary>
     /// Lógica de interacción para MantenimientoPage.xaml
     /// </summary>
-    public partial class MantenimientoPersonas : UserControl
+    public partial class MantenimientoPersonas : UserControl, IDisposable
     {
         MantenimientoPersonasVM? _vm;
         ObservableCollection<PersonaModel>? _peopleCopy;
@@ -125,6 +125,13 @@ namespace iZathfit.Views.Pages.Mantenimiento
             {
                 _vm.Personas = paginator.GetPaginationCollection(_peopleCopy);
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _helpers = null;
+            _peopleCopy = null;
         }
     }
 }

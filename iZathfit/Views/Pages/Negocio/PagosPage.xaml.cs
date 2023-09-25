@@ -23,7 +23,7 @@ namespace iZathfit.Views.Pages.Negocio
     /// <summary>
     /// Lógica de interacción para PagosPage.xaml
     /// </summary>
-    public partial class PagosPage : UserControl
+    public partial class PagosPage : UserControl, IDisposable
     {
         IGlobalHelpers? _helpers;
         PagosPageViewModel? _vm;
@@ -119,6 +119,13 @@ namespace iZathfit.Views.Pages.Negocio
                 _vm.SaldoXPersonaslist = paginator.GetPaginationCollection(
                     new ObservableCollection<SaldoXPersonaModel>(_copy));
             }
+        }
+
+        public void Dispose()
+        {
+            _helpers = null;
+            _vm?.Dispose();
+            _copy.Clear();
         }
     }
 }

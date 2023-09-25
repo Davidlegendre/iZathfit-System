@@ -20,7 +20,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
     /// <summary>
     /// Lógica de interacción para PromocionForm.xaml
     /// </summary>
-    public partial class PromocionForm : UiWindow
+    public partial class PromocionForm : UiWindow, IDisposable
     {
         PromocionModelo? _model;
         bool resultdiaglo = false;
@@ -36,6 +36,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
 
         private void PromocionForm_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            Dispose();
             DialogResult = resultdiaglo;
         }
 
@@ -80,6 +81,12 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         private void tgactive_Unchecked(object sender, RoutedEventArgs e)
         {
             tgactive.Content = "No esta Activada";
+        }
+
+        public void Dispose()
+        {
+            _model = null;
+            _vm?.Dispose();
         }
     }
 }

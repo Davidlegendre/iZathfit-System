@@ -12,7 +12,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.ViewModels.Pages
 {
-    public partial class MantenimientoOcupacionVM : ObservableObject
+    public partial class MantenimientoOcupacionVM : ObservableObject, IDisposable
     {
         IOcupacionService? _servicio;
         IExceptionHelperService? _helperx;
@@ -27,7 +27,7 @@ namespace iZathfit.ViewModels.Pages
         [ObservableProperty]
         ObservableCollection<Models.Ocupacion>? _ocupaciones;
 
-        public List<Models.Ocupacion> _listaocupacion = new List<Ocupacion>();
+        public List<Models.Ocupacion>? _listaocupacion = new List<Ocupacion>();
 
         [ObservableProperty]
         int _columns = 4;
@@ -60,6 +60,13 @@ namespace iZathfit.ViewModels.Pages
             return true;
         }
 
-
+        public void Dispose()
+        {
+            _servicio = null;
+            _helperx = null;
+            _dialog = null;
+            Ocupaciones = null;
+            _listaocupacion = null;
+        }
     }
 }

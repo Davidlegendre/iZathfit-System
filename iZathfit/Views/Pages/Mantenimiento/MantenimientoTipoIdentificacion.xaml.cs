@@ -24,7 +24,7 @@ namespace iZathfit.Views.Pages.Mantenimiento
     /// <summary>
     /// Lógica de interacción para MantenimientoTipoIdentificacion.xaml
     /// </summary>
-    public partial class MantenimientoTipoIdentificacion : UserControl
+    public partial class MantenimientoTipoIdentificacion : UserControl, IDisposable
     {
         MantenimientoTipoIdentificacionVM? _vm;
         localDialogService? _dialog;
@@ -99,6 +99,14 @@ namespace iZathfit.Views.Pages.Mantenimiento
             {
                 await _vm.Eliminar(context, App.GetService<MainWindow>());
             }
+        }
+
+        public void Dispose()
+        {
+            _copy = null;
+            _vm?.Dispose();
+            _dialog = null;
+            _helpers = null;
         }
     }
 }

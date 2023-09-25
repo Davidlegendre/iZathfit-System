@@ -14,7 +14,7 @@ namespace iZathfit.Views.Pages.Mantenimiento
     /// <summary>
     /// Lógica de interacción para MantenimientoOcupaciones.xaml
     /// </summary>
-    public partial class MantenimientoOcupaciones : UserControl
+    public partial class MantenimientoOcupaciones : UserControl, IDisposable
     {
         MantenimientoOcupacionVM? _vm;
         localDialogService? _dialog;
@@ -100,6 +100,14 @@ namespace iZathfit.Views.Pages.Mantenimiento
             {
                 _vm.Ocupaciones = paginator.GetPaginationCollection(_copy);
             }
+        }
+
+        public void Dispose()
+        {
+            _vm?.Dispose();
+            _helpers = null;
+            _dialog = null;
+            _copy = null;
         }
     }
 }

@@ -14,7 +14,7 @@ using Wpf.Ui.Controls;
 
 namespace iZathfit.ViewModels.Pages
 {
-    public partial class MantenimientoUsuarioVM : ObservableObject
+    public partial class MantenimientoUsuarioVM : ObservableObject, IDisposable
     {
         IUsuarioService? _service;
         IExceptionHelperService? _helperexc;
@@ -70,5 +70,13 @@ namespace iZathfit.ViewModels.Pages
                     _dialog?.ShowDialog("Contraseña Invalida");
         }
 
+        public void Dispose()
+        {
+            _service = null;
+            _helperexc = null;
+            _dialog = null;
+            _config = null;
+            UsuarioList = null;
+        }
     }
 }
