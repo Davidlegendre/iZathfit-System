@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using iZathfit.ViewModels.Pages.Negocio;
 using iZathfit.Views.Pages.Mantenimiento.WindowSecundarios;
+using iZathfit.Views.Windows;
 using Models;
 using Services.Genero;
 using Services.Ocupacion;
@@ -59,6 +60,7 @@ namespace iZathfit.Views.Pages.Negocio
         private void WizardCliente_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
             Dispose();
+
         }
 
         List<PromocionModelo>? _PromosActivos;
@@ -201,6 +203,7 @@ namespace iZathfit.Views.Pages.Negocio
             _tipoPagoService = null;
             _promocionService = null;
             _PromosActivos = null;
+            App.GetService<MainWindow>()?.Alzeimer();
         }
 
         private void btnAddOcupacion_click(object sender, RoutedEventArgs e)

@@ -172,7 +172,6 @@ public partial class HomePageVM : ObservableObject, IDisposable
 				Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Administrador) ? Visibility.Collapsed : Visibility.Visible,
 				Comando = () => {
 				new WizardCliente().ShowDialog();
-					Liberar();
 
                 }
             },
@@ -182,8 +181,7 @@ public partial class HomePageVM : ObservableObject, IDisposable
                 Icon = SymbolRegular.PersonRunning20,
                 Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Administrador) ? Visibility.Collapsed : Visibility.Visible,
 				Comando = () => {
-					new Rutina().ShowDialog();
-					Liberar();
+                    new Rutina().ShowDialog();					
 				}
             }
             ,new(){

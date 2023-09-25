@@ -1,4 +1,5 @@
 ﻿using iZathfit.Views.Pages.Negocio.Ventanas.ViewModels;
+using iZathfit.Views.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +65,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         public void Dispose()
         {
             _vm?.Dispose();
+            App.GetService<MainWindow>()?.Alzeimer();
         }
     }
 }
