@@ -71,6 +71,7 @@ Recuerda que ni el logo ni el Nombre: Modo Fit Centro Medico Deportivo son libre
 - Newtonsoft.Json
 - Microsoft.Extension.Hosting
 - Microsoft.Extension.Http
+- Emoji.Wpf
 
 ### Software Usado
 - Visual Studio 2022 (.NET 7.0)
