@@ -206,7 +206,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
 
         public void Cargarpromociones(List<PromocionModelo>? promociones)
         {
-            if (promociones == null) return;
+            if (promociones == null || SelectedPlan == null) return;
             var promos = promociones.Where(x => x.IdPlan == SelectedPlan.IdPlanes);
             if (promos.Count() == 0)
             {
