@@ -57,6 +57,9 @@ Recuerda que ni el logo ni el Nombre: Modo Fit Centro Medico Deportivo son libre
 - Francois Renquifo
 - [LinkedIn](https://www.linkedin.com/in/francois-renquifo-mercado-544141192/)
 
+### Capturas
+![image]([https://github.com/ZhengYaWei1992/ZWProgressView/blob/master/Untitled3.gif](https://drive.google.com/file/d/1JzaNhmDtyEhKDg_ctV6mJD8cTIGiXKuY/view?usp=sharing))
+
 ### Librerias
 - Dapper
 - WPF UI
