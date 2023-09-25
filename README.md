@@ -59,6 +59,9 @@ Recuerda que ni el logo ni el Nombre: Modo Fit Centro Medico Deportivo son libre
 
 ### Capturas
 ![image](https://github.com/Davidlegendre/iZathfit-System/blob/main/Capturas/login.jpg)
+![image](https://github.com/Davidlegendre/iZathfit-System/blob/main/Capturas/logindark.jpg)
+![image](https://github.com/Davidlegendre/iZathfit-System/blob/main/Capturas/main.jpg)
+![image](https://github.com/Davidlegendre/iZathfit-System/blob/main/Capturas/maindev.jpg)
 
 ### Librerias
 - Dapper
