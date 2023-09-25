@@ -11,6 +11,7 @@ using Wpf.Ui.Controls;
 using Models.ModelsCommons;
 using Newtonsoft.Json;
 using Services.Usuario;
+using Configuration.GlobalHelpers;
 
 namespace iZathfit.ViewModels.Windows;
 
@@ -23,6 +24,8 @@ public partial class LoginVM : ObservableObject, IDisposable
     IHttpClientFactory? _factoryclient;
     IUsuarioService? _usuario;
     CryptoService? _crypto;
+    IGlobalHelpers? _helpers;
+
     public LoginVM()
     {
         localDialogService = App.GetService<localDialogService>();
@@ -32,6 +35,7 @@ public partial class LoginVM : ObservableObject, IDisposable
         _factoryclient= App.GetService<IHttpClientFactory>();
         _crypto = App.GetService<CryptoService>();
         _usuario= App.GetService<IUsuarioService>();
+        _helpers = App.GetService<IGlobalHelpers>();
     }
 
     [RelayCommand]
@@ -90,7 +94,7 @@ public partial class LoginVM : ObservableObject, IDisposable
     { 
         if(_helperex == null || _personaservice == null) return;
 
-        if(string.IsNullOrWhiteSpace(email))
+        if(!_helpers.IsNullOrWhiteSpaceAndEmail(email))
         {
             localDialogService?.ShowDialog(
                 titulo: "Email Incorrecto", mensaje: "Ingrese un email", owner: App.GetService<MainWindow>());

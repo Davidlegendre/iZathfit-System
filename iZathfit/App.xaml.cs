@@ -94,6 +94,7 @@ namespace iZathfit
                 services.AddTransient<ClienteDataView>();
                 services.AddTransient<ServiciosViewModel>();
                 services.AddTransient<PlanDuracionFormViewModel>();
+                services.AddTransient<RutinasPage>();
 
                 services.AddScoped<Home>();
                 services.AddScoped<MainWindow>();
@@ -113,7 +114,7 @@ namespace iZathfit
                 services.AddScoped<IUsuarioService, UsuarioService>();
                 services.AddScoped<ITipoIdentificacionRepository, TipoIdentificacionRepository>();
                 services.AddScoped<ITipoIdentificacionService, TipoIdentificacionService>();
-                services.AddScoped<IGlobalHelpers, GlobalHelpers>();
+                
                 services.AddScoped<IRolRepository, RolRepository>();
                 services.AddScoped<IRolService, RolService>();
                 services.AddScoped<IPadecimientosEnfermedadesRepository, PadecimientosEnfermedadesRepository>();
@@ -141,6 +142,7 @@ namespace iZathfit
                     
                 services.AddSingleton<localDialogService>();
                 services.AddSingleton<GlobalService>();
+                services.AddSingleton<IGlobalHelpers, GlobalHelpers>();
 
 
             }).Build();

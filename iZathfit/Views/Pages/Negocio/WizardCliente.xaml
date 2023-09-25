@@ -43,38 +43,40 @@
                             <emoji:TextBlock Text="🏋️" FontSize="22"></emoji:TextBlock>
                             <TextBlock Margin="7,0,0,0" VerticalAlignment="Bottom" Grid.Column="1" Text="Datos del Cliente"></TextBlock>
                         </Grid>
-                        <ui:TextBox Name="txtidentificacion" Text="{Binding Identificacion}" MaxLength="20" Margin="5" Icon="ContactCard24" PlaceholderText="Identificación" Height="40" ></ui:TextBox>
+                            <StackPanel Margin="5">
+                                <Label Content="Tipo Identificacion" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
+                                <ComboBox Name="cbTipoidentify" SelectedItem="{Binding TipoIdentificacion}" ItemsSource="{Binding TipoIdentificacionList}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding abreviado}" Margin="0,0,5,0"></TextBlock>
+                                                <TextBlock Grid.Column="1" Text="{Binding descripcion}"></TextBlock>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                            <ui:TextBox Name="txtidentificacion" Text="{Binding Identificacion}" MaxLength="20" Margin="5" Icon="ContactCard24" PlaceholderText="Identificación" Height="40" ></ui:TextBox>
                         <ui:TextBox Name="txtnombres" MaxLength="50" Text="{Binding Nombres}" Margin="5" Icon="Person20" PlaceholderText="Nombres" Height="40" ></ui:TextBox>
                         <ui:TextBox Name="txtapellidos" MaxLength="50" Text="{Binding Apellidos}" Margin="5" Icon="Person20" PlaceholderText="Apellidos" Height="40" ></ui:TextBox>
                         <ui:TextBox Name="txtdireccion" MaxLength="100" Text="{Binding Direccion}" Margin="5" Icon="Map20" PlaceholderText="Direccion (opcional)" Height="40" ></ui:TextBox>
                         <ui:NumberBox Name="txttelefono" MaxDecimalPlaces="0" SpinButtonPlacementMode="Hidden" MaxLength="9" Text="{Binding Telefono}" Margin="5" Icon="Phone20" PlaceholderText="Telefono" Height="40" ></ui:NumberBox>
                         <ui:TextBox Name="email" MaxLength="100" Text="{Binding Email}" Margin="5" Icon="Mail20" PlaceholderText="Email (opcional)" Height="40" ></ui:TextBox>
-                        <ui:NumberBox Name="txtNumEmergencia1" MaxDecimalPlaces="0" SpinButtonPlacementMode="Hidden"  MaxLength="10" Text="{Binding Numemergencia1}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 1" Height="40" ></ui:NumberBox>
-                        <ui:NumberBox Name="txtNumEmergencia2" MaxDecimalPlaces="0" SpinButtonPlacementMode="Hidden"  MaxLength="10" Text="{Binding Numemergencia2}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 2 (opcional)" Height="40" ></ui:NumberBox>
                     </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <StackPanel Margin="5">
+                    <StackPanel Grid.Column="1" Margin="0,32,0,0">
+                            <ui:NumberBox Name="txtNumEmergencia1" MaxDecimalPlaces="0" SpinButtonPlacementMode="Hidden"  MaxLength="10" Text="{Binding Numemergencia1}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 1" Height="40" ></ui:NumberBox>
+                            <ui:NumberBox Name="txtNumEmergencia2" MaxDecimalPlaces="0" SpinButtonPlacementMode="Hidden"  MaxLength="10" Text="{Binding Numemergencia2}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 2 (opcional)" Height="40" ></ui:NumberBox>
+
+                            <StackPanel Margin="5">
                             <Label Content="Fecha de Nacimiento" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
 
                             <datepicker:DatePicker x:Name="datepicker" DateSelectChanged="datepicker_DateSelectChanged"></datepicker:DatePicker>
                         </StackPanel>
-                        <StackPanel Margin="5">
-                            <Label Content="Tipo Identificacion" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
-                            <ComboBox Name="cbTipoidentify" SelectedItem="{Binding TipoIdentificacion}" ItemsSource="{Binding TipoIdentificacionList}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto"></ColumnDefinition>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{Binding abreviado}" Margin="0,0,5,0"></TextBlock>
-                                            <TextBlock Grid.Column="1" Text="{Binding descripcion}"></TextBlock>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </StackPanel>
+                        
                         <StackPanel Margin="5">
                             <Label Content="Genero" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
                             <ComboBox Name="cbGenero" SelectedItem="{Binding GeneroModel}" ItemsSource="{Binding GeneroList}">
@@ -117,7 +119,7 @@
                             </Grid>
                         </StackPanel>
                     </StackPanel>
-                    <Grid Grid.Column="2" Height="430">
+                        <Grid Grid.Column="2" Height="380" Margin="0,22,0,0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="*"></RowDefinition>

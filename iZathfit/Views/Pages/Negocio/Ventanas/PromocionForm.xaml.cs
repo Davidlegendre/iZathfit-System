@@ -45,15 +45,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             tbtitle.Title = _model == null ? "Agregar" : "Modificar";
            
             if (_vm != null) if (!await _vm.GetData(this, _model)) Close();
-            if (_model != null) { dpDuracion.DateSelect = _model.DuracionTiempo; txtpercent.Text = _model.DescuentoPercent.ToString(); }
+            if (_model != null) { dpDuracion.DateSelect = _model.DuracionTiempo; _vm.PercentText = _model.DescuentoPercent.ToString(); }
             btnlimpiar.Visibility = _model == null ? Visibility.Visible : Visibility.Collapsed; 
         }
 
         private async void btnadd_Click(object sender, RoutedEventArgs e)
         {
             if (_vm == null) return;
-            _vm.SelectedDate = dpDuracion.DateSelect;
-            _vm.PercentText = txtpercent.Text;
             var result = _model == null ? await _vm.Agregar(this) : await _vm.Modificar(this, _model.IdPromocion);
             if (result)
             {
@@ -70,7 +68,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
 
         private void btnlimpiar_Click(object sender, RoutedEventArgs e)
         {
-
+            if (_vm != null)
+            {
+                _vm.Planselected = null;
+                _vm.PercentText = "";
+                dpDuracion.DateSelect = DateTime.Now;
+                _vm.Description = "";
+            }
         }
 
         private void tgactive_Checked(object sender, RoutedEventArgs e)
@@ -87,6 +91,14 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         {
             _model = null;
             _vm?.Dispose();
+        }
+
+        private void dpDuracion_DateSelectChanged(object sender, DateTime e)
+        {
+            if (_vm != null)
+            {
+                _vm.SelectedDate = e;
+            }
         }
     }
 }

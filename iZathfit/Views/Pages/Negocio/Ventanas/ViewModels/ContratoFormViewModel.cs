@@ -1,4 +1,5 @@
-﻿using iZathfit.Helpers;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.Helpers;
 using Models;
 using Services.Contratos;
 using Services.Persona;
@@ -25,6 +26,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         IContratosService? _contratosService;
         localDialogService? _dialog;
         IExceptionHelperService? _helperexcep;
+        IGlobalHelpers? _helpers;
         public ContratoFormViewModel()
         {
             _personaService = App.GetService<IPersonaService>();
@@ -34,6 +36,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             _dialog = App.GetService<localDialogService>();
             _helperexcep = App.GetService<IExceptionHelperService>();
             _contratosService = App.GetService<IContratosService>();
+            _helpers = App.GetService<IGlobalHelpers>();
         }
 
        static string _nohayplanseleccionadotexto = "Plan No seleccionado";
@@ -182,9 +185,9 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 
 
         bool validarUpdate(UiWindow win) {
-            if (string.IsNullOrWhiteSpace(CodigoContrato))
+            if (_helpers.IsNullOrWhiteSpaceAndNumber(CodigoContrato))
             {
-                _dialog?.ShowDialog("Codigo de contrato fisico no esta ingresado", owner: win);
+                _dialog?.ShowDialog("Codigo de contrato fisico no esta ingresado o es incorrecto", owner: win);
                 return false;
             }
             if (Dateselected.Date == DateTime.Now.Date)
@@ -217,14 +220,9 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 _dialog?.ShowDialog("No hay un Tipo de Pago seleccionado", owner: win);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(CodigoContrato))
+            if (!_helpers.IsNullOrWhiteSpaceAndNumber(CodigoContrato))
             {
-                _dialog?.ShowDialog("Codigo de contrato fisico no esta ingresado", owner: win);
-                return false;
-            }
-            if (CodigoContrato.Length < 6)
-            {
-                _dialog?.ShowDialog("El Codigo de contrato debe tener 6 digitos", owner: win);
+                _dialog?.ShowDialog("Codigo de contrato fisico no esta ingresado o es incorrecto", owner: win);
                 return false;
             }
             if (Dateselected.Date == DateTime.Now.Date)

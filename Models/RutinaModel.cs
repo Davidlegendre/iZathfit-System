@@ -12,5 +12,11 @@ namespace Models
         public decimal MontoPago { get; set; }
         public int IdTipoPago { get; set; }
         public DateTime FechaPagoRutina { get; set; }
+        public string TipoPago { get; set; }
+
+        public string GetFechaRutina => "Rutina del: " + FechaPagoRutina.ToLongDateString();
+
+        public string GetMonto => "Monto: " + MontoPago.ToString("0.00") + " S/";
+       
     }
 }

@@ -1,4 +1,5 @@
-﻿using iZathfit.Helpers;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.Helpers;
 using Models;
 using Services.Plan;
 using Services.Promocion;
@@ -18,12 +19,14 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         IExceptionHelperService? _helperexcep;
         IPromocionService? _servicio;
         localDialogService? _dialog;
+        IGlobalHelpers? _helpers;
         public PromocionFormViewModel()
         {
             _planservice = App.GetService<IPlanService>();
             _dialog = App.GetService<localDialogService>();
             _helperexcep = App.GetService<IExceptionHelperService>();
             _servicio = App.GetService<IPromocionService>();
+            _helpers = App.GetService<IGlobalHelpers>();
         }
 
         [ObservableProperty]
@@ -69,6 +72,9 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         public async Task<bool> Agregar(UiWindow win) {
             if (_servicio == null || _dialog == null || _helperexcep == null) return false;
             if (!validar()) return false;
+            if (_dialog.ShowDialog("Desea Guardar esta promocion con porcentaje del: " + PercentText + " %?", ShowCancelButton: true,
+                owner: win) == false) return false;
+
             var promo = App.GetService<PromocionModelo>();
             promo.IdPlan = Planselected.IdPlanes;
             promo.DuracionTiempo = SelectedDate.Value;
@@ -83,6 +89,9 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         {
             if (_servicio == null || _dialog == null || _helperexcep == null) return false;
             if (!validar()) return false;
+            if (_dialog.ShowDialog("Desea Modificar esta promocion con porcentaje del: " + PercentText + " %?", ShowCancelButton: true,
+        owner: win) == false) return false;
+
             var promo = App.GetService<PromocionModelo>();
             promo.IdPromocion = idpromocion;
             promo.IdPlan = Planselected.IdPlanes;
@@ -101,7 +110,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(PercentText))
+            if (!_helpers.IsNullOrWhiteSpaceAndNumber(PercentText))
             {
                 _dialog?.ShowDialog("Escriba algun descuento en porcentajes");
                 return false;
@@ -115,7 +124,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 
             if (SelectedDate.Value.Date < DateTime.Now.Date)
             {
-                _dialog?.ShowDialog("La fecha tiene que ser mayor o igual a hoy, si la promo esta activada");
+                _dialog?.ShowDialog("La fecha tiene que ser mayor o igual a hoy");
                 return false;
             }
 

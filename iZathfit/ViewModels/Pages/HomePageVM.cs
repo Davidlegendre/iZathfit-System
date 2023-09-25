@@ -169,7 +169,6 @@ public partial class HomePageVM : ObservableObject, IDisposable
 			{
 				TituloItem = "Agregar Cliente",
 				Icon = SymbolRegular.PeopleCommunity24,
-				Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Administrador) ? Visibility.Collapsed : Visibility.Visible,
 				Comando = () => {
 				new WizardCliente().ShowDialog();
 
@@ -179,7 +178,6 @@ public partial class HomePageVM : ObservableObject, IDisposable
             {
                 TituloItem = "Agregar Rutina",
                 Icon = SymbolRegular.PersonRunning20,
-                Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Administrador) ? Visibility.Collapsed : Visibility.Visible,
 				Comando = () => {
                     new Rutina().ShowDialog();					
 				}
@@ -270,6 +268,19 @@ public partial class HomePageVM : ObservableObject, IDisposable
                         Liberar();
                         UserControl = App.GetService<PagosPage>();
                         ChangeIndicator(SymbolRegular.MoneyHand20, "Esta en Administracion de Pagos");
+                    }
+                }
+            },
+            new(){
+                TituloItem = "Administracion de Rutinas",
+                Icon = SymbolRegular.PersonRunning20,
+                Visible = !_helpers.PolicyReturnBool(TypeRol.Desarrollador, TypeRol.Dueño) ? Visibility.Collapsed:Visibility.Visible,
+                Comando = () => {
+                    if(UserControl is not RutinasPage)
+                    {
+                        Liberar();
+                        UserControl = App.GetService<RutinasPage>();
+                        ChangeIndicator(SymbolRegular.PersonRunning20, "Esta en Administracion de Rutinas");
                     }
                 }
             }

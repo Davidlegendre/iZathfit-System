@@ -185,7 +185,7 @@ namespace iZathfit.Components.Paginator
                 var numberbox = sender as Wpf.Ui.Controls.NumberBox;
                 if (numberbox == null || _helpers == null) return;
                 if (string.IsNullOrWhiteSpace(numberbox.Text)) return;
-                if (!_helpers.IsNumber(numberbox.Text)) return;
+                if (!_helpers.IsNullOrWhiteSpaceAndNumber(numberbox.Text)) return;
                 var page = Convert.ToInt32(numberbox.Text);               
 
                 if (page < 1) {

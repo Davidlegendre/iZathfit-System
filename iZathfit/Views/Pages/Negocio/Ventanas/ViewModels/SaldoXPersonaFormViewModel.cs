@@ -1,4 +1,5 @@
-﻿using iZathfit.Helpers;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.Helpers;
 using Models;
 using Services.Contratos;
 using Services.Persona;
@@ -23,6 +24,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         localDialogService? _dialog;
         IExceptionHelperService? _helperexcep;
         ISaldoXPersonaService? _saldoXPersonaService;
+        IGlobalHelpers? _helpers;
         public SaldoXPersonaFormViewModel()
         {
             _tipopagoService = App.GetService<ITipoPagoService>();
@@ -31,6 +33,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             _dialog = App.GetService<localDialogService>();
             _helperexcep = App.GetService<IExceptionHelperService>();
             _saldoXPersonaService = App.GetService<ISaldoXPersonaService>();
+            _helpers = App.GetService<IGlobalHelpers>();
         }
 
         [ObservableProperty]
@@ -88,12 +91,12 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 || _personaService == null || _dialog == null || _helperexcep == null)
                 return false;
             if(!validar(win)) return false;
-            if (_dialog?.ShowDialog("Desea Guardar este Pago?", ShowCancelButton: true, owner: win) == false) return false;
+            if (_dialog?.ShowDialog("Desea Guardar este Pago de cantidad: " + Decimal.Parse(Cantidadpago).ToString("0.00") + " S/?", ShowCancelButton: true, owner: win) == false) return false;
 
             var saldoxpersona = new SaldoXPersonaModel() {
                 IdPersona = Personaselected.IdPersona,
                 IdContrato = Contratoselected.IdContrato,
-                TotalPagadoActual = Decimal.Parse(Cantidadpago, new CultureInfo("es-PE")),
+                TotalPagadoActual = Decimal.Parse(Cantidadpago),
                 IdTipoPago = Tipopagoselected.IdtipoPago
             };
 
@@ -120,7 +123,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 _dialog?.ShowDialog("Seleccione un tipo de pago", owner: win);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(Cantidadpago))
+            if (!_helpers.IsNullOrWhiteSpaceAndDecimal(Cantidadpago))
             {
                 _dialog?.ShowDialog("Escriba una cantidad de pago", owner: win);
                 return false;

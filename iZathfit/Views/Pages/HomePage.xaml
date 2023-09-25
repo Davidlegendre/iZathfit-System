@@ -114,10 +114,10 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Menú" Margin="48,15,0,20" HorizontalAlignment="left"  FontFamily="Segoe Ui Semibold"></TextBlock>
+                <TextBlock Text="Menú" Margin="48,18,0,12" HorizontalAlignment="left"  FontFamily="Segoe Ui Semibold"></TextBlock>
                 <Separator Height="1" Margin="4,0,4,0" VerticalAlignment="Bottom"></Separator>
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                    <ItemsControl Margin="0,10,0,0"  Width="{Binding ActualWidth,ElementName=menu}" ItemsSource="{Binding Menulist}">
+                    <ItemsControl Margin="0,7,0,0"  Width="{Binding ActualWidth,ElementName=menu}" ItemsSource="{Binding Menulist}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <ui:Button Margin="7,0,7,7" Visibility="{Binding Visible}" Click="BtnItemMenu_Click" Padding="0,10,4,10" Height="{Binding Tag,ElementName=menu}" HorizontalContentAlignment="Stretch" HorizontalAlignment="Stretch">

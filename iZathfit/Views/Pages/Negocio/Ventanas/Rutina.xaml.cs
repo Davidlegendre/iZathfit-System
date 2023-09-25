@@ -1,5 +1,6 @@
 ﻿using iZathfit.Views.Pages.Negocio.Ventanas.ViewModels;
 using iZathfit.Views.Windows;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
     {
         RutinasViewModel? _vm;
         bool resultdialog = false;
-        public Rutina()
+        RutinaModel? _model;
+        public Rutina(RutinaModel? model = null)
         {
             InitializeComponent();
+            _model = model;
             _vm = DataContext as RutinasViewModel;
+            
             this.Loaded += Rutina_Loaded;
             this.Closing += Rutina_Closing;
         }
@@ -41,14 +45,15 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         private async void Rutina_Loaded(object sender, RoutedEventArgs e)
         {
             if (_vm == null) return;
-            if (await _vm.GetData(this) == false) Close();
+            if (await _vm.GetData(this, _model) == false) Close();
             nbMonto.Focus();
         }
 
         private async void btnadd_Click(object sender, RoutedEventArgs e)
         {
             if(_vm == null) return;
-            if (await _vm.InsertRutina(this))
+            var result = _model == null ? await _vm.InsertRutina(this) : await _vm.UpdateRutina(this, _model.IdRutina);
+            if (result)
             {
                 resultdialog = true;
                 Close();
@@ -65,6 +70,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         public void Dispose()
         {
             _vm?.Dispose();
+            _model = null;
             App.GetService<MainWindow>()?.Alzeimer();
         }
     }

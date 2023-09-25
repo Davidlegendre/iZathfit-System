@@ -165,7 +165,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
             };
 
             var pago = new SaldoXPersonaModel() {
-                TotalPagadoActual = Decimal.Parse(Cantidadpago, new CultureInfo("es-PE"))
+                TotalPagadoActual = Decimal.Parse(Cantidadpago)
             };
 
             var result = await _helperexcep.ExcepHandler(() => _Service.InsertACliente(persona, pago, 
@@ -266,11 +266,22 @@ namespace iZathfit.ViewModels.Pages.Negocio
         }
 
         bool validar(UiWindow win) {
+            if (TipoIdentificacion == null)
+            {
+                _dialog?.ShowDialog("Seleccione un Tipo de Identificacion", owner: win);
+                return false;
+            }
             if (string.IsNullOrWhiteSpace(Identificacion))
             {
                 _dialog?.ShowDialog("Ingrese una Identificacion", owner: win);
                 return false;
             }
+            if (!_helpers.IsNullOrWhiteSpaceAndNumber(Identificacion) && TipoIdentificacion.abreviado?.ToUpper() == "DNI")
+            {
+                _dialog?.ShowDialog("Ingrese una Identificacion valida", owner: win);
+                return false;
+            }
+           
 
             if (string.IsNullOrWhiteSpace(Nombres))
             {
@@ -282,24 +293,24 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 _dialog?.ShowDialog("Ingrese los Apellidos", owner: win);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(Telefono))
+            if (!_helpers.IsNullOrWhiteSpaceAndNumber(Telefono))
             {
                 _dialog?.ShowDialog("Ingrese un Telefono", owner: win);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(Numemergencia1))
+            if (!_helpers.IsNullOrWhiteSpaceAndEmail(Email, true))
+            {
+                _dialog?.ShowDialog("Ingrese un Email Correcto", owner: win);
+                return false;
+            }
+            if (!_helpers.IsNullOrWhiteSpaceAndNumber(Numemergencia1))
             {
                 _dialog?.ShowDialog("Ingrese un Numero de Emergencias", owner: win);
                 return false;
             }
-            if (!_helpers.IsNumber(Telefono))
+            if (!_helpers.IsNullOrWhiteSpaceAndNumber(Numemergencia2, true))
             {
-                _dialog?.ShowDialog("Telefono tiene que ser numero", owner: win);
-                return false;
-            }
-            if (!_helpers.IsNumber(Numemergencia1))
-            {
-                _dialog?.ShowDialog("Numemergencia 1 tiene que ser numero", owner: win);
+                _dialog?.ShowDialog("Numemergencia 2 tiene que ser numero", owner: win);
                 return false;
             }
             if (FechNacimiento == null)
@@ -307,11 +318,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 _dialog?.ShowDialog("Seleccione la Fecha de Nacimiento", owner: win);
                 return false;
             }
-            if (TipoIdentificacion == null)
-            {
-                _dialog?.ShowDialog("Seleccione un Tipo de Identificacion", owner: win);
-                return false;
-            }
+            
             if (GeneroModel == null)
             {
                 _dialog?.ShowDialog("Seleccione un Genero", owner: win);
@@ -342,12 +349,12 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 _dialog?.ShowDialog("Seleccione un Tipo de Pago", owner: win);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(CodigoContrato))
+            if (!_helpers.IsNullOrWhiteSpaceAndNumber(CodigoContrato))
             {
                 _dialog?.ShowDialog("Ingrese el Codigo del Contrato Fisico", owner: win);
                 return false;
             }
-            if (string.IsNullOrWhiteSpace(Cantidadpago))
+            if (!_helpers.IsNullOrWhiteSpaceAndDecimal(Cantidadpago))
             {
                 _dialog?.ShowDialog("Ingrese la cantidad de Pago", owner: win);
                 return false;

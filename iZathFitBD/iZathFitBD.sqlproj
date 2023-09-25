@@ -177,6 +177,9 @@
     <Build Include="dbo\Stored Procedures\Contratos\SearchContratoByPersona.sql" />
     <Build Include="dbo\Stored Procedures\ACliente\InsertarClienteTodoConContratoYPago.sql" />
     <Build Include="dbo\Types\PadecimientoType.sql" />
+    <Build Include="dbo\Stored Procedures\Rutina\UpdateRutina.sql" />
+    <Build Include="dbo\Stored Procedures\Rutina\DeleteRutina.sql" />
+    <Build Include="dbo\Stored Procedures\Rutina\SelectAllRutina.sql" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

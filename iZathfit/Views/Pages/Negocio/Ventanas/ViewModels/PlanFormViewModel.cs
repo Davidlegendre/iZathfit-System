@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using Configuration.GlobalHelpers;
+using Dapper;
 using iZathfit.Helpers;
 using Models;
 using Services.Plan;
@@ -22,6 +23,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         localDialogService? _dialog;
         IExceptionHelperService? _helpexcep;
         IPlanDuracionService? _planduracionservice;
+        IGlobalHelpers? _helpers;
 
         public PlanFormViewModel()
         {
@@ -29,6 +31,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             _serviciosservice = App.GetService<IServiciosService>();
             _dialog = App.GetService<localDialogService>();
             _helpexcep = App.GetService<IExceptionHelperService>();
+            _helpers = App.GetService<IGlobalHelpers>();
             _planduracionservice = App.GetService<IPlanDuracionService>();
         }
 
@@ -103,10 +106,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
              */
             if (_planservice == null || _serviciosservice == null || _dialog == null || _helpexcep == null || _planduracionservice == null) return false;
             if (!validacion()) return false;
+            if (_dialog.ShowDialog("Desea Agregar este Plan/Paquete con precio: " + Decimal.Parse(Preciotexto).ToString("0.00") + " S/?",
+                    ShowCancelButton: true, owner: win) == false) return false;
+
             var plan = new PlanModel() {
                 descripcion = Descripcion,
                 IdPlanDuracion = SelectedPlanDuracion.IdPlanDuracion,
-                Precio = Decimal.Parse(Preciotexto, new CultureInfo("es-PE")),
+                Precio = Decimal.Parse(Preciotexto),
                 Servicios = Servicios.Where(x => x.IsSelected == true).AsList()
             };
 
@@ -126,13 +132,14 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
              */
             if (_planservice == null || _serviciosservice == null || _dialog == null || _helpexcep == null || _planduracionservice == null) return false;
             if (!validacion()) return false;
-
+            if (_dialog.ShowDialog("Desea Modificar este Plan/Paquete con precio: " + Decimal.Parse(Preciotexto).ToString("0.00") + " S/?",
+                    ShowCancelButton: true, owner: win) == false) return false;
             var plan = new PlanModel()
             {
                 IdPlanes = planmodel.IdPlanes,
                 descripcion = Descripcion,
                 IdPlanDuracion = SelectedPlanDuracion.IdPlanDuracion,
-                Precio = Decimal.Parse(Preciotexto, new CultureInfo("es-PE")),
+                Precio = Decimal.Parse(Preciotexto),
                 Servicios = Servicios.Where(x => x.IsSelected == true).AsList()
             };
 
@@ -153,7 +160,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         }
 
         bool validacion() {
-            if (string.IsNullOrWhiteSpace(Preciotexto))
+            if (!_helpers.IsNullOrWhiteSpaceAndDecimal(Preciotexto))
             {
                 _dialog?.ShowDialog("Precio no tiene valor");
                 return false;

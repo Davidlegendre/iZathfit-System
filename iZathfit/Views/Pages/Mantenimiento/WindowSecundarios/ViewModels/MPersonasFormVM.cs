@@ -150,7 +150,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 
         public async Task<bool> GuardarPersona(UiWindow win, List<PersonaModel> lista) {
             var usuario = _config?.getuserSistema();
-            if (!Verificar() || _helperex == null || _personaService == null || usuario == null)
+            if (!Verificar(win) || _helperex == null || _personaService == null || usuario == null)
                 return false;
             
             if (_dialog?.ShowConfirmPassword(mensaje: "Hola, confirme la contraseña primero: ", 
@@ -185,7 +185,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         public async Task<bool> ActualizarPersona(UiWindow win, Guid IdPersona, List<PersonaModel> lista)
         {
             var usuario = _config?.getuserSistema();
-            if (!Verificar() || _helperex == null || _personaService == null || usuario == null)
+            if (!Verificar(win) || _helperex == null || _personaService == null || usuario == null)
                 return false;
 
             if (_dialog?.ShowConfirmPassword(mensaje: "Hola, confirme la contraseña primero: ",
@@ -224,54 +224,73 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         }
 
 
-        bool Verificar() {
+        bool Verificar(UiWindow win) {
             if (_helpService == null) return false;
-            if (!_helpService.IsNumber(Identificacion))
+            if (TipoIdentificacion == null)
             {
-                _dialog?.ShowDialog("Identificacion es incorrecto o no tiene valor");
+                _dialog?.ShowDialog("Seleccione un Tipo de Identificacion", owner: win);
                 return false;
             }
+            if (string.IsNullOrWhiteSpace(Identificacion))
+            {
+                _dialog?.ShowDialog("Ingrese una Identificacion", owner: win);
+                return false;
+            }
+            if (!_helpService.IsNullOrWhiteSpaceAndNumber(Identificacion) && TipoIdentificacion.abreviado?.ToUpper() == "DNI")
+            {
+                _dialog?.ShowDialog("Ingrese una Identificacion valida", owner: win);
+                return false;
+            }
+
             if (string.IsNullOrWhiteSpace(Nombres))
             {
-                _dialog?.ShowDialog("Nombres no tiene valor");
+                _dialog?.ShowDialog("Nombres no tiene valor", owner: win);
                 return false;
             }
             if (string.IsNullOrWhiteSpace(Apellidos))
             {
-                _dialog?.ShowDialog("Apellidos no tiene valor");
+                _dialog?.ShowDialog("Apellidos no tiene valor", owner: win);
                 return false;
             }
            
-            if (!_helpService.IsNumber(Telefono))
+            if (!_helpService.IsNullOrWhiteSpaceAndNumber(Telefono))
             {
-                _dialog?.ShowDialog("Telefono es incorrecto o no tiene valor");
+                _dialog?.ShowDialog("Telefono es incorrecto o no tiene valor", owner: win);
                 return false;
             }
 
-            if (!_helpService.IsNumber(Numemergencia1))
+            if (!_helpService.IsNullOrWhiteSpaceAndEmail(Email, true))
             {
-                _dialog?.ShowDialog("Numero de Emergencia 1 es incorrecto o no tiene valor");
+                _dialog?.ShowDialog("Email es incorrecto", owner: win);
+                return false;
+            }
+
+            if (!_helpService.IsNullOrWhiteSpaceAndNumber(Numemergencia1))
+            {
+                _dialog?.ShowDialog("Numero de Emergencia 1 es incorrecto o no tiene valor", owner: win);
+                return false;
+            }
+            
+
+            if (!_helpService.IsNullOrWhiteSpaceAndNumber(Numemergencia2, IsOptional: true))
+            {
+                _dialog?.ShowDialog("Numero de Emergencia 2 es incorrecto", owner: win);
                 return false;
             }
 
             if (GeneroModel == null)
             {
-                _dialog?.ShowDialog("No hay Genero Seleccionado");
+                _dialog?.ShowDialog("No hay Genero Seleccionado", owner: win);
                 return false;
             }
             if (RolModel == null)
             {
-                _dialog?.ShowDialog("No hay un Rol Seleccionado");
-                return false;
-            }
-            if (TipoIdentificacion == null)
-            {
-                _dialog?.ShowDialog("No hay un Tipo de Indentificacion Seleccionado");
+                _dialog?.ShowDialog("No hay un Rol Seleccionado", owner: win);
                 return false;
             }
             if (Ocupacionmodel == null)
             {
-                _dialog?.ShowDialog("No hay una Ocupacion Seleccionada");
+                _dialog?.ShowDialog("No hay una Ocupacion Seleccionada", owner: win);
                 return false;
             }
             return true;

@@ -60,16 +60,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         {
             if(_vm != null && _dialog != null)
             {
-                if (_dialog.ShowDialog("Desea " + (_model == null ? "Agregar" : "Modificar") +  " este Plan/Paquete?", 
-                    ShowCancelButton: true, owner: this) == true)
+                var result = _model == null ? await _vm.Guardar(this) : await _vm.Modificar(this, _model);
+                if (result)
                 {
-                    var result = _model == null ? await _vm.Guardar(this) : await _vm.Modificar(this, _model);
-                    if (result)
-                    {
-                        resultdialog = true;
-                        this.Close();
-                    }
+                    resultdialog = true;
+                    this.Close();
                 }
+                
             }
         }
 

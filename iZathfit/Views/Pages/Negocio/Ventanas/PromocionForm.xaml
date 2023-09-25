@@ -38,13 +38,13 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <ui:NumberBox Name="txtpercent" MaxDecimalPlaces="0" Minimum="1" Maximum="100" PlaceholderText="Descuento en porcentajes"></ui:NumberBox>
+                <ui:NumberBox Name="txtpercent" Text="{Binding PercentText}" MaxDecimalPlaces="0" Minimum="1" Maximum="100" PlaceholderText="Descuento en porcentajes"></ui:NumberBox>
                 <TextBlock Grid.Column="1" Text="%" Padding="7" FontSize="16" Foreground="{Binding Foreground,ElementName=tbtitle}" FontFamily="segoe ui semibold"></TextBlock>
                 
             </Grid>
             <ui:ToggleSwitch Name="tgactive" IsEnabled="False" IsChecked="{Binding Activechecked}" Checked="tgactive_Checked" Unchecked="tgactive_Unchecked" IsThreeState="False" Margin="7,0,7,7" HorizontalAlignment="Stretch" Content="No esta Activada"></ui:ToggleSwitch>
-            <components:DatePicker x:Name="dpDuracion" Header="Duracion de la Promoción" HeaderVisible="Visible" Margin="7,0,7,7"></components:DatePicker>
-            <ui:TextBox Icon="TextDescription24" MaxLength="100" AcceptsReturn="True" Height="100" PlaceholderText="Descripcion (opcional)" Margin="7,0,7,7"></ui:TextBox>
+            <components:DatePicker x:Name="dpDuracion" Header="Duracion de la Promoción" HeaderVisible="Visible" Margin="7,0,7,7" DateSelectChanged="dpDuracion_DateSelectChanged"></components:DatePicker>
+            <ui:TextBox Icon="TextDescription24" Text="{Binding Description}" MaxLength="100" AcceptsReturn="True" Height="100" PlaceholderText="Descripcion (opcional)" Margin="7,0,7,7"></ui:TextBox>
         </StackPanel>
         <UniformGrid x:Name="uniformgridpanel" Grid.Row="3" Rows="1" Margin="7">
             <ui:Button Name="btnadd" Click="btnadd_Click" Appearance="Primary" HorizontalAlignment="Stretch" Margin="0,0,5,0" Content="Guardar"></ui:Button>

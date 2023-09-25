@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Configuration.GlobalHelpers
@@ -42,18 +43,39 @@ namespace Configuration.GlobalHelpers
             return null;
         }
 
-        public bool IsNumber(string? numtexto)
+        public bool IsNullOrWhiteSpaceAndNumber(string? numtexto, bool IsOptional = false)
         { 
             bool result = true;
-            if(string.IsNullOrWhiteSpace(numtexto)) return false;
-            foreach(var c in numtexto)
+            if (string.IsNullOrWhiteSpace(numtexto) && !IsOptional) return false;
+            if (IsOptional && string.IsNullOrWhiteSpace(numtexto)) return true;
+            foreach (var c in numtexto)
             {
                 if (!char.IsNumber(c))
-                { 
-                   result = false; break;
+                {
+                    result = false; break;
                 }
             }
             return result;
+        }
+
+        public bool IsNullOrWhiteSpaceAndDecimal(string? value, bool IsOptional = false)
+        {
+            if (string.IsNullOrWhiteSpace(value) && !IsOptional) return false;
+            if (IsOptional && string.IsNullOrWhiteSpace(value)) return true;
+            decimal outdecimal;
+            return decimal.TryParse(value,out outdecimal);
+
+        }
+        public bool IsNullOrWhiteSpaceAndEmail(string? value, bool IsOptional = false)
+        {
+            if (string.IsNullOrWhiteSpace(value) && !IsOptional) return false;
+            if (IsOptional && string.IsNullOrWhiteSpace(value)) return true;
+            return Regex.IsMatch(value.ToLower(), @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$");
+        }
+
+        public bool IsInLength(string? value, int numLength)
+        { 
+            return value?.Length == numLength;
         }
 
         public void Policy(params TypeRol[] typeRols) {

@@ -1,10 +1,5 @@
 ﻿using Models;
 using Models.DTOS;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Rutina
 {
@@ -12,5 +7,8 @@ namespace Domain.Rutina
     {
         public Task<bool> InsertarRutina(RutinaModel rutina);
         public Task<List<TotalesByDateModel>?> GetTotalesByDate(DateTime fecha);
+        public Task<bool> UpdateRutina(RutinaModel rutina);
+        public Task<bool> DeleteRutina(Guid idrutina);
+        public Task<List<RutinaModel>?> GetRutinasByFecha(DateTime fecha);
     }
 }
