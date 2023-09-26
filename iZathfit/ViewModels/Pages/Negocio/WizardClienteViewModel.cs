@@ -54,7 +54,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
         string? _Numemergencia2;
 
         [ObservableProperty]
-        DateTime? _fechNacimiento;
+        DateTime? _fechNacimiento = DateTime.Now;
 
         [ObservableProperty]
         ObservableCollection<TipoIdentificacionModel>? _TipoIdentificacionList;
@@ -111,13 +111,13 @@ namespace iZathfit.ViewModels.Pages.Negocio
         string? _CodigoContrato;
 
         [ObservableProperty]
-        DateTime? _FechFin;
+        DateTime _FechFin = DateTime.Now;
 
         [ObservableProperty]
         string? _TitlePromociones = "No Hay Promociones";
 
         [ObservableProperty]
-        string? _FechaInicio = "Plan no Seleccionado";
+        DateTime _FechaInicio = DateTime.Now;
 
         [ObservableProperty]
         string? _FechaFin = "Plan no Seleccionado";
@@ -149,7 +149,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 Identificacion = Identificacion,
                 IdTipoIdentity = TipoIdentificacion.IdTipoIdentity,
                 IdRol = RolModel.IdRol,
-                IdOcupacion = Ocupacionmodel.IdOcupacion
+                IdOcupacion = Ocupacionmodel != null ? Ocupacionmodel.IdOcupacion : OcupacionList.FirstOrDefault().IdOcupacion,
             };
 
             var contrato = new ContratoModel()
@@ -158,7 +158,8 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 ValorTotal = SelectedPromo != null ? SelectedPromo.GetTotalDescuento : SelectedPlan.Precio,
                 Descuento = SelectedPromo != null ? SelectedPromo.DescuentoPercent : 0,
                 ValorOriginal = SelectedPlan.Precio,
-                FechaFinal = FechFin.Value.Date,
+                FechaFinal = FechFin.Date,
+                FechaInicio = FechaInicio.Date,
                 NumeroContrato = CodigoContrato,
                 FechaFinalReal = DateTime.Parse(FechaFin.Split(": ")[1]),
                 IdTipoPago = SelectedTipoPago.IdtipoPago
@@ -225,17 +226,18 @@ namespace iZathfit.ViewModels.Pages.Negocio
         {
             if (SelectedPlan == null)
             {
-                FechaInicio = "Plan no Seleccionado";
+                FechaInicio = DateTime.Now;
                 FechaFin = "Plan no Seleccionado";
                 Subtotal = "0.00 S/";
                 Descuento = "0 %";
                 Total = "0.00 S/";
-                FechFin = null;
+                FechFin = DateTime.Now;
                 return;
             }
-            FechFin = DateTime.Now.AddMonths(SelectedPlan.MesesTiempo);
-            FechaInicio = DateTime.Now.Date.ToLongDateString();
-            FechaFin = "Fecha Calculada Final: " + FechFin.Value.ToLongDateString();
+
+            FechFin = FechaInicio.AddMonths(SelectedPlan.MesesTiempo);
+           
+            FechaFin = "Fecha Calculada Final: " + FechFin.ToLongDateString();
 
             Subtotal = SelectedPlan.GetPrecioString;
             Descuento = SelectedPromo != null ? SelectedPromo.GetDescuento : "0 %";
@@ -303,9 +305,9 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 _dialog?.ShowDialog("Ingrese un Email Correcto", owner: win);
                 return false;
             }
-            if (!_helpers.IsNullOrWhiteSpaceAndNumber(Numemergencia1))
+            if (!_helpers.IsNullOrWhiteSpaceAndNumber(Numemergencia1, true))
             {
-                _dialog?.ShowDialog("Ingrese un Numero de Emergencias", owner: win);
+                _dialog?.ShowDialog("Numero de Emergencias 1 tiene que ser numero", owner: win);
                 return false;
             }
             if (!_helpers.IsNullOrWhiteSpaceAndNumber(Numemergencia2, true))
@@ -327,11 +329,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
             if (RolModel == null)
             {
                 _dialog?.ShowDialog("Seleccione un Rol", owner: win);
-                return false;
-            }
-            if (Ocupacionmodel == null)
-            {
-                _dialog?.ShowDialog("Seleccione una Ocupacion", owner: win);
                 return false;
             }
             if (TipoIdentificacion == null)
@@ -359,12 +356,12 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 _dialog?.ShowDialog("Ingrese la cantidad de Pago", owner: win);
                 return false;
             }
-            if (FechFin == null)
+            if (FechaInicio.Date < DateTime.Now.Date)
             {
-                _dialog?.ShowDialog("Seleccione la Fecha de Fin", owner: win);
+                _dialog?.ShowDialog("Fecha de Inicio no puede ser menor a hoy", owner: win);
                 return false;
             }
-            if (FechFin.Value.Date < DateTime.Parse(FechaFin.Split(": ")[1]).Date)
+            if (FechFin.Date < DateTime.Parse(FechaFin.Split(": ")[1]).Date)
             {
                 _dialog?.ShowDialog("La fecha de fin no puede ser menor a la fecha final original", owner: win);
                 return false;
@@ -402,9 +399,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
             SelectedTipoPago = null;
             Cantidadpago = null;
             CodigoContrato = null;
-            FechFin = null;
             TitlePromociones = null;
-            FechaInicio = null;
             FechaFin = null;
             Descuento = null;
             Total = null;

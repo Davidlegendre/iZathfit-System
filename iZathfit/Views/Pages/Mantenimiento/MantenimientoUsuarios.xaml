@@ -56,8 +56,8 @@
                                     <TextBlock Text="Usuario: "></TextBlock>
                                     <TextBlock Grid.Column="1" Text="{Binding usuario}"></TextBlock>
                                 </Grid>
-                                <TextBlock Text="{Binding Persona}" FontSize="12" Opacity="0.8"></TextBlock>
-                                <TextBlock Text="{Binding Rol}" FontSize="12" Opacity="0.8"></TextBlock>
+                                <TextBlock Text="{Binding Persona}" FontSize="14" Opacity="0.8"></TextBlock>
+                                <TextBlock Text="{Binding Rol}" FontSize="14" Opacity="0.8"></TextBlock>
                                 <ui:ToggleSwitch Margin="0,7,0,0" IsChecked="{Binding IsActivo}" Content="{Binding ActivoString}" IsEnabled="False"></ui:ToggleSwitch>
                                 
                             </StackPanel>

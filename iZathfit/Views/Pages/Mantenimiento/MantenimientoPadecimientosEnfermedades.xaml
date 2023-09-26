@@ -51,7 +51,7 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel HorizontalAlignment="Left" Margin="0,0,10,0" MaxWidth="210">
                                 <TextBlock Text="{Binding Persona.GetCompleteName}" TextWrapping="Wrap"></TextBlock>
-                                <TextBlock Text="{Binding Persona.Rol}"  TextWrapping="Wrap" FontSize="12" Opacity="0.8"></TextBlock>
+                                <TextBlock Text="{Binding Persona.Rol}"  TextWrapping="Wrap" FontSize="14" Opacity="0.8"></TextBlock>
                             </StackPanel>
                             <UniformGrid Rows="1" Grid.Column="1" HorizontalAlignment="Left">
                                 <ui:Button Name="btnshow" Click="btnshow_Click" Icon="Eye20" Margin="2" Padding="5"></ui:Button>

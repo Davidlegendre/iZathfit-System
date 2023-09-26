@@ -10,7 +10,7 @@
         WindowBackdropType="Mica"
         Background="{ui:ThemeResource}"
         mc:Ignorable="d"
-        Title="{Binding Title,ElementName=TBTitulo}" MinHeight="0" MinWidth="0" Height="218" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="377">
+        Title="{Binding Title,ElementName=TBTitulo}" MinHeight="0" MinWidth="0" Height="228" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Width="377">
     <ui:UiWindow.DataContext>
         <viewmodels:MTIpoIdentificacionVM></viewmodels:MTIpoIdentificacionVM>
     </ui:UiWindow.DataContext>
@@ -22,8 +22,8 @@
         </Grid.RowDefinitions>
         <ui:TitleBar Name="TBTitulo" CanMaximize="False" Title="titulo" ShowMaximize="False"></ui:TitleBar>
         <StackPanel Orientation="Vertical" Grid.Row="1">
-            <ui:TextBox Grid.Row="1" Name="txtTipoIdenty" Text="{Binding TipoIdenttxt}" MaxLength="50" Margin="7" Icon="Incognito20" PlaceholderText="Tipo Identificacion" Height="40" VerticalAlignment="Top" ></ui:TextBox>
-            <ui:TextBox Grid.Row="1" Text="{Binding Abreviaturatxt}" MaxLength="20" Margin="7" Icon="TextFont20" PlaceholderText="Abreviacion" Height="40" VerticalAlignment="Top" ></ui:TextBox>
+            <ui:TextBox ClearButtonEnabled="False" Grid.Row="1" Name="txtTipoIdenty" Text="{Binding TipoIdenttxt}" MaxLength="50" Margin="7" Icon="Incognito20" PlaceholderText="Tipo Identificacion" Height="40" VerticalAlignment="Top" ></ui:TextBox>
+            <ui:TextBox ClearButtonEnabled="False" Grid.Row="1" Text="{Binding Abreviaturatxt}" MaxLength="20" Margin="7" Icon="TextFont20" PlaceholderText="Abreviacion" Height="40" VerticalAlignment="Top" ></ui:TextBox>
 
         </StackPanel>
         <StackPanel Margin="7" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">

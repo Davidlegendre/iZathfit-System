@@ -37,6 +37,7 @@ namespace Services.Persona
         {
             
             var result = await _personarepo.SelectAllPersonas();
+            
             return result?.Where(x=>x.IdPersona != _generalConfiguration.getuserSistema()?.IdPersona).ToList();
         }
 

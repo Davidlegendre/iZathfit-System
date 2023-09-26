@@ -65,8 +65,8 @@
                                     <TextBlock Text=" = " Opacity="0.7"></TextBlock>
                                     <TextBlock Grid.Column="2" Text="{Binding GetTotalEnDescuento}" Opacity="0.7"></TextBlock>
                                 </StackPanel>
-                                <TextBlock Grid.Row="2" Text="{Binding GetValidDatetime}" HorizontalAlignment="Left" Width="200" TextWrapping="Wrap" FontSize="12" Opacity="0.7"></TextBlock>
-                                <TextBlock Grid.Row="3" Text="{Binding GetFaltaDias}" FontSize="12" Opacity="0.7"></TextBlock>
+                                <TextBlock Grid.Row="2" Text="{Binding GetValidDatetime}" HorizontalAlignment="Left" Width="200" TextWrapping="Wrap" FontSize="14" Opacity="0.7"></TextBlock>
+                                <TextBlock Grid.Row="3" Text="{Binding GetFaltaDias}" FontSize="14" Opacity="0.7"></TextBlock>
 
                             </Grid>
                             <UniformGrid Columns="1" Grid.Column="2">

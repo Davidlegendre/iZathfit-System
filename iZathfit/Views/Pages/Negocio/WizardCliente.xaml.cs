@@ -78,14 +78,19 @@ namespace iZathfit.Views.Pages.Negocio
                 var tipopagos = await _tipoPagoService.GetTipoPagos();
                 var promos = await _promocionService.GetPromocionesActive();
                 _PromosActivos = promos;
-
+                datepicker.DateSelect = DateTime.Now;
+                dtFechaFin.DateSelect = DateTime.Now;
+                fechaINICIO.DateSelect = DateTime.Now;
+                
                 _vm.TipoIdentificacionList = tipoidents != null ? new ObservableCollection<Models.TipoIdentificacionModel>(tipoidents) : null;
                 _vm.GeneroList = generos != null ? new ObservableCollection<Models.GeneroModel>(generos) : null;
                 _vm.RolList = roles != null ? new ObservableCollection<Models.RolModel>(roles) : null;
                 _vm.OcupacionList = ocupaciones != null ? new ObservableCollection<Models.Ocupacion>(ocupaciones) : null;
                 _vm.Planlist = planservice != null ? new ObservableCollection<PlanModel>(planservice) : null;
                 _vm.Tipopagolist = tipopagos != null ? new ObservableCollection<TipoPagoModel>(tipopagos) : null;
-                _vm.RolModel = roles?.FirstOrDefault();
+                _vm.RolModel = roles?.Count() == 1? roles?.FirstOrDefault() : roles?.FirstOrDefault(x => x.Code == "CLNT");
+                _vm.Ocupacionmodel = ocupaciones?.FirstOrDefault();
+                
 
 
                 tipoidents = null; generos = null; roles = null; ocupaciones = null; planservice = null;
@@ -174,10 +179,10 @@ namespace iZathfit.Views.Pages.Negocio
         private void planSelect_Change(object sender, SelectionChangedEventArgs e)
         {
             if (_vm == null) return;
+            fechaINICIO.DateSelect = DateTime.Now;
             _vm.Cargarpromociones(_PromosActivos);
             _vm.cargarDatosCalculados();
-            if(_vm.FechFin != null)
-            dtFechaFin.DateSelect = _vm.FechFin.Value;
+            dtFechaFin.DateSelect = _vm.FechFin;
         }
 
         private void btnQuitarPromoSelected_click(object sender, RoutedEventArgs e)
@@ -211,6 +216,14 @@ namespace iZathfit.Views.Pages.Negocio
             var win = new MOcupacionesForm(ocupacions: _vm.OcupacionList.AsList(), ocupacionescollection: _vm.OcupacionList);
             win.Owner = this;
             win.ShowDialog();
+        }
+
+        private void fechaINICIO_DateSelectChanged(object sender, DateTime e)
+        {
+            if (_vm == null) return;
+            _vm.FechaInicio = e;
+            _vm.cargarDatosCalculados();
+            dtFechaFin.DateSelect = _vm.FechFin;
         }
     }
 }

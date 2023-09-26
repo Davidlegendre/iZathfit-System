@@ -66,7 +66,8 @@ namespace Domain.Contratos
                         @NumeroContrato = contrato.NumeroContrato,
                         @Fechafinalreal = contrato.FechaFinalReal,
                         @IdTipoPago = contrato.IdTipoPago,
-                        @idcontrato = idcontrato
+                        @idcontrato = idcontrato,
+                        @FechInicial = contrato.FechaInicio
                     }, commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return result != 0;
@@ -89,12 +90,14 @@ namespace Domain.Contratos
             }
         }
 
-        public async Task<bool> UpdateContrato(Guid idcontrato, DateTime fechafinal, string numerocontrato ) { 
+        public async Task<bool> UpdateContrato(ContratoModel contrato) { 
             using(var con = new SqlConnection(_config.GetConnection()))
             {
                 var result = await con.ExecuteAsync("UpdateContrato",
-                    new { @idcontrato = idcontrato, @fechafinal = fechafinal,
-                        @numcontrato = numerocontrato
+                    new { 
+                        @idcontrato = contrato.IdContrato, 
+                        @fechafinal = contrato.FechaFinal,
+                        @numcontrato = contrato.NumeroContrato
                     }, commandType: System.Data.CommandType.StoredProcedure);
                 await con.CloseAsync();
                 return result != 0;

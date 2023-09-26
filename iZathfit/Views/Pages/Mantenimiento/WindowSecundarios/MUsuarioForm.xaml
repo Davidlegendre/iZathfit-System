@@ -28,9 +28,9 @@
                     <ColumnDefinition Width="60*"/>
                 </Grid.ColumnDefinitions>
                 <UniformGrid Columns="1" VerticalAlignment="Top">
-                    <ui:TextBox Text="{Binding Usuario}" MaxLength="10" Margin="5" Icon="Person20" PlaceholderText="Usuario" Height="40" ></ui:TextBox>
+                    <ui:TextBox Text="{Binding Usuario}" ClearButtonEnabled="False" MaxLength="10" Margin="5" Icon="Person20" PlaceholderText="Usuario" Height="40" ></ui:TextBox>
 
-                    <ui:PasswordBox Name="txtPassword" Password="{Binding Password}" MaxLength="16" Margin="5" Icon="Password20" PlaceholderText="Contraseña" Height="40" ></ui:PasswordBox>
+                    <ui:PasswordBox Name="txtPassword" ClearButtonEnabled="False" Password="{Binding Password}" MaxLength="16" Margin="5" Icon="Password20" PlaceholderText="Contraseña" Height="40" ></ui:PasswordBox>
                     <ui:ToggleSwitch Name="txttoggle" Checked="txttoggle_Checked" Unchecked="txttoggle_Unchecked" Margin="5" IsChecked="{Binding IsActivo}" ></ui:ToggleSwitch>
                 </UniformGrid>
                 <ListView Grid.Column="1" ItemsSource="{Binding PersonaList}" SelectedItem="{Binding Persona}">

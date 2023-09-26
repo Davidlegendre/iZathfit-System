@@ -45,7 +45,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         string? _description = "";
 
         [ObservableProperty]
-        DateTime? _selectedDate = null;
+        DateTime? _selectedDate = DateTime.Now;
 
         public async Task<bool> GetData(UiWindow win, PromocionModelo? promo = null) { 
             if(_planservice == null || _dialog == null || _helperexcep == null) return false;

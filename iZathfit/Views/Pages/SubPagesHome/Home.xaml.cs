@@ -84,6 +84,7 @@ namespace iZathfit.Views.Pages.SubPagesHome
                 cbuscarpersona.PersonaSelected = null;
                 cbuscarpersona.ResultadoBusqueda = null;
                 cbuscarpersona.txtBuscarPersona.Clear();
+                cbuscarpersona.flyoutpanel.Hide();
             }
         }
 

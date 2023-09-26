@@ -30,9 +30,9 @@
                         <Label Content="Login." Foreground="{Binding Background,ElementName=btnlogin}" FontFamily="Segoe UI Semibold" FontSize="24"></Label>
                     </Grid>
                     <Separator Height="20" BorderBrush="Transparent"></Separator>
-                    <ui:TextBox Name="txtuser"  Focusable="True" PlaceholderText="User" Icon="Person20"></ui:TextBox>
+                    <ui:TextBox ClearButtonEnabled="False" Name="txtuser"  Focusable="True" PlaceholderText="User" Icon="Person20"></ui:TextBox>
                     <Separator Height="20" BorderBrush="Transparent"></Separator>
-                    <ui:PasswordBox Name="txtpass" PasswordChar="°"  PlaceholderText="Contraseña" Icon="Password20"></ui:PasswordBox>
+                    <ui:PasswordBox ClearButtonEnabled="False" Name="txtpass" PasswordChar="°"  PlaceholderText="Contraseña" Icon="Password20"></ui:PasswordBox>
                     <Separator Height="20" BorderBrush="Transparent"></Separator>
                     <Grid>
                         <Grid.ColumnDefinitions>

@@ -19,8 +19,8 @@
                     <StackPanel Orientation="Vertical" Margin="7,5,0,0" Grid.Column="1">
                         <TextBlock Name="txtpersonanombre" Text="{Binding Personanombre}" FontFamily="Segoe Ui Semibold" TextTrimming="CharacterEllipsis" Padding="0,0,0,0"></TextBlock>
                         <TextBlock Text="{Binding Rol}" FontSize="14" Padding="0,0,0,0" Opacity="0.8" TextWrapping="Wrap"></TextBlock>
-                        <TextBlock Text="{Binding Ocupaciones}" FontSize="12" ToolTip="{Binding Ocupaciones}" Padding="0,0,0,0" Opacity="0.7" TextTrimming="CharacterEllipsis"></TextBlock>
-                        <TextBlock Text="{Binding Email}" FontSize="12" ToolTip="{Binding Email}" Padding="0,0,0,0" Opacity="0.5" TextTrimming="CharacterEllipsis"></TextBlock>
+                        <TextBlock Text="{Binding Ocupaciones}" FontSize="14" ToolTip="{Binding Ocupaciones}" Padding="0,0,0,0" Opacity="0.7" TextTrimming="CharacterEllipsis"></TextBlock>
+                        <TextBlock Text="{Binding Email}" FontSize="14" ToolTip="{Binding Email}" Padding="0,0,0,0" Opacity="0.5" TextTrimming="CharacterEllipsis"></TextBlock>
 
                     </StackPanel>
                     <ui:Button Name="btnoculto" Command="{Binding cerrarSesionCommand}" HorizontalAlignment="Stretch" Foreground="{Binding Foreground,ElementName=txtpersonanombre}" Margin="0,48,0,0" Icon="LockClosed24" FontFamily="Segoe Ui Semibold" Padding="2"  Appearance="Primary"></ui:Button>

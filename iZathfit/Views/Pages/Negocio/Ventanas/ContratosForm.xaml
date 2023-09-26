@@ -98,12 +98,12 @@
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="7" >
                     <TextBlock Text="Codigo Contrato" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                    <ui:TextBox Icon="DocumentRibbon20" MaxLength="6" Text="{Binding CodigoContrato}" PlaceholderText="Contrato" Margin="0,0,0,8"></ui:TextBox>
+                    <ui:TextBox Icon="DocumentRibbon20" ClearButtonEnabled="False" MaxLength="6" Text="{Binding CodigoContrato}" PlaceholderText="Contrato" Margin="0,0,0,8"></ui:TextBox>
                     
                     <TextBlock Text="Fecha de Inicio" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                    <TextBlock Text="{Binding FechaInicio}" Margin="0,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <datepicker:DatePicker x:Name="fechaINiCIO" DateSelectChanged="fechaINiCIO_DateSelectChanged"></datepicker:DatePicker>
 
-                    <TextBlock Text="Fecha de Fin" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <TextBlock Text="Fecha de Fin" Margin="0,7,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
                     <datepicker:DatePicker x:Name="datepicker" DateSelectChanged="datepicker_DateSelectChanged"></datepicker:DatePicker>
                     <TextBlock Text="{Binding FechaFin}" TextWrapping="Wrap" Margin="1,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
 

@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <ui:TitleBar Name="TBTitulo" CanMaximize="False" Title="{Binding Titulo}" ShowMaximize="False"></ui:TitleBar>
         <StackPanel Orientation="Vertical" Grid.Row="1">
-            <ui:TextBox Grid.Row="1" Name="txtTipoPago" Text="{Binding TipoPago}" MaxLength="50" Margin="7" Icon="Money24" IconFilled="True" PlaceholderText="Tipo de Pago" Height="40" VerticalAlignment="Top" ></ui:TextBox>
+            <ui:TextBox ClearButtonEnabled="False" Grid.Row="1" Name="txtTipoPago" Text="{Binding TipoPago}" MaxLength="50" Margin="7" Icon="Money24" IconFilled="True" PlaceholderText="Tipo de Pago" Height="40" VerticalAlignment="Top" ></ui:TextBox>
 
         </StackPanel>
         <StackPanel Margin="7" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">

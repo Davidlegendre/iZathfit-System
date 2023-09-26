@@ -33,7 +33,7 @@
                             <TextBlock Grid.Row="1" Foreground="{Binding Background,ElementName=btnoculto}" Text="{Binding Title}" TextAlignment="Center" TextWrapping="Wrap"
                                        FontFamily="Segoe UI Semibold" FontSize="16"></TextBlock>
                             <TextBlock Grid.Row="2" Text="{Binding Description}" TextAlignment="Center" TextWrapping="Wrap"
-                                       FontSize="12" Opacity="0.7"></TextBlock>
+                                       FontSize="14" Opacity="0.7"></TextBlock>
                         </Grid>
                     </ui:CardAction>
                 </DataTemplate>

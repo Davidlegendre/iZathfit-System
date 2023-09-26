@@ -26,39 +26,41 @@
             </Grid>
         </ui:CardAction>
         <ui:Flyout Name="flyoutpanel" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
-            <Grid Width="300">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                </Grid.RowDefinitions>
-                <ui:TextBox Name="txtBuscarPersona" Icon="Search20" KeyDown="txtBuscarPersona_keydown" IconPlacement="Right" PlaceholderText="Busca Nombre, Apellido o Identificacion"></ui:TextBox>
-                <ListView Grid.Row="1" Margin="0,10,0,0" Height="170" ItemsSource="{Binding ResultadoBusqueda}" SelectedItem="{Binding PersonaSelected}">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid VerticalAlignment="Top" Columns="1"></UniformGrid>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="7">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"></RowDefinition>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="{Binding GetCompleteName}" TextTrimming="WordEllipsis" FontFamily="Segoe UI Semibold"></TextBlock>
-                                <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding Identificacion}" Margin="7,0,0,0" Grid.Column="1" Opacity="0.8"></TextBlock>
-                                    <TextBlock Text="{Binding TipoIdentAbreviado}" Opacity="0.8"></TextBlock>
+            <ui:Card>
+                <Grid Width="300">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ui:TextBox Name="txtBuscarPersona" Icon="Search20" KeyDown="txtBuscarPersona_keydown" IconPlacement="Right" PlaceholderText="Busca Nombre, Apellido o Identificacion"></ui:TextBox>
+                    <ListView Grid.Row="1" Margin="0,10,0,0" Height="170" ItemsSource="{Binding ResultadoBusqueda}" SelectedItem="{Binding PersonaSelected}">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid VerticalAlignment="Top" Columns="1"></UniformGrid>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="7">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"></RowDefinition>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Text="{Binding GetCompleteName}" TextTrimming="WordEllipsis" FontFamily="Segoe UI Semibold"></TextBlock>
+                                    <Grid Grid.Row="1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Identificacion}" Margin="7,0,0,0" Grid.Column="1" Opacity="0.8"></TextBlock>
+                                        <TextBlock Text="{Binding TipoIdentAbreviado}" Opacity="0.8"></TextBlock>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </ui:Card>
         </ui:Flyout>
     </Grid>
 </UserControl>

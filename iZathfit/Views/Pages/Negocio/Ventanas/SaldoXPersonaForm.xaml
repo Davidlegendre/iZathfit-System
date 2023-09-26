@@ -53,7 +53,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ui:NumberBox Margin="7" Text="{Binding Cantidadpago}" MaxDecimalPlaces="2" Minimum="1" PlaceholderText="Cantidad a Pagar">
+            <ui:NumberBox ClearButtonEnabled="False" Margin="7" Text="{Binding Cantidadpago}" MaxDecimalPlaces="2" Minimum="1" PlaceholderText="Cantidad a Pagar">
                 
             </ui:NumberBox>
         </StackPanel>

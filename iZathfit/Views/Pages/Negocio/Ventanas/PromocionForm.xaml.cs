@@ -46,6 +46,8 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
            
             if (_vm != null) if (!await _vm.GetData(this, _model)) Close();
             if (_model != null) { dpDuracion.DateSelect = _model.DuracionTiempo; _vm.PercentText = _model.DescuentoPercent.ToString(); }
+            else
+                dpDuracion.DateSelect = DateTime.Now;
             btnlimpiar.Visibility = _model == null ? Visibility.Visible : Visibility.Collapsed; 
         }
 

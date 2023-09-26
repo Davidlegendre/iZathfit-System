@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <ui:TitleBar Name="tbtitle" Title="asd" CanMaximize="False" ShowMaximize="False"></ui:TitleBar>
         <StackPanel Grid.Row="1">
-            <ui:TextBox Name="txtnombreservicio" MaxLength="100" PlaceholderText="Nombre del Servicio" Icon="Dumbbell28" Margin="7"></ui:TextBox>
+            <ui:TextBox Name="txtnombreservicio" ClearButtonEnabled="False" MaxLength="100" PlaceholderText="Nombre del Servicio" Icon="Dumbbell28" Margin="7"></ui:TextBox>
             <components:TimePIcker x:Name="tphorarioinicio" IsSecondsVisible="False" Header="Horario de Inicio" HeaderVisible="Visible" Margin="7"></components:TimePIcker>
             <components:TimePIcker x:Name="tpHorarioFin" IsSecondsVisible="False" Header="Horario de Fin" HeaderVisible="Visible" Margin="7"></components:TimePIcker>
             <ToggleButton Checked="tgbGrupal_Checked" Unchecked="tgbGrupal_Unchecked" Name="tgbGrupal" IsThreeState="False" Content="No es Grupal" HorizontalAlignment="Stretch" Margin="7"></ToggleButton>

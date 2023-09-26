@@ -11,7 +11,7 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              Background="{ui:ThemeResource}"       
              mc:Ignorable="d"
-             Title="Contratos Update" Height="310" ResizeMode="NoResize" 
+             Title="Contratos Update" Height="291" ResizeMode="NoResize" 
              MinWidth="0" MinHeight="0" Width="323" WindowStartupLocation="CenterScreen">
     <ui:UiWindow.DataContext>
         <viewmodels:ContratoFormViewModel></viewmodels:ContratoFormViewModel>
@@ -25,8 +25,8 @@
         <ui:TitleBar Name="tbtitle" CanMaximize="False" ShowMaximize="False" Title="Contrato Update"></ui:TitleBar>
         <StackPanel Grid.Row="1" Margin="7">
             <TextBlock Text="Codigo Contrato" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-            <ui:TextBox Name="txtnumcontrato" Icon="DocumentRibbon20" MaxLength="6" Text="{Binding CodigoContrato}" PlaceholderText="Contrato" Margin="0,0,0,8"></ui:TextBox>
-            <TextBlock Text="Fecha de Fin" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+            <ui:TextBox ClearButtonEnabled="False" Name="txtnumcontrato" Icon="DocumentRibbon20" MaxLength="6" Text="{Binding CodigoContrato}" PlaceholderText="Contrato" Margin="0,0,0,8"></ui:TextBox>
+              <TextBlock Text="Fecha de Fin" Margin="0,7,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
             <datepicker:DatePicker x:Name="datepicker" DateSelectChanged="datepicker_DateSelectChanged"></datepicker:DatePicker>
             <TextBlock Text="{Binding FechaFin}" TextWrapping="Wrap" Margin="1,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
             

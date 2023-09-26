@@ -38,7 +38,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
-                <ui:NumberBox Name="txtpercent" Text="{Binding PercentText}" MaxDecimalPlaces="0" Minimum="1" Maximum="100" PlaceholderText="Descuento en porcentajes"></ui:NumberBox>
+                <ui:NumberBox ClearButtonEnabled="False" Name="txtpercent" Text="{Binding PercentText}" MaxDecimalPlaces="0" Minimum="1" Maximum="100" PlaceholderText="Descuento en porcentajes"></ui:NumberBox>
                 <TextBlock Grid.Column="1" Text="%" Padding="7" FontSize="16" Foreground="{Binding Foreground,ElementName=tbtitle}" FontFamily="segoe ui semibold"></TextBlock>
                 
             </Grid>

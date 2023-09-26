@@ -21,6 +21,7 @@
 	@FechaFinal datetime,
 	@FechaFinalReal datetime,
 	@NumeroContrato char(6),
+	@FechaInicial datetime,
 	@IdTipoPago int,
 
 	@TotalPagadoActual decimal(18,2),
@@ -41,7 +42,7 @@ set @trancount = @@TRANCOUNT
 			declare @idPersona uniqueidentifier
 			declare @idcontrato uniqueidentifier
 			exec dbo.AgregarPersona @Nombres, @Apellidos, @Fech_Nacimiento, @Direccion, @idRol, @Telefono, @Email, @idGenero, @Identificacion,@idtipoIdentificacion, @NumeroEmergencia1, @NumeroEmergencia2, @idOcupacion, @idpersona = @idPersona output
-			exec dbo.InsertContratos @IdPlan, @idPersona, @IdUsuario, @ValorTotal, @Descuento, @ValorOriginal, @FechaFinal, @FechaFinalReal, @NumeroContrato, @IdTipoPago, @idcontrato = @idcontrato output
+			exec dbo.InsertContratos @IdPlan, @idPersona, @IdUsuario, @ValorTotal, @Descuento, @ValorOriginal, @FechaFinal, @FechaFinalReal, @NumeroContrato, @FechaInicial, @IdTipoPago, @idcontrato = @idcontrato output
 			
 			
 			insert into PadecimientoEnfermedades(IdPersona, Padecimiento) select @idPersona, padecimiento from @Padecimientos

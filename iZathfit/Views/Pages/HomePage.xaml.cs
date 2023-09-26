@@ -52,4 +52,10 @@ public partial class HomePage : UserControl
             model.Comando?.Invoke();
         }
     }
+
+    private void protector_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (vm != null)
+            vm.OpenMenuCommand.Execute(menu);
+    }
 }

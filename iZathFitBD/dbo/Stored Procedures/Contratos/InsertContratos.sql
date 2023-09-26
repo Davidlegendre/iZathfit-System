@@ -8,6 +8,7 @@
 	@FechaFinal datetime,
 	@Fechafinalreal datetime,
 	@NumeroContrato char(6),
+	@FechInicial datetime,
 	@IdTipoPago int,
 	@idcontrato uniqueidentifier output
 AS
@@ -19,8 +20,8 @@ if(@isexist <> 0)
 
 declare @uid uniqueidentifier
 set @uid = NEWID()
-	insert into Contrato(IdContrato,IdPlan,IdPersona,IdUsuario,ValorTotal,Descuento,FechaFinal, FechaFinalReal,NumeroContrato,IdTipoPago, ValorOriginal)
-	values(@uid,@IdPlan, @IdPersona, @IdUsuario, @ValorTotal, @Descuento, @FechaFinal,@Fechafinalreal, @NumeroContrato, @IdTipoPago, @ValorOriginal)
+	insert into Contrato(IdContrato,IdPlan,IdPersona,IdUsuario,ValorTotal,Descuento,FechaFinal, FechaFinalReal,NumeroContrato,IdTipoPago, ValorOriginal, FechaInicio)
+	values(@uid,@IdPlan, @IdPersona, @IdUsuario, @ValorTotal, @Descuento, @FechaFinal,@Fechafinalreal, @NumeroContrato, @IdTipoPago, @ValorOriginal, @FechInicial)
 	declare @uidsaldos uniqueidentifier = newid()
 	insert into Saldos(IdContrato,IdPersona,IdSaldos, ValorTotal) values(@uid, @IdPersona, @uidsaldos, @ValorTotal)
 	set @idcontrato = @uid

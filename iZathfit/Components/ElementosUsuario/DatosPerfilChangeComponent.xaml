@@ -12,12 +12,12 @@
         <local:DatosPerfilViewModel></local:DatosPerfilViewModel>
     </UserControl.DataContext>
     <StackPanel Margin="0">
-        <ui:TextBox Name="txtnombres" MaxLength="50" Text="{Binding Nombres}" PlaceholderText="Nombres" Icon="Person20" Margin="0,0,0,10"></ui:TextBox>
-        <ui:TextBox PlaceholderText="Apellidos" Text="{Binding Apellidos}" MaxLength="50" Icon="Person20" Margin="0,0,0,10"></ui:TextBox>
+        <ui:TextBox ClearButtonEnabled="False" Name="txtnombres" MaxLength="50" Text="{Binding Nombres}" PlaceholderText="Nombres" Icon="Person20" Margin="0,0,0,10"></ui:TextBox>
+        <ui:TextBox ClearButtonEnabled="False" PlaceholderText="Apellidos" Text="{Binding Apellidos}" MaxLength="50" Icon="Person20" Margin="0,0,0,10"></ui:TextBox>
         <components:DatePicker x:Name="dpfechanacimiento" Header="Fecha de Nacimiento" HeaderVisible="Visible" Margin="0,0,0,10"></components:DatePicker>
-        <ui:TextBox PlaceholderText="Direccion" Text="{Binding Direccion}" MaxLength="100" Icon="Location20" Margin="0,0,0,10"></ui:TextBox>
-        <ui:TextBox PlaceholderText="Telefono" Text="{Binding Numerotelefono}" MaxLength="9" Icon="Phone20" Margin="0,0,0,10"></ui:TextBox>
-        <ui:TextBox PlaceholderText="Email" Text="{Binding Email}" MaxLength="255" Icon="Mention20" Margin="0,0,0,10"></ui:TextBox>
+        <ui:TextBox ClearButtonEnabled="False" PlaceholderText="Direccion" Text="{Binding Direccion}" MaxLength="100" Icon="Location20" Margin="0,0,0,10"></ui:TextBox>
+        <ui:TextBox ClearButtonEnabled="False" PlaceholderText="Telefono" Text="{Binding Numerotelefono}" MaxLength="9" Icon="Phone20" Margin="0,0,0,10"></ui:TextBox>
+        <ui:TextBox ClearButtonEnabled="False" PlaceholderText="Email" Text="{Binding Email}" MaxLength="255" Icon="Mention20" Margin="0,0,0,10"></ui:TextBox>
         <TextBlock Text="Genero" Margin="0,0,0,10" Foreground="{Binding Foreground,ElementName=txtnombres}"></TextBlock>
         <ComboBox Margin="0,0,0,10" ItemsSource="{Binding Generolist}" SelectedItem="{Binding Generoselected}">
             <ComboBox.ItemTemplate>

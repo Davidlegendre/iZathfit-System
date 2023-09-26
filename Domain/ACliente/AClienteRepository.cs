@@ -58,6 +58,7 @@ namespace Domain.ACliente
                         @FechaFinalReal = contrato.FechaFinalReal,
                         @NumeroContrato = contrato.NumeroContrato,
                         @IdTipoPago = contrato.IdTipoPago,
+                        @FechaInicial = contrato.FechaInicio,
 
                         @TotalPagadoActual = pago.TotalPagadoActual,
 

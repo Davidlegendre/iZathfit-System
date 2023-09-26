@@ -99,7 +99,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 || ocup.Count() == 0 || tipos.Count() == 0 || gener.Count() == 0 || rol.Count() ==0)
             {
                 _dialog?.ShowDialog(
-                mensaje: "No Puede Acceder, faltan: Tipo de Indentificacion, Genero o Rol",
+                mensaje: "No Puede Acceder, faltan: Tipo de Indentificacion, Genero o Rol, Ocupacion",
                 titulo: "Ups", owner: win); return false;
             }
 
@@ -113,7 +113,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                     tipos.Find(x => x.IdTipoIdentity == persona.IdTipoIdentity) : null;
             if (GeneroList != null) GeneroModel = persona != null ? gener.Find(x => x.IdGenero == persona.IdGenero) : null;
             if (RolList != null) RolModel = persona != null ? rol.Find(x => x.IdRol == persona.IdRol) : null;
-            if (OcupacionList != null) Ocupacionmodel = persona != null ? ocup.Find(x => x.IdOcupacion == persona.IdOcupacion) : null;
+            if (OcupacionList != null) Ocupacionmodel = persona != null ? ocup.Find(x => x.IdOcupacion == persona.IdOcupacion) : ocup.FirstOrDefault();
             if (persona != null)
             {
                 Identificacion = persona.Identificacion;
@@ -168,7 +168,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 IdRol = RolModel.IdRol,
                 IdTipoIdentity = TipoIdentificacion.IdTipoIdentity,
                 Telefono = Telefono,
-                IdOcupacion = Ocupacionmodel.IdOcupacion,
+                IdOcupacion = Ocupacionmodel != null ? Ocupacionmodel.IdOcupacion : OcupacionList.FirstOrDefault().IdOcupacion,
                 NumeroEmergencia1 = Numemergencia1,
                 NumeroEmergencia2 = Numemergencia2
             };
@@ -208,7 +208,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 IdRol = RolModel.IdRol,
                 IdTipoIdentity = TipoIdentificacion.IdTipoIdentity,
                 Telefono = Telefono,
-                IdOcupacion = Ocupacionmodel.IdOcupacion,
+                IdOcupacion = Ocupacionmodel != null ? Ocupacionmodel.IdOcupacion : OcupacionList.FirstOrDefault().IdOcupacion,
                 NumeroEmergencia1 = Numemergencia1,
                 NumeroEmergencia2 = Numemergencia2
             };
@@ -265,9 +265,9 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 return false;
             }
 
-            if (!_helpService.IsNullOrWhiteSpaceAndNumber(Numemergencia1))
+            if (!_helpService.IsNullOrWhiteSpaceAndNumber(Numemergencia1, true))
             {
-                _dialog?.ShowDialog("Numero de Emergencia 1 es incorrecto o no tiene valor", owner: win);
+                _dialog?.ShowDialog("Numero de Emergencia 1 es incorrecto", owner: win);
                 return false;
             }
             
@@ -288,11 +288,6 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 _dialog?.ShowDialog("No hay un Rol Seleccionado", owner: win);
                 return false;
             }
-            if (Ocupacionmodel == null)
-            {
-                _dialog?.ShowDialog("No hay una Ocupacion Seleccionada", owner: win);
-                return false;
-            }
             return true;
         }
 
@@ -308,7 +303,8 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             _config = null;
             _OcupacionService = null;
             TipoIdentificacion = null;
-            TipoIdentificacionList = null;GeneroList = null;
+            TipoIdentificacionList = null;
+            GeneroList = null;
             RolList = null;
             OcupacionList = null;
             Ocupacionmodel = null;

@@ -43,9 +43,9 @@
                             </Grid.ColumnDefinitions>
                             <ui:SymbolIcon VerticalAlignment="Center" Margin="10,0,10,0" Symbol="PersonRunning20" FontSize="28"></ui:SymbolIcon>
                             <StackPanel Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding GetFechaRutina}" TextWrapping="Wrap" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
+                                <TextBlock Text="{Binding GetFechaRutina}" TextWrapping="Wrap" FontSize="16" FontFamily="segoe ui semibold"></TextBlock>
                                 <TextBlock Text="{Binding GetMonto}" TextWrapping="Wrap" Opacity="0.8"></TextBlock>
-                                <TextBlock Text="{Binding TipoPago}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"></TextBlock>
+                                <TextBlock Text="{Binding TipoPago}" TextWrapping="Wrap" FontSize="14" Opacity="0.7"></TextBlock>
                             </StackPanel>
                             <UniformGrid Columns="1" Grid.Column="2">
                                 <ui:Button Icon="Edit20" Name="btnEdit" Click="btnEdit_Click" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" Cursor="Hand"></ui:Button>

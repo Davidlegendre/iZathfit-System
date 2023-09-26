@@ -181,6 +181,11 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             return true;
         }
 
+        [RelayCommand]
+        void SelectedAllServicios() {
+            Servicios?.AsList().ForEach(x => x.IsSelected = true);
+        }
+
         public void Dispose()
         {
             _planservice = null;

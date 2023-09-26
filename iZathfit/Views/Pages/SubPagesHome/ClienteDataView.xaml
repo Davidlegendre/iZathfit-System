@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="822">
     <DockPanel LastChildFill="{Binding Lastchild}">
-        <ui:Button Name="btnback" Content="Volver" HorizontalContentAlignment="Left" VerticalAlignment="Top" DockPanel.Dock="{Binding DockPanels}" Command="{Binding ViewRelojPanelCommand}" Margin="7,7,0,5" Icon="ChevronLeft20"></ui:Button>
+        <ui:Button Name="btnback" IconFilled="True" FontSize="20" Height="48" Width="48" HorizontalContentAlignment="Center" VerticalAlignment="Top" DockPanel.Dock="{Binding DockPanels}" Command="{Binding ViewRelojPanelCommand}" Margin="7,7,0,5" Icon="ChevronLeft24"></ui:Button>
         <Separator VerticalAlignment="Top" DockPanel.Dock="{Binding DockPanels}"></Separator>
         <ScrollViewer DockPanel.Dock="{Binding DockPanels}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <DockPanel LastChildFill="{Binding Lastchild}">
@@ -21,7 +21,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <ui:SymbolIcon Symbol="DataArea24" FontSize="22"></ui:SymbolIcon>
-                                <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="7,0,7,0" Text="Datos Generales del Usuario"></TextBlock>
+                                <TextBlock Grid.Column="1" FontFamily="Segoe ui semibold" VerticalAlignment="Center" Margin="7,0,7,0" Text="Datos Generales del Usuario"></TextBlock>
                             </Grid>
                         </ui:CardExpander.Header>
                         <StackPanel>
@@ -34,11 +34,11 @@
                                 <TextBlock Text="Nombres" VerticalAlignment="Center" FontFamily="Segoe Ui Semibold" Grid.Column="1" Margin="10,0,0,0"></TextBlock>
                             </Grid>
                             <Separator Margin="0,7,0,7"></Separator>
-                            <TextBlock Text="{Binding DataUserModel.Persona.GetCompleteName}"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.Persona.GetIdentificacion}" FontSize="12" Opacity="0.7"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.Persona.Ocupacion}" FontSize="12" Opacity="0.7"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.Persona.GetNumerosEmergencias}" FontSize="12" Opacity="0.7"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.Persona.GetTelefono}" FontSize="12" Opacity="0.7"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.GetCompleteName}" FontFamily="Segoe UI Semibold" ></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.GetIdentificacion}" FontFamily="Segoe UI Semibold"  FontSize="14" Opacity="0.7"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.Ocupacion}" FontFamily="Segoe UI Semibold"  FontSize="14" Opacity="0.7"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.GetNumerosEmergencias}" FontFamily="Segoe UI Semibold"  FontSize="14" Opacity="0.7"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.Persona.GetTelefono}" FontFamily="Segoe UI Semibold"  FontSize="14" Opacity="0.7"></TextBlock>
                             <Separator Margin="0,7,0,7"></Separator>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -49,14 +49,14 @@
                                 <TextBlock Text="Estadisticas Globales" VerticalAlignment="Center" FontFamily="Segoe Ui Semibold" Grid.Column="1" Margin="10,0,0,0"></TextBlock>
                             </Grid>
                             <Separator Margin="0,7,0,7"></Separator>
-                            <TextBlock Text="{Binding DataUserModel.GetContratosContratados}" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.GetContratosPagados}" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.GetContratosAdeudados}" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.GetCantidadFaltante}" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.GetContratosVencidosNoPagos}" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.GetCantidadPagada}" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.GetUltimaFechadePago}" HorizontalAlignment="Left" MaxWidth="255" TextWrapping="Wrap"></TextBlock>
-                            <TextBlock Text="{Binding DataUserModel.GetUltimoContratoPagado}" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetContratosContratados}" FontFamily="Segoe UI Semibold"  TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetContratosPagados}" FontFamily="Segoe UI Semibold"  TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetContratosAdeudados}" FontFamily="Segoe UI Semibold"  TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetCantidadFaltante}" FontFamily="Segoe UI Semibold"  TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetContratosVencidosNoPagos}" FontFamily="Segoe UI Semibold"  TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetCantidadPagada}" FontFamily="Segoe UI Semibold"  TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetUltimaFechadePago}" FontFamily="Segoe UI Semibold"  HorizontalAlignment="Left" MaxWidth="255" TextWrapping="Wrap"></TextBlock>
+                            <TextBlock Text="{Binding DataUserModel.GetUltimoContratoPagado}" FontFamily="Segoe UI Semibold"  TextWrapping="Wrap"></TextBlock>
                         </StackPanel>
                     </ui:CardExpander>
                 </StackPanel>
@@ -132,13 +132,13 @@
                                         <TextBlock Margin="0,20,0,20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding NombreContrato}" FontSize="16" FontFamily="segoe ui semibold"></TextBlock>
                                         <Separator VerticalAlignment="Bottom"></Separator>
                                         <StackPanel Grid.Row="1" Margin="10">
-                                            <TextBlock Text="{Binding GetPrecioTotal}"  TextWrapping="Wrap"></TextBlock>
-                                            <TextBlock Text="{Binding GetUtimoPago}" Opacity="0.9" TextWrapping="Wrap"></TextBlock>
-                                            <TextBlock Text="{Binding GetPagoFaltante}"  Opacity="0.9"  TextWrapping="Wrap"></TextBlock>
-                                            <TextBlock Text="{Binding GetFechaContrato}" Opacity="0.7" FontSize="12" TextWrapping="Wrap"></TextBlock>
-                                            <TextBlock Text="{Binding GetFechaFinal}" Opacity="0.7" FontSize="12" TextWrapping="Wrap"></TextBlock>
-                                            <TextBlock Text="{Binding NombrePlan}" Opacity="0.7" FontSize="12" TextWrapping="Wrap"></TextBlock>
-                                            <TextBlock Text="{Binding Servicios}" Opacity="0.7" FontSize="12" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding GetPrecioTotal}" FontFamily="Segoe UI Semibold" FontSize="16"  TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding GetUtimoPago}" FontFamily="Segoe UI Semibold"  Opacity="0.9" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding GetPagoFaltante}" FontFamily="Segoe UI Semibold"   Opacity="0.9" FontSize="16"   TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding GetFechaContrato}" FontFamily="Segoe UI Semibold"  Opacity="0.7" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding GetFechaFinal}" FontFamily="Segoe UI Semibold"  Opacity="0.7" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding NombrePlan}" FontFamily="Segoe UI Semibold"  Opacity="0.7" FontSize="16" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Text="{Binding Servicios}" FontFamily="Segoe UI Semibold"  Opacity="0.7" FontSize="16" TextWrapping="Wrap"></TextBlock>
                                             
                                         </StackPanel>
                                     </Grid>

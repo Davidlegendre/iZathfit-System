@@ -41,9 +41,9 @@ namespace Services.Contratos
             return await _repo.SetContratoNotValid(idcontrato, idnotvalid, description);    
         }
 
-        public async Task<bool> UpdateContrato(Guid idcontrato, DateTime fechafinal, string numerocontrato)
+        public async Task<bool> UpdateContrato(ContratoModel contrato)
         {
-            return await _repo.UpdateContrato(idcontrato, fechafinal, numerocontrato);
+            return await _repo.UpdateContrato(contrato);
         }
     }
 }

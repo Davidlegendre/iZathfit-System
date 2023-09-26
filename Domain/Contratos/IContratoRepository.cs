@@ -13,7 +13,7 @@ namespace Domain.Contratos
         public Task<List<ContratoModel>?> SelectOneContratoPerDNIPerson(string identificacion);
         public Task<bool> InsertContrato(ContratoModel contrato);
         public Task<bool> SetContratoNotValid(Guid idcontrato, bool idnotvalid, string description);
-        public Task<bool> UpdateContrato(Guid idcontrato, DateTime fechafinal, string numerocontrato);
+        public Task<bool> UpdateContrato(ContratoModel contrato);
         public Task<List<ContratoModel>?> SearchContratoByPersona(Guid IdPersona);
     }
 }

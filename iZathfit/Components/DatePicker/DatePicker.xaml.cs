@@ -33,7 +33,7 @@ namespace iZathfit.Components.DatePicker
 
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
-           
+         
         }
 
         string _MonthSeleted = "";

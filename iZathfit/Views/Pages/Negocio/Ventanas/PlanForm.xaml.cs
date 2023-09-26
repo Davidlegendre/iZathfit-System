@@ -45,7 +45,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         private async void PlanForm_Loaded(object sender, RoutedEventArgs e)
         {
             tbtitle.Title = _model == null ? "Agregar" : "Modificar";
-         
+            btnlimpiar.Visibility = _model == null ? Visibility.Visible : Visibility.Collapsed;
             if (_vm != null)
             {
                 if (!await _vm.Cargar(this, _model))

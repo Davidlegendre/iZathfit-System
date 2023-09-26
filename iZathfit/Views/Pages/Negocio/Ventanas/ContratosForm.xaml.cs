@@ -44,6 +44,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             tbtitle.Title = "Agregar";
             if (await _vm.Cargardatos(this) == false) Close();
             datepicker.DateSelect = _vm.Dateselected;
+            fechaINiCIO.DateSelect = _vm.FechaInicio;
         }
 
         private async void btnadd_Click(object sender, RoutedEventArgs e)
@@ -72,13 +73,15 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             _vm.TitlePromociones = "Promociones (No hay para el plan)";
             _vm.SelectedTipoPago = null;
             _vm.CodigoContrato = "";
-            _vm.Dateselected = DateTime.Now;
+            datepicker.DateSelect = DateTime.Now;
+            fechaINiCIO.DateSelect = DateTime.Now;
             Cbuscapersona.PersonaSelected = null;
         }
 
         private void planSelect_Change(object sender, SelectionChangedEventArgs e)
         {
             if (_vm == null) return;
+            fechaINiCIO.DateSelect = DateTime.Now;
             _vm.Cargarpromociones();
             _vm.cargarDatosCalculados();
             datepicker.DateSelect = _vm.Dateselected;
@@ -113,6 +116,15 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         public void Dispose()
         {
             _vm?.Dispose();
+        }
+
+        private void fechaINiCIO_DateSelectChanged(object sender, DateTime e)
+        {
+            if (_vm == null) return;
+            _vm.FechaInicio = e;
+            _vm.cargarDatosCalculados();
+            datepicker.DateSelect = _vm.Dateselected;
+
         }
     }
 }

@@ -311,6 +311,8 @@ public partial class HomePageVM : ObservableObject, IDisposable
 	[ObservableProperty]
 	SymbolRegular _iconIndicator = SymbolRegular.Home20;
 
+	[ObservableProperty]
+	Visibility _protectorVisible = Visibility.Collapsed;
 
 	[RelayCommand]
 	void cerrarSesion() {
@@ -344,6 +346,7 @@ public partial class HomePageVM : ObservableObject, IDisposable
 			menupanel.Width = !IsOpen ? 270 : 48;
 			IsOpen = !IsOpen;
 			HeightButtonItemMenu = !IsOpen ? 48 : null;
+			ProtectorVisible = IsOpen ? Visibility.Visible : Visibility.Collapsed;
         }
 	}
 

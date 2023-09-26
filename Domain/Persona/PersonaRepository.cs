@@ -148,6 +148,14 @@ namespace Domain.Persona
                     commandType: System.Data.CommandType.StoredProcedure);
 
                 await con.CloseAsync();
+
+                if (_helper.PolicyReturnBool(TypeRol.Dueño))
+                    results = results.Where(x => x.CodeRol != _generalConfiguration.GetRol(TypeRol.Desarrollador));
+                if (_helper.PolicyReturnBool(TypeRol.Administrador))
+                    results = results.Where(x => x.CodeRol != _generalConfiguration.GetRol(TypeRol.Desarrollador)
+                    && x.CodeRol != _generalConfiguration.GetRol(TypeRol.Dueño));
+
+
                 return  results.Count() == 0 ? null : results.AsList();
             }
         }

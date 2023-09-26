@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>
        
         <ContentPresenter x:Name="HOMEnavidation" Margin="48,0,0,0" Grid.Row="1" Content="{Binding UserControl, Mode=OneWay}"></ContentPresenter>
-      
+
 
         <Grid Height="48" Margin="0,0,0,0">
             <Grid.ColumnDefinitions>
@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1" MaxWidth="400" Margin="90,0,7,0">
-                <ui:Button Name="btnHome" Grid.Column="3" Appearance="Primary" Visibility="{Binding ButtonHome}" Margin="-34,8,0,8" Width="30"  Command="{Binding volverHomeCommand}"  IconFilled="True" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Stretch" Icon="Home20" Padding="2"></ui:Button>
+                <ui:Button Name="btnHome" Grid.Column="3" Foreground="White" FontSize="18" Appearance="Primary" Visibility="{Binding ButtonHome}" Margin="-34,8,0,8" Width="30"  Command="{Binding volverHomeCommand}"  IconFilled="True" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Stretch" Icon="ArrowForward24" Padding="2"></ui:Button>
 
                 <ui:Card Name="indicator" BorderThickness="1" HorizontalAlignment="Stretch" Padding="7,5,5,5">
                     <Grid >
@@ -44,7 +44,7 @@
                         </Grid.ColumnDefinitions>
 
                         <ui:SymbolIcon Name="icon" Grid.Column="1" Symbol="{Binding IconIndicator}" Filled="True"></ui:SymbolIcon>
-                        <TextBlock Grid.Column="2" Text="{Binding Bienvenidatexto}" HorizontalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True" TextTrimming="CharacterEllipsis" ToolTip="{Binding Bienvenidatexto}" FontFamily="Segoe UI Semibold" FontSize="12" VerticalAlignment="Center" Padding="10,0,10,0"></TextBlock>
+                        <TextBlock Grid.Column="2" Text="{Binding Bienvenidatexto}" HorizontalAlignment="Center" WindowChrome.IsHitTestVisibleInChrome="True" TextTrimming="CharacterEllipsis" ToolTip="{Binding Bienvenidatexto}" FontFamily="Segoe UI Semibold" FontSize="14" VerticalAlignment="Center" Padding="10,0,10,0"></TextBlock>
                         <ui:Button Name="btnnotify" Grid.Column="3" Appearance="{Binding Apariencia}" Command="{Binding OpenPanelNotificacionCommand}" CommandParameter="{Binding ElementName=notifyPanel}" IconFilled="{Binding IsPromos}" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Stretch" Icon="Alert20" Padding="2"></ui:Button>
                     </Grid>
                 </ui:Card>
@@ -78,8 +78,8 @@
                                                         <TextBlock Text=" = " Opacity="0.7"></TextBlock>
                                                         <TextBlock Grid.Column="2" Text="{Binding GetTotalEnDescuento}" Opacity="0.7"></TextBlock>
                                                     </StackPanel>
-                                                    <TextBlock Text="{Binding GetValidDatetime}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"></TextBlock>
-                                                    <TextBlock Text="{Binding GetFaltaDias}" FontSize="12" Opacity="0.7"></TextBlock>
+                                                    <TextBlock Text="{Binding GetValidDatetime}" TextWrapping="Wrap" FontSize="14" Opacity="0.7"></TextBlock>
+                                                    <TextBlock Text="{Binding GetFaltaDias}" FontSize="14" Opacity="0.7"></TextBlock>
                                                 </StackPanel>
                                             </Grid>
                                         </ui:Card>
@@ -103,10 +103,10 @@
                     <ui:SymbolIcon Symbol="{Binding IconAccount}" FontSize="22"></ui:SymbolIcon>
                 </ui:Badge>
                 <ui:Button Name="btnmenuusuario" FontFamily="Segoe UI Semibold" Foreground="{Binding Foreground,ElementName=icon}" Click="btnmenuusuario_Click" Margin="5,7,7,7" Appearance="Primary" Grid.Column="3" Padding="7" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalContentAlignment="Left" Content="{Binding Iniciales}" IconFilled="True" VerticalAlignment="Stretch"/>
-                
+
             </StackPanel>
         </Grid>
-
+        <Rectangle x:Name="protector" MouseDown="protector_MouseDown" Visibility="{Binding ProtectorVisible}" Grid.RowSpan="2" Fill="Black" Opacity="0.45" ></Rectangle>
         <ui:Card Name="menu" Tag="{Binding HeightButtonItemMenu}" Grid.RowSpan="2" Padding="0,0,0,0" Width="48" Background="{ui:ThemeResource}" BorderThickness="0,0,1,0" HorizontalAlignment="Left" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid>
                 <Grid.RowDefinitions>

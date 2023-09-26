@@ -30,7 +30,7 @@
             <StackPanel Margin="7">
                 <Label Content="Persona" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
                 <component:BuscarPersonaComponent x:Name="Cbuscarpersona" selectedChanged="Cbuscarpersona_selectedChanged"></component:BuscarPersonaComponent>
-                <ui:TextBox Name="txtpadecimiento"  Text="{Binding Padecimientotxt}" KeyDown="txtpadecimiento_KeyDown"
+                <ui:TextBox ClearButtonEnabled="False" Name="txtpadecimiento"  Text="{Binding Padecimientotxt}" KeyDown="txtpadecimiento_KeyDown"
                             Margin="0,5,0,0" PlaceholderText="Escriba el Padecimiento"></ui:TextBox>
                 <ui:Button HorizontalAlignment="Stretch"  Icon="Add20" Content="Agregar Padecimiento" Click="btnaddpadecimiento_click" Margin="0,5,0,0"></ui:Button>
             </StackPanel>

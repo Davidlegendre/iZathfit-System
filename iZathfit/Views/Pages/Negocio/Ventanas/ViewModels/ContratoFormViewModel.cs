@@ -74,7 +74,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         string? _codigoContrato = "";
 
         [ObservableProperty]
-        string? _fechaInicio = _nohayplanseleccionadotexto;
+        DateTime _fechaInicio = DateTime.Now;
 
         [ObservableProperty]
         string? _fechaFin = _nohayplanseleccionadotexto;
@@ -131,7 +131,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 
         public void cargarDatosCalculados() {
             if (SelectedPlan == null) {
-                FechaInicio = _nohayplanseleccionadotexto;
+                FechaInicio = DateTime.Now;
                 FechaFin = _nohayplanseleccionadotexto;
                 Subtotal = "0.00 S/";
                 Descuento = "0 %";
@@ -139,8 +139,9 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 Dateselected = DateTime.Now;
                 return;
             }
-            Dateselected = DateTime.Now.AddMonths(SelectedPlan.MesesTiempo);
-            FechaInicio = DateTime.Now.Date.ToLongDateString();
+
+            Dateselected = FechaInicio.AddMonths(SelectedPlan.MesesTiempo);
+           
             FechaFin = "Fecha Calculada Final: " +  Dateselected.ToLongDateString();
             
             Subtotal = SelectedPlan.GetPrecioString;
@@ -160,6 +161,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 ValorTotal = SelectedPromo != null ? SelectedPromo.GetTotalDescuento : SelectedPlan.Precio,
                 Descuento = SelectedPromo != null ? SelectedPromo.DescuentoPercent : 0,
                 ValorOriginal = SelectedPlan.Precio,
+                FechaInicio = FechaInicio,
                 FechaFinal = Dateselected.Date,
                 NumeroContrato = CodigoContrato,
                 FechaFinalReal = DateTime.Parse(FechaFin.Split(": ")[1]),
@@ -177,7 +179,16 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             if(!validarUpdate(win)) return false;
             if (_dialog?.ShowDialog("Desea modificar este contrato?", ShowCancelButton: true, owner: win) == false) return false;
 
-            var result = await _helperexcep.ExcepHandler(() => _contratosService.UpdateContrato(idcontrato, Dateselected.Date, CodigoContrato), win);
+            var contrato = new ContratoModel()
+            {
+                IdContrato = idcontrato,
+                FechaFinal = Dateselected.Date,
+                NumeroContrato = CodigoContrato,
+                FechaInicio = FechaInicio,
+                FechaFinalReal = DateTime.Parse(FechaFin.Split(": ")[1])
+            };
+
+            var result = await _helperexcep.ExcepHandler(() => _contratosService.UpdateContrato(contrato), win);
             _dialog.ShowDialog(result ? "Contrato modificado correctamente" : "Contrato rechazado", owner: win);
             return result;
 
@@ -188,11 +199,6 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             if (_helpers.IsNullOrWhiteSpaceAndNumber(CodigoContrato))
             {
                 _dialog?.ShowDialog("Codigo de contrato fisico no esta ingresado o es incorrecto", owner: win);
-                return false;
-            }
-            if (Dateselected.Date == DateTime.Now.Date)
-            {
-                _dialog?.ShowDialog("Selecione una fecha final", owner: win);
                 return false;
             }
             if (Dateselected.Date < DateTime.Parse(FechaFin.Split(": ")[1]).Date)
@@ -225,16 +231,22 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 _dialog?.ShowDialog("Codigo de contrato fisico no esta ingresado o es incorrecto", owner: win);
                 return false;
             }
+            if (FechaInicio.Date < DateTime.Now.Date)
+            {
+                _dialog?.ShowDialog("Fecha de Inicio no puede ser menor a hoy", owner: win);
+                return false;
+            }
             if (Dateselected.Date == DateTime.Now.Date)
             {
                 _dialog?.ShowDialog("Selecione una fecha final", owner: win);
                 return false;
             }
-            if (Dateselected.Date < DateTime.Now.AddMonths(SelectedPlan.MesesTiempo).Date)
+            if (Dateselected.Date < FechaInicio.AddMonths(SelectedPlan.MesesTiempo).Date)
             {
                 _dialog?.ShowDialog("La fecha final no debe ser menor a la calculada", owner: win);
                 return false;
             }
+            
             return true;
         }
 

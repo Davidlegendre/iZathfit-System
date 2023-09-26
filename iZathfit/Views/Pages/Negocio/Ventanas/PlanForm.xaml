@@ -10,7 +10,7 @@
         WindowBackdropType="Mica"
         Background="{ui:ThemeResource}"
         mc:Ignorable="d"
-        Title="PlanForm" Height="479" MinWidth="0" MinHeight="0" Width="307" WindowStartupLocation="CenterScreen">
+        Title="PlanForm" Height="497" MinWidth="0" MinHeight="0" Width="307" WindowStartupLocation="CenterScreen">
     <ui:UiWindow.DataContext>
         <viewmodels:PlanFormViewModel></viewmodels:PlanFormViewModel>
     </ui:UiWindow.DataContext>
@@ -32,10 +32,12 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <ui:NumberBox Name="nbPrecio" Margin="7,0,7,7" Text="{Binding Preciotexto}" PlaceholderText="Precio" Minimum="1" MaxDecimalPlaces="2" Icon="Money16" Cursor="IBeam"></ui:NumberBox>
-            <ui:TextBox Margin="7,0,7,7" Text="{Binding Descripcion}" PlaceholderText="Descripcion (opcional)" MaxLength="100" Icon="TextDescription20"></ui:TextBox>
-            <TextBlock Text="Servicios" Foreground="{Binding Foreground,ElementName=tbtitle}" FontSize="14" Opacity="0.8" Padding="7"></TextBlock>           
+            <ui:NumberBox ClearButtonEnabled="False" Name="nbPrecio" Margin="7,0,7,7" Text="{Binding Preciotexto}" PlaceholderText="Precio" Minimum="1" MaxDecimalPlaces="2" Icon="Money16" Cursor="IBeam"></ui:NumberBox>
+            <ui:TextBox ClearButtonEnabled="False" Margin="7,0,7,7" Text="{Binding Descripcion}" PlaceholderText="Descripcion (opcional)" MaxLength="100" Icon="TextDescription20"></ui:TextBox>
+            <TextBlock Text="Servicios" Foreground="{Binding Foreground,ElementName=tbtitle}" FontSize="14" Opacity="0.8" Padding="7"></TextBlock>
+            <ui:Button Grid.Row="2" Command="{Binding SelectedAllServiciosCommand}" Icon="SelectAllOn20" Padding="5" Margin="7,0,0,7" Content="Seleccionar Todo"></ui:Button>
         </StackPanel>
+        
         <ui:VirtualizingItemsControl Margin="7,0,7,7" Grid.Row="2" ItemsSource="{Binding Servicios}">
             <ui:VirtualizingItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

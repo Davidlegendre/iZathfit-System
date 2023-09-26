@@ -21,7 +21,7 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
         <ui:TitleBar Name="TBTitulo" CanMaximize="False" Title="titulo" ShowMaximize="False"></ui:TitleBar>
-        <ui:TextBox Grid.Row="1" Name="txtocupacion" Text="{Binding Ocupaciontxt}" MaxLength="100" Margin="7" Icon="ContactCardRibbon20" PlaceholderText="Ocupacion" Height="40" VerticalAlignment="Top" ></ui:TextBox>
+        <ui:TextBox ClearButtonEnabled="False" Grid.Row="1" Name="txtocupacion" Text="{Binding Ocupaciontxt}" MaxLength="100" Margin="7" Icon="ContactCardRibbon20" PlaceholderText="Ocupacion" Height="40" VerticalAlignment="Top" ></ui:TextBox>
         <StackPanel Margin="7" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
             <ui:Button Name="btnGuardar" Click="btnGuardar_Click" Content="Guardar" Appearance="Success" Icon="Save24" Margin="7"></ui:Button>
             <ui:Button Name="btncancelar" Click="btncancelar_Click" Content="Cancelar" Icon="DismissSquare20" Margin="7"></ui:Button>

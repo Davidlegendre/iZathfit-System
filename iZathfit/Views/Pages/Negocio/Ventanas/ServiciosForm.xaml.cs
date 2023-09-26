@@ -40,6 +40,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
         {
             Dispose();
             DialogResult = resultdialog;
+            tpHorarioFin.TimeSelected = DateTime.Now.AddHours(1);
         }
 
         private void ServiciosForm_Loaded(object sender, RoutedEventArgs e)
@@ -55,6 +56,8 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
                 btnlimpiar.Visibility = Visibility.Collapsed;
                 uniformgridpanel.Columns = 2;
             }
+            else
+                tpHorarioFin.TimeSelected = DateTime.Now.AddHours(1);
         }
 
         private async void btnadd_Click(object sender, RoutedEventArgs e)

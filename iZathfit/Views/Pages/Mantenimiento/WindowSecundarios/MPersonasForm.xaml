@@ -43,18 +43,21 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
-            <ui:TextBox Name="txtidentificacion" Text="{Binding Identificacion}" MaxLength="20" Margin="5" Icon="ContactCard24" PlaceholderText="Identificación" Height="40" ></ui:TextBox>
-            <ui:TextBox Name="txtnombres" MaxLength="50" Text="{Binding Nombres}" Margin="5" Icon="Person20" PlaceholderText="Nombres" Height="40" ></ui:TextBox>
-            <ui:TextBox Name="txtapellidos" MaxLength="50" Text="{Binding Apellidos}" Margin="5" Icon="Person20" PlaceholderText="Apellidos" Height="40" ></ui:TextBox>
-            <ui:TextBox Name="txtdireccion" MaxLength="100" Text="{Binding Direccion}" Margin="5" Icon="Map20" PlaceholderText="Direccion (opcional)" Height="40" ></ui:TextBox>
-            <ui:TextBox Name="txttelefono" MaxLength="9" Text="{Binding Telefono}" Margin="5" Icon="Phone20" PlaceholderText="Telefono" Height="40" ></ui:TextBox>
-            <ui:TextBox Name="email" MaxLength="100" Text="{Binding Email}" Margin="5" Icon="Mail20" PlaceholderText="Email (opcional)" Height="40" ></ui:TextBox>
-            <ui:TextBox Name="txtNumEmergencia1" MaxLength="10" Text="{Binding Numemergencia1}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 1" Height="40" ></ui:TextBox>
-            <ui:TextBox Name="txtNumEmergencia2" MaxLength="10" Text="{Binding Numemergencia2}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 2 (opcional)" Height="40" ></ui:TextBox>
+            <StackPanel>
+                
+            </StackPanel>
+            <ui:TextBox Name="txtidentificacion" ClearButtonEnabled="False" Text="{Binding Identificacion}" MaxLength="20" Margin="5" Icon="ContactCard24" PlaceholderText="Identificación" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtnombres" ClearButtonEnabled="False" MaxLength="50" Text="{Binding Nombres}" Margin="5" Icon="Person20" PlaceholderText="Nombres" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtapellidos" ClearButtonEnabled="False" MaxLength="50" Text="{Binding Apellidos}" Margin="5" Icon="Person20" PlaceholderText="Apellidos" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtdireccion" ClearButtonEnabled="False" MaxLength="100" Text="{Binding Direccion}" Margin="5" Icon="Map20" PlaceholderText="Direccion (opcional)" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txttelefono" ClearButtonEnabled="False" MaxLength="9" Text="{Binding Telefono}" Margin="5" Icon="Phone20" PlaceholderText="Telefono" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="email" ClearButtonEnabled="False" MaxLength="100" Text="{Binding Email}" Margin="5" Icon="Mail20" PlaceholderText="Email (opcional)" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtNumEmergencia1" ClearButtonEnabled="False" MaxLength="10" Text="{Binding Numemergencia1}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 1 (opcional)" Height="40" ></ui:TextBox>
+            <ui:TextBox Name="txtNumEmergencia2" ClearButtonEnabled="False" MaxLength="10" Text="{Binding Numemergencia2}" Margin="5" Icon="PhoneAdd20" PlaceholderText="Numero de Emergencias 2 (opcional)" Height="40" ></ui:TextBox>
 
             <StackPanel
                 Margin="5">
-                <Label Content="Fecha de Nacimiento" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
+                <Label Content="Fecha de Nacimiento (opcional)" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
                 
                 <datepicker:DatePicker x:Name="datepicker" DateSelectChanged="datepicker_DateSelectChanged"></datepicker:DatePicker>
             </StackPanel>
@@ -84,7 +87,7 @@
 
             <StackPanel
                 Margin="5">
-                <Label Content="Ocupacion" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
+                <Label Content="Ocupacion (opcional)" Foreground="{Binding Foreground,ElementName=TBTitulo}" FontSize="14"></Label>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>

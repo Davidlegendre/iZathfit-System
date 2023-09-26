@@ -52,9 +52,9 @@
                             <StackPanel Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Center">
                                 <TextBlock Text="Pago" FontSize="14" FontFamily="segoe ui semibold"></TextBlock>
                                 <TextBlock Text="{Binding GetNumeroContrato}" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
-                                <TextBlock Text="{Binding NombrePersona}" TextWrapping="Wrap" Opacity="0.8"></TextBlock>
-                                <TextBlock Text="{Binding GetFechaPago}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"></TextBlock>
-                                <TextBlock Text="{Binding GetTotalFaltante}" TextWrapping="Wrap" FontSize="12" Opacity="0.7"></TextBlock>
+                                <TextBlock Text="{Binding NombrePersona}" TextWrapping="Wrap" FontFamily="segoe ui semibold" Opacity="0.8"></TextBlock>
+                                <TextBlock Text="{Binding GetFechaPago}" TextWrapping="Wrap" FontFamily="segoe ui semibold" FontSize="14" Opacity="0.7"></TextBlock>
+                                <TextBlock Text="{Binding GetTotalFaltante}" TextWrapping="Wrap" FontFamily="segoe ui semibold" FontSize="14" Opacity="0.7"></TextBlock>
                             </StackPanel>
                             <UniformGrid Columns="1" Grid.Column="2">
                                 <ui:Button Icon="Eye20" Name="btnView" Click="btnView_Click" VerticalAlignment="Stretch" Background="Transparent" BorderThickness="0" Cursor="Hand"></ui:Button>

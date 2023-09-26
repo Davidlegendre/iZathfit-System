@@ -13,7 +13,7 @@
                 <RowDefinition Height="auto"></RowDefinition>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ui:CardAction Name="clockcard" Click="Clock_click" IsChevronVisible="False" Grid.Row="1" VerticalAlignment="Stretch" Padding="0" ClipToBounds="True">
+            <ui:CardAction Name="clockcard" Click="Clock_click" Grid.Row="1" VerticalAlignment="Stretch" Padding="0,0,10,0">
                 <Grid Name="contenttime">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"></RowDefinition>
@@ -37,7 +37,9 @@
                         <Label Grid.Column="2" Content="{Binding YearSelected}" BorderBrush="{Binding Background,ElementName=clockcard}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Foreground="{Binding Foreground,ElementName=clockcard}"></Label>
                     </Grid>
                     <ui:Flyout Margin="0" Padding="0">
-                        <Calendar x:Name="calendar" DisplayDate="{Binding DateSelect}" SelectionMode="SingleDate" SelectedDate="{Binding DateSelect}" Width="{Binding ActualWidth,ElementName=contenttime}"></Calendar>
+                        <ui:Card>
+                            <Calendar x:Name="calendar" DisplayDate="{Binding DateSelect}" SelectedDate="{Binding DateSelect}" Width="{Binding ActualWidth,ElementName=contenttime}"/>
+                        </ui:Card>
                     </ui:Flyout>
                 </Grid>
             </ui:CardAction>
