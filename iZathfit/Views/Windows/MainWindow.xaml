@@ -17,7 +17,6 @@
         <viewmodel:MainWindowViewModel></viewmodel:MainWindowViewModel>
     </Window.DataContext>
     <Grid x:Name="content" >
-        
         <ContentPresenter x:Name="NavigationView"/>
     </Grid>
 </ui:UiWindow>

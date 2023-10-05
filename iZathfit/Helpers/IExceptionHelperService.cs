@@ -14,7 +14,7 @@ namespace iZathfit.Helpers
     public interface IExceptionHelperService
     {
         
-        public Task<T?> ExcepHandler<T>(Func<Task<T>> accion, UiWindow owner);
-        public Task<bool> ExcepHandler(Func<Task> accion, UiWindow owner);
+        public Task<T?> ExcepHandler<T>(Func<Task<T>> accion, UiWindow owner, bool ShowMsn = true);
+        public Task<bool> ExcepHandler(Func<Task> accion, UiWindow owner, bool ShowMsn = true);
     }
 }

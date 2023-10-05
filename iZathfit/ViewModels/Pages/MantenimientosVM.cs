@@ -107,6 +107,10 @@ namespace iZathfit.ViewModels.Pages
         [ObservableProperty]
         bool _enabledMenuMantenimiento = true;
 
+
+        [ObservableProperty]
+        int _columns = 4;
+
         [RelayCommand]
         void ChangeTONormal() {
             Listahorizontalaligment = HorizontalAlignment.Stretch;

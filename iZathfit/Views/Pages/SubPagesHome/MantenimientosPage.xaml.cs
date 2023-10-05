@@ -1,4 +1,5 @@
-﻿using iZathfit.ModelsComponents;
+﻿using Configuration.GlobalHelpers;
+using iZathfit.ModelsComponents;
 using iZathfit.ViewModels.Pages;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,23 @@ namespace iZathfit.Views.Pages.SubPagesHome
     /// </summary>
     public partial class MantenimientosPage : UserControl, IDisposable
     {
+        IGlobalHelpers? _helpers;
         MantenimientosVM? _vm;
         public MantenimientosPage()
         {
             InitializeComponent();
+            _helpers = App.GetService<IGlobalHelpers>();
             _vm = this.DataContext as MantenimientosVM;
             this.Loaded += MantenimientosPage_Loaded;
+            this.SizeChanged += MantenimientosPage_SizeChanged;
+        }
+
+        private void MantenimientosPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(_vm != null && _helpers != null)
+            {
+                _vm.Columns = _helpers.ColumnsFromWidthWindow(Convert.ToInt32(this.ActualWidth));
+            }
         }
 
         private void MantenimientosPage_Loaded(object sender, RoutedEventArgs e)

@@ -22,7 +22,7 @@
             </ui:VirtualizingItemsControl.ItemsPanel>
             <ui:VirtualizingItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <ui:CardAction Click="ActionToCommand_Click" Visibility="{Binding Visible}" Width="270" Margin="10" Height="270" Cursor="Hand" IsChevronVisible="False">
+                    <ui:CardAction Click="ActionToCommand_Click" Visibility="{Binding Visible}" Width="270" Margin="7" Height="270" Cursor="Hand" IsChevronVisible="False">
                         <Grid HorizontalAlignment="Center">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto"></RowDefinition>
@@ -39,7 +39,7 @@
                 </DataTemplate>
             </ui:VirtualizingItemsControl.ItemTemplate>
         </ui:VirtualizingItemsControl>
-        <ui:Card Name="contenidowin" Margin="7,0,7,7" BorderThickness="4" Visibility="{Binding VisibilityCardWin}" Background="{ui:ThemeResource}" VerticalContentAlignment="Stretch" Padding="2" VerticalAlignment="Stretch">
+        <ui:Card Name="contenidowin" BorderThickness="0,1,0,0" Visibility="{Binding VisibilityCardWin}" Background="{ui:ThemeResource}" VerticalContentAlignment="Stretch" Padding="2" VerticalAlignment="Stretch">
             
             <Grid>
                 <Grid VerticalAlignment="Top">

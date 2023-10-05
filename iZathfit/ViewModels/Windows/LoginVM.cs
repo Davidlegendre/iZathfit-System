@@ -109,31 +109,39 @@ public partial class LoginVM : ObservableObject, IDisposable
             return;
         }
         GuidPersonForgot = existemail;
-        var code = _crypto?.GetHashString(email + DateTime.Now + new Random().Next(1,99));
-        using(var client = _factoryclient?.CreateClient())
+        var result = await _helperex.ExcepHandler(async () =>
         {
-            var mail = new EmailModelApi() {
-                body = "Mensaje desde iZathFit, alguien ha pedido restaurar contraseña, por favor ingresa este codigo: " + code,
-                isHTMLBody = false,
-                subject = "Forgot Password iZathFit",
-                toUser = new List<ToUser>() { 
+            var code = _crypto?.GetHashString(email + DateTime.Now + new Random().Next(1, 99));
+            using (var client = _factoryclient?.CreateClient())
+            {
+                var mail = new EmailModelApi()
+                {
+                    body = "Mensaje desde iZathFit, alguien ha pedido restaurar contraseña, por favor ingresa este codigo: " + code,
+                    isHTMLBody = false,
+                    subject = "Forgot Password iZathFit",
+                    toUser = new List<ToUser>() {
                     new ToUser()
                     {
                         email = email,
                         nombre = "Client iZathFit"
                     }
                 }
-            };
-            var json = JsonConvert.SerializeObject(mail);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var result = await client.PostAsync("https://mailservice-xgyv-dev.fl0.io/api/Mail/send", content);
-            if (result.IsSuccessStatusCode)
-            {
-                CodeEmail = code;
-                EnableCodeTXT= true;
-                EnableEmailtxt = false;
+                };
+                var json = JsonConvert.SerializeObject(mail);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var result = await client.PostAsync("https://mailservice-xgyv-dev.fl0.io/api/Mail/send", content);
+                if (result.IsSuccessStatusCode)
+                {
+                    CodeEmail = code;
+                    EnableCodeTXT = true;
+                    EnableEmailtxt = false;
+                }
             }
-        }
+        }, App.GetService<MainWindow>(), ShowMsn: false);
+        if (!result)
+            localDialogService?.ShowDialog(titulo: "Error",
+                    mensaje: "Ocurrio un erro al enviar el codigo, verifique su internet",
+                    owner: App.GetService<MainWindow>());
 
         //envio email
     }

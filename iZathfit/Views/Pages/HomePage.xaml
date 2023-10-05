@@ -107,8 +107,8 @@
             </StackPanel>
         </Grid>
         <Rectangle x:Name="protector" MouseDown="protector_MouseDown" Visibility="{Binding ProtectorVisible}" Grid.RowSpan="2" Fill="Black" Opacity="0.45" ></Rectangle>
-        <ui:Card Name="menu" Tag="{Binding HeightButtonItemMenu}" Grid.RowSpan="2" Padding="0,0,0,0" Width="48" Background="{ui:ThemeResource}" BorderThickness="0,0,1,0" HorizontalAlignment="Left" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid>
+        <ui:Card Name="menu"  Tag="{Binding HeightButtonItemMenu}" Grid.RowSpan="2" Padding="0,0,0,0" Width="48" Background="{ui:ThemeResource}" BorderThickness="0,0,1,0" HorizontalAlignment="Left" VerticalContentAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid ClipToBounds="True">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>

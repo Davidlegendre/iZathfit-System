@@ -23,7 +23,7 @@ namespace iZathfit.Helpers
             _globalHelpers = globalHelpers;
         }
 
-        public async Task<T?> ExcepHandler<T>(Func<Task<T>> accion, UiWindow owner)
+        public async Task<T?> ExcepHandler<T>(Func<Task<T>> accion, UiWindow owner, bool ShowMsn = true)
         {
             try
             {
@@ -31,13 +31,14 @@ namespace iZathfit.Helpers
             }
             catch (Exception ex)
             {
-                _dialog.ShowDialog(mensaje: "No se alarme, solo contacte a algun desarrollador en caso de dudas\n\nError: " + ex.Message,
-                    titulo: "Ups",
-                    links: _globalHelpers.GetLinksContacts(), owner: owner);
+                if (ShowMsn)
+                    _dialog.ShowDialog(mensaje: "No se alarme, solo contacte a algun desarrollador en caso de dudas\n\nError: " + ex.Message,
+                        titulo: "Ups",
+                        links: _globalHelpers.GetLinksContacts(), owner: owner);
                 return default;
             }
         }
-        public async Task<bool> ExcepHandler(Func<Task> accion, UiWindow owner)
+        public async Task<bool> ExcepHandler(Func<Task> accion, UiWindow owner, bool ShowMsn = true)
         {
             try
             {
@@ -46,9 +47,10 @@ namespace iZathfit.Helpers
             }
             catch (Exception ex)
             {
-                _dialog.ShowDialog(mensaje: "No se alarme, solo contacte a algun desarrollador en caso de dudas\n\nError: " + ex.Message,
-                    titulo: "Ups",
-                    links: _globalHelpers.GetLinksContacts(), owner: owner);
+                if (ShowMsn)
+                    _dialog.ShowDialog(mensaje: "No se alarme, solo contacte a algun desarrollador en caso de dudas\n\nError: " + ex.Message,
+                        titulo: "Ups",
+                        links: _globalHelpers.GetLinksContacts(), owner: owner);
                 return false;
             }
         }

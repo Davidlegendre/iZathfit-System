@@ -1,4 +1,6 @@
-﻿using iZathfit.ViewModels.Windows;
+﻿using iZathfit.Helpers;
+using iZathfit.ViewModels.Windows;
+using iZathfit.Views.Windows;
 using System.Net.NetworkInformation;
 using System.Windows.Controls;
 
@@ -10,13 +12,15 @@ namespace iZathfit.Views.Pages;
 public partial class LoginPage : UserControl, IDisposable
 {
     localDialogService? localDialogService;
-    
+    IExceptionHelperService? _helperexcep;
+
     LoginVM? vm;
     public LoginPage()
     {
         InitializeComponent();
         this.localDialogService = App.GetService<localDialogService>();
         vm = this.DataContext as LoginVM;
+        _helperexcep = App.GetService<IExceptionHelperService>();
         this.Loaded += LoginPage_Loaded;
     }
 
@@ -56,9 +60,12 @@ public partial class LoginPage : UserControl, IDisposable
             }
     }
 
-    private void linkForgot_Click(object sender, RoutedEventArgs e)
+    private async void linkForgot_Click(object sender, RoutedEventArgs e)
     {
-        if (!NetworkInterface.GetIsNetworkAvailable())
+        if (_helperexcep == null) return;
+        var result = await _helperexcep.ExcepHandler(() => new Ping().SendPingAsync("www.google.com"), App.GetService<MainWindow>(), 
+            ShowMsn: false);
+        if (result == null || result.Status != IPStatus.Success)
         {
             localDialogService?.ShowDialog(
                 mensaje: "No podemos iniciar este proceso, ya que no tiene internet, conectese primero",
