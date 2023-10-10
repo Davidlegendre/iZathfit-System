@@ -60,7 +60,6 @@ namespace Domain.Contratos
                         @IdPersona = contrato.IdPersona,
                         @IdUsuario = user.idUsuario,
                         @ValorTotal = contrato.ValorTotal,
-                        @Descuento = contrato.Descuento,
                         @ValorOriginal = contrato.ValorOriginal,
                         @FechaFinal = contrato.FechaFinal,
                         @NumeroContrato = contrato.NumeroContrato,

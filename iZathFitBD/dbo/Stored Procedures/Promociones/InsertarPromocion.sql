@@ -1,9 +1,9 @@
 ﻿CREATE PROCEDURE [dbo].[InsertarPromocion]
 	@IdPlan int, @IdUsuario uniqueidentifier,
-	@DescuentoPercent int,
+	@precio decimal(18,2),
 	@DuracionTiempo datetime,
 	@descripcion varchar(100)
 AS
-	insert into Promociones(IdPlan, IdUsuario,DuracionTiempo,DescuentoPercent,descripcion)
-	values(@IdPlan, @IdUsuario, @DuracionTiempo, @DescuentoPercent, @descripcion)
+	insert into Promociones(IdPlan, IdUsuario,DuracionTiempo,Precio,descripcion)
+	values(@IdPlan, @IdUsuario, @DuracionTiempo, @precio, @descripcion)
 RETURN 0

@@ -36,7 +36,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         PlanModel? _planselected = null;
 
         [ObservableProperty]
-        string? _percentText = "";
+        string _promoprecio = "";
 
         [ObservableProperty]
         bool? _activechecked = false;
@@ -60,7 +60,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             if(promo != null)
             {
                 Planselected = Planes.First(x => x.IdPlanes == promo.IdPlan);
-                PercentText = promo.DescuentoPercent.ToString();
+                Promoprecio = promo.PromoPrecio.ToString("0.00");
                 Activechecked = promo.DuracionTiempo.Date >= DateTime.Now.Date;
                 //SelectedDate = promo.DuracionTiempo;
                 Description = promo.descripcion;
@@ -72,13 +72,13 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         public async Task<bool> Agregar(UiWindow win) {
             if (_servicio == null || _dialog == null || _helperexcep == null) return false;
             if (!validar()) return false;
-            if (_dialog.ShowDialog("Desea Guardar esta promocion con porcentaje del: " + PercentText + " %?", ShowCancelButton: true,
+            if (_dialog.ShowDialog("Desea Guardar esta promocion con Monto del: " + Promoprecio + " S/?", ShowCancelButton: true,
                 owner: win) == false) return false;
 
             var promo = App.GetService<PromocionModelo>();
             promo.IdPlan = Planselected.IdPlanes;
             promo.DuracionTiempo = SelectedDate.Value;
-            promo.DescuentoPercent = Convert.ToInt32(PercentText);
+            promo.PromoPrecio = Decimal.Parse(Promoprecio);
             promo.descripcion = Description;
             var result = await _helperexcep.ExcepHandler(() => _servicio.InsertPromocion(promo), win);
             _dialog.ShowDialog(result ? "Promocion Guardada" : "Promocion Rechazada");
@@ -89,14 +89,14 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         {
             if (_servicio == null || _dialog == null || _helperexcep == null) return false;
             if (!validar()) return false;
-            if (_dialog.ShowDialog("Desea Modificar esta promocion con porcentaje del: " + PercentText + " %?", ShowCancelButton: true,
+            if (_dialog.ShowDialog("Desea Modificar esta promocion con Monto del: " + Promoprecio + " S/?", ShowCancelButton: true,
         owner: win) == false) return false;
 
             var promo = App.GetService<PromocionModelo>();
             promo.IdPromocion = idpromocion;
             promo.IdPlan = Planselected.IdPlanes;
             promo.DuracionTiempo = SelectedDate.Value;
-            promo.DescuentoPercent = Convert.ToInt32(PercentText);
+            promo.PromoPrecio = Decimal.Parse(Promoprecio);
             promo.descripcion = Description;
             var result = await _helperexcep.ExcepHandler(() => _servicio.UpdatePromocion(promo), win);
             _dialog.ShowDialog(result ? "Promocion Modificada" : "Promocion Rechazada");
@@ -110,9 +110,9 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 return false;
             }
 
-            if (!_helpers.IsNullOrWhiteSpaceAndNumber(PercentText))
+            if (!_helpers.IsNullOrWhiteSpaceAndNumber(Promoprecio))
             {
-                _dialog?.ShowDialog("Escriba algun descuento en porcentajes");
+                _dialog?.ShowDialog("Escriba algun monto de la promocion");
                 return false;
             }
 

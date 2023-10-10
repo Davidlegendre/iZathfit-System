@@ -19,7 +19,7 @@ public class PromocionModelo : INotifyPropertyChanged
     public int IdPromocion { get; set; }
     public int IdPlan { get; set; }
     public Guid IdUsuario { get; set; }
-    public int DescuentoPercent { get; set; }
+    public decimal PromoPrecio { get; set; }
     public bool IsActivo { get; set; }
     public DateTime DuracionTiempo { get; set; }
     public string? descripcion { get; set; }
@@ -41,9 +41,7 @@ public class PromocionModelo : INotifyPropertyChanged
             return tiempo < 0 ? "Promocion Vencida" : "Faltan: " + tiempo +" dias";
         }
     }
-    public decimal GetTotalDescuento => Decimal.Round(Precio - (Convert.ToDecimal(DescuentoPercent) / 100) * Precio, 2);
-    public string? GetTotalEnDescuento => (Precio - (Convert.ToDecimal(DescuentoPercent) / 100) * Precio).ToString("0.00") + " S/";
-    public string? GetDescuento => DescuentoPercent.ToString() + "%";
+    public string GetPrecioPromo => PromoPrecio.ToString("0.00") + " S/";
     public string? GetPrecioString => Precio.ToString("0.00") + " S/";
     public string? GetTitulo => "Promocion de paquete de: " + GetMesesTiempoString;
     public string GetMesesTiempoString => NotificadorServicesInModels.TransformMonthsToString(MesesTiempo);

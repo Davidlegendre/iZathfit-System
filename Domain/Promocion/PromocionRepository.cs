@@ -49,7 +49,7 @@ namespace Domain.Promocion
                 var result = await con.ExecuteAsync("InsertarPromocion", new {
                     @IdPlan = promocion.IdPlan,
                     @IdUsuario = user.idUsuario,
-                    @DescuentoPercent = promocion.DescuentoPercent,
+                    @precio = promocion.PromoPrecio,
                     @DuracionTiempo = promocion.DuracionTiempo,
                     @descripcion = promocion.descripcion
                 }, commandType: System.Data.CommandType.StoredProcedure);
@@ -70,7 +70,7 @@ namespace Domain.Promocion
                     {
                         @IdPlan = promocion.IdPlan,
                         @IdUsuario = user.idUsuario,
-                        @DescuentoPercent = promocion.DescuentoPercent,
+                        @precio = promocion.PromoPrecio,
                         @DuracionTiempo = promocion.DuracionTiempo,
                         @descripcion = promocion.descripcion,
                         @idPromocion = promocion.IdPromocion

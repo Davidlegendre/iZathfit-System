@@ -50,7 +50,6 @@
                 <Separator Margin="0,0,0,10"></Separator>
                 <StackPanel>
                     <TextBlock Text="{Binding TitleProgram}" FontSize="12" FontFamily="Segoe Ui Semibold" Margin="0,0,0,4"></TextBlock>
-                    <TextBlock Text="{Binding VersionApp}" FontSize="12" Opacity="0.7" Margin="0,0,0,10"></TextBlock>
                     <TextBlock Text="{Binding CopyRigth}" FontSize="12" Opacity="0.7"></TextBlock>
                     <ItemsControl Name="links" ItemsSource="{Binding Links}" Margin="0,10,0,0">
                         <ItemsControl.ItemsPanel>

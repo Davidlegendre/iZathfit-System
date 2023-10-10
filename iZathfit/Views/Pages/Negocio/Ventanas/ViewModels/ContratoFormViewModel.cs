@@ -83,13 +83,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
         DateTime _dateselected = DateTime.Now;
 
         [ObservableProperty]
-        string? _subtotal = "0.00 S/";
-
-        [ObservableProperty]
-        string? _descuento ="0 %" ;
-
-        [ObservableProperty]
-        string? _total = "0.00 S/";
+        string? _total;
 
        
 
@@ -133,9 +127,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             if (SelectedPlan == null) {
                 FechaInicio = DateTime.Now;
                 FechaFin = _nohayplanseleccionadotexto;
-                Subtotal = "0.00 S/";
-                Descuento = "0 %";
-                Total = "0.00 S/";
+                Total = "";
                 Dateselected = DateTime.Now;
                 return;
             }
@@ -143,10 +135,8 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             Dateselected = FechaInicio.AddMonths(SelectedPlan.MesesTiempo);
            
             FechaFin = "Fecha Calculada Final: " +  Dateselected.ToLongDateString();
-            
-            Subtotal = SelectedPlan.GetPrecioString;
-            Descuento = SelectedPromo != null ? SelectedPromo.GetDescuento : "0 %";
-            Total = SelectedPromo != null ? SelectedPromo.GetTotalEnDescuento : Subtotal;            
+
+            Total = SelectedPromo != null? SelectedPromo.PromoPrecio.ToString("0.00") : SelectedPlan.Precio.ToString("0.00");         
         }
 
         public async Task<bool> Guardar(UiWindow win)
@@ -158,8 +148,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             var contrato = new ContratoModel() {
                 IdPlan = SelectedPlan.IdPlanes,
                 IdPersona = SelectedPersona.IdPersona,
-                ValorTotal = SelectedPromo != null ? SelectedPromo.GetTotalDescuento : SelectedPlan.Precio,
-                Descuento = SelectedPromo != null ? SelectedPromo.DescuentoPercent : 0,
+                ValorTotal = Decimal.Parse(Total),
                 ValorOriginal = SelectedPlan.Precio,
                 FechaInicio = FechaInicio,
                 FechaFinal = Dateselected.Date,
@@ -224,6 +213,11 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
             if (SelectedTipoPago == null)
             {
                 _dialog?.ShowDialog("No hay un Tipo de Pago seleccionado", owner: win);
+                return false;
+            }
+            if (!_helpers.IsNullOrWhiteSpaceAndDecimal(Total))
+            {
+                _dialog?.ShowDialog("Total a Pagar esta incorrecto", owner: win);
                 return false;
             }
             if (!_helpers.IsNullOrWhiteSpaceAndNumber(CodigoContrato))

@@ -2,7 +2,7 @@
 IdPromocion int identity not null,
 IdPlan int not null,
 IdUsuario uniqueidentifier not null,
-DescuentoPercent int not null check (DescuentoPercent >= 1 and DescuentoPercent <= 100),
+Precio decimal(18,2) not null,
 IsActivo as case when Convert(Date,DuracionTiempo) < Convert(date, Getdate()) then 0 else 1 end,
 DuracionTiempo datetime not null,
 descripcion varchar(100),

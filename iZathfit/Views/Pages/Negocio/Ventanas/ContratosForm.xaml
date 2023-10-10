@@ -47,7 +47,10 @@
                         <ComboBox Margin="7,0,7,0" ItemsSource="{Binding Planlist}" SelectedItem="{Binding SelectedPlan}" SelectionChanged="planSelect_Change">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding GetTitulo}"></TextBlock>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding GetTitulo}"></TextBlock>
+                                        <TextBlock Text="{Binding GetPrecioString}" Opacity="0.7"></TextBlock>
+                                    </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -68,16 +71,9 @@
                                 <DataTemplate>
                                     <StackPanel>
                                         <TextBlock Text="{Binding GetTitulo}" TextWrapping="Wrap"></TextBlock>
-                                        <Grid Opacity="0.7">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="auto"></ColumnDefinition>
-                                                <ColumnDefinition Width="auto"></ColumnDefinition>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock  Text="{Binding GetDescuento}"></TextBlock>
-                                            <TextBlock Grid.Column="1" Text=" - "></TextBlock>
-                                            <TextBlock Grid.Column="2" Text="{Binding GetValidDatetime}" TextWrapping="Wrap"></TextBlock>
-                                        </Grid>
+                                        <TextBlock Text="{Binding GetPrecioPromo}" Opacity="0.7" TextWrapping="Wrap"></TextBlock>
+
+                                        <TextBlock Grid.Column="2" Text="{Binding GetValidDatetime}" Opacity="0.7" TextWrapping="Wrap"></TextBlock>
                                     </StackPanel>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
@@ -106,31 +102,12 @@
                     <TextBlock Text="Fecha de Fin" Margin="0,7,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
                     <datepicker:DatePicker x:Name="datepicker" DateSelectChanged="datepicker_DateSelectChanged"></datepicker:DatePicker>
                     <TextBlock Text="{Binding FechaFin}" TextWrapping="Wrap" Margin="1,0,0,7" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <TextBlock Text="Total a Pagar" Margin="0,7,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
 
-                    <ui:Card Padding="0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Margin="7" HorizontalAlignment="Center">
-                                <TextBlock Text="Subtotal" HorizontalAlignment="Center" Margin="0,0,0,7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                                <TextBlock Text="{Binding Subtotal}" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                            </StackPanel>
-                            <Separator Grid.Column="1" HorizontalAlignment="Left"></Separator>
-                            <StackPanel Grid.Column="1" Margin="7" HorizontalAlignment="Center">
-                                <TextBlock Text="Descuento" Margin="0,0,0,7" HorizontalAlignment="Center" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                                <TextBlock Text="{Binding Descuento}" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
+                    <ui:NumberBox ClearButtonEnabled="False" Margin="0" Text="{Binding Total}" MaxDecimalPlaces="2" Minimum="1" PlaceholderText="Total del Paquete S/">
 
-                            </StackPanel >
-                            <Separator Grid.Column="2" HorizontalAlignment="Left"></Separator>
-                            <StackPanel Grid.Column="2" Margin="7" HorizontalAlignment="Center">
-                                <TextBlock Text="Total" Margin="0,0,0,7" HorizontalAlignment="Center" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                                <TextBlock Text="{Binding Total}" Opacity="0.7" Foreground="{Binding Foreground,ElementName=tbtitle}"></TextBlock>
-                            </StackPanel>
-                        </Grid>
-                    </ui:Card>
+                    </ui:NumberBox>
+
                 </StackPanel>
             </Grid>
         </Grid>

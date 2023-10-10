@@ -73,10 +73,8 @@
 
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="{Binding GetPrecioString}" Opacity="0.7"></TextBlock>
-                                                        <TextBlock Text=" - " Opacity="0.7"></TextBlock>
-                                                        <TextBlock Grid.Column="1" Text="{Binding GetDescuento}"></TextBlock>
-                                                        <TextBlock Text=" = " Opacity="0.7"></TextBlock>
-                                                        <TextBlock Grid.Column="2" Text="{Binding GetTotalEnDescuento}" Opacity="0.7"></TextBlock>
+                                                        <TextBlock Text=" => " Opacity="0.7"></TextBlock>
+                                                        <TextBlock Text="{Binding GetPrecioPromo}" Opacity="0.7"></TextBlock>
                                                     </StackPanel>
                                                     <TextBlock Text="{Binding GetValidDatetime}" TextWrapping="Wrap" FontSize="14" Opacity="0.7"></TextBlock>
                                                     <TextBlock Text="{Binding GetFaltaDias}" FontSize="14" Opacity="0.7"></TextBlock>

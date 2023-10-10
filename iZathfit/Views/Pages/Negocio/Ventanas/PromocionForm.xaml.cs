@@ -45,7 +45,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             tbtitle.Title = _model == null ? "Agregar" : "Modificar";
            
             if (_vm != null) if (!await _vm.GetData(this, _model)) Close();
-            if (_model != null) { dpDuracion.DateSelect = _model.DuracionTiempo; _vm.PercentText = _model.DescuentoPercent.ToString(); }
+            if (_model != null) { dpDuracion.DateSelect = _model.DuracionTiempo; _vm.Promoprecio = _model.PromoPrecio.ToString("0.00"); }
             else
                 dpDuracion.DateSelect = DateTime.Now;
             btnlimpiar.Visibility = _model == null ? Visibility.Visible : Visibility.Collapsed; 
@@ -73,7 +73,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas
             if (_vm != null)
             {
                 _vm.Planselected = null;
-                _vm.PercentText = "";
+                _vm.Promoprecio = "";
                 dpDuracion.DateSelect = DateTime.Now;
                 _vm.Description = "";
             }

@@ -13,12 +13,12 @@ AS
 	where s.IdPersona = @idpersona and s.TotalFaltante <> 0
 	and c.IsNotValid <> 1)
 
-	declare @CantidadAdeudadaFaltante decimal
+	declare @CantidadAdeudadaFaltante decimal(18,2)
 	set @CantidadAdeudadaFaltante = (select SUM(s.TotalFaltante) from Saldos s 
 	inner join Contrato c on c.IdContrato = s.IdContrato
 	where s.IdPersona = @idpersona and s.TotalFaltante <> 0 and c.IsNotValid <>1)
 
-	declare @CantidadPagada decimal
+	declare @CantidadPagada decimal(18,2)
 	set @CantidadPagada = (select SUM(s.TotalPagado) from Saldos s
 	inner join Contrato c on c.IdContrato = s.IdContrato
 	where s.IdPersona = @idpersona and c.IsNotValid <> 1)

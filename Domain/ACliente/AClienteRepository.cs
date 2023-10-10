@@ -52,7 +52,6 @@ namespace Domain.ACliente
                         @IdPlan = contrato.IdPlan,
                         @IdUsuario = user.idUsuario,
                         @ValorTotal = contrato.ValorTotal,
-                        @Descuento = contrato.Descuento,
                         @ValorOriginal = contrato.ValorOriginal,
                         @FechaFinal = contrato.FechaFinal,
                         @FechaFinalReal = contrato.FechaFinalReal,

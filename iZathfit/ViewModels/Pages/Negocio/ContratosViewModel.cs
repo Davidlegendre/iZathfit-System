@@ -57,8 +57,8 @@ namespace iZathfit.ViewModels.Pages.Negocio
         public void Ver(ContratoModel contrato)
         {
             _dialog?.ShowDialog(mensaje: "Persona: " + contrato.PersonaNombres + "\nIdentificacion: " + contrato.Identificacion
-                + "\nPrecio del Plan: " + contrato.ValorOriginal.ToString("0.00") + " S/" + "\nDescuento de Promocion: " + contrato.Descuento + "%" +
-                "\nTotal descontado: " + contrato.ValorTotal.ToString("0.00") + " S/" +
+                + "\nPrecio Original: " + contrato.ValorOriginal.ToString("0.00") + " S/" +
+                "\nMonto Total: " + contrato.ValorTotal.ToString("0.00") + " S/" +
                 "\nFecha de Inicio: " + contrato.FechaInicio.ToLongDateString()
                 + "\nFecha de Fin: " + contrato.FechaFinal.ToLongDateString() + "\n" + contrato.GetFechaFinalReal
                 + "\nValidez: " + (!contrato.IsNotValid ? "Valido" : "No Valido")

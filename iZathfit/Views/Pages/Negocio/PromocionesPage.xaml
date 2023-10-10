@@ -58,12 +58,9 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="{Binding GetTitulo}" TextWrapping="Wrap" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
 
-                                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <StackPanel Grid.Row="1" Orientation="Vertical">
                                     <TextBlock Text="{Binding GetPrecioString}" Opacity="0.7"></TextBlock>
-                                    <TextBlock Text=" - " Opacity="0.7"></TextBlock>
-                                    <TextBlock Grid.Column="1" Text="{Binding GetDescuento}"></TextBlock>
-                                    <TextBlock Text=" = " Opacity="0.7"></TextBlock>
-                                    <TextBlock Grid.Column="2" Text="{Binding GetTotalEnDescuento}" Opacity="0.7"></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="{Binding GetPrecioPromo}"></TextBlock>
                                 </StackPanel>
                                 <TextBlock Grid.Row="2" Text="{Binding GetValidDatetime}" HorizontalAlignment="Left" Width="200" TextWrapping="Wrap" FontSize="14" Opacity="0.7"></TextBlock>
                                 <TextBlock Grid.Row="3" Text="{Binding GetFaltaDias}" FontSize="14" Opacity="0.7"></TextBlock>

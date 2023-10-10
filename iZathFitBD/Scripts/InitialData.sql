@@ -25,11 +25,11 @@ GO
 	insert into dbo.Persona(IdPersona, Nombres, 
 	Apellidos,Direccion,Email,Fech_Nacimiento,Identificacion,Telefono,idRol, 
 	idGenero, idtipoIdentificacion, idOcupacion, NumeroEmergencia1) values
-	(@uid,'nombres', 'apellidos', 'direccion','email','año-mes-dia',
-	'identificacion','telefono',1,1,1,5, 'numemergencia')
+	(@uid,'david', 'legendre', 'urb. la perla','dlegendre74@gmail.com','1996-09-06',
+	'49001564','914847720',1,1,1,5, '0')
 	declare @uidusuario uniqueidentifier
 	set @uidusuario = newid()
 	insert into dbo.Usuario(idUsuario,IdPersona, usuario, contrasena,IsActivo) values
-	(@uidusuario,@uid, 'usuario', 'password', 1)
+	(@uidusuario,@uid, 'dev', 'dev', 1)
 
 GO

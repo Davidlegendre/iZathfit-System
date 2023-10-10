@@ -15,7 +15,6 @@ namespace Models
         public Guid IdPersona { get; set; }
         public Guid IdUsuario { get; set; }
         public decimal ValorTotal { get; set; }
-        public int Descuento { get; set; }
         public decimal ValorOriginal { get; set; }
         public DateTime FechaInicio { get; set; }  
         public DateTime FechaFinal { get; set; }

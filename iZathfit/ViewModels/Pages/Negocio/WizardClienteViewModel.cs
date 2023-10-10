@@ -48,10 +48,10 @@ namespace iZathfit.ViewModels.Pages.Negocio
         string? _Email ="";
 
         [ObservableProperty]
-        string? _Numemergencia1;
+        string? _Numemergencia1 = "";
 
         [ObservableProperty]
-        string? _Numemergencia2;
+        string? _Numemergencia2 = "";
 
         [ObservableProperty]
         DateTime? _fechNacimiento = DateTime.Now;
@@ -123,13 +123,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
         string? _FechaFin = "Plan no Seleccionado";
 
         [ObservableProperty]
-        string? _Subtotal = "0.00 S/";
-
-        [ObservableProperty]
-        string? _Descuento = "0 %";
-
-        [ObservableProperty]
-        string? _Total = "0.00 S/";
+        string? _Total;
 
         public async Task<bool> InsertACliente(UiWindow win) {
             if (_Service == null || _dialog == null || _helperexcep == null || _helpers == null) return false;
@@ -155,8 +149,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
             var contrato = new ContratoModel()
             {
                 IdPlan = SelectedPlan.IdPlanes,
-                ValorTotal = SelectedPromo != null ? SelectedPromo.GetTotalDescuento : SelectedPlan.Precio,
-                Descuento = SelectedPromo != null ? SelectedPromo.DescuentoPercent : 0,
+                ValorTotal = Decimal.Parse(Total),
                 ValorOriginal = SelectedPlan.Precio,
                 FechaFinal = FechFin.Date,
                 FechaInicio = FechaInicio.Date,
@@ -228,20 +221,15 @@ namespace iZathfit.ViewModels.Pages.Negocio
             {
                 FechaInicio = DateTime.Now;
                 FechaFin = "Plan no Seleccionado";
-                Subtotal = "0.00 S/";
-                Descuento = "0 %";
-                Total = "0.00 S/";
                 FechFin = DateTime.Now;
+                Total = "";
                 return;
             }
 
             FechFin = FechaInicio.AddMonths(SelectedPlan.MesesTiempo);
            
             FechaFin = "Fecha Calculada Final: " + FechFin.ToLongDateString();
-
-            Subtotal = SelectedPlan.GetPrecioString;
-            Descuento = SelectedPromo != null ? SelectedPromo.GetDescuento : "0 %";
-            Total = SelectedPromo != null ? SelectedPromo.GetTotalEnDescuento : Subtotal;
+            Total = SelectedPromo != null? SelectedPromo.PromoPrecio.ToString("0.00"): SelectedPlan.Precio.ToString("0.00");
         }
 
         public void IngresarPadecimiento(string? padecimiento, UiWindow win) {
@@ -351,6 +339,12 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 _dialog?.ShowDialog("Ingrese el Codigo del Contrato Fisico", owner: win);
                 return false;
             }
+            if (!_helpers.IsNullOrWhiteSpaceAndDecimal(Total))
+            {
+                _dialog?.ShowDialog("Ingrese el Total a pagar", owner: win);
+                return false;
+            }
+
             if (!_helpers.IsNullOrWhiteSpaceAndDecimal(Cantidadpago))
             {
                 _dialog?.ShowDialog("Ingrese la cantidad de Pago", owner: win);
@@ -380,8 +374,8 @@ namespace iZathfit.ViewModels.Pages.Negocio
             Apellidos = null;Direccion = null;
             Telefono = null;
             Email = null;
-            Numemergencia1 = null;
-            Numemergencia2 = null;
+            Numemergencia1 = "";
+            Numemergencia2 = "";
             FechNacimiento = null;
             TipoIdentificacionList = null;
             TipoIdentificacion = null;
@@ -401,9 +395,7 @@ namespace iZathfit.ViewModels.Pages.Negocio
             CodigoContrato = null;
             TitlePromociones = null;
             FechaFin = null;
-            Descuento = null;
-            Total = null;
-            Subtotal = null;
+            Total = "";
         }
     }
 }
