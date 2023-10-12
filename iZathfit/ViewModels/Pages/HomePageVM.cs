@@ -54,8 +54,8 @@ public partial class HomePageVM : ObservableObject, IDisposable
 	private void NotificadorServicesInModels_PromosEvent(object? sender, ObservableCollection<PromocionModelo> e)
 	{
 		Promociones = new ObservableCollection<PromocionModelo>(e.AsList().Where(x => x.DuracionTiempo.Date >= DateTime.Now.Date));
-		IsPromos = e.Count() != 0;
-		Apariencia = e.Count() != 0 ? ControlAppearance.Success : ControlAppearance.Secondary;
+		IsPromos = Promociones.Count() != 0;
+		Apariencia = Promociones.Count() != 0 ? ControlAppearance.Success : ControlAppearance.Secondary;
 	}
 
 	[ObservableProperty]

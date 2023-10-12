@@ -110,7 +110,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
                 return false;
             }
 
-            if (!_helpers.IsNullOrWhiteSpaceAndNumber(Promoprecio))
+            if (!_helpers.IsNullOrWhiteSpaceAndDecimal(Promoprecio))
             {
                 _dialog?.ShowDialog("Escriba algun monto de la promocion");
                 return false;

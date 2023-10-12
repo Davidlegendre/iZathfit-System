@@ -82,6 +82,7 @@ namespace iZathfit.Components.ElementosUsuario
                 ShowCancelButton: true,aceptarbutton: "si", cancelarButton: "No",owner: win) == false) return false;
             var user = _config.getuserSistema();
             if(user == null) return false;
+            
             if (_dialog?.ShowConfirmPassword("Confirme su contraseña actual", user.contrasena, owner: win) == false) return false;
             var persona = new PersonaModel()
             {
@@ -117,6 +118,11 @@ namespace iZathfit.Components.ElementosUsuario
             if (!validarcontraseña(win)) return false;
             var user = _config.getuserSistema();
             if (user == null) return false;
+            if (Contraseñaantigua != user.contrasena)
+            {
+                _dialog?.ShowDialog("La contraseña antigua no coincide", owner: win);
+                return false;
+            }
             if (_dialog?.ShowConfirmPassword("Confirme su contraseña actual", user.contrasena, owner: win) == false) return false;
             var result = await _helperexcep.ExcepHandler(() => _usuarioService.CambiarContraseña(Contraseñanueva, user.IdPersona), win);
             _dialog?.ShowDialog(result != 0 ? "Contraseña Actualizada" : "Contraseña Rechazada", owner: win);

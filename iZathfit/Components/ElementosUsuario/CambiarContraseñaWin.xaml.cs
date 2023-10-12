@@ -44,6 +44,9 @@ namespace iZathfit.Components.ElementosUsuario
         {
             if (_vm != null)
             {
+                _vm.Contraseñaantigua = txtContraseñaVieja.Password;
+                _vm.Contraseñanueva = txtcontraseñanueva.Password;
+                _vm.Contraseñarepetidanueva = txtContraseñaRepetir.Password;
                 if (await _vm.ChangePassword(this) == true) Close();
             }
         }
