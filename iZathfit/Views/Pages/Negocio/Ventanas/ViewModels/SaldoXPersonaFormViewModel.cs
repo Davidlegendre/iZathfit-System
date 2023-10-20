@@ -133,12 +133,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 
         public void Dispose()
         {
-            _tipopagoService = null;
-            _contratoService = null;
-            _personaService = null;
-            _dialog = null;
-            _helperexcep = null;
-            _saldoXPersonaService = null;
+           
             Tiposdepagolist = null;
             ContratolistByperson = null;
             Tipopagoselected = null;

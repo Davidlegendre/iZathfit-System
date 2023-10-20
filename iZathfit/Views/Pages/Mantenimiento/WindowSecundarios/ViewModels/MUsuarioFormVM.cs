@@ -175,13 +175,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 
         public void Dispose()
         {
-            _TipoIdentificacionService = null;
-            _dialog = null;
-            _personaService = null;
-            _helperex = null;
-            _helpService = null;
-            _config = null;
-            _usuarioService = null;
+            
             Persona = null;
             PersonaList = null;
         }

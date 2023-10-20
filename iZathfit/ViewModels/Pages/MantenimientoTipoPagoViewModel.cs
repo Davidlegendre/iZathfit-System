@@ -56,9 +56,6 @@ namespace iZathfit.ViewModels.Pages
 
         public void Dispose()
         {
-            _servicio = null;
-            _helperexcep =null;
-            _dialog = null;
             Tipopagoslist = null;
         }
     }

@@ -1,9 +1,12 @@
 ﻿using Configuration;
+using Dapper;
 using iZathfit.ViewModels.Windows;
 using iZathfit.Views.Pages;
 using iZathfit.Views.Pages.SubPagesHome;
 using Models;
 using Models.DTOS;
+using Services.ACliente;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Wpf.Ui.Appearance;
@@ -23,6 +26,7 @@ public partial class MainWindow : UiWindow
     LoginVM? loginVM;
     LoginPage? loginpage;
     IGeneralConfiguration? _config;
+    IAClienteService? _servicio;
        
     public MainWindow()
     {      
@@ -38,6 +42,7 @@ public partial class MainWindow : UiWindow
         _config = App.GetService<IGeneralConfiguration>();
         _global = App.GetService<GlobalService>();
         ViewModel = this.DataContext as MainWindowViewModel;
+        _servicio = App.GetService<IAClienteService>();
         this.Loaded += MainWindow_Loaded;
         this.Closing += MainWindow_Closing;
         
@@ -52,9 +57,9 @@ public partial class MainWindow : UiWindow
         this.WindowState = WindowState.Maximized;
         this.ResizeMode = ResizeMode.CanResize;
         _global?.InitTimerHour();
-        if (home.HOMEnavidation.Content is Home subhome)
+        if (home?.HOMEnavidation.Content is Home subhome)
         {
-            subhome.vm.ViewRelojPanelCommand.Execute(null);
+            subhome?.vm?.ViewRelojPanelCommand.Execute(null);
         }
         //ViewModel.ShowButtons = true;
         Alzeimer();
@@ -89,6 +94,8 @@ public partial class MainWindow : UiWindow
         if (loginVM != null)
             loginVM.UsuarioLogeado += LoginVM_UsuarioLogeado;
     }
+
+
 
     void salirYLogin() {
         NavigationView.Content = loginpage;

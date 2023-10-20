@@ -67,11 +67,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
         {
             _pagoslist = null;
             SaldoXPersonaslist = null;
-            _service = null;
-            _dialog = null;
-            _helperexcep = null;
-            _config = null;
-            _helpers = null;
         }
     }
 }

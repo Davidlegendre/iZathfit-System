@@ -62,9 +62,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
         public void Dispose()
         {
             Planes = null;
-            _servicio = null;
-            _helperexcep = null;
-            _dialog = null;
 
         }
     }

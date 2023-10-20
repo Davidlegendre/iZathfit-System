@@ -34,7 +34,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
         public void Dispose()
         {
             Servicios = null;
-            _servicio = null;
         }
     }
 }

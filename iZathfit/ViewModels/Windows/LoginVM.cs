@@ -194,13 +194,8 @@ public partial class LoginVM : ObservableObject, IDisposable
 
     public void Dispose()
     {
-        localDialogService = null;
-        loginService = null;
-        _helperex = null;
-        _personaservice = null;
         _factoryclient = null;
         _crypto = null;
-        _usuario = null;
         GuidPersonForgot = null;
         UsuarioLogeado= null;
     }

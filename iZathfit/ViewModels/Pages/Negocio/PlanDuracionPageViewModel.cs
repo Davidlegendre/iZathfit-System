@@ -37,8 +37,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
         public void Dispose()
         {
             Planduracion = null;
-            _servicio = null;
-            _helperexcep = null;
         }
     }
 }

@@ -80,10 +80,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
         {
             _contratoslist = null;
             Contratos = null;
-            _service = null;
-            _dialog = null;
-            _helperexcep= null;
-            _helpers = null;
         }
     }
 }

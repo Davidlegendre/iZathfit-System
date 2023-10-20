@@ -61,10 +61,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
         public void Dispose()
         {
             Promociones = null;
-            _servicio = null;
-            _helperexec =null;
-            _dialog = null;
-
         }
     }
 }

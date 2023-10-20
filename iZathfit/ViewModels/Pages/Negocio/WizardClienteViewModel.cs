@@ -365,10 +365,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
 
         public void Dispose()
         {
-            _Service = null;
-            _dialog = null;
-            _helperexcep = null;
-            _helpers = null;
             Identificacion = null;
             Nombres = null;
             Apellidos = null;Direccion = null;

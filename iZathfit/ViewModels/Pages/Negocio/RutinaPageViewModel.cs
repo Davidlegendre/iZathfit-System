@@ -15,8 +15,6 @@ namespace iZathfit.ViewModels.Pages.Negocio
     {
         public void Dispose()
         {
-            _rutinaService = null;
-            _helperexcep = null;
             Rutinaslist = null;
         }
 

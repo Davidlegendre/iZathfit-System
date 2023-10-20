@@ -1,4 +1,5 @@
 ﻿using Configuration.GlobalHelpers;
+using iZathfit.Views.Windows;
 using Models.DTOS;
 using System;
 using System.Collections.Generic;
@@ -125,6 +126,7 @@ namespace iZathfit.Components.Paginator
                 CanGoPrevious = false;
                 CanGoNext = TotalPages > 1;
             }
+            App.GetService<MainWindow>()?.Alzeimer();
             return new ObservableCollection<T>(OriginalCollection.Skip((Page - 1) * PageSize).Take(PageSize));
 
         }

@@ -378,16 +378,11 @@ public partial class HomePageVM : ObservableObject, IDisposable
 	void Liberar() {
 		UserControl?.GetType().GetMethod("Dispose")?.Invoke(UserControl, null);
 		App.GetService<MainWindow>()?.Alzeimer();
-    }
+	}
 
     public void Dispose()
     {
 		Liberar();
-		_config = null;
-		_homesub = null;
-		_dialog = null;
-        _helpers = null;
-        _servicePromo = null;
 		Promociones = null;
 		Menuitems = null;
 		Menulist = null;

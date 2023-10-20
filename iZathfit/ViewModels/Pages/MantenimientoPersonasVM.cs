@@ -70,9 +70,6 @@ namespace iZathfit.ViewModels.Pages
 
         public void Dispose()
         {
-            _servicio = null;
-            _handlex = null;
-            _dialog = null;
             Personas = null;
             _personaslist = null;
         }

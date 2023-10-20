@@ -134,7 +134,6 @@ namespace iZathfit.ViewModels.Pages
 
         public void Dispose()
         {
-            _helpers = null;
             Mantenimientolist = null;
             ContentMantenimientoPag = null;
         }

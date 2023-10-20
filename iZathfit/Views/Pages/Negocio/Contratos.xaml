@@ -47,7 +47,8 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
-                            <ui:SymbolIcon VerticalAlignment="Center" Margin="0,0,0,0" Symbol="DocumentRibbon20" FontSize="28"></ui:SymbolIcon>
+                            <ui:SymbolIcon VerticalAlignment="Center" Margin="10,0,10,0" Symbol="ReceiptCube24" FontSize="28"></ui:SymbolIcon>
+
                             <StackPanel Grid.Column="1" Margin="10,0,10,0" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding GetNombreContrato}" FontSize="15" FontFamily="segoe ui semibold"></TextBlock>
                                 <TextBlock Text="{Binding PersonaNombres}" TextWrapping="Wrap" Opacity="0.8"></TextBlock>

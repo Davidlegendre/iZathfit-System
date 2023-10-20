@@ -133,10 +133,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 
         public void Dispose()
         {
-            _planservice = null;
-            _dialog = null;
-            _helperexcep = null;
-            _servicio = null;
+         
             Planes = null;
             Planselected = null;
         }

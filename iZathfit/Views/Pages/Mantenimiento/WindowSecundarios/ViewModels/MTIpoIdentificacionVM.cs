@@ -109,9 +109,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 
         public void Dispose()
         {
-            _helpexcep = null;
-            _dialog = null;
-            _servicio = null;
+          
         }
     }
 }

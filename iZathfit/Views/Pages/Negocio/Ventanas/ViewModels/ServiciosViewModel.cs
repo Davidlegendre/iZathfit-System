@@ -60,9 +60,7 @@ namespace iZathfit.Views.Pages.Negocio.Ventanas.ViewModels
 
         public void Dispose()
         {
-            _service = null;
-            _dialog = null;
-            _helperexcep = null;
+           
         }
     }
 }
