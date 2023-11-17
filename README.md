@@ -17,7 +17,9 @@ Sistema de Gestion de Paquetes y Saldos iZathfit
 - Ocupacion: el que desees
 - TipoIdentity ('Documento Nacional de Indentidad', 'DNI'), ('Carnet de Extranjeria', 'CE'), ('Pasaporte','PS')
 - Persona: Crear un newid() para generar tu uniqueidentifier para el registro y pones tus datos
-- Usuario: Tambien crear un newid() para el ID y pones tu usuario y password y si es activo o no (0 o 1)
+- Usuario: Tambien crear un newid() para el ID y pones tu usuario y si es activo o no (0 o 1)
+- El password lo cambias con tu email en forgot password para que puedas crear un nuevo password encriptado
+
 6. Iniciar
 
 Puedes Ver ejemplos en la carpeta de iZathFitBD en Scripts e InitialData.sql
