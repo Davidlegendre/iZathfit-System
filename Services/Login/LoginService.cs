@@ -22,7 +22,9 @@ namespace Services.Login
 
         public async Task<UsuarioSistema?> Login(string user, string password)
         {
-            var idpersona = await _user.VerificarLogin(user, password);
+            var contra = EncryptManagementService.EncryptManagementService.Encrypt(password);
+            if(string.IsNullOrWhiteSpace(contra)) { return null; }
+            var idpersona = await _user.VerificarLogin(user, contra);
             if (idpersona != null)
             {
                 var persona = await _persona.GetPersonaData(idpersona);

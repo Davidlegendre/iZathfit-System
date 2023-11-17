@@ -46,7 +46,7 @@ namespace iZathfit.ViewModels.Pages
             if (_dialog?.ShowConfirmPassword(mensaje: "Hola, confirme la contraseña primero: ",
                 titulo:"Credenciales", 
                 contrasena: _config.getuserSistema()?.contrasena) == true)
-                _dialog?.ShowDialog("Usuario: " + usuario.usuario + "\nContraseña: " + usuario.contrasena +
+                _dialog?.ShowDialog("Usuario: " + usuario.usuario + "\nContraseña: " + EncryptManagementService.EncryptManagementService.Decrypt(usuario.contrasena) +
                     "\nPersona: " + usuario.Persona + "\nRol: " + usuario.Rol +
                     "\nEstado: " + usuario.ActivoString, "Datos de: " + usuario.Persona.Split(' ')[0]);
             else

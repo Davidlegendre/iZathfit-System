@@ -7,6 +7,7 @@ using Services.ACliente;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Design;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -271,7 +272,13 @@ namespace iZathfit.ViewModels.Pages.Negocio
                 _dialog?.ShowDialog("Ingrese una Identificacion valida", owner: win);
                 return false;
             }
-           
+
+            var lenghts = _helpers.CorrectLengthForIdentity(TipoIdentificacion.abreviado);
+            if (Identificacion.Length != lenghts)
+            {
+                _dialog?.ShowDialog($"La identificacion no tiene la longitud correcta, debe ser de: {lenghts} caracteres", owner: win);
+                return false;
+            }
 
             if (string.IsNullOrWhiteSpace(Nombres))
             {

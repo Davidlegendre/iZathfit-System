@@ -12,7 +12,7 @@ namespace Models.DTOS
 
         public Guid IdPersona { get; }
         public Guid idUsuario { get; set; }
-        public string contrasena { get; set; }
+        public string? contrasena { get; set; }
 
         public string? Nombres { get; set; }
         public string? Apellidos { get; set; }

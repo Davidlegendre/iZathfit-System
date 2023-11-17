@@ -1,5 +1,5 @@
 ﻿create procedure ChangePasswordUser
-	@password varchar(16), @idpersona uniqueidentifier
+	@password varchar(max), @idpersona uniqueidentifier
 	AS
 	BEGIN
 		declare @isequals varchar(16)

@@ -129,5 +129,29 @@ namespace Configuration.GlobalHelpers
             return years + ((years == 1) ? " Año" : " Años") + (meses > 0 ? (meses == 1 ? " " + meses + " Mes" : " " + meses + " Meses") : "");
 
         }
+
+        public (bool success, string messaje) IsNullOrWhiteSpaceAndCorrectPassword(string input) {
+            if (string.IsNullOrWhiteSpace(input)) return (false, "texto esta vacio");
+            if (input.Length < 8) return (false, "La contraseña debe tener minimo 8 caracteres");
+            var hasNumber = new Regex(@"[0-9]+");
+            var hasUpperChar = new Regex(@"[A-Z]+");
+            var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
+
+            var isValidated = hasNumber.IsMatch(input) && hasUpperChar.IsMatch(input) && hasSymbols.IsMatch(input);
+
+            return (isValidated, isValidated ? "": "La Contraseña Requiere numeros, letras mayusculas - minusculas y simbolos");
+        }
+
+        public int CorrectLengthForIdentity(string? identity) {
+            if(string.IsNullOrWhiteSpace(identity)) return -1;
+            var lengthofidentity = identity?.ToLower() switch
+            {
+                "dni" => 8,
+                "ce" => 12,
+                "ps" => 12,
+                _ => 0
+            };
+            return lengthofidentity;
+        }
     }
 }

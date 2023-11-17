@@ -30,6 +30,6 @@ GO
 	declare @uidusuario uniqueidentifier
 	set @uidusuario = newid()
 	insert into dbo.Usuario(idUsuario,IdPersona, usuario, contrasena,IsActivo) values
-	(@uidusuario,@uid, 'dev', 'dev', 1)
+	(@uidusuario,@uid, 'dev', 'init', 1)
 
 GO

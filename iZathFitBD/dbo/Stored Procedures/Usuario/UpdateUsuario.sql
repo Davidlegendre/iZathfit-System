@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[UpdateUsuario]
 	@idPersona uniqueidentifier, @usuario varchar(10),
-	@contrasena varchar(16), @idusuario uniqueidentifier, @isactivo bit
+	@contrasena varchar(max), @idusuario uniqueidentifier, @isactivo bit
 AS
 	declare @id uniqueidentifier
 	declare @user varchar(10)

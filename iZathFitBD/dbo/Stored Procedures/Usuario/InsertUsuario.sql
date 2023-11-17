@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[InsertUsuario]
 	@idPersona uniqueidentifier, @usuario varchar(10),
-	@contrasena varchar(16)
+	@contrasena varchar(max)
 AS
 	declare @id uniqueidentifier
 	declare @user varchar(10)

@@ -78,7 +78,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             {
                 IsActivo = usermod.IsActivo;
                 Usuario = usermod.usuario;
-                Password = usermod.contrasena;
+                Password = EncryptManagementService.EncryptManagementService.Decrypt(usermod.contrasena);
                 Persona = PersonaList.First(x => x.IdPersona == usermod.IdPersona);
                 LimpiarbtnVisible = Visibility.Collapsed;
             }
@@ -133,6 +133,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 return false;
             }
 
+            
             var usernew = new Models.Usuario()
             {
                 idUsuario = IdUsuario,
@@ -155,6 +156,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
 
 
         bool Verificar() {
+            if (_helpService == null) return false;
             if (string.IsNullOrWhiteSpace(Usuario))
             {
                 _dialog?.ShowDialog("Usuario no tiene valor");
@@ -170,6 +172,14 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
                 _dialog?.ShowDialog("No hay una Persona Seleccionada");
                 return false;
             }
+            (bool success, string message) = _helpService.IsNullOrWhiteSpaceAndCorrectPassword(Password);
+            if (!success)
+            {
+                _dialog?.ShowDialog(
+                       titulo: "Error", mensaje: message);
+                return false;
+            }
+
             return true;
         }
 

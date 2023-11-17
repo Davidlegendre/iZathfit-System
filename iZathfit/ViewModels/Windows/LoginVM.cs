@@ -129,7 +129,7 @@ public partial class LoginVM : ObservableObject, IDisposable
                 };
                 var json = JsonConvert.SerializeObject(mail);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var result = await client.PostAsync("https://mailservice-xgyv-dev.fl0.io/api/Mail/send", content);
+                var result = await client.PostAsync("https://mailservice-dev-mkzd.4.us-1.fl0.io/api/Mail/send", content);
                 if (result.IsSuccessStatusCode)
                 {
                     CodeEmail = code;
@@ -162,7 +162,7 @@ public partial class LoginVM : ObservableObject, IDisposable
 
     [RelayCommand]
     async Task GuardarContraseña(string? contraseña) {
-        if (_helperex == null || _usuario == null) return;
+        if (_helperex == null || _usuario == null || _helpers == null) return;
         if (string.IsNullOrWhiteSpace(contraseña))
         {
             localDialogService?.ShowDialog(
@@ -176,6 +176,14 @@ public partial class LoginVM : ObservableObject, IDisposable
             localDialogService?.ShowDialog(
                 titulo: "Contraseña Incorrecta", mensaje: "Ingrese una contraseña", 
                 owner: App.GetService<MainWindow>());
+            return;
+        }
+        (bool success, string message) = _helpers.IsNullOrWhiteSpaceAndCorrectPassword(contraseña);
+        if (!success)
+        {
+            localDialogService?.ShowDialog(
+                   titulo: "Error", mensaje: message,
+                   owner: App.GetService<MainWindow>());
             return;
         }
 

@@ -11,15 +11,17 @@ namespace Services.Usuario
     public class UsuarioService : IUsuarioService
     {
         IUsuarioRepository _repo;
+       
         public UsuarioService(IUsuarioRepository repo)
         {
             _repo = repo;
         }
 
         public async Task<int> CambiarContraseña(string contraseña, Guid? idPersona)
-        { 
-
-            return await _repo.CambiarContraseña(contraseña, idPersona);
+        {
+            var contra = EncryptManagementService.EncryptManagementService.Encrypt(contraseña);
+            if(string.IsNullOrWhiteSpace(contra)) { return 0; }
+            return await _repo.CambiarContraseña(contra, idPersona);
         }
 
         public async Task<List<Models.Usuario>?> GetUsuarios() { 
@@ -28,11 +30,15 @@ namespace Services.Usuario
 
         public async Task<Models.Usuario?> InsertarUsuario(Models.Usuario? usuario)
         {
+            var contra = EncryptManagementService.EncryptManagementService.Encrypt(usuario.contrasena);
+            usuario.contrasena = contra;
             return await _repo.InsertarUsuario(usuario);
         }
 
         public async Task<Models.Usuario?> UpdateUsuario(Models.Usuario? usuario)
-        { 
+        {
+            var contra = EncryptManagementService.EncryptManagementService.Encrypt(usuario.contrasena);
+            usuario.contrasena = contra;
             return await _repo.UpdateUsuario(usuario);
         }
 

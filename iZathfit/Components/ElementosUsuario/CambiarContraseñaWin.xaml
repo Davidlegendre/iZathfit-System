@@ -19,9 +19,9 @@
         <ui:Button Click="btnclose_click" VerticalAlignment="Top" Icon="Dismiss20" HorizontalAlignment="Right" Margin="15"></ui:Button>
         <ui:Card VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,60,0,0">
             <StackPanel Margin="0" VerticalAlignment="Top">
-                <ui:PasswordBox ClearButtonEnabled="False" Name="txtContraseñaVieja" PlaceholderText="Contraseña Antigua" Icon="Password20" Margin="0,0,0,10"></ui:PasswordBox>
-                <ui:PasswordBox ClearButtonEnabled="False" Name="txtcontraseñanueva" PlaceholderText="Contraseña Nueva" Icon="Password20" Margin="0,0,0,10"></ui:PasswordBox>
-                <ui:PasswordBox ClearButtonEnabled="False" Name="txtContraseñaRepetir" PlaceholderText="Repita la Contraseña" Icon="Password20" Margin="0,0,0,10"></ui:PasswordBox>
+                <ui:PasswordBox  ClearButtonEnabled="False" Name="txtContraseñaVieja" PlaceholderText="Contraseña Antigua" Icon="Password20" Margin="0,0,0,10"></ui:PasswordBox>
+                <ui:PasswordBox MaxLength="16"  ClearButtonEnabled="False" Name="txtcontraseñanueva" PlaceholderText="Contraseña Nueva" Icon="Password20" Margin="0,0,0,10"></ui:PasswordBox>
+                <ui:PasswordBox MaxLength="16"  ClearButtonEnabled="False" Name="txtContraseñaRepetir" PlaceholderText="Repita la Contraseña" Icon="Password20" Margin="0,0,0,10"></ui:PasswordBox>
 
                 <ui:Button Click="btnGuardar_click" HorizontalAlignment="Stretch" Icon="Save20" Content="Guardar"></ui:Button>
             </StackPanel>

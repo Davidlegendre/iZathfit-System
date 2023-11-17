@@ -22,5 +22,7 @@ namespace Configuration.GlobalHelpers
         public string TransformMonthsToString(int Months);
         public bool IsNullOrWhiteSpaceAndEmail(string? value, bool IsOptional = false);
         public bool IsInLength(string? value, int numLength);
+        public (bool success, string messaje) IsNullOrWhiteSpaceAndCorrectPassword(string input);
+        public int CorrectLengthForIdentity(string? identity);
     }
 }

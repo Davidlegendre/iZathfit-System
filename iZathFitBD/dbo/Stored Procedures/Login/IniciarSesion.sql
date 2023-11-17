@@ -1,5 +1,5 @@
 ﻿create procedure IniciarSesion
-	@user varchar(10), @password varchar(16)
+	@user varchar(10), @password varchar(max)
 	as
 	BEGIN
 		declare @idpersona uniqueidentifier =

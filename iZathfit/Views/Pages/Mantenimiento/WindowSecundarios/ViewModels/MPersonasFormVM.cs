@@ -73,7 +73,7 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
         string? _numemergencia2 = "";
 
         [ObservableProperty]
-        TipoIdentificacionModel? _tipoIdentificacion;
+        TipoIdentificacionModel? _tipoIdentificacion;      
 
         [ObservableProperty]
         Ocupacion? _ocupacionmodel;
@@ -239,6 +239,12 @@ namespace iZathfit.Views.Pages.Mantenimiento.WindowSecundarios.ViewModels
             if (!_helpService.IsNullOrWhiteSpaceAndNumber(Identificacion) && TipoIdentificacion.abreviado?.ToUpper() == "DNI")
             {
                 _dialog?.ShowDialog("Ingrese una Identificacion valida", owner: win);
+                return false;
+            }
+            var lenghts = _helpService.CorrectLengthForIdentity(TipoIdentificacion.abreviado);
+            if (Identificacion.Length != lenghts)
+            {
+                _dialog?.ShowDialog($"La identificacion no tiene la longitud correcta, debe ser de: {lenghts} caracteres", owner: win);
                 return false;
             }
 

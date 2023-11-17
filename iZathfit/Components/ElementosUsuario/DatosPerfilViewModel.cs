@@ -1,4 +1,5 @@
 ﻿using Configuration;
+using Configuration.GlobalHelpers;
 using iZathfit.Helpers;
 using iZathfit.ViewModels.Pages;
 using iZathfit.Views.Windows;
@@ -24,6 +25,7 @@ namespace iZathfit.Components.ElementosUsuario
         IExceptionHelperService? _helperexcep;
         IUsuarioService? _usuarioService;
         IGeneroService? _generoService;
+        IGlobalHelpers? _helpers;
 
         public DatosPerfilViewModel()
         {
@@ -33,6 +35,7 @@ namespace iZathfit.Components.ElementosUsuario
             _helperexcep = App.GetService<IExceptionHelperService>();
             _usuarioService = App.GetService<IUsuarioService>();
             _generoService = App.GetService<IGeneroService>();
+            _helpers = App.GetService<IGlobalHelpers>();
         }
 
         [ObservableProperty]
@@ -118,17 +121,19 @@ namespace iZathfit.Components.ElementosUsuario
             if (!validarcontraseña(win)) return false;
             var user = _config.getuserSistema();
             if (user == null) return false;
-            if (Contraseñaantigua != user.contrasena)
+            var contra = EncryptManagementService.EncryptManagementService.Encrypt(Contraseñaantigua);
+            if (contra != user.contrasena)
             {
                 _dialog?.ShowDialog("La contraseña antigua no coincide", owner: win);
                 return false;
             }
+           
             if (_dialog?.ShowConfirmPassword("Confirme su contraseña actual", user.contrasena, owner: win) == false) return false;
             var result = await _helperexcep.ExcepHandler(() => _usuarioService.CambiarContraseña(Contraseñanueva, user.IdPersona), win);
             _dialog?.ShowDialog(result != 0 ? "Contraseña Actualizada" : "Contraseña Rechazada", owner: win);
             if (result != 0)
             {
-                user.contrasena = Contraseñanueva;
+                user.contrasena = EncryptManagementService.EncryptManagementService.Encrypt(Contraseñanueva);
             }
             return result != 0;
         }
@@ -136,6 +141,7 @@ namespace iZathfit.Components.ElementosUsuario
 
         bool validarcontraseña(UiWindow win)
         {
+            if (_helpers == null) return false;
             if (string.IsNullOrWhiteSpace(Contraseñaantigua))
             {
                 _dialog?.ShowDialog("Contraseña Antigua o Vieja esta vacia", owner: win);
@@ -154,6 +160,14 @@ namespace iZathfit.Components.ElementosUsuario
             if (Contraseñanueva != Contraseñarepetidanueva)
             {
                 _dialog?.ShowDialog("Las Contraseñas nuevas no coinciden", owner: win);
+                return false;
+            }
+            (bool success, string message) = _helpers.IsNullOrWhiteSpaceAndCorrectPassword(Contraseñanueva);
+            if (!success)
+            {
+                _dialog?.ShowDialog(
+                       titulo: "Error", mensaje: message,
+                       owner: win);
                 return false;
             }
             return true;

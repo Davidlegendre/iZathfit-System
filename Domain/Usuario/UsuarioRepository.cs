@@ -35,6 +35,7 @@ namespace Domain.Usuario
         }
 
         public async Task<int> CambiarContraseña(string contraseña, Guid? IDPersona) {
+
             using (var con = new SqlConnection(_config.GetConnection()))
             {
                 var result = await con.ExecuteAsync("ChangePasswordUser", new { @password = contraseña, @idpersona = IDPersona },
