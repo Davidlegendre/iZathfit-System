@@ -225,5 +225,10 @@ namespace iZathfit.Views.Pages.Negocio
             _vm.cargarDatosCalculados();
             dtFechaFin.DateSelect = _vm.FechFin;
         }
+
+        private void tabpages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnGuardar.Visibility = tabpages.SelectedIndex == tabpages.Items.Count - 1 ? Visibility.Visible : Visibility.Collapsed;
+        }
     }
 }

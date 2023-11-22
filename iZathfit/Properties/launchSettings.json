@@ -3,7 +3,7 @@
     "iZathfit": {
       "commandName": "Project",
       "environmentVariables": {
-        "CONBDZATHFIT": "Server=DESKTOP-PTBMEGJ\\SQLEXPRESS; database=izathfitbd; Trusted_Connection=true;"
+        "CONBDZATHFIT": "Server=DESKTOP-IDT12TQ\\SQLEXPRESS; database=iZathFitBD; Trusted_Connection=true;"
       }
     }
   }
