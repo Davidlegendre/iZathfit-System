@@ -12,6 +12,6 @@ AS
 		inner join TipoIdentity ti on ti.IdTipoIdentity = p.idtipoIdentificacion
 		inner join Rol r on r.IdRol = p.idRol
 		inner join Ocupacion o on o.IdOcupacion = p.idOcupacion
-		where p.Nombres like '%' + @Texto + '%' or p.Apellidos like '%' + @Texto + '%' 
+		where CONCAT(p.Nombres, ' ', p.Apellidos) like '%' + @Texto + '%'
 		or p.Identificacion like '%' + @Texto + '%'
 RETURN 0
